@@ -1,0 +1,43 @@
+#+title: Univalent Agda
+#+author: James Leslie
+* Definitions
+** [[file:UniAgda/core/primitives.agda::Identity Types][Identity types]]
+We use "_≡_" notation for the identity type, with "refl" begin reflexivity. The symbol is given by "\==" in Agda.
+*** Groupoid structure
+**** [[file:UniAgda/core/primitives.agda::_^ : {i : Level} {A : Type i} {x y : A}][Inverse]]
+We use "p ^" to denote the inverse of a path p. 
+**** [[file:UniAgda/core/primitives.agda::_∘_ : {i : Level} {A : Type i} {x y z : A}][Concatenation]]
+We use "p ∘ q" to denote the concatenation of paths p and q. The symbol is given by "\o" in Agda.
+*** Ap and transport
+**** [[file:UniAgda/core/primitives.agda::ap : {i j : Level} {A : Type i} {B : Type j} {x y : A}][Application on paths]]
+- "ap f p" or "f [ p ]".
+- We use "apD f p" for dependant ap.
+**** [[file:UniAgda/core/primitives.agda::transport : {i j : Level} {A : Type i} {x y : A}][Transport]] 
+- We use either "transport P p u" or "p # u" for transport, but the latter often has issues determining the type family for some reason.
+** [[file:UniAgda/core/primitives.agda::data Σ {i j : Level} (A : Type i) (B : A → Type j) : Type (i ⊔ j) where][Sigma types]]
+We use the notation "Σ[ x ∈ A ] B". Product types are defined to be a special case of the sigma type, meaning we don't need to define everything twice.
+
+Terms are defined by "(a , b)"
+
+We have "pr₁" and "pr₂" for the projections (given by "pr\_1" and "pr\_2", respectively).
+** [[file:UniAgda/core/primitives.agda::data _+_ {i j : Level} (A : Type i) (B : Type j) : Type (i ⊔ j) where][Coproduct types]]
+Coproducts are defined as "A + B", with term formers "inl" and "inr".
+** [[file:UniAgda/core/primitives.agda::data Unit : Type lzero where][Unit Type]]
+The unit type is called "Unit", or "𝟙", with "tt" as the term.
+** [[file:UniAgda/core/primitives.agda::data Empty : Type lzero where][Empty Type]]
+We use "Empty" or "𝟘" for the empty type. The symbol "¬" is used for negation.
+** [[file:UniAgda/core/primitives.agda::data Bool : Type lzero where][Booleans]]
+We use "Bool", with "true" and "false" as terms.
+** [[file:UniAgda/core/primitives.agda::data ℕ : Type lzero where][Natural numbers]]
+The natural numbers are "ℕ" with "zero" and "suc" as term builders. This is linked with Agda's builtin natural numbers, so we can use ordinary numberals, rather than having to apply the successor over and over.
+* Current goals
+Import and refine previous code
+- Added homotopies
+  -next add equivalence comparisons, then path spaces, then sets and props
+- Add in relation between all equivalences
+
+- Need to add Prop-resizing to axioms
+
+- Need to finish proofs in [[file:UniAgda/core/equivalences.agda::-- isequiv-to-isContr : {i : Level} {A : Type i} {B : Type i} {f : A → B}][Equivalences]]
+
+- Refactor path-algebra names. Make more consistent.
