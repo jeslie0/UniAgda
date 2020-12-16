@@ -26,7 +26,10 @@ isSet A = (x y : A) (p q : x ≡ y) → p ≡ q
 
 Set_ : (i : Level)
        → Type (lsuc i)
-Set i = Σ[ A ∈ Type i ] (isSet A)
+Set_ i = Σ[ A ∈ Type i ] (isSet A)
 
-
+-- 1-types
+is1type : ∀ {i} (A : Type i)
+          → Type i
+is1type A = (a b : A) → isSet (a ≡ b)
 

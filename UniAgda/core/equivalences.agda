@@ -50,9 +50,9 @@ qinv-comp {_} {_} {_} {A} {B} {C} {f} {g} G F = let f' : B → A
 _qo_ = qinv-comp
 
 qequiv-trans : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Type i₃}
-               → A q≃ B → B q≃ C
+               → B q≃ C → A q≃ B
                → A q≃ C
-qequiv-trans X Y = (pr₁ Y o pr₁ X) , qinv-comp (pr₂ Y) (pr₂ X)
+qequiv-trans Y X = (pr₁ Y o pr₁ X) , qinv-comp (pr₂ Y) (pr₂ X)
 
 
 -- Half adjoint equivalences
@@ -61,7 +61,6 @@ ishae : {i j : Level} {A : Type i} {B : Type j}
         → Type (i ⊔ j)
 ishae {_} {_} {A} {B} f = Σ[ g ∈ (B → A) ] (Σ[ η ∈ (g o f ~ id) ] (Σ[ ε ∈ (f o g ~ id) ] ((x : A) → ap f (η x) ≡ ε (f x))))
 
--- Bi-inveritble maps
 linv : {i j : Level} {A : Type i} {B : Type j}
        (f : A → B)
        → Type (i ⊔ j)
@@ -72,6 +71,18 @@ rinv : {i j : Level} {A : Type i} {B : Type j}
        → Type (i ⊔ j)
 rinv {_} {_} {A} {B} f = Σ[ g ∈ (B → A) ] (f o g ~ id)
 
+lcoh : {i j : Level} {A : Type i} {B : Type j}
+       (f : A → B) (X : linv f)
+       → Type (i ⊔ j)
+lcoh {i} {j} {A} {B} f (g , η) = Σ[ ε ∈ (f o g ~ id) ] ((y : B) → ap g (ε y) ≡ η (g y))
+
+rcoh : {i j : Level} {A : Type i} {B : Type j}
+       (f : A → B) (Y : rinv f)
+       → Type (i ⊔ j)
+rcoh {i} {j} {A} {B} f (g , ε) = Σ[ η ∈ (g o f ~ id) ] ((x : A) → ap f (η x) ≡ ε (f x))
+
+
+-- Bi-inveritble maps
 biinv : {i j : Level} {A : Type i} {B : Type j}
         (f : A → B)
         → Type (i ⊔ j)
@@ -177,7 +188,7 @@ biinv-comp : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Type 
 biinv-comp G F = qinv-to-biinv (qinv-comp (biinv-to-qinv G) (biinv-to-qinv F))
 
 biequiv-trans : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Type i₃}
-                → A bi≃ B → B bi≃ C
+                → B bi≃ C → A bi≃ B
                 → A bi≃ C
 biequiv-trans X Y = qequiv-to-biequiv (qequiv-trans (biequiv-to-qequiv X) (biequiv-to-qequiv Y))
 
@@ -237,7 +248,7 @@ ishae-inv {_} {_} {A} {B} {f} X = equiv-sym (f , X)
 equiv-trans : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Type i₃}
               → B ≃ C → A ≃ B
               → A ≃ C
-equiv-trans G F = equiv-adjointify (qequiv-trans (hae-to-qequiv F) (hae-to-qequiv G))
+equiv-trans G F = equiv-adjointify (qequiv-trans (hae-to-qequiv G) (hae-to-qequiv F))
 _oₑ_ = equiv-trans
 
 

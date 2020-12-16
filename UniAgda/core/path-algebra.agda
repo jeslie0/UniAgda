@@ -207,6 +207,12 @@ ap-idp-p^ : {i : Level} {A : Type i} {x y : A}
             (p : x ≡ y)
             → ((ap id p) ∘ (p ^)) ≡ refl
 ap-idp-p^ refl = refl
+
+ap-const : ∀ {i j} {A : Type i} {B : Type j} {x y : A} {p : x ≡ y}
+           → (y : B)
+           → ap (λ (a : A) → y) p ≡ refl
+ap-const {i} {j} {A} {B} {x} {.x} {refl} y₁ = refl
+
 -- Transport properties (2.3)
 
 lift : ∀ {i j} {A : Type i} {P : A → Type j} {x y : A}

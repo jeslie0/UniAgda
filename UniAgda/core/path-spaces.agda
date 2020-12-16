@@ -39,6 +39,11 @@ thm2-6-2 : {i j : Level} {A : Type i} {B : Type j}
            → isequiv (path-prod {i} {j} {A} {B} {x} {y})
 thm2-6-2 {x = _ , _} {y = _ , _} = isequiv-adjointify (path-equiv-prod ,  hom₂ , hom₁)
 
+path-prod-equiv : {i j : Level} {A : Type i} {B : Type j}
+            {x y : A × B}
+            → (x ≡ y) ≃ ((pr₁ x ≡ pr₁ y) × (pr₂ x ≡ pr₂ y))
+path-prod-equiv = path-prod , thm2-6-2 
+
 -- Sigma types
 
 path-sigma : {i j : Level} {A : Type i} {P : A → Type j}

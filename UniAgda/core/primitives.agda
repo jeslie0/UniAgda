@@ -48,6 +48,7 @@ data _≡_ {i : Level} {A : Type i} (x : A) : A → Type i where
   refl : x ≡ x
 infix 5 _≡_
 {-# BUILTIN EQUALITY _≡_ #-}
+_==_ = _≡_
 
 -- Path induction
 bpath-ind : {i j : Level} {A : Type i}
@@ -118,11 +119,17 @@ apD f refl = refl
 Sigma types
 -}
 
+
+-- record Σ {i j : Level} (A : Type i) (B : A → Type j) : Type (i ⊔ j) where
+--   constructor _,_
+--   field
+--     pr₁ : A
+--     pr₂ : B pr₁
+
+-- open Σ public
+
 data Σ {i j : Level} (A : Type i) (B : A → Type j) : Type (i ⊔ j) where
   _,_ : (a : A) → (b : B a) → Σ A B
-
-syntax Σ A (λ x → B) = Σ[ x ∈ A ] B
-infixr 40 _,_
 
 pr₁ : {i j : Level} {A : Type i} {B : A → Type j} → Σ A B → A
 pr₁ (a , b) = a
@@ -130,15 +137,21 @@ pr₁ (a , b) = a
 pr₂ : {i j : Level} {A : Type i} {B : A → Type j} → (p : Σ A B) → B(pr₁ p)
 pr₂ (a , b) = b
 
+syntax Σ A (λ x → B) = Σ[ x ∈ A ] B
+infixr 4 _,_
+
 pr₃ : {i₁ i₂ i₃ : Level}
       {A : Type i₁} {B : A → Type i₂} {C : (x : A) (y : B x) → Type i₃}
       → (t : Σ[ x ∈ A ] (Σ[ y ∈ (B x)] (C x y))) → C (pr₁ t) (pr₁(pr₂ t))
-pr₃ (a , b , c) = c
+pr₃ (a , (b , c)) = c
 
 
 _×_ : {i j : Level} (A : Type i) (B : Type j) → Type (i ⊔ j)
-A × B = Σ A (λ _ -> B)
+A × B = Σ A (λ _ → B)
 
+
+_↔_ : ∀ {i j} (A : Type i) (B : Type j) → Type (i ⊔ j)
+A ↔ B = (A → B) × (B → A)
 
 {-
 Coproduct type
