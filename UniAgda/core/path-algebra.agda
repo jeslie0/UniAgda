@@ -86,25 +86,54 @@ p-reflq=pq refl q = refl
 
 -- Moving inverses about
 
-pq=s-to-q=p^s : ∀ {i} {A : Type i} {a b c : A}
-                (p : a ≡ b) (q : b ≡ c) (s : a ≡ c)
-                → p ∘ q ≡ s → q ≡ p ^ ∘ s
-pq=s-to-q=p^s refl q s x = x
+pq=r-to-q=p^r : ∀ {i} {A : Type i} {a b c : A}
+                (p : a ≡ b) (q : b ≡ c) (r : a ≡ c)
+                → p ∘ q ≡ r → q ≡ p ^ ∘ r
+pq=r-to-q=p^r refl q r x = x
 
-pq=s-to-p=sq^ : ∀ {i} {A : Type i} {a b c : A}
-                (p : a ≡ b) (q : b ≡ c) (s : a ≡ c)
-                → p ∘ q ≡ s → p ≡ s ∘ (q ^)
-pq=s-to-p=sq^ refl refl s x = x ∘ p-refl s ^
 
-p=q-to-pr=qr : ∀ {i} {A : Type i} {x y z : A} {p q : x ≡ y}
-               (s : p ≡ q) (r : y ≡ z)
-               → p ∘ r ≡ q ∘ r
-p=q-to-pr=qr refl r = refl
+pq=r-to-p=rq^ : ∀ {i} {A : Type i} {a b c : A}
+                (p : a ≡ b) (q : b ≡ c) (r : a ≡ c)
+                → p ∘ q ≡ r → p ≡ r ∘ (q ^)
+pq=r-to-p=rq^ refl refl r x = x ∘ p-refl r ^
 
-p=rq-to-r^p=q : {i : Level} {A : Type i} {x y z : A} (p : x ≡ y) (q : z ≡ y)
-                (r : x ≡ z)
+
+p=qr^-to-pr=q : ∀ {i} {A : Type i} {a b c : A}
+                (p : a ≡ b) (q : a ≡ c) (r : b ≡ c)
+                → p ≡ q ∘ (r ^) → p ∘ r ≡ q
+p=qr^-to-pr=q .refl refl refl refl = refl
+
+
+p=q^r-to-qp=r : ∀ {i} {A : Type i} {a b c : A}
+                (p : b ≡ c) (q : a ≡ b) (r : a ≡ c)
+                → p ≡ (q ^) ∘ r → q ∘ p ≡ r
+p=q^r-to-qp=r p refl r x = x
+
+
+p=qr-to-q^p=r : ∀ {i} {A : Type i} {a b c : A}
+                (p : a ≡ b) (q : c ≡ b) (r : a ≡ c)
                 → (p ≡ r ∘ q) → r ^ ∘ p ≡ q
-p=rq-to-r^p=q refl q refl X = X
+p=qr-to-q^p=r refl q refl X = X
+
+
+p=qr-to-pr^=q : ∀ {i} {A : Type i} {a b c : A}
+                (p : a ≡ c) (q : a ≡ b) (r : b ≡ c)
+                → p ≡ q ∘ r → p ∘ (r ^) ≡ q
+p=qr-to-pr^=q .(refl ∘ refl) refl refl refl = refl
+
+pq^=r-to-p=rq : ∀ {i} {A : Type i} {a b c : A}
+                (p : a ≡ b) (q : c ≡ b) (r : a ≡ c)
+                → p ∘ (q ^) ≡ r → p ≡ r ∘ q
+pq^=r-to-p=rq refl refl .refl refl = refl
+
+
+p^q=r-to-q=pr : ∀ {i} {A : Type i} {a b c : A}
+                (p : a ≡ b) (q : c ≡ b) (r : a ≡ c)
+                → (r ^ ∘ p ≡ q) → p ≡ r ∘ q
+p^q=r-to-q=pr p q refl x = x
+
+
+-- Cancelling inverses
 
 p^^-to-p : {i : Level} {A : Type i} {x y : A}
            (p : x ≡ y)
@@ -136,20 +165,15 @@ p-to-q^qp : {i : Level} {A : Type i} {x y z : A}
              → p ≡ (q ^) ∘ q ∘ p
 p-to-q^qp refl refl = refl
 
-p=q-to-rp=rq : {i : Level} {A : Type i} {x y z : A} {p q : x ≡ y}
-               (s : p ≡ q) (r : z ≡ x)
-               → r ∘ p ≡ r ∘ q
-p=q-to-rp=rq refl r = refl
-
-rp=rq-to-p=q : {i : Level} {A : Type i} {x y z : A} (p q : x ≡ y)
-               (r : z ≡ x) (s : r ∘ p ≡ r ∘ q)
-               → p ≡ q
-rp=rq-to-p=q p q refl refl = refl
-
 q^qpr^r-to-p : {i : Level} {A : Type i} {x y z w : A} (p : x ≡ y) (q : w ≡ x ) (r : z ≡ y)
                → (q ^ ∘ q ∘ p ∘ r ^ ∘ r ≡ p)
 q^qpr^r-to-p refl refl refl = refl
 
+
+p=q-to-pr=qr : ∀ {i} {A : Type i} {x y z : A} {p q : x ≡ y}
+               (s : p ≡ q) (r : y ≡ z)
+               → p ∘ r ≡ q ∘ r
+p=q-to-pr=qr refl r = refl
 
 pr=qr-to-p=q : {i : Level} {A : Type i} {x y z : A} {p q : x ≡ y}
                (r : y ≡ z) (s : p ∘ r ≡ q ∘ r)
@@ -171,6 +195,18 @@ p^-apIDp-to-refl : {i : Level} {A : Type i} {x y : A}
                    (p : x ≡ y)
                    → p ^ ∘ ap id p ≡ refl
 p^-apIDp-to-refl refl = refl
+
+p=q-to-rp=rq : {i : Level} {A : Type i} {x y z : A} {p q : x ≡ y}
+               (s : p ≡ q) (r : z ≡ x)
+               → r ∘ p ≡ r ∘ q
+p=q-to-rp=rq refl r = refl
+
+rp=rq-to-p=q : {i : Level} {A : Type i} {x y z : A} (p q : x ≡ y)
+               (r : z ≡ x) (s : r ∘ p ≡ r ∘ q)
+               → p ≡ q
+rp=rq-to-p=q p q refl refl = refl
+
+
 
 
 -- Inverses and concatenation
@@ -241,18 +277,3 @@ tr-P-to-Q f refl u = refl
 
 
 
--- Add in the following and tidy up names
-p^q=s-to-q=ps : {i : Level} {A : Type i} {x y z : A} {p : x ≡ y} {q : z ≡ y}
-                (r : x ≡ z) (t : r ^ ∘ p ≡ q)
-                → p ≡ r ∘ q
-p^q=s-to-q=ps refl refl = refl
-
--- p=rq-to-r^p=q : {i : Level} {A : Type i} {x y z : A} (p : x ≡ y) (q : z ≡ y)
---                 (r : x ≡ z)
---                 → (p ≡ r ∘ q) → r ^ ∘ p ≡ q
--- p=rq-to-r^p=q refl q refl X = X
-
--- p=rq^-to-pq=r : {i : Level} {A : Type i} {x y z : A} (p : x ≡ y) (q : z ≡ y)
---                 (r : x ≡ z)
---                 → (p ≡ r ∘ q) → r ^ ∘ p ≡ q
--- p=rq^-to-pq=r refl refl r x = ap (λ p → r ^ ∘ p) x ∘ ass-r (r ^) r refl ∘ ap (λ p' → p' ∘ refl) (inv-o-p r)

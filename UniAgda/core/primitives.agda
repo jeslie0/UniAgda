@@ -47,8 +47,8 @@ Identity Types
 data _≡_ {i : Level} {A : Type i} (x : A) : A → Type i where
   refl : x ≡ x
 infix 5 _≡_
-{-# BUILTIN EQUALITY _≡_ #-}
 _==_ = _≡_
+{-# BUILTIN EQUALITY _≡_ #-}
 
 -- Path induction
 bpath-ind : {i j : Level} {A : Type i}
@@ -83,11 +83,6 @@ horizontal-comp refl refl = refl
 _⋆_ = horizontal-comp
 
 
-
-
-
-
-
 -- ap definition
 
 ap : {i j : Level} {A : Type i} {B : Type j} {x y : A}
@@ -97,7 +92,6 @@ ap f refl = refl
 _[_] = ap
 
 -- Transport
-
 transport : {i j : Level} {A : Type i} {x y : A}
             (P : A → Type j) (p : x ≡ y)
             → P x → P y

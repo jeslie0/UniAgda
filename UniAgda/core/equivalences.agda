@@ -97,15 +97,15 @@ infix 6 _bi≃_
 
 -- Equivalences
 
-isequiv : {i j : Level} {A : Type i} {B : Type j}
+isEquiv : {i j : Level} {A : Type i} {B : Type j}
           (f : A → B)
           → Type (i ⊔ j)
-isequiv f = ishae f
+isEquiv f = ishae f
 
 equiv : {i j : Level}
         (A : Type i) (B : Type j)
         → Type (i ⊔ j)
-equiv A B = Σ[ f ∈ (A → B) ] (isequiv f)
+equiv A B = Σ[ f ∈ (A → B) ] (isEquiv f)
 _≃_ = equiv
 infix 31 _≃_
 
@@ -198,6 +198,8 @@ ishae-to-qinv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
                 → ishae f
                 → qinv f
 ishae-to-qinv F = (pr₁ F) , ((pr₁ (pr₂ (pr₂ F))) , (pr₁ (pr₂ F)))
+isEquiv-to-qinv = ishae-to-qinv
+
 
 qinv-to-ishae : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
                 → qinv f
@@ -220,7 +222,7 @@ hae-to-qequiv : {i j : Level} {A : Type i} {B : Type j}
                 → A q≃ B
 hae-to-qequiv X = (pr₁ X) , (ishae-to-qinv (pr₂ X))
 
-isequiv-adjointify = qinv-to-ishae
+isEquiv-adjointify = qinv-to-ishae
 
 equiv-adjointify = qequiv-to-hae
 
@@ -259,18 +261,18 @@ ishae-comp {_} {_} {_} {_} {_} {_} {f} {g} F G = equiv-trans (g , G) (f , F)
 
 -- Contractible fibres
 
-isContrmap-to-isequiv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
+isContrmap-to-isEquiv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
                    → isContrmap f
                    → ishae f
-isContrmap-to-isequiv {_} {_} {A} {B} {f} P = let g = (λ y → pr₁ (pr₁ (P y)))
+isContrmap-to-isEquiv {_} {_} {A} {B} {f} P = let g = (λ y → pr₁ (pr₁ (P y)))
                                                   ε = (λ y → pr₂ (pr₁ (P y)))
                                                   τ = (λ x → (pr₂ (P (f x)) (g(f(x)) , ε (f x))) ^ ∘ (pr₂ (P (f x)) (x , refl)))
-                                              in isequiv-adjointify (g , ε ,  λ x → ap pr₁ (τ x))
+                                              in isEquiv-adjointify (g , ε ,  λ x → ap pr₁ (τ x))
 
--- isequiv-to-isContr : {i : Level} {A : Type i} {B : Type i} {f : A → B}
---                      → isequiv f
---                      → fisContr f
--- isequiv-to-isContr {_} {A} {B} {f} F y = (pr₁ F y , pr₁ (pr₃ F) y) , λ { (a , b) → path-equiv-sigma (pr₁ F y , pr₁ (pr₃ F) y) (a , b) ((ap (pr₁ F) (b ^) ∘ pr₁ (pr₂ F) a ) , {!!})}
+-- isEquiv-to-isContr : {i : Level} {A : Type i} {B : Type i} {f : A → B}
+--                      → isEquiv f
+--                      → isContrmap f
+-- isEquiv-to-isContr {_} {A} {B} {f} F y = (pr₁ F y , pr₁ (pr₃ F) y) , λ { (a , b) → path-equiv-sigma _ _ (pr₁ F y , pr₁ (pr₃ F) y) (a , b) ((ap (pr₁ F) (b ^) ∘ pr₁ (pr₂ F) a ) , {!!})}
 
 inv-isContrmap : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
                  → isContrmap f → B → A
@@ -307,8 +309,8 @@ isretr-isContrmap {_} {_} {A} {B} {f} X x = ap ( pr₁ {B = λ z → f z ≡ f x
       (inv-isContrmap X (f x) , issect-isContrmap X (f x))) ^ ∘
       (contraction (X (f x)) (x , refl)) )
 
--- isequiv-to-isContrmap : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
---                         → isequiv f
+-- isEquiv-to-isContrmap : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
+--                         → isEquiv f
 --                         → isContrmap f
--- isequiv-to-isContrmap X y = ((pr₁ X y) , (pr₁ (pr₃ X) y)) , (λ { (a , b) → path-equiv-sigma _ _
+-- isEquiv-to-isContrmap X y = ((pr₁ X y) , (pr₁ (pr₃ X) y)) , (λ { (a , b) → path-equiv-sigma _ _
 --                             ((ap (pr₁ X )b ^ ∘ pr₁ (pr₂ X) a) , {!thm2-11-3!})})

@@ -38,6 +38,20 @@ Import and refine previous code
 
 - Need to add Prop-resizing to axioms
 
-- Need to finish proofs in [[file:UniAgda/core/equivalences.agda::-- isequiv-to-isContr : {i : Level} {A : Type i} {B : Type i} {f : A → B}][Equivalences]]
+- Need to finish proofs in [[file:UniAgda/core/equivalences.agda::-- isEquiv-to-isContr : {i : Level} {A : Type i} {B : Type i} {f : A → B}][Equivalences]]
 
 - Refactor path-algebra names. Make more consistent.
+* Refactoring notes
+** DONE path-algebra
+CLOSED: [2020-12-16 Wed 13:30]
+- [X] Rename "p=qr-to-q^p=r" to "p=qr-to-q^p=r"
+- [X] Change naming system from "p q s" to "p q r"
+** Categories
+- [ ] Change "Precategory" to "Precat"
+- [ ] change "is-iso" to "isIso", as isIso is a proposition
+- [ ] change "iso-of-f-is-prop" to "isIso-is-prop"
+** Prop-set-properties
+- [X] organise into sections with results following the book
+  + Sets
+  + Prop
+  + contr

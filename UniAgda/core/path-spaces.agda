@@ -36,8 +36,8 @@ private
 
 thm2-6-2 : {i j : Level} {A : Type i} {B : Type j}
            {x y : A × B}
-           → isequiv (path-prod {i} {j} {A} {B} {x} {y})
-thm2-6-2 {x = _ , _} {y = _ , _} = isequiv-adjointify (path-equiv-prod ,  hom₂ , hom₁)
+           → isEquiv (path-prod {i} {j} {A} {B} {x} {y})
+thm2-6-2 {x = _ , _} {y = _ , _} = isEquiv-adjointify (path-equiv-prod ,  hom₂ , hom₁)
 
 path-prod-equiv : {i j : Level} {A : Type i} {B : Type j}
             {x y : A × B}
@@ -210,7 +210,7 @@ lemma₅ f g α β a a' p' = p=q-to-pr=qr (p=q-to-rp=rq (ap (λ p → ap f p) (l
 
 lemma₆ : {i j : Level} {A : Type i} {B : Type j} (f : A → B) (g : B → A) (α : f o g ~ id) (a a' : A) (q : f a ≡ f a')
        → ((whisker-r α f a ^) ∘ ap f (ap g q)) ∘ (whisker-r α f a') ≡ q
-lemma₆ f g α a a' q = (ass-l (whisker-r α f a ^) (ap f (ap g q)) (whisker-r α f a') ∘ p=rq-to-r^p=q (ap f (ap g q) ∘ whisker-r α f a') (ap id q) (whisker-r α f a) (ap (λ p → p ∘ whisker-r α f a') ((ap-gf f g q) ^) ∘ (homotopy-natural α q ) ^)) ∘ ap-id q
+lemma₆ f g α a a' q = (ass-l (whisker-r α f a ^) (ap f (ap g q)) (whisker-r α f a') ∘ p=qr-to-q^p=r (ap f (ap g q) ∘ whisker-r α f a') (ap id q) (whisker-r α f a) (ap (λ p → p ∘ whisker-r α f a') ((ap-gf f g q) ^) ∘ (homotopy-natural α q ) ^)) ∘ ap-id q
 {- paths in identity types -}
 
 thm2-11-1-inv : {i j : Level} {A : Type i} {B : Type j} (f : A → B) (g : B → A) (α : f o g ~ id) (β : g o f ~ id) (a a' : A)
@@ -230,12 +230,12 @@ thm2-11-1-ε : {i j : Level} {A : Type i} {B : Type j} (f : A → B) (g : B → 
 thm2-11-1-ε f g β a .a refl = p^p (β a)
 
 thm2-11-1 : {i j : Level} {A : Type i} {B : Type j} {f : A → B} {a a' : A}
-            → isequiv f
-            → isequiv (λ (p : a ≡ a') → ap f p)
+            → isEquiv f
+            → isEquiv (λ (p : a ≡ a') → ap f p)
 thm2-11-1 {i} {j} {A} {B} {f} {a} {a'} X = let g = pr₁ X
                                                β = pr₁ (pr₂ X)
                                                α = pr₁ (pr₃ X)
-                                            in isequiv-adjointify (thm2-11-1-inv f g α β a a' ,
+                                            in isEquiv-adjointify (thm2-11-1-inv f g α β a a' ,
                                               thm2-11-1-τ f g α β a a' ,
                                               thm2-11-1-ε f g β a a')
 

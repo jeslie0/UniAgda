@@ -10,10 +10,10 @@ happly : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
 happly refl = hrefl
 
 postulate
-  happly-isequiv : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
-          → isequiv (happly {i} {j} {A} {B} {f} {g})
+  happly-isEquiv : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
+          → isEquiv (happly {i} {j} {A} {B} {f} {g})
 
-ax2-9-3 = happly-isequiv
+ax2-9-3 = happly-isEquiv
 abstract
   funext : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
            → f ~ g → f ≡ g
@@ -31,18 +31,18 @@ happlyD : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
 happlyD refl x₁ = refl
 
 postulate
-  happlyD-isequiv : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
-                    → isequiv (happlyD {i} {j} {A} {B} {f} {g})
+  happlyD-isEquiv : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
+                    → isEquiv (happlyD {i} {j} {A} {B} {f} {g})
 
 
 abstract
   funextD : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
             → (f ~ g) → f ≡ g
-  funextD = pr₁ happlyD-isequiv
+  funextD = pr₁ happlyD-isEquiv
 
 funextD-equiv : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
                 → (f ≡ g) ≃ (f ~ g)
-funextD-equiv = happlyD , happlyD-isequiv
+funextD-equiv = happlyD , happlyD-isEquiv
 
 
 {- Univalence -}
@@ -64,8 +64,8 @@ private
            → ua o id-to-eqv {i} {A} {B} ~ id
 
 ax2-10-3 : {i : Level} {A B : Type i}
-           → isequiv (id-to-eqv {i} {A} {B})
-ax2-10-3 = isequiv-adjointify (ua , hom₁ , hom₂)
+           → isEquiv (id-to-eqv {i} {A} {B})
+ax2-10-3 = isEquiv-adjointify (ua , hom₁ , hom₂)
 
 univalence : {i : Level} {A B : Type i}
              → (A ≡ B) ≃ (A ≃ B)
@@ -97,7 +97,7 @@ Prop-resizing-map (A , X) = (raise _ A) , (λ { (map-raise x) (map-raise x₁) �
 
 postulate
   Prop-resizing-equiv : {i : Level}
-                  → isequiv (Prop-resizing-map {i})
+                  → isEquiv (Prop-resizing-map {i})
 
 abstract
   Prop-resizing : {i : Level}

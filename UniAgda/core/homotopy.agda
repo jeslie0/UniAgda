@@ -132,12 +132,12 @@ H-reflG~HG H G x = refl
 HG~K-to-G~H^K : ∀ {i j} {A : Type i} {B : A → Type j} {f g h : (x : A) → B x}
           (H : f ~ g) (G : g ~ h) (K : f ~ h)
           → H ∘ₕ G ~ K → G ~ (H ^ʰ) ∘ₕ K
-HG~K-to-G~H^K H G K x x₁ = pq=s-to-q=p^s (H x₁) (G x₁) (K x₁) (x x₁)
+HG~K-to-G~H^K H G K x x₁ = pq=r-to-q=p^r (H x₁) (G x₁) (K x₁) (x x₁)
 
 HG~K-to-H~KG^ : ∀ {i j} {A : Type i} {B : A → Type j} {f g h : (x : A) → B x}
           (H : f ~ g) (G : g ~ h) (K : f ~ h)
           → H ∘ₕ G ~ K → H ~ K ∘ₕ (G ^ʰ)
-HG~K-to-H~KG^ H G K x x₁ = pq=s-to-p=sq^ (H x₁) (G x₁) (K x₁) (x x₁)
+HG~K-to-H~KG^ H G K x x₁ = pq=r-to-p=rq^ (H x₁) (G x₁) (K x₁) (x x₁)
 
 -- Inverses and concatenation
 
