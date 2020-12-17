@@ -65,7 +65,7 @@ private
 
 ax2-10-3 : {i : Level} {A B : Type i}
            → isEquiv (id-to-eqv {i} {A} {B})
-ax2-10-3 = isEquiv-adjointify (ua , hom₁ , hom₂)
+ax2-10-3 = isequiv-adjointify (ua , hom₁ , hom₂)
 
 univalence : {i : Level} {A B : Type i}
              → (A ≡ B) ≃ (A ≃ B)

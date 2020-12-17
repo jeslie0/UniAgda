@@ -59,7 +59,7 @@ lemma2 f (a , b) = transport (λ Z → path-equiv-sigma _ _ (refl , Z) ≡ refl)
 
 
 Set-is-cat : ∀ {i} → isCat (Set-Precategory {i})
-univ (Set-is-cat {i}) (a , H₁) (b , H₂) = isEquiv-adjointify ((λ {(f , g , h1 , h2) → lemma3-5-1 isSet-is-prop _ _ (ua (equiv-adjointify (f , (g , ((happly h1) , (happly h2))))))}) ,
+univ (Set-is-cat {i}) (a , H₁) (b , H₂) = isequiv-adjointify ((λ {(f , g , h1 , h2) → lemma3-5-1 isSet-is-prop _ _ (ua (equiv-adjointify (f , (g , ((happly h1) , (happly h2))))))}) ,
                  (λ { (f , g , h₁ , h₂) → path-equiv-sigma _ _ ((funext (λ x → {!!})) , iso-of-f-is-prop {_} {_} {Set-Precategory {i}} {(a , H₁)} {(b , H₂)} f _ _)}),
      λ { refl → transport (λ Z → lemma3-5-1 isSet-is-prop (a , H₁) (a , H₂) Z ≡ refl) (ua-id) (lemma2 isSet-is-prop (a , H₁)) })
 

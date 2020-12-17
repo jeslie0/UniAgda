@@ -222,7 +222,7 @@ hae-to-qequiv : {i j : Level} {A : Type i} {B : Type j}
                 → A q≃ B
 hae-to-qequiv X = (pr₁ X) , (ishae-to-qinv (pr₂ X))
 
-isEquiv-adjointify = qinv-to-ishae
+isequiv-adjointify = qinv-to-ishae
 
 equiv-adjointify = qequiv-to-hae
 
@@ -267,7 +267,7 @@ isContrmap-to-isEquiv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
 isContrmap-to-isEquiv {_} {_} {A} {B} {f} P = let g = (λ y → pr₁ (pr₁ (P y)))
                                                   ε = (λ y → pr₂ (pr₁ (P y)))
                                                   τ = (λ x → (pr₂ (P (f x)) (g(f(x)) , ε (f x))) ^ ∘ (pr₂ (P (f x)) (x , refl)))
-                                              in isEquiv-adjointify (g , ε ,  λ x → ap pr₁ (τ x))
+                                              in isequiv-adjointify (g , ε ,  λ x → ap pr₁ (τ x))
 
 -- isEquiv-to-isContr : {i : Level} {A : Type i} {B : Type i} {f : A → B}
 --                      → isEquiv f

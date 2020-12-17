@@ -37,7 +37,7 @@ private
 thm2-6-2 : {i j : Level} {A : Type i} {B : Type j}
            {x y : A × B}
            → isEquiv (path-prod {i} {j} {A} {B} {x} {y})
-thm2-6-2 {x = _ , _} {y = _ , _} = isEquiv-adjointify (path-equiv-prod ,  hom₂ , hom₁)
+thm2-6-2 {x = _ , _} {y = _ , _} = isequiv-adjointify (path-equiv-prod ,  hom₂ , hom₁)
 
 path-prod-equiv : {i j : Level} {A : Type i} {B : Type j}
             {x y : A × B}
@@ -235,7 +235,7 @@ thm2-11-1 : {i j : Level} {A : Type i} {B : Type j} {f : A → B} {a a' : A}
 thm2-11-1 {i} {j} {A} {B} {f} {a} {a'} X = let g = pr₁ X
                                                β = pr₁ (pr₂ X)
                                                α = pr₁ (pr₃ X)
-                                            in isEquiv-adjointify (thm2-11-1-inv f g α β a a' ,
+                                            in isequiv-adjointify (thm2-11-1-inv f g α β a a' ,
                                               thm2-11-1-τ f g α β a a' ,
                                               thm2-11-1-ε f g β a a')
 
