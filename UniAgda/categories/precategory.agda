@@ -28,16 +28,16 @@ r-Id (_^op {i} {j} ∁) f = l-Id ∁ f
 ass (_^op {i} {j} ∁) f g h = ass ∁ h g f ^
 
 
-is-iso : ∀ {i j} {∁ : Precategory {i} {j}} {a b : ob ∁}
+isIso : ∀ {i j} {∁ : Precategory {i} {j}} {a b : ob ∁}
       (f : hom ∁ a b)
       → Type j
-is-iso {i} {j} {∁} {a} {b} f = Σ[ g ∈ (hom ∁ b a) ] ((comp ∁ f g ≡ Precategory.Id ∁) × (comp ∁ g f ≡ Precategory.Id ∁))
+isIso {i} {j} {∁} {a} {b} f = Σ[ g ∈ (hom ∁ b a) ] ((comp ∁ f g ≡ Precategory.Id ∁) × (comp ∁ g f ≡ Precategory.Id ∁))
 
 
 iso : ∀ {i j} {∁ : Precategory {i} {j}}
       (a b : ob ∁)
       → Type j
-iso {i} {j} {∁} a b = Σ[ f ∈ (hom ∁ a b) ] (is-iso {i} {j} {∁} {a} {b} f)
+iso {i} {j} {∁} a b = Σ[ f ∈ (hom ∁ a b) ] (isIso {i} {j} {∁} {a} {b} f)
 
 
 {- iso is equivalence relation -}
@@ -61,13 +61,13 @@ iso-trans {i} {j} {∁} {a} {b} {c} (f , g , x , y) (f' , g' , x' , y') = (comp 
                                                                         ((ass ∁ _ g' g) ^ ∘ transport (λ Z → comp ∁ g Z ≡ Id ∁) (ass ∁ _ _ _ ^) (transport (λ Z → comp ∁ g (comp ∁ Z f) ≡ Id ∁) (y' ^) (transport (λ Z → comp ∁ g Z ≡ Id ∁) (r-Id ∁ f ^) y)) )))
 
 
-iso-of-f-is-prop : ∀ {i j} {∁ : Precategory {i} {j}} {a b : ob ∁} (f : hom ∁ a b)
-             → isProp (is-iso {i} {j} {∁} {a} {b} f)
-iso-of-f-is-prop {i} {j} {∁} {a} {b} f (g , η , ε) (g' , η' , ε') =  path-equiv-sigma _ _
+isIso-is-prop : ∀ {i j} {∁ : Precategory {i} {j}} {a b : ob ∁} (f : hom ∁ a b)
+             → isProp (isIso {i} {j} {∁} {a} {b} f)
+isIso-is-prop {i} {j} {∁} {a} {b} f (g , η , ε) (g' , η' , ε') =  path-equiv-sigma _ _
            (r-Id ∁ g ^ ∘ transport (λ X → comp ∁ X g ≡ g') (ε') ((ass ∁ _ _ _) ^ ∘ transport (λ X → comp ∁ g' X ≡ g') (η ^) (l-Id ∁ g') ) , path-equiv-prod ((hom-set ∁ _ _ _ _ _ η') , hom-set ∁ _ _ _ _ _ ε')) 
 
 iso-is-set : ∀ {i j} {∁ : Precategory {i} {j}}
              (a b : ob ∁)
              → isSet (iso {_} {_} {∁} a b)
-iso-is-set {_} {_} {∁} a b = prop-fibres-totalspace-set (hom-set ∁ a b) λ x → iso-of-f-is-prop {_} {_} {∁} x
+iso-is-set {_} {_} {∁} a b = prop-fibres-totalspace-set (hom-set ∁ a b) λ x → isIso-is-prop {_} {_} {∁} x
 

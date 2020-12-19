@@ -83,15 +83,15 @@ rcoh {i} {j} {A} {B} f (g , ε) = Σ[ η ∈ (g o f ~ id) ] ((x : A) → ap f (�
 
 
 -- Bi-inveritble maps
-biinv : {i j : Level} {A : Type i} {B : Type j}
+isBiinv : {i j : Level} {A : Type i} {B : Type j}
         (f : A → B)
         → Type (i ⊔ j)
-biinv {_} {_} {A} {B} f = linv f × rinv f
+isBiinv {_} {_} {A} {B} f = linv f × rinv f
 
 biequiv : {i j : Level}
           (A : Type i) (B : Type j)
           → Type (i ⊔ j)
-biequiv A B = Σ[ f ∈ (A → B) ] (biinv f)
+biequiv A B = Σ[ f ∈ (A → B) ] (isBiinv f)
 _bi≃_ = biequiv
 infix 6 _bi≃_
 
@@ -129,40 +129,40 @@ isContrmap {_} {_} {A} {B} f = (y : B) → isContr (fib f y)
 
 
 
--- qinv and biinv relations
-qinv-to-biinv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
+-- qinv and isBiinv relations
+qinv-to-isBiinv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
                 → qinv f
-                → biinv f
-qinv-to-biinv x = ((pr₁ x) , pr₂ (pr₂ x)) , ((pr₁ x) , (pr₁ (pr₂ x)))
+                → isBiinv f
+qinv-to-isBiinv x = ((pr₁ x) , pr₂ (pr₂ x)) , ((pr₁ x) , (pr₁ (pr₂ x)))
 
-biinv-to-qinv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
-                → biinv f
+isBiinv-to-qinv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
+                → isBiinv f
                 → qinv f
-biinv-to-qinv {_} {_} {A} {B} {f} x = let h : B → A
-                                          h = pr₁ (pr₁ x)
-                                          g : B → A
-                                          g = pr₁ (pr₂ x)
-                                          α : (f o g) ~ id
-                                          α = pr₂ (pr₂ x)
-                                          β : (h o f) ~ id
-                                          β = pr₂ (pr₁ x)
-                                          γ = λ (b : B) → (β (g b) ^) ∘ (ap h (α b))
-                                      in g , (α , λ x₁ → γ (f x₁) ∘ (β x₁))
+isBiinv-to-qinv {_} {_} {A} {B} {f} x = let h : B → A
+                                            h = pr₁ (pr₁ x)
+                                            g : B → A
+                                            g = pr₁ (pr₂ x)
+                                            α : (f o g) ~ id
+                                            α = pr₂ (pr₂ x)
+                                            β : (h o f) ~ id
+                                            β = pr₂ (pr₁ x)
+                                            γ = λ (b : B) → (β (g b) ^) ∘ (ap h (α b))
+                                        in g , (α , λ x₁ → γ (f x₁) ∘ (β x₁))
 
 qequiv-to-biequiv : {i j : Level} {A : Type i} {B : Type j}
                     → A q≃ B
                     → A bi≃ B
-qequiv-to-biequiv X = (pr₁ X) , (qinv-to-biinv (pr₂ X))
+qequiv-to-biequiv X = (pr₁ X) , (qinv-to-isBiinv (pr₂ X))
 
 biequiv-to-qequiv : {i j : Level} {A : Type i} {B : Type j}
                     → A bi≃ B
                     → A q≃ B
-biequiv-to-qequiv X = pr₁ X , biinv-to-qinv (pr₂ X)
+biequiv-to-qequiv X = pr₁ X , isBiinv-to-qinv (pr₂ X)
 
--- biinv is equivalence relation
-biinv-id : {i : Level} {A : Type i}
-            → biinv (id {_} {A})
-biinv-id = qinv-to-biinv qinv-id
+-- isBiinv is equivalence relation
+isBiinv-id : {i : Level} {A : Type i}
+            → isBiinv (id {_} {A})
+isBiinv-id = qinv-to-isBiinv qinv-id
 
 biequiv-refl : {i : Level} {A : Type i}
                → A bi≃ A
@@ -175,17 +175,17 @@ biequiv-sym : {i j : Level} {A : Type i} {B : Type j}
 biequiv-sym X = qequiv-to-biequiv (qequiv-sym (biequiv-to-qequiv X))
 
 
-biinv-inv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
-           (F : biinv f)
-           → Σ[ g ∈ (B → A) ] (biinv g)
-biinv-inv {_} {_} {A} {B} {f} F = biequiv-sym (f , F)
-_^b = biinv-inv
+isBiinv-inv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
+           (F : isBiinv f)
+           → Σ[ g ∈ (B → A) ] (isBiinv g)
+isBiinv-inv {_} {_} {A} {B} {f} F = biequiv-sym (f , F)
+_^b = isBiinv-inv
 
 
-biinv-comp : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Type i₃} {f : A → B} {g : B → C}
-             (G : biinv g) → (F : biinv f)
-             → biinv (g o f)
-biinv-comp G F = qinv-to-biinv (qinv-comp (biinv-to-qinv G) (biinv-to-qinv F))
+isBiinv-comp : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Type i₃} {f : A → B} {g : B → C}
+             (G : isBiinv g) → (F : isBiinv f)
+             → isBiinv (g o f)
+isBiinv-comp G F = qinv-to-isBiinv (qinv-comp (isBiinv-to-qinv G) (isBiinv-to-qinv F))
 
 biequiv-trans : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Type i₃}
                 → B bi≃ C → A bi≃ B
@@ -269,10 +269,8 @@ isContrmap-to-isEquiv {_} {_} {A} {B} {f} P = let g = (λ y → pr₁ (pr₁ (P 
                                                   τ = (λ x → (pr₂ (P (f x)) (g(f(x)) , ε (f x))) ^ ∘ (pr₂ (P (f x)) (x , refl)))
                                               in isequiv-adjointify (g , ε ,  λ x → ap pr₁ (τ x))
 
--- isEquiv-to-isContr : {i : Level} {A : Type i} {B : Type i} {f : A → B}
---                      → isEquiv f
---                      → isContrmap f
--- isEquiv-to-isContr {_} {A} {B} {f} F y = (pr₁ F y , pr₁ (pr₃ F) y) , λ { (a , b) → path-equiv-sigma _ _ (pr₁ F y , pr₁ (pr₃ F) y) (a , b) ((ap (pr₁ F) (b ^) ∘ pr₁ (pr₂ F) a ) , {!!})}
+-- isEquiv-to-isContrmap - proven in prop-set-properties
+
 
 inv-isContrmap : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
                  → isContrmap f → B → A
@@ -309,8 +307,3 @@ isretr-isContrmap {_} {_} {A} {B} {f} X x = ap ( pr₁ {B = λ z → f z ≡ f x
       (inv-isContrmap X (f x) , issect-isContrmap X (f x))) ^ ∘
       (contraction (X (f x)) (x , refl)) )
 
--- isEquiv-to-isContrmap : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
---                         → isEquiv f
---                         → isContrmap f
--- isEquiv-to-isContrmap X y = ((pr₁ X y) , (pr₁ (pr₃ X) y)) , (λ { (a , b) → path-equiv-sigma _ _
---                             ((ap (pr₁ X )b ^ ∘ pr₁ (pr₂ X) a) , {!thm2-11-3!})})

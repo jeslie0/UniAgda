@@ -1,7 +1,7 @@
 #+title: Univalent Agda
 #+author: James Leslie
 * Definitions
-** [[file:UniAgda/core/primitives.agda::Identity Types][Identity types]]
+** Identity types
 We use "_≡_" notation for the identity type, with "refl" begin reflexivity. The symbol is given by "\==" in Agda.
 *** Groupoid structure
 **** [[file:UniAgda/core/primitives.agda::_^ : {i : Level} {A : Type i} {x y : A}][Inverse]]
@@ -14,32 +14,53 @@ We use "p ∘ q" to denote the concatenation of paths p and q. The symbol is giv
 - We use "apD f p" for dependant ap.
 **** [[file:UniAgda/core/primitives.agda::transport : {i j : Level} {A : Type i} {x y : A}][Transport]] 
 - We use either "transport P p u" or "p # u" for transport, but the latter often has issues determining the type family for some reason.
-** [[file:UniAgda/core/primitives.agda::data Σ {i j : Level} (A : Type i) (B : A → Type j) : Type (i ⊔ j) where][Sigma types]]
+** Sigma types
 We use the notation "Σ[ x ∈ A ] B". Product types are defined to be a special case of the sigma type, meaning we don't need to define everything twice.
 
 Terms are defined by "(a , b)"
 
 We have "pr₁" and "pr₂" for the projections (given by "pr\_1" and "pr\_2", respectively).
-** [[file:UniAgda/core/primitives.agda::data _+_ {i j : Level} (A : Type i) (B : Type j) : Type (i ⊔ j) where][Coproduct types]]
+** Coproduct types
 Coproducts are defined as "A + B", with term formers "inl" and "inr".
-** [[file:UniAgda/core/primitives.agda::data Unit : Type lzero where][Unit Type]]
+** Unit Type
 The unit type is called "Unit", or "𝟙", with "tt" as the term.
-** [[file:UniAgda/core/primitives.agda::data Empty : Type lzero where][Empty Type]]
+** Empty Type
 We use "Empty" or "𝟘" for the empty type. The symbol "¬" is used for negation.
-** [[file:UniAgda/core/primitives.agda::data Bool : Type lzero where][Booleans]]
+** Booleans
 We use "Bool", with "true" and "false" as terms.
-** [[file:UniAgda/core/primitives.agda::data ℕ : Type lzero where][Natural numbers]]
+** Natural numbers
 The natural numbers are "ℕ" with "zero" and "suc" as term builders. This is linked with Agda's builtin natural numbers, so we can use ordinary numberals, rather than having to apply the successor over and over.
+* Naming conventions
+There are rough naming conventions that I try to follow.
+- types which are propositions should be named by starting with the prefix "is", then a capitalised word. For example: "isProp" and "isSet". The witnesses to them being propositions are then "isProp-is-prop" and "isSet-is-prop".
+- TODO add more conventions.
+* Tips and tricks
+** Equivalences
+- Use "equiv-adjointify" to reduce proving an equivalence to proving a quasi-equivalence.
+- Use "isequiv-adjointify" to reduce proving a certain function is an equivalence, to proving it is a quasi-equivalence.
+** Sigma-types
+- use "path-equiv-sigma" to reduce proving a path in a sigma type to a dependant pair of paths. Its inverse is given by "path-sigma".
+- use "path-equiv-prod" to reduce proving a path in a product type to a pair of paths. Its inverse is given by "path-prod"
+** Path-algebra
+- most lemmas for manipulation of paths are in "UniAgda.core.pathalgebra". They typically follow the form "pq=r-to-p=rq^", always starting with paths "p", "q", "r".
+
 * Current goals
 Import and refine previous code
 - Added homotopies
   -next add equivalence comparisons, then path spaces, then sets and props
 - Add in relation between all equivalences
 
-- Need to add Prop-resizing to axioms
+- [X] Need to add Prop-resizing to axioms
 
-- Need to finish proofs in [[file:UniAgda/core/equivalences.agda::-- isEquiv-to-isContr : {i : Level} {A : Type i} {B : Type i} {f : A → B}][Equivalences]]
+- Need to finish proofs in Equivalences, in particular, need to prove the following: (Equivalences will need to be tidied up)
+  + [ ] "isContrmap" is a prop
+  + [ ] "isContr f" is equiv to "isEquiv f"
+  + [ ] "isBiinv" is a prop
+  + [ ] "isBiinv f" is equiv to "isEquiv f"
+  + [ ] Sections 4.6, 4.7, 4.8
 
+- Add in some more HITs - in particular n-truncation
+- Add in n-types.
 - Refactor path-algebra names. Make more consistent.
 * Refactoring notes
 ** DONE path-algebra
@@ -48,8 +69,8 @@ CLOSED: [2020-12-16 Wed 13:30]
 - [X] Change naming system from "p q s" to "p q r"
 ** Categories
 - [ ] Change "Precategory" to "Precat"
-- [ ] change "is-iso" to "isIso", as isIso is a proposition
-- [ ] change "iso-of-f-is-prop" to "isIso-is-prop"
+- [X] change "is-iso" to "isIso", as isIso is a proposition
+- [X] change "iso-of-f-is-prop" to "isIso-is-prop"
 ** Prop-set-properties
 - [X] organise into sections with results following the book
   + Sets

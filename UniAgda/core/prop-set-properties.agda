@@ -348,10 +348,6 @@ contr-has-contr-path-space {i} {A} {x} {y} (a , F) = (F x) ^ ∘ F y , λ { refl
 
 
 
-
-
-
-
 lemma4-2-12 : ∀ {i j} {A : Type i} {B : Type j} {f : A → B}
               → isEquiv f → (X : rinv f)
               → isContr (rcoh f X)
