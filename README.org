@@ -45,9 +45,6 @@ There are rough naming conventions that I try to follow.
 - most lemmas for manipulation of paths are in "UniAgda.core.pathalgebra". They typically follow the form "pq=r-to-p=rq^", always starting with paths "p", "q", "r".
 
 * Current goals
-Import and refine previous code
-- Added homotopies
-
 - Need to finish proofs in Equivalences, in particular, need to prove the following: (Equivalences will need to be tidied up)
   + [ ] "isContrmap" is a prop
   + [ ] "isContr f" is equiv to "isEquiv f"
@@ -55,8 +52,8 @@ Import and refine previous code
   + [ ] "isBiinv f" is equiv to "isEquiv f"
   + [ ] Sections 4.6, 4.7, 4.8
 
-- Add in some more HITs - in particular n-truncation
 - Add in n-types.
+- Add in some more HITs - in particular n-truncation
 - Refactor path-algebra names. Make more consistent.
 * Refactoring notes
 ** Categories

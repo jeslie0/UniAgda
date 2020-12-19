@@ -1,5 +1,5 @@
 {-# OPTIONS --without-K #-}
-module UniAgda.core.equivalences where
+module UniAgda.experimental.equivalences where
 
 open import UniAgda.core.homotopy public
 open import UniAgda.core.contr-prop-set public
