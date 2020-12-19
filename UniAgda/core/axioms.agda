@@ -11,17 +11,28 @@ happly refl = hrefl
 
 postulate
   happly-isEquiv : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
-          → isEquiv (happly {i} {j} {A} {B} {f} {g})
+                   → isEquiv (happly {i} {j} {A} {B} {f} {g})
 
 ax2-9-3 = happly-isEquiv
-abstract
-  funext : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
+-- abstract
+funext : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
            → f ~ g → f ≡ g
-  funext = pr₁ ax2-9-3
+funext = pr₁ ax2-9-3
 
-  funext-equiv : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
+funext-equiv : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
                  → (f ≡ g) ≃ (f ~ g)
-  funext-equiv = happly , ax2-9-3
+funext-equiv = happly , ax2-9-3
+
+funext-happly-to-id : {i j : Level} {A : Type i} {B : Type j} {f g : A → B} 
+                       → funext o happly {i} {j} {A} {B} {f} {g} ≡ id
+funext-happly-to-id = funext (pr₁ ( (pr₂ happly-isEquiv)))
+
+happly-funext-to-id : {i j : Level} {A : Type i} {B : Type j} {f g : A → B} 
+                      → happly o funext {i} {j} {A} {B} {f} {g} ≡ id
+happly-funext-to-id = funext (pr₁ (pr₂ (pr₂ happly-isEquiv)))
+
+
+
 
 
 -- Dependent funext

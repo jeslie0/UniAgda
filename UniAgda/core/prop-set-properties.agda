@@ -300,7 +300,8 @@ Sigma-Pi-swap = equiv-adjointify ((λ F → (λ x → pr₁ (F x)) , λ x → pr
               λ F → funextD λ x → path-equiv-sigma _ _ (refl , refl))))
 
 equiv-fibres-to-Pi : ∀ {i j k} {A  : Type i} {B : A → Type j} {C : A → Type k}
-                           → ((x : A) → (B x ≃ C x)) → (((x : A) → B x) ≃ ((x : A) → C x))
+                     → ((x : A) → (B x ≃ C x))
+                     → (((x : A) → B x) ≃ ((x : A) → C x))
 equiv-fibres-to-Pi {i} {j} {k} {A} {B} {C} F = equiv-adjointify ((λ G x → pr₁ (F x) (G x)) ,
                    ((λ G x → pr₁ (pr₂ (F x)) (G x)) ,
                    ((λ G → funextD λ x → pr₁ (pr₂ (pr₂ (pr₂ (F x)))) (G x)) ,

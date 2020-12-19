@@ -17,6 +17,16 @@ record Precategory {i j} : Type (lsuc (i ⊔ j)) where
 
 open Precategory public
 
+_^op : ∀ {i j} (∁ : Precategory {i} {j}) → Precategory {i} {j}
+ob (_^op {i} {j} ∁) = ob ∁
+hom (_^op {i} {j} ∁) a b = hom ∁ b a
+hom-set (_^op {i} {j} ∁) a b = hom-set ∁ b a
+Id (_^op {i} {j} ∁) = Id ∁
+comp (_^op {i} {j} ∁) f g = comp ∁ g f
+l-Id (_^op {i} {j} ∁) f = r-Id ∁ f
+r-Id (_^op {i} {j} ∁) f = l-Id ∁ f
+ass (_^op {i} {j} ∁) f g h = ass ∁ h g f ^
+
 
 is-iso : ∀ {i j} {∁ : Precategory {i} {j}} {a b : ob ∁}
       (f : hom ∁ a b)
@@ -60,3 +70,4 @@ iso-is-set : ∀ {i j} {∁ : Precategory {i} {j}}
              (a b : ob ∁)
              → isSet (iso {_} {_} {∁} a b)
 iso-is-set {_} {_} {∁} a b = prop-fibres-totalspace-set (hom-set ∁ a b) λ x → iso-of-f-is-prop {_} {_} {∁} x
+
