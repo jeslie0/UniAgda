@@ -15,6 +15,7 @@ r-Id (SET {i}) f = refl
 ass (SET {i}) f g h = refl
 
 
+{- We show that Set is a (univalent) category -}
 
 id-equiv-to-prop-on-type : ∀ {i j} (X X' : Type i) (Q : Type i → Type j)
               (F : (A : Type i) → isProp (Q A))
@@ -58,5 +59,5 @@ id-to-iso-equality : ∀ {i} (A B : ob (SET {i}))
 id-to-iso-equality {i} (X , a) (X' , b) = funext λ { refl → path-equiv-sigma ((funext (λ x → refl)) ,
          isIso-is-prop {_} {_} {SET {i}} {(X , a)} {(X' , b)} _ _ _)}
 
-SET-is-category : ∀ {i} → isCat (SET {i})
+SET-is-category : ∀ {i} → isCategory (SET {i})
 univ (SET-is-category {i}) A B = transport (λ f → isEquiv f) (id-to-iso-equality A B) (pr₂ (SET-id-equiv-iso A B))
