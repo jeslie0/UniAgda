@@ -114,7 +114,7 @@ lemma3-3-5i = isProp-is-prop
 fibres-props-eq : {i j : Level} {A : Type i} {P : A → Type j}
                    → ((x : A) → isProp (P x)) → (u v : Σ[ x ∈ A ] (P x)) → (pr₁ u ≡ pr₁ v)
                    → u ≡ v
-fibres-props-eq {_} {_} {A} {P} X u v p = path-equiv-sigma u v (p , (X (pr₁ v) (transport P p (pr₂ u)) (pr₂ v)))
+fibres-props-eq {_} {_} {A} {P} X u v p = path-equiv-sigma (p , (X (pr₁ v) (transport P p (pr₂ u)) (pr₂ v)))
 lemma3-5-1 = fibres-props-eq
 
 
@@ -128,14 +128,14 @@ private
   path-equiv-sigma-to-id : {i j : Level} {A : Type i} {P : A → Type j}
                            {w w' : Σ[ x ∈ A ] (P x)}
                            → (w ≡ w') ≡ (Σ[ p ∈ (pr₁ w ≡ pr₁ w') ] (transport P p (pr₂ w) ≡ (pr₂ w')))
-  path-equiv-sigma-to-id  = ua (thm2-7-2 _ _)
+  path-equiv-sigma-to-id  = ua (thm2-7-2)
 
 
 
 prop-fibres-totalspace-set : ∀ {i j} {A : Type i} {P : A → Type j}
                              → isSet A → ((a : A) → isProp (P a))
                              → isSet (Σ[ a ∈ A ] (P a))
-prop-fibres-totalspace-set {i} {j} {A} {P} H f X Y = transport (λ Z → (p q : Z) → p ≡ q) (path-equiv-sigma-to-id ^) λ { (a , b) (a' , b') → path-equiv-sigma _ _ (H _ _ _ _ , props-are-sets (f (pr₁ Y))  _ _ _ _)}
+prop-fibres-totalspace-set {i} {j} {A} {P} H f X Y = transport (λ Z → (p q : Z) → p ≡ q) (path-equiv-sigma-to-id ^) λ { (a , b) (a' , b') → path-equiv-sigma (H _ _ _ _ , props-are-sets (f (pr₁ Y))  _ _ _ _)}
 
 
 prop-fibres-Pi-is-prop : ∀ {i j} {A : Type i} {B : A → Type j}
@@ -208,7 +208,7 @@ equiv-with-contr X Y = equiv-Unit-to-contr (contr-equiv-to-Unit Y oₑ (X ^ᵉ) 
 
 isContr-is-prop : ∀ {i} {A : Type i}
                   → isProp (isContr A)
-isContr-is-prop (a , p) (a' , p') = path-equiv-sigma _ _ ((p a') , prop-fibres-Pi-is-prop (λ x → props-are-sets (contr-are-props (a , p)) _ _) _ _)
+isContr-is-prop (a , p) (a' , p') = path-equiv-sigma ((p a') , prop-fibres-Pi-is-prop (λ x → props-are-sets (contr-are-props (a , p)) _ _) _ _)
 
 contr-fibres-to-contr-Pi : ∀ {i j} {A : Type i} {P : A → Type j}
                            → ((x : A) → isContr (P x))
@@ -219,13 +219,13 @@ contr-fibres-to-contr-Pi F = pointed-prop-to-contr ((λ x → pr₁ (F x)) , (pr
 Sigma-path-is-contr : ∀ {i} {A : Type i}
                       (a : A)
                       → isContr (Σ[ x ∈ A ] (a ≡ x))
-Sigma-path-is-contr a = (a , refl) , (λ { (x , p) → path-equiv-sigma _ _ (p , (lemma2-11-2i a p refl))})
+Sigma-path-is-contr a = (a , refl) , (λ { (x , p) → path-equiv-sigma (p , (lemma2-11-2i a p refl))})
 
 
 lemma3-11-9i : ∀ {i j} {A : Type i} {P : A → Type j}
                → ((x : A) → isContr (P x))
                → (Σ[ x ∈ A ] P x) ≃ A
-lemma3-11-9i F = equiv-adjointify ((λ x → pr₁ x) , ((λ x → x , (pr₁ (F x))) , ((λ x → refl) , (λ { (a , b) → path-equiv-sigma _ _ (refl , (contr-are-props (F a) _ _))}))))
+lemma3-11-9i F = equiv-adjointify ((λ x → pr₁ x) , ((λ x → x , (pr₁ (F x))) , ((λ x → refl) , (λ { (a , b) → path-equiv-sigma (refl , (contr-are-props (F a) _ _))}))))
 
 
 
@@ -235,7 +235,7 @@ contr-base-equiv-fibres : ∀ {i j} {A : Type i} {P : A → Type j}
 contr-base-equiv-fibres {i} {j} {A} {P} (a , F) x = equiv-adjointify ((λ { (a' , p) → transport P (F a' ^ ∘ F x) p}) ,
                         (λ u → x , u) ,
                         ((λ u → transport (λ q → transport P q u ≡ u) (p^p (F x) ^) refl ) ,
-                        λ { (a , u) → path-equiv-sigma _ _ ((F x ^ ∘ F a) , (tr-pq  (F a ^ ∘ F x) (F x ^ ∘ F a) u ^ ∘
+                        λ { (a , u) → path-equiv-sigma ((F x ^ ∘ F a) , (tr-pq  (F a ^ ∘ F x) (F x ^ ∘ F a) u ^ ∘
                         transport (λ q → transport (λ v → P v) ((F a ^ ∘ F x) ∘ q) u ≡ u) (pq-^-to-q^p^ (F a ^) (F x) ∘
                         p=q-to-rp=rq (p^^=p (F a) ) (F x ^) ) (transport (λ q → (transport P q u) ≡ u) (pp^ (F a ^ ∘ F x) ^) refl) ))}))
 
@@ -247,7 +247,7 @@ lemma3-11-9ii {i} {j} {A} {P} (a , F) = contr-base-equiv-fibres (a , F) a
 -- ((λ { (x , u) → transport P (F x ^) u}) ,
 --               (λ x → a , x) ,
 --               ((λ x → {!!}) ,
---               (λ { (x , p) → path-equiv-sigma _ _ ((F x) , (tr-pq (F x ^) (F x) p ^ ∘ transport (λ q → transport P q p ≡ p) (p^p (F x) ^) refl))})))
+--               (λ { (x , p) → path-equiv-sigma ((F x) , (tr-pq (F x ^) (F x) p ^ ∘ transport (λ q → transport P q p ≡ p) (p^p (F x) ^) refl))})))
 
 
 
@@ -262,8 +262,8 @@ equiv-fibres-to-equiv-sigma : ∀ {i j } {A : Type i} {B : A → Type j} {C : A 
       → (Σ[ x ∈ A ] B x) ≃ (Σ[ x ∈ A ] C x)
 equiv-fibres-to-equiv-sigma F = equiv-adjointify ((λ { (a , b) → a , pr₁ (F a) b}) ,
            (λ { (a , c) → a , (pr₁ (pr₂ (F a)) c)}) ,
-           ((λ { (a , c) → path-equiv-sigma _ _ (refl , (pr₁ (pr₂ (pr₂ (pr₂ (F a)))) c ))}) ,
-           λ { (a , b) → path-equiv-sigma _ _ (refl , (pr₁ (pr₂ (pr₂ (F a))) b))}))
+           ((λ { (a , c) → path-equiv-sigma (refl , (pr₁ (pr₂ (pr₂ (pr₂ (F a)))) c ))}) ,
+           λ { (a , b) → path-equiv-sigma (refl , (pr₁ (pr₂ (pr₂ (F a))) b))}))
 
 
 p=p'-equiv-p'=p : ∀ {i} {A : Type i} {x y : A} {p p' : x ≡ y}
@@ -278,8 +278,7 @@ p=p'-equiv-p'=p {i} {A} {x} {y} {p} {p'} = equiv-adjointify ((λ α → α ^) ,
 lemma4-2-5 : ∀ {i j} {A : Type i} {B : Type j}
              {f : A → B} {y : B} (X Y : fib f y)
              → (X ≡ Y) ≃ (Σ[ γ ∈ (pr₁ X ≡ pr₁ Y) ] ((ap f γ) ∘ pr₂ Y ≡ pr₂ X))
-lemma4-2-5 {i} {j} {A} {B} {f} {y} (x , p) (x' , p') = equiv-fibres-to-equiv-sigma (λ { refl → p=p'-equiv-p'=p}) oₑ thm2-7-2 (x , p) (x' , p') 
-
+lemma4-2-5 {i} {j} {A} {B} {f} {y} (x , p) (x' , p') = equiv-fibres-to-equiv-sigma (λ { refl → p=p'-equiv-p'=p}) oₑ thm2-7-2 
 lemma4-2-8i : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k} {f : A → B}
               → qinv f
               → qinv (λ (g : C → A) → f o g)
@@ -296,8 +295,8 @@ Sigma-Pi-swap : ∀ {i j k} {A : Type i} {B : A → Type j} {C : (a : A) → B a
                 → ((x : A) → Σ[ y ∈ (B x) ] C x y) ≃ (Σ[ F ∈ ((x : A) → B x)] ((x : A) → C x (F x)))
 Sigma-Pi-swap = equiv-adjointify ((λ F → (λ x → pr₁ (F x)) , λ x → pr₂ (F x)) ,
               ((λ { (F , P) x → (F x) , (P x)}) ,
-              ((λ { (F , P) → path-equiv-sigma _ _ (refl , refl)}) ,
-              λ F → funextD λ x → path-equiv-sigma _ _ (refl , refl))))
+              ((λ { (F , P) → path-equiv-sigma (refl , refl)}) ,
+              λ F → funextD λ x → path-equiv-sigma (refl , refl))))
 
 equiv-fibres-to-Pi : ∀ {i j k} {A  : Type i} {B : A → Type j} {C : A → Type k}
                      → ((x : A) → (B x ≃ C x))
@@ -313,8 +312,8 @@ Sigma-preserves-equiv : ∀ {i j k} {A : Type i} {B : A → Type j} {C : A → T
                         → (Σ[ x ∈ A ] B x) ≃ (Σ[ x ∈ A ] C x)
 Sigma-preserves-equiv F = equiv-adjointify ((λ {(a , b) → a , pr₁ (F a) b}) ,
                       ((λ { (a , c) → a , (pr₁ (pr₂ (F a)) c)}) ,
-                      ((λ {(a , c) → path-equiv-sigma _ _ (refl , (pr₁ (pr₂ (pr₂ (pr₂ (F a)))) c))}) ,
-                      λ { (a , b) → path-equiv-sigma _ _ (refl , (pr₁ (pr₂ (pr₂ (F a))) b))})))
+                      ((λ {(a , c) → path-equiv-sigma (refl , (pr₁ (pr₂ (pr₂ (pr₂ (F a)))) c))}) ,
+                      λ { (a , b) → path-equiv-sigma (refl , (pr₁ (pr₂ (pr₂ (F a))) b))})))
 
 
 
@@ -392,8 +391,8 @@ private
                     → (Σ[ a ∈ A ] (Σ[ b ∈ B ] C a b)) ≃ (Σ[ b ∈ B ] (Σ[ a ∈ A ] C a b))
   Sigma-swapped = equiv-adjointify ((λ {(a , b , c) → b , (a , c)}) ,
                 ((λ { (b , a , c) → a , (b , c)}) ,
-                ((λ { (b , a , c) → path-equiv-sigma _ _ (refl , refl)}) ,
-                λ { (a , b , c) → path-equiv-sigma _ _ (refl , refl)})))
+                ((λ { (b , a , c) → path-equiv-sigma (refl , refl)}) ,
+                λ { (a , b , c) → path-equiv-sigma (refl , refl)})))
 
 
   isEquiv-swapped : ∀ {i j} {A : Type i} {B : Type j}

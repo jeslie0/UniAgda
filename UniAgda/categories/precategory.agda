@@ -63,7 +63,7 @@ iso-trans {i} {j} {∁} {a} {b} {c} (f , g , x , y) (f' , g' , x' , y') = (comp 
 
 isIso-is-prop : ∀ {i j} {∁ : Precategory {i} {j}} {a b : ob ∁} (f : hom ∁ a b)
              → isProp (isIso {i} {j} {∁} {a} {b} f)
-isIso-is-prop {i} {j} {∁} {a} {b} f (g , η , ε) (g' , η' , ε') =  path-equiv-sigma _ _
+isIso-is-prop {i} {j} {∁} {a} {b} f (g , η , ε) (g' , η' , ε') =  path-equiv-sigma
            (r-Id ∁ g ^ ∘ transport (λ X → comp ∁ X g ≡ g') (ε') ((ass ∁ _ _ _) ^ ∘ transport (λ X → comp ∁ g' X ≡ g') (η ^) (l-Id ∁ g') ) , path-equiv-prod ((hom-set ∁ _ _ _ _ _ η') , hom-set ∁ _ _ _ _ _ ε')) 
 
 iso-is-set : ∀ {i j} {∁ : Precategory {i} {j}}

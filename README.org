@@ -47,10 +47,6 @@ There are rough naming conventions that I try to follow.
 * Current goals
 Import and refine previous code
 - Added homotopies
-  -next add equivalence comparisons, then path spaces, then sets and props
-- Add in relation between all equivalences
-
-- [X] Need to add Prop-resizing to axioms
 
 - Need to finish proofs in Equivalences, in particular, need to prove the following: (Equivalences will need to be tidied up)
   + [ ] "isContrmap" is a prop
@@ -63,16 +59,6 @@ Import and refine previous code
 - Add in n-types.
 - Refactor path-algebra names. Make more consistent.
 * Refactoring notes
-** DONE path-algebra
-CLOSED: [2020-12-16 Wed 13:30]
-- [X] Rename "p=qr-to-q^p=r" to "p=qr-to-q^p=r"
-- [X] Change naming system from "p q s" to "p q r"
 ** Categories
-- [ ] Change "Precategory" to "Precat"
 - [X] change "is-iso" to "isIso", as isIso is a proposition
 - [X] change "iso-of-f-is-prop" to "isIso-is-prop"
-** Prop-set-properties
-- [X] organise into sections with results following the book
-  + Sets
-  + Prop
-  + contr
