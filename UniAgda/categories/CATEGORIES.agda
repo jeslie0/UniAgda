@@ -1,7 +1,7 @@
 {-# OPTIONS --without-K #-}
 module UniAgda.categories.CATEGORIES where
 
-open import UniAgda.categories.precategory public
+open import UniAgda.categories.precat public
 
 open import UniAgda.categories.category public
 

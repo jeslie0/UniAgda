@@ -427,3 +427,5 @@ isEquiv-is-prop : ∀ {i j} {A : Type i} {B : Type j}
 isEquiv-is-prop {i} {j} {A} {B} f = pr₁ ((ex3-5 {_} {isEquiv f}) ^ᵉ) λ { F → equiv-with-contr (isEquiv-equiv-rcoh f ^ᵉ)
                 (contr-fibres-to-contr-Sigma (λ { (g , u) → lemma4-2-12 F (g , u)})  (qinv-to-isContr-rinv (isEquiv-to-qinv F)))}
 
+
+

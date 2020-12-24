@@ -129,6 +129,10 @@ record prebicategory {i₁ i₂ i₃ : Level} : Type (lsuc (i₁ ⊔ i₂ ⊔ i�
     bicat-ax11ii : {a b c d : 0-cell} {f : 1-cell a b} {g : 1-cell b c} {h : 1-cell c d}
                   → (α^ f g h) ⊗ (α f g h) ≡ id₂
 
+    bicat-ax11 : {a b c : 0-cell} {f g : 1-cell a b} {h k : 1-cell b c} (θ : 2-cell f g)
+                 (γ : 2-cell h k)
+                 → (θ ▹ h) ⊗ (g ◃ γ) ≡ (f ◃ γ) ⊗ (θ ▹ k)
+
     unity : {a b c : 0-cell}
             (f : 1-cell a b) (g : 1-cell b c)
             → (α f id₁ g) ⊗ ((r-ρ f) ▹ g) ≡ f ◃ (l-λ g)
@@ -146,6 +150,43 @@ record prebicategory {i₁ i₂ i₃ : Level} : Type (lsuc (i₁ ⊔ i₂ ⊔ i�
   infixl 30 _◃_
   infixr 30 _▹_
   infixr 20 _·_
+
+  ass-to-middle : {a b : 0-cell} {f g h k l : 1-cell a b}
+                  (θ : 2-cell f g) (γ : 2-cell g h) (ϕ : 2-cell h k) (ψ : 2-cell k l)
+                  → (θ ⊗ γ) ⊗ (ϕ ⊗ ψ) ≡ θ ⊗ (γ ⊗ ϕ) ⊗ ψ
+  ass-to-middle θ γ ϕ ψ = (bicat-ax1iii (θ ⊗ γ) ϕ ψ ∘ transport (λ Z → Z ⊗ ψ ≡ (θ ⊗ γ ⊗ ϕ) ⊗ ψ) (bicat-ax1iii θ γ ϕ) refl) ∘ bicat-ax1iii θ (γ ⊗ ϕ) ψ ^
+
+
+  hcomp : {a b c : 0-cell} {f₁ g₁ : 1-cell a b} {f₂ g₂ : 1-cell b c}
+          (θ : 2-cell f₁ g₁) (γ : 2-cell f₂ g₂)
+          → 2-cell (f₁ · f₂) (g₁ · g₂)
+  hcomp {a} {b} {c} {f₁} {g₁} {f₂} {g₂} θ γ =
+    (θ ▹ f₂) ⊗ ((g₁ ◃ γ))
+  _h·_ = hcomp
+
+  hcomp' : {a b c : 0-cell} {f₁ g₁ : 1-cell a b} {f₂ g₂ : 1-cell b c}
+           (θ : 2-cell f₁ g₁) (γ : 2-cell f₂ g₂)
+           → 2-cell (f₁ · f₂) (g₁ · g₂)
+  hcomp' {a} {b} {c} {f₁} {g₁} {f₂} {g₂} θ γ =
+    (f₁ ◃ γ) ⊗ (θ ▹ g₂)
+
+  hcomp-eq : {a b c : 0-cell} {f₁ g₁ : 1-cell a b} {f₂ g₂ : 1-cell b c}
+             (θ : 2-cell f₁ g₁) (γ : 2-cell f₂ g₂)
+             → hcomp θ γ ≡ hcomp' θ γ
+  hcomp-eq θ γ = bicat-ax11 θ γ
+
+  interchange : {a b c : 0-cell} {f₁ g₁ h₁ : 1-cell a b} {f₂ g₂ h₂ : 1-cell b c}
+                (θ₁ : 2-cell f₁ g₁) (θ₂ : 2-cell f₂ g₂) (γ₁ : 2-cell g₁ h₁) (γ₂ : 2-cell g₂ h₂)
+                → (θ₁ h· θ₂) ⊗ (γ₁ h· γ₂) ≡ ((θ₁ ⊗ γ₁) h· (θ₂ ⊗ γ₂))
+  interchange {a} {b} {c} {f₁} {g₁} {h₁} {f₂} {g₂} {h₂} θ₁ θ₂ γ₁ γ₂ =
+    (bicat-ax11 (θ₁ ⊗ γ₁) (θ₂ ⊗ γ₂) ∘
+      transport (λ Z → Z ⊗ (θ₁ ⊗ γ₁) ▹ h₂ ≡ (θ₁ h· θ₂) ⊗ (γ₁ h· γ₂)) (bicat-ax2ii f₁ θ₂ γ₂ ^)
+        (transport (λ Z → (f₁ ◃ θ₂ ⊗ f₁ ◃ γ₂) ⊗ Z ≡ (θ₁ h· θ₂) ⊗ (γ₁ h· γ₂)) (bicat-ax3ii θ₁ γ₁ h₂ ^)
+          (ass-to-middle (f₁ ◃ θ₂) (f₁ ◃ γ₂) (θ₁ ▹ h₂) (γ₁ ▹ h₂) ∘
+          transport (λ Z → f₁ ◃ θ₂ ⊗ (Z) ⊗ γ₁ ▹ h₂ ≡ (θ₁ h· θ₂) ⊗ (γ₁ h· γ₂)) (bicat-ax11 θ₁ γ₂)
+            (ass-to-middle (f₁ ◃ θ₂) (θ₁ ▹ g₂) (g₁ ◃ γ₂) (γ₁ ▹ h₂) ^ ∘ transport (λ Z → (Z) ⊗ g₁ ◃ γ₂ ⊗ γ₁ ▹ h₂ ≡ (θ₁ h· θ₂) ⊗ (γ₁ h· γ₂)) (bicat-ax11 θ₁ θ₂)
+              (transport (λ Z → (θ₁ ▹ f₂ ⊗ g₁ ◃ θ₂) ⊗ Z ≡ (θ₁ h· θ₂) ⊗ (γ₁ h· γ₂)) (bicat-ax11 γ₁ γ₂) refl))))) ^
+        
 
   record int-adj (X Y : 0-cell) : Type (lsuc (i₁ ⊔ i₂ ⊔ i₃)) where
     eta-equality
@@ -168,7 +209,8 @@ record prebicategory {i₁ i₂ i₃ : Level} : Type (lsuc (i₁ ⊔ i₂ ⊔ i�
 
   left-to-right-mate : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
                        → 2-cell (right adj₀ · a) (b · right adj₁)
-  left-to-right-mate X₀ Y₀ X₁ Y₁ record { left = f₀ ; right = g₀ ; η = η₀ ; ε = ε₀ ; left-triangle = left-triangle₀ ; right-triangle = right-triangle₀ } record { left = f₁ ; right = g₁ ; η = η₁ ; ε = ε₁ ; left-triangle = left-triangle₁ ; right-triangle = right-triangle₁ } a b w = r-ρ^ (g₀ · a) ⊗ (((g₀ · a) ◃ η₁) ⊗ (((α^ g₀ a (f₁ · g₁) ⊗ ((g₀ ◃ (α a f₁ g₁)) ⊗ ((g₀ ◃ (w ▹ g₁)) ⊗ ((g₀ ◃ (α^ f₀ b g₁)) ⊗ α g₀ f₀ (b · g₁))))) ⊗ (ε₀ ▹ (b · g₁))) ⊗ (l-λ (b · g₁))))
+  left-to-right-mate X₀ Y₀ X₁ Y₁ record { left = f₀ ; right = g₀ ; η = η₀ ; ε = ε₀ ; left-triangle = left-triangle₀ ; right-triangle = right-triangle₀ } record { left = f₁ ; right = g₁ ; η = η₁ ; ε = ε₁ ; left-triangle = left-triangle₁ ; right-triangle = right-triangle₁ } a b w = 
+    r-ρ^ (g₀ · a) ⊗ (((g₀ · a) ◃ η₁) ⊗ (((α^ g₀ a (f₁ · g₁) ⊗ ((g₀ ◃ (α a f₁ g₁)) ⊗ ((g₀ ◃ (w ▹ g₁)) ⊗ ((g₀ ◃ (α^ f₀ b g₁)) ⊗ α g₀ f₀ (b · g₁))))) ⊗ (ε₀ ▹ (b · g₁))) ⊗ (l-λ (b · g₁))))
 
   right-to-left-mate : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (ν : 2-cell (right adj₀ · a) (b · right adj₁))
                      → 2-cell (a · left adj₁) (left adj₀ · b)
@@ -176,7 +218,7 @@ record prebicategory {i₁ i₂ i₃ : Level} : Type (lsuc (i₁ ⊔ i₂ ⊔ i�
 
   left-to-right-to-left-Id : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
                            → right-to-left-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b (left-to-right-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b w) ≡ w
-  left-to-right-to-left-Id X₀ Y₀ X₁ Y₁ record { left = f₀ ; right = g₀ ; η = η₀ ; ε = ε₀ ; left-triangle = left-triangle₀ ; right-triangle = right-triangle₀ } record { left = f₁ ; right = g₁ ; η = η₁ ; ε = ε₁ ; left-triangle = left-triangle₁ ; right-triangle = right-triangle₁ } a b w = {!!}
+  left-to-right-to-left-Id X₀ Y₀ X₁ Y₁ record { left = f₀ ; right = g₀ ; η = η₀ ; ε = ε₀ ; left-triangle = left-triangle₀ ; right-triangle = right-triangle₀ } record { left = f₁ ; right = g₁ ; η = η₁ ; ε = ε₁ ; left-triangle = left-triangle₁ ; right-triangle = right-triangle₁ } a b w = {!-m!}
 
 
   right-to-left-to-right-Id : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (ν : 2-cell (right adj₀ · a) (b · right adj₁))

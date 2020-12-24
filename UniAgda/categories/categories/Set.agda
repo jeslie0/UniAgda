@@ -4,15 +4,24 @@ module UniAgda.categories.categories.Set where
 open import UniAgda.categories.category public
 
 {- Set is a precategory -}
-SET : ∀ {i} → Precategory
-ob (SET {i}) = Set_ i
-hom (SET {i}) a b = (pr₁ a) → (pr₁ b)
-hom-set (SET {i}) a b = func-of-sets-is-set (pr₂ b)
-Id (SET {i}) = id
-comp (SET {i}) = _o_
-l-Id (SET {i}) f = refl
-r-Id (SET {i}) f = refl
-ass (SET {i}) f g h = refl
+SET : ∀ {i} → Precategory {_} {_}
+SET {i} =
+  (Set_ i) ,
+  (λ a b → pr₁ a → pr₁ b) ,
+  (λ a b → func-of-sets-is-set (pr₂ b)) ,
+  id ,
+  _o_ ,
+  (λ f → refl) ,
+  (λ f → refl) ,
+  λ f g h → refl
+-- ob (SET {i}) = Set_ i
+-- hom (SET {i}) a b = (pr₁ a) → (pr₁ b)
+-- hom-set (SET {i}) a b = func-of-sets-is-set (pr₂ b)
+-- Id (SET {i}) = id
+-- comp (SET {i}) = _o_
+-- l-Id (SET {i}) f = refl
+-- r-Id (SET {i}) f = refl
+-- ass (SET {i}) f g h = refl
 
 
 {- We show that Set is a (univalent) category -}
@@ -57,4 +66,4 @@ id-to-iso-equality {i} (X , a) (X' , b) = funext λ { refl → path-equiv-sigma 
          isIso-is-prop {_} {_} {SET {i}} {(X , a)} {(X' , b)} _ _ _)}
 
 SET-is-category : ∀ {i} → isCategory (SET {i})
-univ (SET-is-category {i}) A B = transport (λ f → isEquiv f) (id-to-iso-equality A B) (pr₂ (SET-id-equiv-iso A B))
+SET-is-category A B =  transport (λ f → isEquiv f) (id-to-iso-equality A B) (pr₂ (SET-id-equiv-iso A B))

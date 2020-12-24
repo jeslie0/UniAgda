@@ -171,7 +171,6 @@ Unit Type
 
 data Unit : Type lzero where
   tt : Unit
-𝟙 = Unit
 
 
 {-
@@ -179,7 +178,6 @@ Empty Type
 -}
 
 data Empty : Type lzero where
-𝟘 = Empty
 
 ¬ : {i : Level}
     (A : Type i)
