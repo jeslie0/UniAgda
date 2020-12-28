@@ -3,6 +3,38 @@ module UniAgda.bicategories.bicategory where
 
 open import UniAgda.core.CORE public
 
+module ≡-Reasoning {i : Level} {A : Type i} where
+
+  infix  1 begin_
+  infixr 2 _≡⟨⟩_ _≡⟨_⟩_
+  infix  3 _∎
+
+  begin_ : ∀ {x y : A}
+    → x ≡ y
+      -----
+    → x ≡ y
+  begin x≡y  =  x≡y
+
+  _≡⟨⟩_ : ∀ (x : A) {y : A}
+    → x ≡ y
+      -----
+    → x ≡ y
+  x ≡⟨⟩ x≡y  =  x≡y
+
+  _≡⟨_⟩_ : ∀ (x : A) {y z : A}
+    → x ≡ y
+    → y ≡ z
+      -----
+    → x ≡ z
+  x ≡⟨ x≡y ⟩ y≡z  =  _∘_ x≡y y≡z
+
+  _∎ : ∀ (x : A)
+      -----
+    → x ≡ x
+  x ∎  =  refl
+
+open ≡-Reasoning
+
 record prebicategory {i₁ i₂ i₃ : Level} : Type (lsuc (i₁ ⊔ i₂ ⊔ i₃)) where
   no-eta-equality
 
@@ -186,41 +218,125 @@ record prebicategory {i₁ i₂ i₃ : Level} : Type (lsuc (i₁ ⊔ i₂ ⊔ i�
           transport (λ Z → f₁ ◃ θ₂ ⊗ (Z) ⊗ γ₁ ▹ h₂ ≡ (θ₁ h· θ₂) ⊗ (γ₁ h· γ₂)) (bicat-ax11 θ₁ γ₂)
             (ass-to-middle (f₁ ◃ θ₂) (θ₁ ▹ g₂) (g₁ ◃ γ₂) (γ₁ ▹ h₂) ^ ∘ transport (λ Z → (Z) ⊗ g₁ ◃ γ₂ ⊗ γ₁ ▹ h₂ ≡ (θ₁ h· θ₂) ⊗ (γ₁ h· γ₂)) (bicat-ax11 θ₁ θ₂)
               (transport (λ Z → (θ₁ ▹ f₂ ⊗ g₁ ◃ θ₂) ⊗ Z ≡ (θ₁ h· θ₂) ⊗ (γ₁ h· γ₂)) (bicat-ax11 γ₁ γ₂) refl))))) ^
-        
 
-  record int-adj (X Y : 0-cell) : Type (lsuc (i₁ ⊔ i₂ ⊔ i₃)) where
-    eta-equality
-    field
-      left : 1-cell X Y
-      right : 1-cell Y X
-      η : 2-cell (id₁ {X}) (left · right)
 
-      ε : 2-cell (right · left) (id₁)
 
-      left-triangle : let f = left
-                          g = right
-                      in (η ▹ f) ⊗ ((α^ f g f) ⊗ ((f ◃ ε) ⊗ (r-ρ f))) ≡ l-λ f
+  m-unityii : {a b c : 0-cell}
+                   (f : 1-cell a b) (g : 1-cell b c)
+                   → ((r-ρ f) ▹ g) ≡ (α^ f id₁ g) ⊗ (f ◃ (l-λ g))
+  m-unityii f g =
+    transport (λ Z → r-ρ f ▹ g ≡ α^ f id₁ g ⊗ Z) (unity f g)
+      (transport (λ Z → r-ρ f ▹ g ≡ (Z) ⊗ r-ρ f ▹ g) (bicat-ax11ii ^)
+        (bicat-ax1i _ _ ^) ∘ bicat-ax1iii _ _ _ ^)
 
-      right-triangle : let f = left
-                           g = right
-                       in (g ◃ η) ⊗ ((α g f g) ⊗ ((ε ▹ g) ⊗ (l-λ g))) ≡ r-ρ g
 
-  open int-adj public
+  whisker-l-to-hor-comp : {a b c : 0-cell} {f g : 1-cell a b}
+                          (θ : 2-cell f g) (h : 1-cell b c)
+                          → (θ ▹ h) ≡ θ h· (id₂)
+  whisker-l-to-hor-comp {a} {b} {c} {f} {g} θ h =
+    transport (λ Z → θ ▹ h ≡ θ ▹ h ⊗ Z) (bicat-ax2i g h ^)
+      (bicat-ax1ii _ (θ ▹ h) ^)
+
+  -- record int-adj (X Y : 0-cell) : Type (lsuc (i₁ ⊔ i₂ ⊔ i₃)) where
+  --   eta-equality
+  --   field
+  --     left : 1-cell X Y
+  --     right : 1-cell Y X
+  --     η : 2-cell (id₁ {X}) (left · right)
+
+  --     ε : 2-cell (right · left) (id₁)
+
+  --     left-triangle : let f = left
+  --                         g = right
+  --                     in (η ▹ f) ⊗ ((α^ f g f) ⊗ ((f ◃ ε) ⊗ (r-ρ f))) ≡ l-λ f
+
+  --     right-triangle : let f = left
+  --                          g = right
+  --                      in (g ◃ η) ⊗ ((α g f g) ⊗ ((ε ▹ g) ⊗ (l-λ g))) ≡ r-ρ g
+
+  int-adj : (X Y : 0-cell) → Type (i₂ ⊔ i₃)
+  int-adj X Y =
+    Σ[ left ∈ (1-cell X Y) ] (
+      Σ[ right ∈ (1-cell Y X) ] (
+        Σ[ η ∈ (2-cell (id₁) (left · right)) ] (
+          Σ[ ε ∈ (2-cell (right · left) (id₁)) ] (
+            Σ[ left-triangle ∈ ((η ▹ left) ⊗ ((α^ left right left) ⊗ ((left ◃ ε) ⊗ (r-ρ left))) ≡ l-λ left) ] (
+              (right ◃ η) ⊗ ((α right left right) ⊗ ((ε ▹ right) ⊗ (l-λ right))) ≡ r-ρ right)))))
+
+  left : {X Y : 0-cell}
+         (F : int-adj X Y)
+         → 1-cell X Y
+  left (a , a₁ , a₂ , a₃ , a₄ , b) = a
+
+ 
+  right : {X Y : 0-cell}
+          (F : int-adj X Y)
+          → 1-cell Y X
+  right (a , a₁ , a₂ , a₃ , a₄ , b) = a₁
+
+  η : {X Y : 0-cell}
+      (F : int-adj X Y)
+      → 2-cell id₁ (left F · right F)
+  η (a , a₁ , a₂ , a₃ , a₄ , b) = a₂
+
+  ε : {X Y : 0-cell}
+      (F : int-adj X Y)
+      → 2-cell (right F · left F) id₁
+  ε (a , a₁ , a₂ , a₃ , a₄ , b) = a₃
+
+  left-triangle : {X Y : 0-cell}
+                  (F : int-adj X Y)
+                  → ((η F ▹ left F) ⊗ ((α^ (left F) (right F) (left F)) ⊗ ((left F ◃ ε F) ⊗ (r-ρ (left F)))) ≡ l-λ (left F))
+  left-triangle (a , a₁ , a₂ , a₃ , a₄ , b) = a₄
+
+  right-triangle : {X Y : 0-cell}
+                   (F : int-adj X Y)
+                   → (right F ◃ η F) ⊗ ((α (right F) (left F) (right F)) ⊗ ((ε F ▹ right F) ⊗ (l-λ (right F)))) ≡ r-ρ (right F)
+  right-triangle (a , a₁ , a₂ , a₃ , a₄ , b) = b
+
+
+
+
+  -- open int-adj public
 
   left-to-right-mate : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
                        → 2-cell (right adj₀ · a) (b · right adj₁)
-  left-to-right-mate X₀ Y₀ X₁ Y₁ record { left = f₀ ; right = g₀ ; η = η₀ ; ε = ε₀ ; left-triangle = left-triangle₀ ; right-triangle = right-triangle₀ } record { left = f₁ ; right = g₁ ; η = η₁ ; ε = ε₁ ; left-triangle = left-triangle₁ ; right-triangle = right-triangle₁ } a b w = 
+  left-to-right-mate X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w = 
     r-ρ^ (g₀ · a) ⊗ (((g₀ · a) ◃ η₁) ⊗ (((α^ g₀ a (f₁ · g₁) ⊗ ((g₀ ◃ (α a f₁ g₁)) ⊗ ((g₀ ◃ (w ▹ g₁)) ⊗ ((g₀ ◃ (α^ f₀ b g₁)) ⊗ α g₀ f₀ (b · g₁))))) ⊗ (ε₀ ▹ (b · g₁))) ⊗ (l-λ (b · g₁))))
 
   right-to-left-mate : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (ν : 2-cell (right adj₀ · a) (b · right adj₁))
                      → 2-cell (a · left adj₁) (left adj₀ · b)
-  right-to-left-mate X₀ Y₀ X₁ Y₁ record { left = f₀ ; right = g₀ ; η = η₀ ; ε = ε₀ ; left-triangle = left-triangle₀ ; right-triangle = right-triangle₀ } record { left = f₁ ; right = g₁ ; η = η₁ ; ε = ε₁ ; left-triangle = left-triangle₁ ; right-triangle = right-triangle₁ } a b ν = l-λ^ (a · f₁) ⊗ (η₀ ▹ (a · f₁) ⊗ (α^ f₀ g₀ (a · f₁) ⊗ (f₀ ◃ (α g₀ a f₁) ⊗ ( f₀ ◃ (ν ▹ f₁) ⊗ (f₀ ◃ (α^ b g₁ f₁) ⊗ (α f₀ b (g₁ · f₁) ⊗ ((f₀ · b) ◃ ε₁ ⊗ r-ρ (f₀ · b))))))))
+  right-to-left-mate X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b ν =
+    l-λ^ (a · f₁) ⊗ (η₀ ▹ (a · f₁) ⊗ (α^ f₀ g₀ (a · f₁) ⊗ (f₀ ◃ (α g₀ a f₁) ⊗ ( f₀ ◃ (ν ▹ f₁) ⊗ (f₀ ◃ (α^ b g₁ f₁) ⊗ (α f₀ b (g₁ · f₁) ⊗ ((f₀ · b) ◃ ε₁ ⊗ r-ρ (f₀ · b))))))))
+
+
+  lemma1 : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
+           → (((r-ρ^ a) ▹ left adj₁) ⊗ (α^ a id₁ (left adj₁)) ⊗ (a ◃ (l-λ (left adj₁)))) ⊗ w ⊗ (((r-ρ^ (left adj₀)) ▹ b) ⊗ α^ (left adj₀) id₁ b ⊗ (left adj₀ ◃ l-λ b)) ≡ w
+  lemma1 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w =
+    transport (λ Z → (r-ρ^ a ▹ f₁ ⊗ Z) ⊗ w ⊗ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ w) (m-unityii a f₁)
+      (transport (λ Z → (Z) ⊗ w ⊗ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ w) (bicat-ax3ii (r-ρ^ a) (r-ρ a) f₁)
+        (transport (λ Z → (Z) ▹ f₁ ⊗ w ⊗ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ w) (bicat-ax10ii ^)
+          (transport (λ Z → Z ⊗ w ⊗ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ w) (bicat-ax3i _ f₁ ^ )
+            (transport (λ Z →  Z ≡ w) (bicat-ax1i _ _ ^)
+              (transport (λ Z → w ⊗ Z ≡ w) (ap (λ T → r-ρ^ f₀ ▹ b ⊗ T) (m-unityii f₀ b))
+                (transport (λ Z → w ⊗ Z ≡ w) (bicat-ax3ii (r-ρ^ f₀) (r-ρ f₀) b)
+                  (transport (λ Z → w ⊗ Z ≡ w) (transport (λ T → id₂ ▹ b ≡ T ▹ b) (bicat-ax10ii ^)
+                    refl)
+                  (transport (λ Z → w ⊗ Z ≡ w) (bicat-ax3i _ b ^)
+                    (bicat-ax1ii _ w)))))))))
+
+
+
+
+
+
+
 
   left-to-right-to-left-Id : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
                            → right-to-left-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b (left-to-right-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b w) ≡ w
-  left-to-right-to-left-Id X₀ Y₀ X₁ Y₁ record { left = f₀ ; right = g₀ ; η = η₀ ; ε = ε₀ ; left-triangle = left-triangle₀ ; right-triangle = right-triangle₀ } record { left = f₁ ; right = g₁ ; η = η₁ ; ε = ε₁ ; left-triangle = left-triangle₁ ; right-triangle = right-triangle₁ } a b w = {!-m!}
-
+  left-to-right-to-left-Id X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w =
+    {!!}
 
   right-to-left-to-right-Id : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (ν : 2-cell (right adj₀ · a) (b · right adj₁))
                             → left-to-right-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b (right-to-left-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b ν) ≡ ν
-  right-to-left-to-right-Id X₀ Y₀ X₁ Y₁ record { left = f₀ ; right = g₀ ; η = η₀ ; ε = ε₀ ; left-triangle = left-triangle₀ ; right-triangle = right-triangle₀ } record { left = f₁ ; right = g₁ ; η = η₁ ; ε = ε₁ ; left-triangle = left-triangle₁ ; right-triangle = right-triangle₁ } a b ν = {!!}
+  right-to-left-to-right-Id X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b ν = {!!}
