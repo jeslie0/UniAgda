@@ -295,7 +295,13 @@ record prebicategory {i₁ i₂ i₃ : Level} : Type (lsuc (i₁ ⊔ i₂ ⊔ i�
   right-triangle (a , a₁ , a₂ , a₃ , a₄ , b) = b
 
 
-
+  adj-lemma-left-tri : {X Y : 0-cell}
+                       (adj : int-adj X Y)
+                       → l-λ^ (left adj) ⊗ ((η adj) ▹ (left adj) ⊗ (α^ (left adj) (right adj) (left adj) ⊗ ((left adj) ◃ (ε adj)))) ≡ r-ρ^ (left adj)
+  adj-lemma-left-tri (f , g , η' , ε' , left-triangle' , right-triangle') =
+    bicat-ax1ii _ _ ^ ∘ transport (λ Z → (l-λ^ f ⊗ η' ▹ f ⊗ α^ f g f ⊗ f ◃ ε') ⊗ Z ≡ r-ρ^ f) bicat-ax10i
+      ((bicat-ax1iii _ (r-ρ f) (r-ρ^ f) ∘ ap (λ Z → Z ⊗ (r-ρ^ f)) (bicat-ax1iii (l-λ^ f) _ (r-ρ f) ^ ∘ ap (λ Z → l-λ^ f ⊗ Z) ((bicat-ax1iii (η' ▹ f) (α^ f g f ⊗ f ◃ ε') (r-ρ f) ^ ∘ ap (λ Z → (η' ▹ f) ⊗ Z) (bicat-ax1iii _ _ _ ^)) ∘ left-triangle') ∘ bicat-ax9ii))
+        ∘ bicat-ax1i _ (r-ρ^ f)  )
 
   -- open int-adj public
 
@@ -325,7 +331,16 @@ record prebicategory {i₁ i₂ i₃ : Level} : Type (lsuc (i₁ ⊔ i₂ ⊔ i�
                   (transport (λ Z → w ⊗ Z ≡ w) (bicat-ax3i _ b ^)
                     (bicat-ax1ii _ w)))))))))
 
+  lemma2 : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
+           → (((r-ρ^ a) ▹ left adj₁) ⊗ (α^ a id₁ (left adj₁)) ⊗ (a ◃ (η adj₁ ▹ (left adj₁) ⊗ (α^ (left adj₁) (right adj₁) (left adj₁) ⊗ ((left adj₁) ◃ (ε adj₁) ⊗ r-ρ (left adj₁)) )))) ⊗ w ⊗ (((l-λ^ (left adj₀) ⊗ ((η adj₀) ▹ (left adj₀) ⊗ (α^ (left adj₀) (right adj₀) (left adj₀) ⊗ ((left adj₀) ◃ (ε adj₀))))) ▹ b) ⊗ α^ (left adj₀) id₁ b ⊗ (left adj₀ ◃ l-λ b)) ≡
+           (((r-ρ^ a) ▹ left adj₁) ⊗ (α^ a id₁ (left adj₁)) ⊗ (a ◃ (l-λ (left adj₁)))) ⊗ w ⊗ (((r-ρ^ (left adj₀)) ▹ b) ⊗ α^ (left adj₀) id₁ b ⊗ (left adj₀ ◃ l-λ b))
+  lemma2 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w =
+    transport (λ Z →  (((r-ρ^ a) ▹ f₁) ⊗ (α^ a id₁ (f₁)) ⊗ (a ◃ (Z))) ⊗ w ⊗ (((l-λ^ (f₀) ⊗ ((η₀) ▹ (f₀) ⊗ (α^ (f₀) (g₀) (f₀) ⊗ ((f₀) ◃ (ε₀))))) ▹ b) ⊗ α^ (f₀) id₁ b ⊗ (f₀ ◃ l-λ b)) ≡
+           (((r-ρ^ a) ▹ f₁) ⊗ (α^ a id₁ (f₁)) ⊗ (a ◃ (l-λ (f₁)))) ⊗ w ⊗ (((r-ρ^ (f₀)) ▹ b) ⊗ α^ (f₀) id₁ b ⊗ (f₀ ◃ l-λ b))) (left-triangle₁ ^)
+      (transport (λ Z → (((r-ρ^ a) ▹ f₁) ⊗ (α^ a id₁ (f₁)) ⊗ (a ◃ (l-λ (f₁)))) ⊗ w ⊗ ((( (l-λ^ (f₀) ⊗ ((η₀) ▹ (f₀) ⊗ (α^ (f₀) (g₀) (f₀) ⊗ ((f₀) ◃ (ε₀)))))) ▹ b) ⊗ α^ (f₀) id₁ b ⊗ (f₀ ◃ l-λ b)) ≡ (((r-ρ^ a) ▹ f₁) ⊗ (α^ a id₁ (f₁)) ⊗ (a ◃ (l-λ (f₁)))) ⊗ w ⊗ (((r-ρ^ (f₀)) ▹ b) ⊗ α^ (f₀) id₁ b ⊗ (f₀ ◃ l-λ b))) (adj-lemma-left-tri (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀))
+        (ap (λ Z → (r-ρ^ a ▹ f₁ ⊗ α^ a id₁ f₁ ⊗ a ◃ l-λ f₁) ⊗ w ⊗ Z) (transport (λ Z → Z ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b) (adj-lemma-left-tri (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) ^) refl)))
 
+-- ((r-ρ^ a) ▹ left adj₁) ⊗ (α^ a id₁ (left adj₁) ⊗ (l-λ^ a) ▹ (id₁ · left adj₁) ⊗  ((id₁ · a) ◃ (η adj₁ ▹ (left adj₁)) ⊗ ({!!} ⊗ (id₁ · a · (left adj₁)) ◃ (ε adj₁) ⊗ ((α id₁ a (left adj₁) ▹ id₁ ⊗ {!!}) ⊗ id₁ ◃ (w ▹ id₁) ⊗ ({!!} ⊗ (id₁ · left adj₀) ◃ (r-ρ b) ⊗ ({!!} ⊗ (η adj₀) ▹ (left adj₀ · b) ⊗ ({!!} ⊗ (left adj₀) ◃ (ε adj₀ ▹ b) ⊗ (left adj₀ ◃ (l-λ b)))))))))
 
 
 
