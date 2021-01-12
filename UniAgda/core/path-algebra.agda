@@ -183,12 +183,18 @@ pr=qr-to-p=q refl s = s
 
 prefl-o-prefl^ : {i : Level} {A : Type i} {a : A} {q : a ≡ a}
                      → ((λ { x → p-refl q ∘ x }) o (λ { x → p-refl q ^ ∘ x })) refl ≡ id refl
-prefl-o-prefl^ {i} {A} {a} {q} = ass-r (p-refl q) (p-refl q ^) refl ∘ p-refl (p-refl q ∘ p-refl q ^) ∘ pp^ (p-refl q)
+prefl-o-prefl^ {i} {A} {a} {q} =
+  ass-r (p-refl q) (p-refl q ^) refl ∘
+  p-refl (p-refl q ∘ p-refl q ^) ∘
+  pp^ (p-refl q)
 
 
 prefl^-o-prefl : {i : Level} {A : Type i} {a : A} {q : a ≡ a}
                      → ((λ { x → p-refl q ^ ∘ x }) o (λ { x → p-refl q ∘ x })) refl ≡ id refl
-prefl^-o-prefl {i} {A} {a} {q} =  ass-r (p-refl q ^) (p-refl q) refl ∘  p-refl (p-refl q ^ ∘ p-refl q) ∘ p^p (p-refl q)
+prefl^-o-prefl {i} {A} {a} {q} =
+  ass-r (p-refl q ^) (p-refl q) refl ∘
+  p-refl (p-refl q ^ ∘ p-refl q) ∘
+  p^p (p-refl q)
 
 
 p^-apIDp-to-refl : {i : Level} {A : Type i} {x y : A}

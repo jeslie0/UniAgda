@@ -11,6 +11,7 @@ homotopy {_} {_} {A} f g = (x : A) → (f x) ≡ (g x)
 _~_ = homotopy
 infix 6 _~_
 
+
 -- Homotopy is an equivalence relation
 hrefl : {i j : Level} {A : Type i} {P : A → Type j} {f : (x : A) → P x}
                 → f ~ f
@@ -37,10 +38,12 @@ homotopy-natural {_} {_} {_} {_} {x} {f} {g} H refl = p-refl (H x) ∘ refl-p (H
 cor2-4-4 : {i : Level} {A : Type i}
            (f : A → A) (H : f ~ id) (x : A)
            → (H (f x)) ≡ (ap f (H x))
-cor2-4-4 {i} {A} f H x = (p-refl (H (f x)) ^) ∘ ((ap (λ p → H (f x) ∘ p) (ap-idp-p^ (H x)) ^) ∘
-         ((ass-r (H (f x)) (ap id (H x)) (H x ^)) ∘
-         (ap (λ p → p ∘ (H x ^)) (homotopy-natural {_} {_} {A} {A} {f x} {x} {f} {id} H (H x)) ∘
-         (ass-l (ap f (H x)) (H x) (H x ^) ∘ (ap (λ p → (ap f (H x)) ∘ p) (pp^ (H x)) ∘
+cor2-4-4 {i} {A} f H x =
+  (p-refl (H (f x)) ^) ∘
+  ((ap (λ p → H (f x) ∘ p) (ap-idp-p^ (H x)) ^) ∘
+    ((ass-r (H (f x)) (ap id (H x)) (H x ^)) ∘
+      (ap (λ p → p ∘ (H x ^)) (homotopy-natural {_} {_} {A} {A} {f x} {x} {f} {id} H (H x)) ∘
+        (ass-l (ap f (H x)) (H x) (H x ^) ∘ (ap (λ p → (ap f (H x)) ∘ p) (pp^ (H x)) ∘
          p-refl (ap f (H x)))))))
 
 -- whiskering

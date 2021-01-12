@@ -46,6 +46,14 @@ ass : ∀ {i j} (C : Precategory {i} {j})
       → {a b c d : ob C} (f : hom C a b) (g : hom C b c) (h : hom C c d) → comp C h (comp C g f) ≡ comp C (comp C h g) f
 ass (a , a₁ , a₂ , a₃ , a₄ , a₅ , a₆ , b) = b
 
+
+
+-- _$_o_ : ∀ {i j} {C : Precategory {i} {j}} {a b c : ob C}
+--        (g : hom C b c) (f : hom C a b)
+--        → hom C a c
+-- _$o_ {i} {j} {C} {a} {b} {c} g f = comp C g f
+
+{- The opposite category -}
 _^op : ∀ {i j} (∁ : Precategory {i} {j}) → Precategory {i} {j}
 C ^op =
   ob C ,

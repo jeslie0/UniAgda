@@ -222,12 +222,22 @@ record prebicategory {i₁ i₂ i₃ : Level} : Type (lsuc (i₁ ⊔ i₂ ⊔ i�
 
 
   m-unityii : {a b c : 0-cell}
-                   (f : 1-cell a b) (g : 1-cell b c)
-                   → ((r-ρ f) ▹ g) ≡ (α^ f id₁ g) ⊗ (f ◃ (l-λ g))
+              (f : 1-cell a b) (g : 1-cell b c)
+              → ((r-ρ f) ▹ g) ≡ (α^ f id₁ g) ⊗ (f ◃ (l-λ g))
   m-unityii f g =
     transport (λ Z → r-ρ f ▹ g ≡ α^ f id₁ g ⊗ Z) (unity f g)
       (transport (λ Z → r-ρ f ▹ g ≡ (Z) ⊗ r-ρ f ▹ g) (bicat-ax11ii ^)
         (bicat-ax1i _ _ ^) ∘ bicat-ax1iii _ _ _ ^)
+
+  m-unityiii : {a b c : 0-cell}
+               (f : 1-cell a b) (g : 1-cell b c)
+               → (r-ρ^ f ▹ g) ⊗ (α^ f id₁ g) ≡ f ◃ l-λ^ g
+  m-unityiii f g =
+    bicat-ax1ii _ _ ^ ∘
+      transport (λ Z → (r-ρ^ f ▹ g ⊗ α^ f id₁ g) ⊗ Z ≡ f ◃ l-λ^ g ⊗ Z) (bicat-ax11i {_} {_} {_} {_} {f} {id₁} {g})
+        {!ap (λ Z → Z ⊗ α^ f id₁ g) ?!} ∘
+    bicat-ax1ii _ _
+
 
 
   whisker-l-to-hor-comp : {a b c : 0-cell} {f g : 1-cell a b}
@@ -307,7 +317,7 @@ record prebicategory {i₁ i₂ i₃ : Level} : Type (lsuc (i₁ ⊔ i₂ ⊔ i�
 
   left-to-right-mate : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
                        → 2-cell (right adj₀ · a) (b · right adj₁)
-  left-to-right-mate X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w = 
+  left-to-right-mate X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w =
     r-ρ^ (g₀ · a) ⊗ (((g₀ · a) ◃ η₁) ⊗ (((α^ g₀ a (f₁ · g₁) ⊗ ((g₀ ◃ (α a f₁ g₁)) ⊗ ((g₀ ◃ (w ▹ g₁)) ⊗ ((g₀ ◃ (α^ f₀ b g₁)) ⊗ α g₀ f₀ (b · g₁))))) ⊗ (ε₀ ▹ (b · g₁))) ⊗ (l-λ (b · g₁))))
 
   right-to-left-mate : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (ν : 2-cell (right adj₀ · a) (b · right adj₁))
@@ -316,21 +326,23 @@ record prebicategory {i₁ i₂ i₃ : Level} : Type (lsuc (i₁ ⊔ i₂ ⊔ i�
     l-λ^ (a · f₁) ⊗ (η₀ ▹ (a · f₁) ⊗ (α^ f₀ g₀ (a · f₁) ⊗ (f₀ ◃ (α g₀ a f₁) ⊗ ( f₀ ◃ (ν ▹ f₁) ⊗ (f₀ ◃ (α^ b g₁ f₁) ⊗ (α f₀ b (g₁ · f₁) ⊗ ((f₀ · b) ◃ ε₁ ⊗ r-ρ (f₀ · b))))))))
 
 
-  lemma1 : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
-           → (((r-ρ^ a) ▹ left adj₁) ⊗ (α^ a id₁ (left adj₁)) ⊗ (a ◃ (l-λ (left adj₁)))) ⊗ w ⊗ (((r-ρ^ (left adj₀)) ▹ b) ⊗ α^ (left adj₀) id₁ b ⊗ (left adj₀ ◃ l-λ b)) ≡ w
-  lemma1 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w =
-    transport (λ Z → (r-ρ^ a ▹ f₁ ⊗ Z) ⊗ w ⊗ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ w) (m-unityii a f₁)
-      (transport (λ Z → (Z) ⊗ w ⊗ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ w) (bicat-ax3ii (r-ρ^ a) (r-ρ a) f₁)
-        (transport (λ Z → (Z) ▹ f₁ ⊗ w ⊗ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ w) (bicat-ax10ii ^)
-          (transport (λ Z → Z ⊗ w ⊗ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ w) (bicat-ax3i _ f₁ ^ )
-            (transport (λ Z →  Z ≡ w) (bicat-ax1i _ _ ^)
-              (transport (λ Z → w ⊗ Z ≡ w) (ap (λ T → r-ρ^ f₀ ▹ b ⊗ T) (m-unityii f₀ b))
-                (transport (λ Z → w ⊗ Z ≡ w) (bicat-ax3ii (r-ρ^ f₀) (r-ρ f₀) b)
-                  (transport (λ Z → w ⊗ Z ≡ w) (transport (λ T → id₂ ▹ b ≡ T ▹ b) (bicat-ax10ii ^)
-                    refl)
-                  (transport (λ Z → w ⊗ Z ≡ w) (bicat-ax3i _ b ^)
-                    (bicat-ax1ii _ w)))))))))
+  -- {-Working backwards, this gives an equality between w and w whiskered with some unitors -}
+  -- lemma1 : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
+  --          → (((r-ρ^ a) ▹ left adj₁) ⊗ (α^ a id₁ (left adj₁)) ⊗ (a ◃ (l-λ (left adj₁)))) ⊗ w ⊗ (((r-ρ^ (left adj₀)) ▹ b) ⊗ α^ (left adj₀) id₁ b ⊗ (left adj₀ ◃ l-λ b)) ≡ w
+  -- lemma1 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w =
+  --   transport (λ Z → (r-ρ^ a ▹ f₁ ⊗ Z) ⊗ w ⊗ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ w) (m-unityii a f₁)
+  --     (transport (λ Z → (Z) ⊗ w ⊗ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ w) (bicat-ax3ii (r-ρ^ a) (r-ρ a) f₁)
+  --       (transport (λ Z → (Z) ▹ f₁ ⊗ w ⊗ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ w) (bicat-ax10ii ^)
+  --         (transport (λ Z → Z ⊗ w ⊗ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ w) (bicat-ax3i _ f₁ ^ )
+  --           (transport (λ Z →  Z ≡ w) (bicat-ax1i _ _ ^)
+  --             (transport (λ Z → w ⊗ Z ≡ w) (ap (λ T → r-ρ^ f₀ ▹ b ⊗ T) (m-unityii f₀ b))
+  --               (transport (λ Z → w ⊗ Z ≡ w) (bicat-ax3ii (r-ρ^ f₀) (r-ρ f₀) b)
+  --                 (transport (λ Z → w ⊗ Z ≡ w) (transport (λ T → id₂ ▹ b ≡ T ▹ b) (bicat-ax10ii ^)
+  --                   refl)
+  --                 (transport (λ Z → w ⊗ Z ≡ w) (bicat-ax3i _ b ^)
+  --                   (bicat-ax1ii _ w)))))))))
 
+  -- {- We replace the some of the unitors from before with their equivalent triangle diagrams, from the adjunction. This (combined with lemma1) gives JY figure 3 to w. -}
   lemma2 : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
            → (((r-ρ^ a) ▹ left adj₁) ⊗ (α^ a id₁ (left adj₁)) ⊗ (a ◃ (η adj₁ ▹ (left adj₁) ⊗ (α^ (left adj₁) (right adj₁) (left adj₁) ⊗ ((left adj₁) ◃ (ε adj₁) ⊗ r-ρ (left adj₁)) )))) ⊗ w ⊗ (((l-λ^ (left adj₀) ⊗ ((η adj₀) ▹ (left adj₀) ⊗ (α^ (left adj₀) (right adj₀) (left adj₀) ⊗ ((left adj₀) ◃ (ε adj₀))))) ▹ b) ⊗ α^ (left adj₀) id₁ b ⊗ (left adj₀ ◃ l-λ b)) ≡
            (((r-ρ^ a) ▹ left adj₁) ⊗ (α^ a id₁ (left adj₁)) ⊗ (a ◃ (l-λ (left adj₁)))) ⊗ w ⊗ (((r-ρ^ (left adj₀)) ▹ b) ⊗ α^ (left adj₀) id₁ b ⊗ (left adj₀ ◃ l-λ b))
@@ -340,18 +352,48 @@ record prebicategory {i₁ i₂ i₃ : Level} : Type (lsuc (i₁ ⊔ i₂ ⊔ i�
       (transport (λ Z → (((r-ρ^ a) ▹ f₁) ⊗ (α^ a id₁ (f₁)) ⊗ (a ◃ (l-λ (f₁)))) ⊗ w ⊗ ((( (l-λ^ (f₀) ⊗ ((η₀) ▹ (f₀) ⊗ (α^ (f₀) (g₀) (f₀) ⊗ ((f₀) ◃ (ε₀)))))) ▹ b) ⊗ α^ (f₀) id₁ b ⊗ (f₀ ◃ l-λ b)) ≡ (((r-ρ^ a) ▹ f₁) ⊗ (α^ a id₁ (f₁)) ⊗ (a ◃ (l-λ (f₁)))) ⊗ w ⊗ (((r-ρ^ (f₀)) ▹ b) ⊗ α^ (f₀) id₁ b ⊗ (f₀ ◃ l-λ b))) (adj-lemma-left-tri (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀))
         (ap (λ Z → (r-ρ^ a ▹ f₁ ⊗ α^ a id₁ f₁ ⊗ a ◃ l-λ f₁) ⊗ w ⊗ Z) (transport (λ Z → Z ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b ≡ r-ρ^ f₀ ▹ b ⊗ α^ f₀ id₁ b ⊗ f₀ ◃ l-λ b) (adj-lemma-left-tri (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) ^) refl)))
 
--- ((r-ρ^ a) ▹ left adj₁) ⊗ (α^ a id₁ (left adj₁) ⊗ (l-λ^ a) ▹ (id₁ · left adj₁) ⊗  ((id₁ · a) ◃ (η adj₁ ▹ (left adj₁)) ⊗ ({!!} ⊗ (id₁ · a · (left adj₁)) ◃ (ε adj₁) ⊗ ((α id₁ a (left adj₁) ▹ id₁ ⊗ {!!}) ⊗ id₁ ◃ (w ▹ id₁) ⊗ ({!!} ⊗ (id₁ · left adj₀) ◃ (r-ρ b) ⊗ ({!!} ⊗ (η adj₀) ▹ (left adj₀ · b) ⊗ ({!!} ⊗ (left adj₀) ◃ (ε adj₀ ▹ b) ⊗ (left adj₀ ◃ (l-λ b)))))))))
+  -- {- This gives JY figure 2 to figure 3 -}
+  -- lemma3 : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
+  --          → (r-ρ^ a ▹ left adj₁ ⊗ (α^ _ _ _ ⊗ a ◃ (η adj₁ ▹ (left adj₁)) ⊗ ((a ◃ α^ (left adj₁) (right adj₁) (left adj₁) ⊗ α a (left adj₁) _) ⊗ (a · (left adj₁)) ◃ ε adj₁ ⊗ (α^ _ _ _ ⊗ l-λ^ a ▹ (left adj₁ · id₁) ⊗ ((α^ id₁ a _ ⊗ (id₁ ◃ (α a (left adj₁) id₁))) ⊗ id₁ ◃ (w ▹ id₁) ⊗ ((id₁ ◃ (α^ (left adj₀) b id₁) ⊗ α id₁ (left adj₀) (b · id₁)) ⊗ ((id₁ · left adj₀) ◃ (r-ρ b)) ⊗ (α^ _ _ _ ⊗ η adj₀ ▹ (left adj₀ · b) ⊗ ((α^ (left adj₀) (right adj₀) (left adj₀ · b) ⊗ (left adj₀ ◃ (α (right adj₀) (left adj₀) b))) ⊗ left adj₀ ◃ (ε adj₀ ▹ b) ⊗ (left adj₀ ◃ (l-λ b)))) ))))))
+  --            ≡ (((r-ρ^ a) ▹ left adj₁) ⊗ (α^ a id₁ (left adj₁)) ⊗ (a ◃ (η adj₁ ▹ (left adj₁) ⊗ (α^ (left adj₁) (right adj₁) (left adj₁) ⊗ ((left adj₁) ◃ (ε adj₁) ⊗ r-ρ (left adj₁)) )))) ⊗ w ⊗ (((l-λ^ (left adj₀) ⊗ ((η adj₀) ▹ (left adj₀) ⊗ (α^ (left adj₀) (right adj₀) (left adj₀) ⊗ ((left adj₀) ◃ (ε adj₀))))) ▹ b) ⊗ α^ (left adj₀) id₁ b ⊗ (left adj₀ ◃ l-λ b))
+  -- lemma3 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w =
+  --   {!!}
+
+
+  -- {- This lemma links up figure 1 and figure 2 in JY -}
+  -- lemma4 : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
+  --          → (l-λ^ (a · left adj₁) ⊗ (η adj₀ ▹ (a · left adj₁) ⊗ ((left adj₀ · right adj₀) ◃ (r-ρ^ a ▹ left adj₁) ⊗ (((left adj₀ · right adj₀) ◃ (α^ a id₁ (left adj₁)) ⊗ (α (left adj₀ · right adj₀) a (id₁ · left adj₁) ⊗ (α^ (left adj₀) (right adj₀) a ▹ (id₁ · left adj₁)))) ⊗ (left adj₀ · right adj₀ · a) ◃ (η adj₁ ▹ left adj₁) ⊗ ({!!} ⊗ (left adj₀ · right adj₀) ◃  (w ▹ (right adj₁ · left adj₁)) ⊗ ({!!} ⊗ left adj₀ ◃ (ε adj₀ ▹ (b · right adj₁ · left adj₁)) ⊗ ({!!} ⊗ r-ρ (left adj₀) ▹ (b · right adj₁ · left adj₁) ⊗ ({!!} ⊗ (left adj₀ · b) ◃ ε adj₁ ⊗ r-ρ (left adj₀ · b)))))))))
+  --            ≡ (r-ρ^ a ▹ left adj₁ ⊗ (α^ _ _ _ ⊗ a ◃ (η adj₁ ▹ (left adj₁)) ⊗ ((a ◃ α^ (left adj₁) (right adj₁) (left adj₁) ⊗ α a (left adj₁) _) ⊗ (a · (left adj₁)) ◃ ε adj₁ ⊗ (α^ _ _ _ ⊗ l-λ^ a ▹ (left adj₁ · id₁) ⊗ ((α^ id₁ a _ ⊗ (id₁ ◃ (α a (left adj₁) id₁))) ⊗ id₁ ◃ (w ▹ id₁) ⊗ ((id₁ ◃ (α^ (left adj₀) b id₁) ⊗ α id₁ (left adj₀) (b · id₁)) ⊗ ((id₁ · left adj₀) ◃ (r-ρ b)) ⊗ (α^ _ _ _ ⊗ η adj₀ ▹ (left adj₀ · b) ⊗ ((α^ (left adj₀) (right adj₀) (left adj₀ · b) ⊗ (left adj₀ ◃ (α (right adj₀) (left adj₀) b))) ⊗ left adj₀ ◃ (ε adj₀ ▹ b) ⊗ (left adj₀ ◃ (l-λ b)))) ))))))
+  -- lemma4 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w =
+  --   {!!}
+
+  {- Now we just need to show that our composite is equal to the one in Johnson and Yau -}
+  lemma5 : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
+           →  (r-ρ^ a ▹ left adj₁ ⊗ (α^ _ _ _ ⊗ a ◃ (η adj₁ ▹ (left adj₁)) ⊗ ((a ◃ α^ (left adj₁) (right adj₁) (left adj₁) ⊗ α a (left adj₁) _) ⊗ (a · (left adj₁)) ◃ ε adj₁ ⊗ (α^ _ _ _ ⊗ l-λ^ a ▹ (left adj₁ · id₁) ⊗ ((α^ id₁ a _ ⊗ (id₁ ◃ (α a (left adj₁) id₁))) ⊗ id₁ ◃ (w ▹ id₁) ⊗ ((id₁ ◃ (α^ (left adj₀) b id₁) ⊗ α id₁ (left adj₀) (b · id₁)) ⊗ ((id₁ · left adj₀) ◃ (r-ρ b)) ⊗ (α^ _ _ _ ⊗ η adj₀ ▹ (left adj₀ · b) ⊗ ((α^ (left adj₀) (right adj₀) (left adj₀ · b) ⊗ (left adj₀ ◃ (α (right adj₀) (left adj₀) b))) ⊗ left adj₀ ◃ (ε adj₀ ▹ b) ⊗ (left adj₀ ◃ (l-λ b)))) )))))) ≡  right-to-left-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b (left-to-right-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b w)
+  lemma5 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w =
+    {!transport (λ Z → )!}
 
 
 
 
+  -- {- We combine all of the above into the following -}
+
+  -- left-to-right-to-left-Id : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
+  --                          → right-to-left-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b (left-to-right-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b w) ≡ w
+  -- left-to-right-to-left-Id X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w =
+  --   lemma5 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w ^ ∘
+  --   lemma4 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w ^ ∘
+  --   {!!}
 
 
-  left-to-right-to-left-Id : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (w : 2-cell (a · (left adj₁)) (left adj₀ · b))
-                           → right-to-left-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b (left-to-right-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b w) ≡ w
-  left-to-right-to-left-Id X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w =
-    {!!}
 
-  right-to-left-to-right-Id : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (ν : 2-cell (right adj₀ · a) (b · right adj₁))
-                            → left-to-right-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b (right-to-left-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b ν) ≡ ν
-  right-to-left-to-right-Id X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b ν = {!!}
+
+    -- (({!lemma4 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w ^ ∘ ?!} ∘ lemma3 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w) ∘
+    --   lemma2 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w ) ∘
+    --   lemma1 X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b w
+
+
+
+  -- right-to-left-to-right-Id : (X₀ Y₀ X₁ Y₁ : 0-cell) (adj₀ : int-adj X₀ Y₀) (adj₁ : int-adj X₁ Y₁) (a : 1-cell X₀ X₁) (b : 1-cell Y₀ Y₁) (ν : 2-cell (right adj₀ · a) (b · right adj₁))
+  --                           → left-to-right-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b (right-to-left-mate X₀ Y₀ X₁ Y₁ adj₀ adj₁ a b ν) ≡ ν
+  -- right-to-left-to-right-Id X₀ Y₀ X₁ Y₁ (f₀ , g₀ , η₀ , ε₀ , left-triangle₀ , right-triangle₀) (f₁ , g₁ , η₁ , ε₁ , left-triangle₁ , right-triangle₁) a b ν = {!!}

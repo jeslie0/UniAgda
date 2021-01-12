@@ -14,7 +14,9 @@ open import UniAgda.categories.precat public
 
 -- open functor public
 
-functor : ∀ {i j k l} (A : Precategory {i} {j}) (B : Precategory {k} {l}) → Type (_)
+functor : ∀ {i j k l}
+          (A : Precategory {i} {j}) (B : Precategory {k} {l})
+          → Type (i ⊔ j ⊔ k ⊔ l)
 functor {i} {j} {k} {l} A B =
   Σ[ F-ob ∈ ((ob A) → (ob B))] (
        Σ[ F-hom ∈ ({a b : ob A} → hom A a b → hom B (F-ob a) (F-ob b))] (
@@ -24,11 +26,11 @@ functor {i} {j} {k} {l} A B =
 F-ob : ∀ {i j k l} {A : Precategory {i} {j}} {B : Precategory {k} {l}}
        (F : functor A B)
        → (ob A) → (ob B)
-F-ob {i} {j} {k} {l} {A} {B} (a , a₁ , a₂ , b) = a
+F-ob (a , a₁ , a₂ , b) = a
 
 F-hom : ∀ {i j k l} {A : Precategory {i} {j}} {B : Precategory {k} {l}}
        (F : functor A B)
-       → {a b : ob A} → hom A a b → hom B (F-ob {_} {_} {_} {_} {A} {B} F a) (F-ob {_} {_} {_} {_} {A} {B} F b) 
+       → {a b : ob A} → hom A a b → hom B (F-ob {_} {_} {_} {_} {A} {B} F a) (F-ob {_} {_} {_} {_} {A} {B} F b)
 F-hom {i} {j} {k} {l} {A} {B} (a , a₁ , a₂ , b) = a₁
 
 F-id : ∀ {i j k l} {A : Precategory {i} {j}} {B : Precategory {k} {l}}
@@ -40,3 +42,16 @@ F-nat : ∀ {i j k l} {A : Precategory {i} {j}} {B : Precategory {k} {l}}
         (F : functor A B)
         → {a b c : ob A} (g : hom A b c) (f : hom A a b) → F-hom {_} {_} {_} {_} {A} {B} F (comp A g f) ≡ comp B (F-hom {_} {_} {_} {_} {A} {B} F g) (F-hom {_} {_} {_} {_} {A} {B} F f)
 F-nat (a , a₁ , a₂ , b) = b
+
+
+
+{- Functor composition -}
+
+{- Identity functor -}
+Idᶠ : ∀ {i j} {C : Precategory {i} {j}}
+      → functor {_} {_} {_} {_} C C
+Idᶠ {i} {j} {C} =
+  id ,
+  id ,
+  refl ,
+  (λ g f → refl)

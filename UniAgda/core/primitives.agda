@@ -4,17 +4,18 @@ This file defines the main type formers that we use, along with some basic and f
 
 -}
 
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K --no-import-sorts --safe #-}
 module UniAgda.core.primitives where
 
 {-
 Universes
 -}
 
-open import Agda.Primitive using (Level; lzero; lsuc; _⊔_) public
-
-Type : (i : Level) → Set (lsuc i)
-Type i = Set i
+-- copying from Cubical
+open import Agda.Primitive public
+  using    ( Level ; lzero ; lsuc ; _⊔_)
+  renaming ( Set  to Type
+           ; Setω to Typeω )
 
 data raise (l : Level) {l1 : Level} (A : Type l1) : Type (l1 ⊔ l) where
   map-raise : A → raise l A
