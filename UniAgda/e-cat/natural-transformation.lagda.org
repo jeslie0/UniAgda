@@ -1,11 +1,12 @@
 #+title: Natural Transformations
 #+author: James Leslie
+#+STARTUP: hideblocks
 * Prelude
   #+begin_src agda2
 {-# OPTIONS --without-K #-}
-module UniAgda.e-cat.natural-transformations where
+module UniAgda.e-cat.natural-transformation where
 
-open import UniAgda.e-cat.functors public
+open import UniAgda.e-cat.functor public
 open Precategory
 open Functor
 #+end_src
