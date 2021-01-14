@@ -194,22 +194,22 @@ open Precategory
 #+end_src
 
 ** Notation
-It will be helpful to have some notation, to make it easier to reason about categories.
+It will be helpful to have some notation, to make it easier to reason about categories. This notation is taken from the [[https://github.com/agda/cubical/blob/master/Cubical/Categories/Category.agda][Cubical Agda library]].
 #+begin_src agda2
 _[_,_] : ∀ {i j} (C : Precategory i j) → (x y : C .ob) → Type j
 C [ x , y ] = C .hom x y
 
-seq : ∀ {i j} (∁ : Precategory i j) {x y z : ∁ .ob}
+comp' : ∀ {i j} (∁ : Precategory i j) {x y z : ∁ .ob}
       (g : ∁ [ y , z ]) (f : ∁ [ x , y ])
       → ∁ [ x , z ]
-seq ∁ g f = ∁ .comp g f
+comp' ∁ g f = ∁ .comp g f
 
-infix 15 seq
-syntax seq C g f = g o⟨ C ⟩ f
+infix 15 comp'
+syntax comp' C g f = g o⟨ C ⟩ f
 #+end_src
 
 * Categories
-A category, in the sense of the HoTT book is on where the map "id-to-iso" is an equivalence. These are sometimes referred to as "univalent categories".
+A category, in the sense of the HoTT book, is a Precategory where the map "id-to-iso" is an equivalence. These are sometimes referred to as "univalent categories".
 
 #+begin_src agda2
 isCategory : ∀ {i j}
@@ -292,7 +292,7 @@ open Category
 * Opposite category
 We define the opposite of a category and show that \((C ^\text{op})^\text{op} = C\).
 
-#+begin_src agda2
+  #+begin_src agda2
 _^op : ∀ {i j} (C : Precategory i j)
        → Precategory i j
 ob (C ^op) = C .ob
