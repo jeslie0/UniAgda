@@ -1,7 +1,7 @@
 {-# OPTIONS --without-K #-}
 module UniAgda.e-cat.natural-transformation where
 
-open import UniAgda.e-cat.functor public
+open import UniAgda.e-cat.functors public
 
 record Nat-trans {i j k l : Level} {A : Precategory i j} {B : Precategory k l} (F G : Functor A B) : Type (i ⊔ j ⊔ l) where
   eta-equality

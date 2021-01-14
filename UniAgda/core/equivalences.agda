@@ -306,3 +306,10 @@ isretr-isContrmap {_} {_} {A} {B} {f} X x = ap ( pr₁ {B = λ z → f z ≡ f x
       (inv-isContrmap X (f x) , issect-isContrmap X (f x))) ^ ∘
       (contraction (X (f x)) (x , refl)) )
 
+
+-- This is used to prove equalities in a type, given that type is equivalent to another on.
+
+equiv-types-eq : ∀ {i} {A B : Type i}
+        (x y : B) (F : A ≃ B)
+        → pr₁ (pr₂ F) x ≡ pr₁ (pr₂ F) y → x ≡ y
+equiv-types-eq x y (f , g , η , ε , τ) p = ε x ^ ∘ (ap f p) ∘ ε y

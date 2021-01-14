@@ -1,0 +1,10 @@
+#+title: Functors
+#+author: James Leslie
+#+description: Functors and their some properties
+* Prelude
+#+begin_src agda2
+{-# OPTIONS --without-K #-}
+module UniAgda.e-cat.functors where
+
+open import UniAgda.e-cat.category public
+#+end_src

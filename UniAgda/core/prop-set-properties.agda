@@ -93,10 +93,11 @@ props-equiv : {i j : Level} {P : Type i} {Q : Type j}
 props-equiv {i} {j} {P} {Q} X Y f g = equiv-adjointify (f , g , ((λ y → Y ((f o g) y) y) , λ x → X ((g o f) x) x))
 lemma3-3-3 = props-equiv
 
-lemma3-3-4-help : {i : Level} {A : Type i} {f : (x y : A) → x ≡ y} {x : A}
-                  → (y z : A) (p : y ≡ z)
-                  → (f x y) ∘ p ≡ f x z
-lemma3-3-4-help {_} {A} {f} {x} y z p = lemma2-11-2i x p (f x y) ^ ∘ apD (λ y → f x y) p
+private
+  lemma3-3-4-help : {i : Level} {A : Type i} {f : (x y : A) → x ≡ y} {x : A}
+                    → (y z : A) (p : y ≡ z)
+                    → (f x y) ∘ p ≡ f x z
+  lemma3-3-4-help {_} {A} {f} {x} y z p = lemma2-11-2i x p (f x y) ^ ∘ apD (λ y → f x y) p
 
 props-are-sets : {i : Level} {A : Type i}
              → isProp A → isSet A
@@ -124,27 +125,6 @@ isSet-is-prop : {i : Level}
 isSet-is-prop A f g = funextD λ {x → funextD λ x₁ → funextD λ x₂ → funextD λ x₃ → sets-are-1types f _ _ _ _ _ _}
 
 
-private
-  path-equiv-sigma-to-id : {i j : Level} {A : Type i} {P : A → Type j}
-                           {w w' : Σ[ x ∈ A ] (P x)}
-                           → (w ≡ w') ≡ (Σ[ p ∈ (pr₁ w ≡ pr₁ w') ] (transport P p (pr₂ w) ≡ (pr₂ w')))
-  path-equiv-sigma-to-id  = ua (thm2-7-2)
-
-
-
-prop-fibres-totalspace-set : ∀ {i j} {A : Type i} {P : A → Type j}
-                             → isSet A → ((a : A) → isProp (P a))
-                             → isSet (Σ[ a ∈ A ] (P a))
-prop-fibres-totalspace-set {i} {j} {A} {P} H f X Y = transport (λ Z → (p q : Z) → p ≡ q) (path-equiv-sigma-to-id ^) λ { (a , b) (a' , b') → path-equiv-sigma (H _ _ _ _ , props-are-sets (f (pr₁ Y))  _ _ _ _)}
-
-
-prop-fibres-Pi-is-prop : ∀ {i j} {A : Type i} {B : A → Type j}
-                         → ((x : A) → isProp (B x))
-                         → isProp ((x : A) → B x)
-prop-fibres-Pi-is-prop F f g = funextD λ x → F x (f x) (g x)
-
-
-
 equiv-with-prop : ∀ {i j} {A : Type i} {B : Type j}
                   → A ≃ B → isProp A
                   → isProp B
@@ -154,11 +134,39 @@ equiv-with-prop (f , g , α , β , γ) F x y = (((ap f (F (g y) (g x))) ∘ β x
 equiv-with-set : ∀ {i j} {A : Type i} {B : Type j}
                  → A ≃ B → isSet A
                  → isSet B
-equiv-with-set (f , g , α , β , γ) F x y = equiv-with-prop {_} {_} {g x ≡ g y} {x ≡ y} (((ap g) , (thm2-11-1 (isequiv-adjointify (f , (α , β))))) ^ᵉ) (F (g x) (g y))
+equiv-with-set (f , g , α , β , γ) F x y =
+  equiv-with-prop {_} {_} {g x ≡ g y} {x ≡ y}
+    (((ap g) ,
+      (thm2-11-1 (isequiv-adjointify (f , (α , β))))) ^ᵉ)
+    (F (g x) (g y))
+
+
+prop-fibres-totalspace-set : ∀ {i j} {A : Type i} {P : A → Type j}
+                             → isSet A → ((a : A) → isProp (P a))
+                             → isSet (Σ[ a ∈ A ] (P a))
+prop-fibres-totalspace-set {i} {j} {A} {P} H f (a , X) (b , Y) =
+  equiv-with-prop
+  (thm2-7-2 ^ᵉ)
+  (λ { (p , p') (q , q') →
+    path-equiv-sigma
+      ((H _ _ _ _) ,
+      (props-are-sets (f b) _ _ _ _))})
+
+
+
+prop-fibres-Pi-is-prop : ∀ {i j} {A : Type i} {B : A → Type j}
+                         → ((x : A) → isProp (B x))
+                         → isProp ((x : A) → B x)
+prop-fibres-Pi-is-prop F f g = funextD λ x → F x (f x) (g x)
 
 
 
 
+
+sets-have-prop-ids : ∀ {i}
+                     (A : Type i) → isSet A
+                     → (x y : A) → isProp (x ≡ y)
+sets-have-prop-ids A H x y = H x y
 
 
 {- Results about contractibility -}
