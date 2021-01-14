@@ -3,6 +3,7 @@ module UniAgda.experimental.record-stuff where
 
 open import UniAgda.everything public
 record magma {i : Level} : Type (lsuc i) where
+  inductive
   field
     carrier : Type i
     op : carrier → carrier → carrier
@@ -43,6 +44,10 @@ op (magma-sig→rec {i} M) = op' M
 magma-η : ∀ {i}
           (M : magma {i})
           → (magma-sig→rec o magma-rec→sig) M ≡ M
-magma-η {i} M = {!!}
+magma-η {i} refl
 
+magma-epsilon : ∀ {i}
+                (M : magma-sig {i})
+                → (magma-rec→sig o magma-sig→rec) M ≡ M
+magma-epsilon M = path-equiv-sigma (refl , refl)
 

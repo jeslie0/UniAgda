@@ -90,7 +90,6 @@ ap : {i j : Level} {A : Type i} {B : Type j} {x y : A}
      (f : A → B) (p : x ≡ y)
      → (f x ≡ f y)
 ap f refl = refl
-_[_] = ap
 
 -- Transport
 transport : {i j : Level} {A : Type i} {x y : A}

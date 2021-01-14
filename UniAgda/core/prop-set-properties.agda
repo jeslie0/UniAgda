@@ -333,8 +333,8 @@ isEquiv-to-isContrmap : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
                      → isEquiv f
                      → isContrmap f
 isEquiv-to-isContrmap {_} {_} {A} {B} {f} (g , η , ε , τ) y = ((g y) , (ε y)) , (λ { (x , p) → pr₁ (lemma4-2-5 (g y , ε y) ( x , p) ^ᵉ) ((ap g p ^ ∘ η x) ,
-                      transport (λ q → q ∘ p ≡ ε y) (apf-pq f (ap g p ^) (η x) ^) (transport (λ q → ((f [ q ]) ∘ (f [ η x ])) ∘ p ≡ ε y) (apf-p^ g p)
-                      (transport (λ q → (q ∘ (ap f (η x))) ∘ p ≡ ε y) (ap-gf f g (p ^)) (transport (λ q → (((f o g) [ p ^ ]) ∘ q) ∘ p ≡ ε y) (τ x ^)
+                      transport (λ q → q ∘ p ≡ ε y) (apf-pq f (ap g p ^) (η x) ^) (transport (λ q → ((ap f q) ∘ (ap f (η x))) ∘ p ≡ ε y) (apf-p^ g p)
+                      (transport (λ q → (q ∘ (ap f (η x))) ∘ p ≡ ε y) (ap-gf f g (p ^)) (transport (λ q → ((ap (f o g) (p ^)) ∘ q) ∘ p ≡ ε y) (τ x ^)
                       (transport (λ q → q ∘ p ≡ ε y) (homotopy-natural ε (p ^)) (transport (λ q → (ε y ∘ q) ∘ p ≡ ε y) (ap-id (p ^) ^) (ass-l (ε y) (p ^) p ∘ (p-to-pq^q (ε y) p) ^))) ))))})
 
 

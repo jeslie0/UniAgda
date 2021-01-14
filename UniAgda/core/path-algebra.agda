@@ -226,22 +226,22 @@ pq-^-to-q^p^ refl refl = refl
 -- ap properties
 apf-pq : ∀ {i j} {A : Type i} {B : Type j} {x y z : A}
          (f : A → B) (p : x ≡ y) (q : y ≡ z)
-         → (f [ (p ∘ q) ]) ≡ ((f [ p ]) ∘ (f [ q ]))
+         → (ap f (p ∘ q)) ≡ ((ap f p) ∘ (ap f q))
 apf-pq f refl q = refl
 
 apf-p^ : ∀ {i j} {A : Type i} {B : Type j} {x y : A}
          (f : A → B) (p : x ≡ y)
-         → f [ p ^ ] ≡ (f [ p ]) ^
+         → ap f (p ^) ≡ (ap f p) ^
 apf-p^ f refl = refl
 
 ap-gf : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k} {x y : A}
          (g : B → C) (f : A → B) (p : x ≡ y)
-         → (g o f) [ p ] ≡ g [ f [ p ] ] 
+         → ap (g o f) p ≡ ap g (ap f p)
 ap-gf g f refl = refl
 
 ap-id : ∀ {i} {A : Type i} {x y : A}
         (p : x ≡ y)
-        → id [ p ] ≡ p
+        → ap id p ≡ p
 ap-id refl = refl
 
 
@@ -264,7 +264,7 @@ lift u refl = refl
 
 lift-comp : ∀ {i j} {A : Type i} {P : A → Type j} {x y : A}
        (u : P x) (p : x ≡ y)
-       → pr₁ [ lift {_} {_} {A} {P} u p ] ≡ p
+       → ap pr₁ (lift {_} {_} {A} {P} u p) ≡ p
 lift-comp u refl = refl
 
 tr-pq : ∀ {i j} {A : Type i} {P : A → Type j} {x y z : A}
@@ -274,7 +274,7 @@ tr-pq refl q u = refl
 
 tr-Pf : ∀ {i j k} {A : Type i} {B : Type j} {x y : A}
         (P : B → Type k) (f : A → B) (p : x ≡ y) (u : P (f x))
-        → transport (P o f) p u ≡ transport P (f [ p ]) u
+        → transport (P o f) p u ≡ transport P (ap f p) u
 tr-Pf P f refl u = refl
 tr-P-to-Q : ∀ {i j k} {A : Type i} {x y : A} {P : A → Type j} {Q : A → Type k}
             (f : (x : A) → P x → Q x) (p : x ≡ y) (u : P x)

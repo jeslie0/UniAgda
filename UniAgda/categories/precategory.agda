@@ -72,6 +72,14 @@ record Precategory {i j} : Type (lsuc (i ⊔ j)) where
   iso-is-set a b =
     prop-fibres-totalspace-set (hom-set a b) λ x → isiso-is-prop x
 
+
+  id-to-iso : {a b : ob}
+              → (a ≡ b) → (iso a b)
+  id-to-iso refl =
+    Id ,
+    Id ,
+    l-Id Id ,
+    r-Id Id 
 -- open Precategory public
 
 {- Defining the opposite category -}

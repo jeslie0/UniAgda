@@ -55,6 +55,20 @@ funextD-equiv : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) →
                 → (f ≡ g) ≃ (f ~ g)
 funextD-equiv = happlyD , happlyD-isEquiv
 
+{- Extensionality for functions iwth implicit arguments -}
+
+private
+  implicit-eval : {ℓ  ℓ' : Level} {A : Type ℓ} {B : A → Type ℓ'}
+                  → ((x : A) → B x) → {x : A} → B x
+  implicit-eval f {x} = f x
+
+implicit-funext : {ℓ  ℓ' : Level} {A : Type ℓ} {B : A → Type ℓ'} {f g : {x : A} → B x}
+                  (H : (x : A) → f {x} ≡ g {x})
+                  → (λ {x} → f {x}) ≡ (λ {x} → g {x})
+implicit-funext {f = f} {g} H = ap implicit-eval (funextD {_} {_} {_} {_} {f = λ x → f{x}} {g = λ x → g{x}} H)
+
+
+
 
 {- Univalence -}
 
