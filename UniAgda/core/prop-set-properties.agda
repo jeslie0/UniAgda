@@ -118,6 +118,15 @@ fibres-props-eq : {i j : Level} {A : Type i} {P : A → Type j}
 fibres-props-eq {_} {_} {A} {P} X u v p = path-equiv-sigma (p , (X (pr₁ v) (transport P p (pr₂ u)) (pr₂ v)))
 lemma3-5-1 = fibres-props-eq
 
+id-equiv-to-prop-on-type : ∀ {i j} (X X' : Type i) (Q : Type i → Type j)
+              (F : (A : Type i) → isProp (Q A))
+              → (a : Q X) → (b : Q X')
+              → (X ≡ X') ≃ ((X , a) ≡ (X' , b))
+id-equiv-to-prop-on-type X X' Q F a b = equiv-adjointify ((λ { refl → refl , (F X a b)}) ,
+                         (λ { (p , u) → p}) ,
+                         (λ { (refl , refl) → path-equiv-sigma (refl , (props-are-sets (F X) _ _ _ _))}) ,
+                         λ { refl → refl}) oₑ (thm2-7-2 ^ᵉ)
+
 
 isSet-is-prop : {i : Level}
                 (A : Type i)

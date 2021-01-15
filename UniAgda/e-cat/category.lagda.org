@@ -73,9 +73,9 @@ The expected results about isomorphisms all hold, in particular that "iso" is an
 
 Importantly, the type "isIso" is a proposition, which means that we have a set of isomorphisms.
 #+begin_src agda2
-  isiso-is-prop : {a b : ob} (f : hom a b)
+  isIso-is-prop : {a b : ob} (f : hom a b)
                   → isProp (isIso f)
-  isiso-is-prop {a} {b} f (g , η , ε) (g' , η' , ε') =
+  isIso-is-prop {a} {b} f (g , η , ε) (g' , η' , ε') =
     path-equiv-sigma
       (IdR g ^ ∘ transport (λ x → comp x g ≡ g') (ε') ((Assoc _ _ _) ^ ∘ transport (λ x → comp g' x ≡ g') (η ^) (IdL g')) ,
       path-equiv-prod ((hom-set _ _ _ _ _ η') , hom-set _ _ _ _ _ ε'))
@@ -83,7 +83,7 @@ Importantly, the type "isIso" is a proposition, which means that we have a set o
   iso-is-set : (a b : ob)
                → isSet (iso a b)
   iso-is-set a b =
-    prop-fibres-totalspace-set (hom-set a b) λ x → isiso-is-prop x
+    prop-fibres-totalspace-set (hom-set a b) λ x → isIso-is-prop x
 #+end_src
 
 Any path in a category can be transformed into an isomorphism, by induction. This function will be important when we deal with Categories, rather than Precategories.
@@ -223,6 +223,7 @@ We define a "Category" to be a record of a Precategory, with a witness of "isCat
 #+begin_src agda2
 record Category (i j : Level) : Type (lsuc (i ⊔ j)) where
   eta-equality
+  open Precategory
   field
     ∁ : Precategory i j
     univ : isCategory ∁
@@ -230,7 +231,6 @@ record Category (i j : Level) : Type (lsuc (i ⊔ j)) where
 
 There are some immediate results that we can prove about categories. As they are "univalent", we would expect isomorphic objects to be equal. This is the case and we prove them /in/ the record.
 #+begin_src agda2
-  open Precategory
   cat-iso-to-id : (a b : ∁ .ob) → iso ∁ a b → a ≡ b
   cat-iso-to-id a b x = pr₁ (univ a b) x
 #+end_src
@@ -239,6 +239,18 @@ We also have that the type of objects of any Category must be a 1-type.
 #+begin_src agda2
   cat-ob-is1type : is1type (∁ .ob)
   cat-ob-is1type a b = equiv-with-set (((id-to-iso ∁) , (univ a b)) ^ᵉ) (iso-is-set ∁ a b)
+#+end_src
+
+We also have the following few lemmas that hold in categories.
+#+begin_src agda2
+  id-to-iso^ : {a b : ∁ .ob}
+                  (p : a ≡ b)
+                  → id-to-iso ∁ (p ^) ≡ iso-sym ∁ a b (id-to-iso ∁ p)
+  id-to-iso^ refl =
+    path-equiv-sigma (refl ,
+      (path-equiv-sigma (refl ,
+        (path-equiv-sigma ((∁ .hom-set _ _ _ _ _ _) ,
+          (∁ .hom-set _ _ _ _ _ _))))))
 #+end_src
 
 ** Sigma definition and equivalence
@@ -292,7 +304,7 @@ open Category
 * Opposite category
 We define the opposite of a category and show that \((C ^\text{op})^\text{op} = C\).
 
-  #+begin_src agda2
+#+begin_src agda2
 _^op : ∀ {i j} (C : Precategory i j)
        → Precategory i j
 ob (C ^op) = C .ob
@@ -305,7 +317,7 @@ IdR (C ^op) = C .IdL
 Assoc (C ^op) f g h = Assoc C h g f ^
 #+end_src
 
-To show that "op" is an involution, we need to convert to Σ types, p ^ ^ is equal to p only up to a path. The proof uses refl on every component except for associativity. Here, we need to unpack using implicit and explicit function extensionalities, then give the proof of p^ ^ = p.
+To show that "op" is an involution, we need to convert to Σ types, \(p ^ ^\) is equal to p only up to a path. The proof uses refl on every component except for associativity. Here, we need to unpack using implicit and explicit function extensionalities, then give the proof of  \(p^ ^ = p\).
 #+begin_src agda2
 op-involution : ∀ {i j}
                   (C : Precategory i j)

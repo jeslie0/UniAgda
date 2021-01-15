@@ -1,0 +1,34 @@
+#+title: The initial category
+#+author: James Leslie
+* Prelude
+#+begin_src agda2
+{-# OPTIONS --without-K #-}
+module UniAgda.e-cat.categories.initial where
+
+open import UniAgda.e-cat.category 
+open Precategory
+open Category
+#+end_src
+* Definition
+The initial precategory is a category with no objects. It is defined as follows.
+#+begin_src agda2
+𝟘 : Precategory lzero lzero
+ob 𝟘 = Empty
+hom 𝟘 () b
+hom-set 𝟘 () b
+Id 𝟘 {()}
+comp 𝟘 {()} f g
+IdL 𝟘 {()} f
+IdR 𝟘 {()} f
+Assoc 𝟘 {()} f g h
+#+end_src
+
+It is immediate that it is a category.
+#+begin_src agda2
+𝟘-is-category : isCategory 𝟘
+𝟘-is-category () b
+
+𝟘-Cat : Category lzero lzero
+∁ 𝟘-Cat = 𝟘
+univ 𝟘-Cat = 𝟘-is-category
+#+end_src

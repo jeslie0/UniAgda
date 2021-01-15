@@ -26,14 +26,14 @@ SET {i} =
 
 {- We show that Set is a (univalent) category -}
 
-id-equiv-to-prop-on-type : ∀ {i j} (X X' : Type i) (Q : Type i → Type j)
-              (F : (A : Type i) → isProp (Q A))
-              → (a : Q X) → (b : Q X')
-              → (X ≡ X') ≃ ((X , a) ≡ (X' , b))
-id-equiv-to-prop-on-type X X' Q F a b = equiv-adjointify ((λ { refl → refl , (F X a b)}) ,
-                         (λ { (p , u) → p}) ,
-                         (λ { (refl , refl) → path-equiv-sigma (refl , (props-are-sets (F X) _ _ _ _))}) ,
-                         λ { refl → refl}) oₑ (thm2-7-2 ^ᵉ)
+-- id-equiv-to-prop-on-type : ∀ {i j} (X X' : Type i) (Q : Type i → Type j)
+--               (F : (A : Type i) → isProp (Q A))
+--               → (a : Q X) → (b : Q X')
+--               → (X ≡ X') ≃ ((X , a) ≡ (X' , b))
+-- id-equiv-to-prop-on-type X X' Q F a b = equiv-adjointify ((λ { refl → refl , (F X a b)}) ,
+--                          (λ { (p , u) → p}) ,
+--                          (λ { (refl , refl) → path-equiv-sigma (refl , (props-are-sets (F X) _ _ _ _))}) ,
+--                          λ { refl → refl}) oₑ (thm2-7-2 ^ᵉ)
 
 
 UA-for-sets : ∀ {i} (X X' : Set_ i)
