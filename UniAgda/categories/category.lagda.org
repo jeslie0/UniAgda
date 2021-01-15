@@ -5,7 +5,7 @@
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K  #-}
-module UniAgda.e-cat.category where
+module UniAgda.categories.category where
 open import UniAgda.core.CORE public
 #+end_src
 

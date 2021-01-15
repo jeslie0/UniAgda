@@ -4,9 +4,9 @@
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K  #-}
-module UniAgda.e-cat.functorcat where
+module UniAgda.categories.functorcat where
 
-open import UniAgda.e-cat.natural-transformation public
+open import UniAgda.categories.natural-transformation public
 open Precategory
 open Functor
 open Nat-trans
@@ -71,3 +71,10 @@ nat-trans-iso-components γ =
   (lemma9-2-4ii γ)
 #+end_src
 * Functor Categories
+A result which will be central to the study of categories is the following: if A is a precategory and B is a category, then B ^ A is also a category.
+#+begin_src agda2
+functor-cat-condition : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
+                          isCategory B
+                          → isCategory (B ^ A)
+functor-cat-condition = ?
+#+end_src

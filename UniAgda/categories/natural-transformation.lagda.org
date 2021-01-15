@@ -4,9 +4,9 @@
 * Prelude
   #+begin_src agda2
 {-# OPTIONS --without-K  #-}
-module UniAgda.e-cat.natural-transformation where
+module UniAgda.categories.natural-transformation where
 
-open import UniAgda.e-cat.functor public
+open import UniAgda.categories.functor public
 open Precategory
 open Functor
 #+end_src

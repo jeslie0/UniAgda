@@ -5,8 +5,8 @@
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K  #-}
-module UniAgda.e-cat.functor where
-open import UniAgda.e-cat.category public
+module UniAgda.categories.functor where
+open import UniAgda.categories.category public
 #+end_src
 * Definition
 We introduce functors between precategories as a record, giving the sigma type and equivalence later.

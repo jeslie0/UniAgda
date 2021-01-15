@@ -3,9 +3,9 @@
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K  #-}
-module UniAgda.e-cat.categories.initial where
+module UniAgda.categories.examples.initial where
 
-open import UniAgda.e-cat.category 
+open import UniAgda.categories.category 
 open Precategory
 open Category
 #+end_src
