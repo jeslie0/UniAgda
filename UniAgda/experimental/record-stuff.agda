@@ -44,7 +44,7 @@ op (magma-sig→rec {i} M) = op' M
 magma-η : ∀ {i}
           (M : magma {i})
           → (magma-sig→rec o magma-rec→sig) M ≡ M
-magma-η {i} refl
+magma-η {i} = refl
 
 magma-epsilon : ∀ {i}
                 (M : magma-sig {i})

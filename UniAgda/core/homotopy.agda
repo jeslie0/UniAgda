@@ -1,4 +1,4 @@
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K  #-}
 module UniAgda.core.homotopy where
 
 open import UniAgda.core.primitives public

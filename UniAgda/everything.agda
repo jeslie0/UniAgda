@@ -1,4 +1,4 @@
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K  #-}
 module UniAgda.everything where
 
 open import UniAgda.core.CORE public

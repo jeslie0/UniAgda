@@ -2,7 +2,7 @@
 #+author: James Leslie
 * Prelude
 #+begin_src agda2
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K  #-}
 module UniAgda.e-cat.categories.initial where
 
 open import UniAgda.e-cat.category 

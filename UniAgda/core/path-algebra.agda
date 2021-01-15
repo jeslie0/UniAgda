@@ -4,7 +4,7 @@ This file contains lots of tools for manipulating identities with paths.
 
 -}
 
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K  #-}
 module UniAgda.core.path-algebra where
 open import UniAgda.core.primitives public
 

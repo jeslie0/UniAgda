@@ -3,7 +3,7 @@
 #+STARTUP: hideblocks
 * Prelude
   #+begin_src agda2
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K  #-}
 module UniAgda.e-cat.natural-transformation where
 
 open import UniAgda.e-cat.functor public
@@ -115,7 +115,7 @@ Nat-trans-is-set {A = A} {B = B} F G = equiv-with-set (Nat-trans-sig-equiv F G)
 #+end_src
 
 * Categorical properties
-We prove some useful results which will be used to show that functors form a category. Firstly, there is an identity natural transformation.
+We prove some useful results which will be used to show that functors form a precategory. Firstly, there is an identity natural transformation.
 #+begin_src agda2
 idⁿ : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F : Functor A B}
       → Nat-trans F F
@@ -142,17 +142,16 @@ nat-trans-compᵛ {i} {j} {k} {l} {A} {B} {F} {G} {H}
 
 Composing with the identity is as expected.
 #+begin_src agda2
-nat-trans-id-compᵛ : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
-                     (F G : Functor A B) (α : Nat-trans F G)
+nat-trans-id-compᵛ : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F G : Functor A B}
+                     (α : Nat-trans F G)
                      → nat-trans-compᵛ idⁿ α ≡ α
-nat-trans-id-compᵛ {B = B} F G record { α-ob = α₁ ; α-hom = α₂ } =
+nat-trans-id-compᵛ {B = B} record { α-ob = α₁ ; α-hom = α₂ } =
   nat-trans-id _ _ (funextD λ x → B .IdR (α₁ x))
 
 
-nat-trans-compᵛ-id : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
-                     (F G : Functor A B) (α : Nat-trans F G)
+nat-trans-compᵛ-id : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F G : Functor A B} (α : Nat-trans F G)
                      → nat-trans-compᵛ  α idⁿ ≡ α
-nat-trans-compᵛ-id {B = B} F G record { α-ob = α₁ ; α-hom = α₂ } =
+nat-trans-compᵛ-id {B = B} record { α-ob = α₁ ; α-hom = α₂ } =
   nat-trans-id _ _ (funextD λ x → B .IdL (α₁ x))
 #+end_src
 

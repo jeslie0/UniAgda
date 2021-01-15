@@ -1,4 +1,4 @@
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K  #-}
 module UniAgda.core.prop-set-properties where
 
 open import UniAgda.core.axioms public

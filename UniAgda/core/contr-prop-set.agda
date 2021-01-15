@@ -1,4 +1,4 @@
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K  #-}
 module UniAgda.core.contr-prop-set where
 
 open import UniAgda.core.primitives public

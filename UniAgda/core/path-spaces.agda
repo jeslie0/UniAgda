@@ -5,7 +5,7 @@ This file contains data on how the path spaces act in each of the data types we 
 -}
 
 
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K  #-}
 module UniAgda.core.path-spaces where
 
 open import UniAgda.core.equivalences public

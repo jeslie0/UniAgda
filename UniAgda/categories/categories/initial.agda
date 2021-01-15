@@ -1,4 +1,4 @@
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K  #-}
 module UniAgda.categories.categories.initial where
 
 open import UniAgda.categories.category public

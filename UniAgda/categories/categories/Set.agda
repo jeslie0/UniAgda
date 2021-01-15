@@ -1,4 +1,4 @@
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K  #-}
 module UniAgda.categories.categories.Set where
 
 open import UniAgda.categories.category public
