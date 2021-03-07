@@ -53,6 +53,7 @@ There are rough naming conventions that I try to follow.
   + [ ] Sections 4.6, 4.7, 4.8
   + [ ] Finish theorem 9.2.5
   + [ ] Define horizontal composition of natural transformations, and whiskering.
+  + [X] Add sigma versions of adjunctions and equivalences
 
 - Add in n-types.
 - Add in some more HITs - in particular n-truncation
@@ -60,6 +61,3 @@ There are rough naming conventions that I try to follow.
 
 
 * Refactoring notes
-** Categories
-- [X] change "is-iso" to "isIso", as isIso is a proposition
-- [X] change "iso-of-f-is-prop" to "isIso-is-prop"

@@ -46,9 +46,9 @@ The reverse direction mainly consists of some path algebra. It is mathematically
   lemma9-2-4ii : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {F G : (B ^ A) .ob}
                   (γ : (B ^ A) .hom F G)
                    → ((a : A .ob) → isIso B (γ .α-ob a)) → isIso (B ^ A) γ
-  lemma9-2-4ii {B = B} {F = F} {G = G} record { α-ob = γ₁ ; α-hom = γ₂ } δ =
+  lemma9-2-4ii {B = B} {F = F} {G = G} record { α-ob = γ₁ ; α-nat = γ₂ } δ =
     record { α-ob = λ a → pr₁ (δ a) ;
-             α-hom = λ { {a} {b} f →
+             α-nat = λ { {a} {b} f →
                (((((((IdL B (pr₁ (δ b) o⟨ B ⟩ G .F₁ f) ^
                  ∘ precat-whiskerL B (pr₁ (pr₂ (δ a)) ^) (pr₁ (δ b) o⟨ B ⟩ G .F₁ f))
                  ∘ Assoc B (pr₁ (δ a)) (γ₁ a) (pr₁ (δ b) o⟨ B ⟩ G .F₁ f))

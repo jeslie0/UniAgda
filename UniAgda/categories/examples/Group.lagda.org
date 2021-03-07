@@ -1,0 +1,24 @@
+#+title: Category of groups
+#+author: James Leslie
+#+STARTUP: hideblocks noindent
+* Prelude
+#+begin_src agda2
+{-# OPTIONS --without-K  #-}
+module UniAgda.categories.examples.Group where
+
+open import UniAgda.categories.category
+open import UniAgda.Algebra.GroupTheory.basics public
+open Precategory
+#+end_src
+* Category of groups
+#+begin_src agda2
+GROUP : (i : Level) → Precategory (lsuc i) i
+ob (GROUP i) = Group i
+hom (GROUP i) = Group-hom {i} {i}
+hom-set (GROUP i) G H = Group-hom-is-set
+Id (GROUP i) = Idᵍ
+comp (GROUP i) = ghom-comp
+IdL (GROUP i) = ghom-lId
+IdR (GROUP i) = ghom-rId
+Assoc (GROUP i) = ghom-assoc
+#+end_src

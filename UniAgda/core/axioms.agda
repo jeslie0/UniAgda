@@ -1,4 +1,4 @@
-{-# OPTIONS --without-K  #-}
+{-# OPTIONS --without-K #-}
 module UniAgda.core.axioms where
 
 open import UniAgda.core.equivalences public

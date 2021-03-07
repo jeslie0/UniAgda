@@ -1,4 +1,4 @@
-{-# OPTIONS --without-K  #-}
+{-# OPTIONS --without-K --safe #-}
 module UniAgda.core.equivalences where
 
 open import UniAgda.core.homotopy public

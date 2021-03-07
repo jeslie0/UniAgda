@@ -4,7 +4,7 @@ This file defines the main type formers that we use, along with some basic and f
 
 -}
 
-{-# OPTIONS --without-K --no-import-sorts  #-}
+{-# OPTIONS --without-K --no-import-sorts --safe #-}
 module UniAgda.core.primitives where
 
 {-
