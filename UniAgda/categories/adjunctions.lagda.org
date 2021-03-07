@@ -1,0 +1,26 @@
+#+title: Adjunctions
+* Prelude
+#+begin_src agda2
+{-# OPTIONS --without-K #-}
+module UniAgda.categories.adjunctions where
+
+open import UniAgda.categories.category public
+open import UniAgda.categories.functor
+open import UniAgda.categories.functorcat
+open import UniAgda.categories.natural-transformation public
+#+end_src
+* Definition
+
+  #+begin_src agda2
+record isLeftAdjoint {i j k l : Level} {A : Precategory i j} {B : Precategory k l} (Left : Functor A B) : Type (lsuc (i ⊔ j ⊔ k ⊔ l)) where
+  eta-equality
+  field
+    Right : Functor B A
+    unit : NaturalTransformation Idᶠ (Right oF Left)
+    counit : NaturalTransformation (Left oF Right) Idᶠ
+
+  open Precategory
+  field
+    left-triangle : (({!pr₁ (id-to-iso (B ^ A) (id-o-F {F = Left} ^))!} oᴺ (counit ▹ Left)) oᴺ pr₁ (id-to-iso (B ^ A) (F-Assoc Left Right Left ^))) oᴺ (Left ◃ unit) oᴺ (pr₁ (id-to-iso (B ^ A) (F-o-id {F = Left}))) ≡ idⁿ
+    -- right-triangle : (nat-trans-compᵛ (Right ◃ counit) (unit ▹ Right)) ≡ Idᶠ
+#+end_src

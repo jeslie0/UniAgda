@@ -48,17 +48,17 @@ The expected results about isomorphisms all hold, in particular that "iso" is an
     IdL Id ,
     IdR Id
 
-  iso-sym : (a b : ob)
+  iso-sym : {a b : ob}
             → iso a b → iso b a
-  iso-sym a b (f , g , x , y) =
+  iso-sym (f , g , x , y) =
     g ,
     f ,
     y ,
     x
 
-  iso-trans : (a b c : ob)
+  iso-trans : {a b c : ob}
               → iso a b → iso b c → iso a c
-  iso-trans a b c (f , g , x , y) (f' , g' , x' , y') =
+  iso-trans (f , g , x , y) (f' , g' , x' , y') =
     (comp f' f) ,
     (comp g g') ,
     (Assoc g' g _) ∘
@@ -206,6 +206,7 @@ comp' ∁ g f = ∁ .comp g f
 
 infix 15 comp'
 syntax comp' C g f = g o⟨ C ⟩ f
+
 #+end_src
 
 * Categories
@@ -227,6 +228,17 @@ record Category (i j : Level) : Type (lsuc (i ⊔ j)) where
   field
     ∁ : Precategory i j
     univ : isCategory ∁
+
+  module ∁ = Precategory ∁
+
+  iso-to-id : {a b : ∁ .ob}
+          → (iso ∁ a b) → (a ≡ b)
+  iso-to-id {a} {b} = pr₁ (univ a b)
+
+  iso-id-equiv : {a b : ∁ .ob}
+                 → (iso ∁ a b) ≃ (a ≡ b)
+  iso-id-equiv {a} {b} =
+    equiv-adjointify (iso-to-id , ((id-to-iso ∁) , (pr₁ (pr₂ (univ a b)) , pr₁ (pr₂ (pr₂ (univ a b))))))
 #+end_src
 
 There are some immediate results that we can prove about categories. As they are "univalent", we would expect isomorphic objects to be equal. This is the case and we prove them /in/ the record.
@@ -241,16 +253,41 @@ We also have that the type of objects of any Category must be a 1-type.
   cat-ob-is1type a b = equiv-with-set (((id-to-iso ∁) , (univ a b)) ^ᵉ) (iso-is-set ∁ a b)
 #+end_src
 
-We also have the following few lemmas that hold in categories.
+We also have the following few lemmas that hold in categories. The first says that if we transport an isomorphism along "hom", regarded as a type family, we conjugate with the carriers of the isomorphisms.
 #+begin_src agda2
+  hom' : (∁ .ob × ∁ .ob) → Type j
+  hom' (a , b) = hom ∁ a b
+
+  lemma3-9 : {a a' b b' : ∁ .ob}
+             (p : a ≡ a') (q : b ≡ b') (f : ∁ [ a , b ])
+             → transport hom' (path-equiv-prod (p , q)) f ≡ ((pr₁ (id-to-iso ∁ q)) o⟨ ∁ ⟩ f) o⟨ ∁ ⟩ pr₁ (iso-sym ∁ (id-to-iso ∁ p))
+  lemma3-9 refl refl f = IdR ∁ f ^ ∘ IdL ∁ (Id ∁ o⟨ ∁ ⟩ f ) ^
+
   id-to-iso^ : {a b : ∁ .ob}
                   (p : a ≡ b)
-                  → id-to-iso ∁ (p ^) ≡ iso-sym ∁ a b (id-to-iso ∁ p)
+                  → id-to-iso ∁ (p ^) ≡ iso-sym ∁ (id-to-iso ∁ p)
   id-to-iso^ refl =
     path-equiv-sigma (refl ,
       (path-equiv-sigma (refl ,
         (path-equiv-sigma ((∁ .hom-set _ _ _ _ _ _) ,
           (∁ .hom-set _ _ _ _ _ _))))))
+
+  id-to-iso-pq : {a b c : ∁ .ob}
+                 (p : a ≡ b) (q : b ≡ c)
+                 → id-to-iso ∁ (p ∘ q) ≡ iso-trans ∁ (id-to-iso ∁ p) (id-to-iso ∁ q)
+  id-to-iso-pq refl refl =
+    fibres-props-eq (isIso-is-prop ∁) _ _ (IdR ∁ (Id ∁) ^)
+
+  iso-to-id-fe : {a b c : ∁ .ob}
+                 (f : iso ∁ a b) (e : iso ∁ b c)
+                 → iso-to-id (iso-trans ∁ f e) ≡ (iso-to-id f) ∘ (iso-to-id e)
+  iso-to-id-fe {a} {b} {c} f e =
+    equiv-types-eq
+      iso-id-equiv
+      (pr₁ (pr₂ (pr₂ (univ a c))) _ ∘
+      (ap (λ Z → iso-trans ∁ f Z) (pr₁ (pr₂ (pr₂ (univ b c))) e ^) ∘
+        ap (λ Z → iso-trans ∁ Z (id-to-iso ∁ (iso-to-id e))) (pr₁ (pr₂ (pr₂ (univ a b))) f ^)) ∘
+      id-to-iso-pq (iso-to-id f) (iso-to-id e) ^)
 #+end_src
 
 ** Sigma definition and equivalence
@@ -323,7 +360,7 @@ op-involution : ∀ {i j}
                   (C : Precategory i j)
                   → (C ^op) ^op ≡ C
 op-involution record { ob = ob ; hom = hom ; hom-set = hom-set ; Id = Id ; comp = comp ; IdL = IdL ; IdR = IdR ; Assoc = Assoc } = let C = record { ob = ob ; hom = hom ; hom-set = hom-set ; Id = Id ; comp = comp ; IdL = IdL ; IdR = IdR ; Assoc = Assoc } in
-  equiv-types-eq ((C ^op) ^op) C Precategory-sig-equiv
+              equiv-types-eq Precategory-sig-equiv
     (path-equiv-sigma (refl ,
       (path-equiv-sigma (refl ,
         (path-equiv-sigma (refl ,

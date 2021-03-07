@@ -51,10 +51,14 @@ There are rough naming conventions that I try to follow.
   + [ ] "isBiinv" is a prop
   + [ ] "isBiinv f" is equiv to "isEquiv f"
   + [ ] Sections 4.6, 4.7, 4.8
+  + [ ] Finish theorem 9.2.5
+  + [ ] Define horizontal composition of natural transformations, and whiskering.
 
 - Add in n-types.
 - Add in some more HITs - in particular n-truncation
 - Refactor path-algebra names. Make more consistent.
+
+
 * Refactoring notes
 ** Categories
 - [X] change "is-iso" to "isIso", as isIso is a proposition
