@@ -1,4 +1,4 @@
-{-# OPTIONS --without-K  #-}
+{-# OPTIONS --without-K #-}
 module UniAgda.core.prop-set-properties where
 
 open import UniAgda.core.axioms public
@@ -278,6 +278,12 @@ contr-fibres-to-contr-Sigma : ∀ {i j} {A : Type i} {P : A → Type j}
                               → isContr (Σ[ x ∈ A ] P x)
 contr-fibres-to-contr-Sigma F X = equiv-with-contr (lemma3-11-9i F ^ᵉ) X
 
+
+
+
+
+
+
 {- Results needed for lemma4-2-5. Unsure where to put -}
 equiv-fibres-to-equiv-sigma : ∀ {i j } {A : Type i} {B : A → Type j} {C : A → Type j}
       → ((x : A) → (B x ≃ C x))
@@ -358,6 +364,17 @@ isEquiv-to-isContrmap {_} {_} {A} {B} {f} (g , η , ε , τ) y = ((g y) , (ε y)
                       transport (λ q → q ∘ p ≡ ε y) (apf-pq f (ap g p ^) (η x) ^) (transport (λ q → ((ap f q) ∘ (ap f (η x))) ∘ p ≡ ε y) (apf-p^ g p)
                       (transport (λ q → (q ∘ (ap f (η x))) ∘ p ≡ ε y) (ap-gf f g (p ^)) (transport (λ q → ((ap (f o g) (p ^)) ∘ q) ∘ p ≡ ε y) (τ x ^)
                       (transport (λ q → q ∘ p ≡ ε y) (homotopy-natural ε (p ^)) (transport (λ q → (ε y ∘ q) ∘ p ≡ ε y) (ap-id (p ^) ^) (ass-l (ε y) (p ^) p ∘ (p-to-pq^q (ε y) p) ^))) ))))})
+
+
+
+
+
+
+
+
+
+
+
 
 
 contr-has-contr-path-space : ∀ {i} {A : Type i} {x y : A}

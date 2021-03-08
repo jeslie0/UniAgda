@@ -1,0 +1,78 @@
+#+title: Equivalences
+#+author: James Leslie
+#+STARTUP: noindent hideblocks latexpreview
+* Prelude
+#+begin_src agda2
+{-# OPTIONS --without-K --safe #-}
+module UniAgda-new.Core.Equivalences where
+
+open import UniAgda-new.Core.Types.Main
+open import UniAgda-new.Core.Homotopy
+#+end_src
+* Definition
+A quasi-inverse is what we would call an isomorphism if we were dealing with sets. It is a map with another map that is a left and right inverse.
+#+name: Definition2.4.6
+#+begin_src agda2
+qinv : ∀ {i j} {A : Type i} {B : Type j}
+       (f : A → B)
+       → Type (i ⊔ j)
+qinv {A = A} {B = B} f = Σ[ g ∈ (B → A)] (((f o g) ~ id) × ((g o f) ~ id))
+#+end_src
+
+A quasi-equivalence between two types is then a map with a proof that it is a quasi-inverse.
+#+begin_src agda2
+qequiv : ∀ {i j}
+         (A : Type i) (B : Type j)
+         → Type (i ⊔ j)
+qequiv A B = Σ[ f ∈ (A → B) ] (qinv f)
+_q≃_ = qequiv
+infix 6 _q≃_
+#+end_src
+* Equivalence Relation
+Quasi-equivalences are equivalence relations. Reflexivity is given by:
+#+begin_src agda2
+qinv-id : ∀ {i} {A : Type i}
+          → qinv (id {A = A})
+qinv-id = id , ((λ x → refl) , (λ x → refl))
+
+qequiv-refl : ∀ {i} {A : Type i}
+              → A q≃ A
+qequiv-refl = id , qinv-id
+qrefl = qequiv-refl
+#+end_src
+
+Symmetry:
+#+begin_src agda2
+qinv-inv : ∀{i j} {A : Type i} {B : Type j} {f : A → B}
+           (F : qinv f)
+           → qinv (pr₁ F)
+qinv-inv {f = f} F = f , ((pr₂ (pr₂ F)) , (pr₁ (pr₂ F)))
+_^q = qinv-inv
+
+qequiv-sym : ∀ {i j} {A : Type i} {B : Type j}
+              → A q≃ B
+              → B q≃ A
+qequiv-sym X = (pr₁ (pr₂ X)) , (qinv-inv (pr₂ X))
+#+end_src
+
+Transitivity:
+#+begin_src agda2
+qinv-comp : ∀ {i₁ i₂ i₃} {A : Type i₁} {B : Type i₂} {C : Type i₃} {f : A → B} {g : B → C}
+             (F : qinv f) → (G : qinv g)
+             → qinv (g o f)
+qinv-comp {A = A} {B = B} {C = C} {f = f} {g = g} F G =
+  let f' : B → A
+      f' = pr₁ F
+      g' : C → B
+      g' = pr₁ G
+  in
+  (f' o g') ,
+  ((λ x → (ap g ((pr₁ (pr₂ F)) (pr₁ G x))) ∘ pr₁ (pr₂ G) x) ,
+    λ x → ap f' (pr₂ (pr₂ G) (f x)) ∘ pr₂ (pr₂ F) x)
+
+qequiv-trans : ∀ {i₁ i₂ i₃} {A : Type i₁} {B : Type i₂} {C : Type i₃}
+               → A q≃ B → B q≃ C
+               → A q≃ C
+qequiv-trans X Y = (pr₁ Y o pr₁ X) , qinv-comp (pr₂ X) (pr₂ Y)
+_qo_ = qequiv-trans
+#+end_src

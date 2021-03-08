@@ -54,6 +54,7 @@ There are rough naming conventions that I try to follow.
     + [X] 4.6
     + [ ] 4.7
     + [ ] 4.8
+  + [ ] Redo prop-sets-properties without using univalence
   + [ ] Define horizontal composition of natural transformations, and whiskering.
   + [ ] Category Theory
     - [ ] Theorem 9.2.5
@@ -70,6 +71,7 @@ There are rough naming conventions that I try to follow.
 - Add in n-types.
 - Add in some more HITs - in particular n-truncation
 - Refactor path-algebra names. Make more consistent.
+  
 
 
 * Refactoring notes
@@ -82,10 +84,13 @@ There are rough naming conventions that I try to follow.
 ** Core
 - [X] Primitives
 - [X] PathAlgebra
-- [ ] Homotopy
-- [ ] Contr-prop-set
-- [ ] Equivalences
-- [ ] PathSpaces
-- [ ] Axioms
+- [X] Homotopy
+- [X] Contr-prop-set
+- [X] Equivalences
+- [X] PathSpaces
+- [X] Axioms
 - [ ] PropSetProperties
+  - Mostly done. Needs tidying up in Logic/Equiv section.
+
+
 

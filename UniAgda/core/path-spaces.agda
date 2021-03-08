@@ -187,7 +187,7 @@ foo₁ refl refl s x = x ∘ p-refl s
 
 lemma₁ : {i j : Level} {A : Type i} {B : Type j} (f : A → B) (g : B → A) (α : f o g ~ id) (a a' : A) (p : a ≡ a')
          → ap f p ≡ ((whisker-r α f a ^) ∘ (ap f (ap (g o f) p))) ∘ whisker-r α f a'
-lemma₁ f g α a .a refl = foo₁ (whisker-r α f a ^ ∘ refl) (whisker-r α f a ) refl (p-refl _) ^
+lemma₁ f g α a .a refl = p=qr^-to-pr=q (whisker-r α f a ^ ∘ refl) refl (whisker-r α f a) (p-refl (α (f a) ^)) ^
 
 lemma₂ : {i j : Level} {A : Type i} {B : Type j} (f : A → B) (g : B → A) (β : g o f ~ id) (a a' : A) (p : a ≡ a')
          → ap (g o f) p ≡ β a ∘ p ∘ β a' ^

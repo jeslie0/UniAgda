@@ -1,0 +1,62 @@
+#+title: Paths in Coproducts
+#+author: James Leslie
+#+STARTUP: noindent hideblocks latexpreview
+* Prelude
+#+begin_src agda2
+{-# OPTIONS --without-K --safe #-}
+module UniAgda-new.Core.PathSpaces.Coproduct where
+
+open import UniAgda-new.Core.Types.Main
+open import UniAgda-new.Core.Types.Coproduct
+open import UniAgda-new.Core.Types.Empty
+open import UniAgda-new.Core.Types.Unit
+open import UniAgda-new.Core.Types.Bool
+open import UniAgda-new.Core.PathAlgebra
+open import UniAgda-new.Core.Homotopy
+open import UniAgda-new.Core.Equivalences
+#+end_src
+* Paths in Coproducts
+#+begin_src agda2
+coprod-code : {i j : Level} {A : Type i} {B : Type j}
+              (a₀ : A)
+              → A + B → Type (i ⊔ j)
+coprod-code {i} {j} a₀ (inl a) = raise j (a₀ ≡ a)
+coprod-code {i} {j} a₀ (inr b) = raise _ Empty
+
+coprod-encode : {i j : Level} {A : Type i} {B : Type j}
+                (a₀ : A)
+                → (x : A + B) (p : inl a₀ ≡ x) → coprod-code a₀ x
+coprod-encode a₀ x p = transport (coprod-code a₀) p (map-raise refl)
+
+coprod-decode : {i j : Level} {A : Type i} {B : Type j}
+                (a₀ : A)
+                → (x : A + B) (c : coprod-code a₀ x) → (inl a₀ ≡ x)
+coprod-decode a₀ (inl x) c = ap inl (map-inv-raise c)
+coprod-decode a₀ (inr x) (map-raise ())
+
+coprod-encode-decode-id : {i j : Level} {A : Type i} {B : Type j}
+                          (a₀ : A)
+                          → (x : A + B) → coprod-encode a₀ x o coprod-decode a₀ x ~ id
+coprod-encode-decode-id a₀ (inl a) = λ { (map-raise refl) → refl}
+coprod-encode-decode-id a₀ (inr b) = λ { (map-raise ())}
+
+coprod-decode-encode-id : {i j : Level} {A : Type i} {B : Type j}
+                          (a₀ : A)
+                          → (x : A + B) → coprod-decode a₀ x o coprod-encode a₀ x ~ id
+coprod-decode-encode-id a₀ (inl a) = λ { refl → refl}
+coprod-decode-encode-id a₀ (inr b) = λ { ()}
+
+
+thm2-12-5 : {i j : Level} {A : Type i} {B : Type j}
+            (a₀ : A)
+            → (x : A + B) → (inl a₀ ≡ x) ≃ coprod-code a₀ x
+thm2-12-5 a₀ x = equiv-adjointify (coprod-encode a₀ x , coprod-decode a₀ x , coprod-encode-decode-id a₀ x , coprod-decode-encode-id a₀ x)
+#+end_src
+* Bool is a coproduct
+#+begin_src agda2
+Bool-is-coprod : Bool ≃ (Unit + Unit)
+Bool-is-coprod = equiv-adjointify ((λ { true → inl tt ; false → inr tt}) ,
+                                  (λ { (inl x) → true ; (inr x) → false}) ,
+                                  (λ { (inl tt) → refl ; (inr tt) → refl}) ,
+                                  λ { true → refl ; false → refl})
+#+end_src

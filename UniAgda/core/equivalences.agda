@@ -56,10 +56,10 @@ qequiv-trans X Y = (pr₁ Y o pr₁ X) , qinv-comp (pr₂ X) (pr₂ Y)
 _qo_ = qequiv-trans
 
 -- Half adjoint equivalences
-ishae : {i j : Level} {A : Type i} {B : Type j}
+isHae : {i j : Level} {A : Type i} {B : Type j}
         (f : A → B)
         → Type (i ⊔ j)
-ishae {_} {_} {A} {B} f = Σ[ g ∈ (B → A) ] (Σ[ η ∈ (g o f ~ id) ] (Σ[ ε ∈ (f o g ~ id) ] ((x : A) → ap f (η x) ≡ ε (f x))))
+isHae {_} {_} {A} {B} f = Σ[ g ∈ (B → A) ] (Σ[ η ∈ (g o f ~ id) ] (Σ[ ε ∈ (f o g ~ id) ] ((x : A) → ap f (η x) ≡ ε (f x))))
 
 linv : {i j : Level} {A : Type i} {B : Type j}
        (f : A → B)
@@ -100,7 +100,7 @@ infix 6 _bi≃_
 isEquiv : {i j : Level} {A : Type i} {B : Type j}
           (f : A → B)
           → Type (i ⊔ j)
-isEquiv f = ishae f
+isEquiv f = isHae f
 
 equiv : {i j : Level}
         (A : Type i) (B : Type j)
@@ -192,9 +192,9 @@ biequiv-trans : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Ty
 biequiv-trans X Y = qequiv-to-biequiv (qequiv-trans (biequiv-to-qequiv X) (biequiv-to-qequiv Y))
 
 
--- qinv and ishae relations
+-- qinv and isHae relations
 ishae-to-qinv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
-                → ishae f
+                → isHae f
                 → qinv f
 ishae-to-qinv F = (pr₁ F) , ((pr₁ (pr₂ (pr₂ F))) , (pr₁ (pr₂ F)))
 isEquiv-to-qinv = ishae-to-qinv
@@ -202,7 +202,7 @@ isEquiv-to-qinv = ishae-to-qinv
 
 qinv-to-ishae : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
                 → qinv f
-                → ishae f
+                → isHae f
 qinv-to-ishae {_} {_} {A} {B} {f} F = let g : B → A
                                           g = pr₁ F
                                           η : g o f ~ id
@@ -225,14 +225,14 @@ isequiv-adjointify = qinv-to-ishae
 
 equiv-adjointify = qequiv-to-hae
 
--- ishae is equivalence relation
+-- isHae is equivalence relation
 equiv-refl : {i : Level} {A : Type i}
            → A ≃ A
 equiv-refl = equiv-adjointify qequiv-refl
 erefl = equiv-refl
 
 ishae-id : {i : Level} {A : Type i}
-           → ishae (id {_} {A})
+           → isHae (id {_} {A})
 ishae-id = pr₂ equiv-refl
 
 equiv-sym : {i j : Level} {A : Type i} {B : Type j}
@@ -242,8 +242,8 @@ equiv-sym X = equiv-adjointify (qequiv-sym (hae-to-qequiv X))
 _^ᵉ = equiv-sym
 
 ishae-inv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
-            → ishae f
-            → Σ[ g ∈ (B → A) ] (ishae g)
+            → isHae f
+            → Σ[ g ∈ (B → A) ] (isHae g)
 ishae-inv {_} {_} {A} {B} {f} X = equiv-sym (f , X)
 
 equiv-trans : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Type i₃}
@@ -254,15 +254,15 @@ _oₑ_ = equiv-trans
 
 
 ishae-comp : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Type i₃} {f : A → B} {g : B → C}
-             (F : ishae f) (G : ishae g)
-             → Σ[ h ∈ (A → C) ] (ishae h)
+             (F : isHae f) (G : isHae g)
+             → Σ[ h ∈ (A → C) ] (isHae h)
 ishae-comp {_} {_} {_} {_} {_} {_} {f} {g} F G = equiv-trans (f , F) (g , G)
 
 -- Contractible fibres
 
 isContrmap-to-isEquiv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
                    → isContrmap f
-                   → ishae f
+                   → isHae f
 isContrmap-to-isEquiv {_} {_} {A} {B} {f} P = let g = (λ y → pr₁ (pr₁ (P y)))
                                                   ε = (λ y → pr₂ (pr₁ (P y)))
                                                   τ = (λ x → (pr₂ (P (f x)) (g(f(x)) , ε (f x))) ^ ∘ (pr₂ (P (f x)) (x , refl)))
