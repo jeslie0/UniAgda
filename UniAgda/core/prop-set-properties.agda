@@ -161,7 +161,12 @@ prop-fibres-totalspace-set {i} {j} {A} {P} H f (a , X) (b , Y) =
       ((H _ _ _ _) ,
       (props-are-sets (f b) _ _ _ _))})
 
-
+prod-of-props-is-prop : ∀ {i j} {A : Type i} {B : Type j}
+                        → isProp A → isProp B
+                        → isProp (A × B)
+prod-of-props-is-prop H H' (a , b) (a' , b') =
+  path-equiv-prod
+    ((H a a') , (H' b b'))
 
 prop-fibres-Pi-is-prop : ∀ {i j} {A : Type i} {B : A → Type j}
                          → ((x : A) → isProp (B x))
@@ -443,3 +448,46 @@ isEquiv-is-prop : ∀ {i j} {A : Type i} {B : Type j}
                   → isProp (isEquiv f)
 isEquiv-is-prop {i} {j} {A} {B} f = pr₁ ((ex3-5 {_} {isEquiv f}) ^ᵉ) λ { F → equiv-with-contr (isEquiv-equiv-rcoh f ^ᵉ)
                 (contr-fibres-to-contr-Sigma (λ { (g , u) → lemma4-2-12 F (g , u)})  (qinv-to-isContr-rinv (isEquiv-to-qinv F)))}
+
+
+
+-- The following need to be sorted and put in their correct location
+-- Lemma 4.4.4
+isContrmap-is-prop : ∀ {i j} {A : Type i} {B : Type j}
+                     (f : A → B)
+                     → isProp (isContrmap f)
+isContrmap-is-prop f =
+  prop-fibres-Pi-is-prop λ b → isContr-is-prop
+
+-- Lemma 4.4.5
+isContrmap-equiv-isEquiv : ∀ {i j} {A : Type i} {B : Type j}
+                     (f : A → B)
+                     → isContrmap f ≃ isEquiv f
+isContrmap-equiv-isEquiv f =
+  props-equiv
+   (isContrmap-is-prop f)
+   (isEquiv-is-prop f)
+   isContrmap-to-isEquiv
+   isEquiv-to-isContrmap
+
+-- Theorem 4.3.2
+isBiinv-is-prop : ∀ {i j} {A : Type i} {B : Type j}
+                  (f : A → B)
+                  → isProp (isBiinv f)
+isBiinv-is-prop f H H' =
+  contr-are-props
+    (contr-fibres-to-contr-Sigma
+      (λ x → qinv-to-isContr-rinv (isBiinv-to-qinv H))
+      (qinv-to-isContr-linv (isBiinv-to-qinv H)))
+    H
+    H'
+-- Corollary 4.3.3
+isBiinv-equiv-isEquiv : ∀ {i j} {A : Type i} {B : Type j}
+                        (f : A → B)
+                        → isBiinv f ≃ isEquiv f
+isBiinv-equiv-isEquiv f =
+  props-equiv
+    (isBiinv-is-prop f)
+    (isEquiv-is-prop f)
+    (qinv-to-ishae o isBiinv-to-qinv)
+    (qinv-to-isBiinv o isEquiv-to-qinv)

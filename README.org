@@ -46,14 +46,26 @@ There are rough naming conventions that I try to follow.
 
 * Current goals
 - Need to finish proofs in Equivalences, in particular, need to prove the following: (Equivalences will need to be tidied up)
-  + [ ] "isContrmap" is a prop
-  + [ ] "isContr f" is equiv to "isEquiv f"
-  + [ ] "isBiinv" is a prop
-  + [ ] "isBiinv f" is equiv to "isEquiv f"
-  + [ ] Sections 4.6, 4.7, 4.8
-  + [ ] Finish theorem 9.2.5
+  + [X] "isContrmap" is a prop
+  + [X] "isContr f" is equiv to "isEquiv f"
+  + [X] "isBiinv" is a prop
+  + [X] "isBiinv f" is equiv to "isEquiv f"
+  + [-] Sections:
+    + [X] 4.6
+    + [ ] 4.7
+    + [ ] 4.8
   + [ ] Define horizontal composition of natural transformations, and whiskering.
-  + [X] Add sigma versions of adjunctions and equivalences
+  + [ ] Category Theory
+    - [ ] Theorem 9.2.5
+    - [ ] Definition 9.2.7
+    - [ ] Lemma 9.2.8
+    - [ ] Lemma 9.2.9
+    - [ ] Lemma 9.2.10
+    - [ ] Lemma 9.2.11
+    - [ ] Lemma 9.3.2
+    - [ ] Lemma 9.4.2
+    - [ ] [[file:UniAgda/categories/equivalences.lagda.org::*Fully faithful, essentially surjective][Lemma 9.4.5]]
+    - [ ] [[file:UniAgda/categories/equivalences.lagda.org][Weak equivalence is a prop]]
 
 - Add in n-types.
 - Add in some more HITs - in particular n-truncation
