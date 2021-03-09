@@ -1,13 +1,13 @@
 #+title: Adjunctions
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K #-}
 module UniAgda.Categories.Adjunctions where
 
 open import UniAgda.Categories.FunctorCat public
 #+end_src
 * Definition
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 record isLeftAdjoint {i j k l : Level} {A : Precategory i j} {B : Precategory k l} (Left : Functor A B) : Type (i ⊔ j ⊔ k ⊔ l) where
   eta-equality
   field
@@ -27,7 +27,7 @@ record isLeftAdjoint {i j k l : Level} {A : Precategory i j} {B : Precategory k 
     right-triangle : (b : B.ob) → A.comp (Right.₁ (counit.α-ob b)) (unit.α-ob (Right.₀ b)) ≡ A.Id {Right.₀ b}
 #+end_src
 ** Sigma version
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 isLeftAdjoint-sig : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
                     (Left : Functor A B)
                     → Type (i ⊔ j ⊔ k ⊔ l)
@@ -89,7 +89,7 @@ isLeftAdjoint-sig-Equiv {Left = Left} = equiv-adjointify
 #+end_src
 * Properties
 If A is a category, then the type "F is a left adjoint" is a mere proposition.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 -- isLeftAdjoint-is-prop : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {H : isCategory A}
 --                         (F : Functor A B)
 --                         → isProp (isLeftAdjoint F)

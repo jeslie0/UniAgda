@@ -2,29 +2,43 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K #-}
 module UniAgda.Core.SetsAndLogic.Props where
 
-open import UniAgda.Core.Types.Everything
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Sigma
+open import UniAgda.Core.Types.Coproduct
+open import UniAgda.Core.Types.W
+open import UniAgda.Core.Types.Unit
+open import UniAgda.Core.Types.Empty
+open import UniAgda.Core.Types.Bool
+open import UniAgda.Core.Types.Nat
+
 open import UniAgda.Core.PathAlgebra
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
 open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
-open import UniAgda.Core.PathSpaces.Everything
-open import UniAgda.Core.Axioms
 
--- open import UniAgda.Core.SetsAndLogic.Sets
+open import UniAgda.Core.PathSpaces.Coproduct
+open import UniAgda.Core.PathSpaces.Identity
+open import UniAgda.Core.PathSpaces.Nat
+open import UniAgda.Core.PathSpaces.Sigma
+open import UniAgda.Core.PathSpaces.Unit
+
+open import UniAgda.Core.Axioms
 #+end_src
 * The unit is a proposition
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 Unit-is-prop : isProp Unit
 Unit-is-prop tt tt = refl
 #+end_src
 * Results
 ** Inhabited propositions
 #+name: Lemma3.3.2
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 x-in-prop-equiv-unit : {i : Level} {P : Type i}
                        → isProp P → P
                        → P ≃ Unit
@@ -33,7 +47,7 @@ x-in-prop-equiv-unit X x₀ = equiv-adjointify ((λ x → tt) , ((λ x → x₀)
 ** Equivalence of propositions
 Two propositions are equivalent if and only if they are logically equivalent.
 #+name: Lemma3.3.3
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 props-equiv : {i j : Level} {P : Type i} {Q : Type j}
          → isProp P → isProp Q → (P → Q) → (Q → P)
          → P ≃ Q
@@ -41,7 +55,7 @@ props-equiv {i} {j} {P} {Q} X Y f g = equiv-adjointify (f , g , ((λ y → Y ((f
 #+end_src
 
 Being a proposition is preserved under equivalence.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 equiv-with-prop : ∀ {i j} {A : Type i} {B : Type j}
                   → A ≃ B → isProp A
                   → isProp B
@@ -49,7 +63,7 @@ equiv-with-prop (f , g , α , β , γ) F x y = (((ap f (F (g y) (g x))) ∘ β x
 #+end_src
 ** Every proposition is a set
 #+name: Lemma3.3.4
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 private
   lemma3-3-4-help : {i : Level} {A : Type i} {f : (x y : A) → x ≡ y} {x : A}
                     → (y z : A) (p : y ≡ z)
@@ -62,7 +76,7 @@ props-are-sets {i} {A} f x y p q = pq=r-to-q=p^r (f x x) p (f x y) (lemma3-3-4-h
 #+end_src
 ** Being a set or proposition is a proposition
 #+name: Lemma3.3.5i
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 isProp-is-prop : ∀ {i}
                  (A : Type i)
                  → isProp (isProp A)
@@ -72,7 +86,7 @@ isProp-is-prop A f g =
 ** Type families with prop valued fibres
 If a type family has prop valued fibres, then two terms are equal when their first projections are equal.
 #+name: Lemma3.5.1
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 fibres-props-eq : {i j : Level} {A : Type i} {P : A → Type j}
                    → ((x : A) → isProp (P x)) → (u v : Σ[ x ∈ A ] (P x)) → (pr₁ u ≡ pr₁ v)
                    → u ≡ v
@@ -80,7 +94,7 @@ fibres-props-eq {_} {_} {A} {P} X u v p = path-equiv-sigma (p , (X (pr₁ v) (tr
 #+end_src
 
 This can be extended to give an equivalence of identity types.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 id-equiv-to-prop-on-type : ∀ {i j} (X X' : Type i) (Q : Type i → Type j)
               (F : (A : Type i) → isProp (Q A))
               → (a : Q X) → (b : Q X')
@@ -91,7 +105,7 @@ id-equiv-to-prop-on-type X X' Q F a b = equiv-adjointify ((λ { refl → refl , 
                          λ { refl → refl}) oₑ (thm2-7-2 ^ᵉ)
 #+end_src
 
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 prop-fibres-Pi-is-prop : ∀ {i j} {A : Type i} {B : A → Type j}
                          → ((x : A) → isProp (B x))
                          → isProp ((x : A) → B x)
@@ -100,7 +114,7 @@ prop-fibres-Pi-is-prop F f g = funextD λ x → F x (f x) (g x)
 
 ** Propositions are preserved under products
 Given a two proposition, their product is a proposition.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 prod-of-props-is-prop : ∀ {i j} {A : Type i} {B : Type j}
                         → isProp A → isProp B
                         → isProp (A × B)

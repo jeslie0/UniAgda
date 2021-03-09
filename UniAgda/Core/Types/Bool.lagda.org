@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts --safe #-}
 module UniAgda.Core.Types.Bool where
 
@@ -11,7 +11,7 @@ open import UniAgda.Core.Types.Universes
 * Type of Booleans
 The type of Booleans is inductively defined by two terms that we call "true" and "false".
 
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 data Bool : Type lzero where
   true : Bool
   false : Bool
@@ -22,7 +22,7 @@ data Bool : Type lzero where
 #+end_src
 
 We also define the "swap" function, which permutes the values of "true" and "false".
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 swap : Bool → Bool
 swap true = false
 swap false = true

@@ -2,17 +2,21 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K --safe #-}
 module UniAgda.Core.PathSpaces.Unit where
 
-open import UniAgda.Core.Types.Main
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Sigma
 open import UniAgda.Core.Types.Unit
+
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
 #+end_src
 * Paths in the Unit Type
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 thm2-8-1i : (x y : Unit)
             → (x ≡ y) → Unit
 thm2-8-1i x y p = tt

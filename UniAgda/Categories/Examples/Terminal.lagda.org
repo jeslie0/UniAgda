@@ -1,7 +1,7 @@
 #+title: The Terminal Category
 #+author: James Leslie
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.Examples.Terminal where
 
@@ -11,7 +11,7 @@ open Category
 #+end_src
 * Definition
 The terminal precategory has one object and the sole identity map.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 𝟙 : Precategory lzero lzero
 ob 𝟙 = Unit
 hom 𝟙 a b = Unit
@@ -24,7 +24,7 @@ Assoc 𝟙 f g h = refl
 #+end_src
 
 It is, of course, also a category.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 𝟙-is-category : isCategory 𝟙
 𝟙-is-category tt tt =
   isequiv-adjointify

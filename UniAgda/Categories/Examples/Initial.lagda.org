@@ -1,7 +1,7 @@
 #+title: The Initial Category
 #+author: James Leslie
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.Examples.Initial where
 
@@ -11,7 +11,7 @@ open Category
 #+end_src
 * Definition
 The initial precategory is a category with no objects. It is defined as follows.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 𝟘 : Precategory lzero lzero
 ob 𝟘 = Empty
 hom 𝟘 () b
@@ -24,7 +24,7 @@ Assoc 𝟘 {()} f g h
 #+end_src
 
 It is immediate that it is a category.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 𝟘-is-category : isCategory 𝟘
 𝟘-is-category () b
 

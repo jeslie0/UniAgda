@@ -2,23 +2,38 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K #-}
 module UniAgda.Core.SetsAndLogic.Equivalences where
 
-open import UniAgda.Core.Types.Everything
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Sigma
+open import UniAgda.Core.Types.Coproduct
+open import UniAgda.Core.Types.W
+open import UniAgda.Core.Types.Unit
+open import UniAgda.Core.Types.Empty
+open import UniAgda.Core.Types.Bool
+open import UniAgda.Core.Types.Nat
+
 open import UniAgda.Core.PathAlgebra
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
 open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
-open import UniAgda.Core.PathSpaces.Everything
-open import UniAgda.Core.Axioms
 
+open import UniAgda.Core.PathSpaces.Coproduct
+open import UniAgda.Core.PathSpaces.Identity
+open import UniAgda.Core.PathSpaces.Nat
+open import UniAgda.Core.PathSpaces.Sigma
+open import UniAgda.Core.PathSpaces.Unit
+
+open import UniAgda.Core.Axioms
 open import UniAgda.Core.SetsAndLogic.Props
 open import UniAgda.Core.SetsAndLogic.Contractible
 #+end_src
 * 
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 
 equiv-fibres-to-equiv-sigma : ∀ {i j } {A : Type i} {B : A → Type j} {C : A → Type j}
       → ((x : A) → (B x ≃ C x))

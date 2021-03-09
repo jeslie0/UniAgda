@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts --safe #-}
 module UniAgda.Core.Types.Empty where
 
@@ -10,12 +10,12 @@ open import UniAgda.Core.Types.Universes
 #+end_src
 * Empty Type
 The empty type is an inductive type with no elements defined.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 data Empty : Type lzero where
 #+end_src
 * Negation
 The empty type allows us to define logical negation.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 ¬ : ∀ {i}
     (A : Type i)
     → Type i

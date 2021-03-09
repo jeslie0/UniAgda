@@ -2,11 +2,15 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K #-}
 module UniAgda.Core.Axioms where
 
-open import UniAgda.Core.Types.Main
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Sigma
+
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
 open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
@@ -14,7 +18,7 @@ open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
 * Function Extensionality
 ** Function Extensionality
 We add in the axiom that two functions are equal when they are homotopic.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 happly : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
          → f ≡ g → f ~ g
 happly refl = hrefl
@@ -31,7 +35,7 @@ funext = pr₁ ax2-9-3
 #+end_src 
 
 We also have some results about funext.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 funext-equiv : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
                  → (f ≡ g) ≃ (f ~ g)
 funext-equiv = happly , ax2-9-3
@@ -46,7 +50,7 @@ happly-funext-to-id = funext (pr₁ (pr₂ (pr₂ happly-isEquiv)))
 #+end_src
 ** Dependant Function Extensionality
 We also postulate a dependant version of function extensionality.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 happlyD : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
           → f ≡ g → f ~ g
 happlyD refl x₁ = refl
@@ -67,7 +71,7 @@ funextD-equiv = happlyD , happlyD-isEquiv
 #+end_src  
 ** Implicit Function Extensionality
 At times we will need to use a version of function extensionality that works with implicit arguments. We introduce this here.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 private
   implicit-eval : ∀ {i j} {A : Type i} {B : A → Type j}
                   → ((x : A) → B x) → {x : A} → B x
@@ -80,7 +84,7 @@ implicit-funext {f = f} {g = g} H = ap implicit-eval (funextD {f = λ x → f{x}
 #+end_src
 * Univalence
 Univalence says that equivalence of types is equivalent to equality of types.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 id-to-eqv : {i : Level} {A B : Type i}
             → A ≡ B → A ≃ B
 id-to-eqv refl = erefl
@@ -107,7 +111,7 @@ univalence = id-to-eqv , ax2-10-3
 #+end_src  
 
 We have the following rules that univalence satisfies.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 ua-cmpt : {i : Level} {A B : Type i} {f : A ≃ B} {x : A}
        → e-ap (id-to-eqv (ua f)) x ≡ e-ap f x
 ua-cmpt {i} {A} {B} {f} {x} = ap (λ f → e-ap {i} {i} {A} {B} f x) (hom₁ f)
@@ -127,7 +131,7 @@ ua-id : {i : Level} {A : Type i}
 ua-id {i} {A} = (pr₁ (pr₂ ax2-10-3) refl) ^ ∘ ap ua (id-to-eqv-refl {i} {A})
 #+end_src
 * Propositional resizing
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 Prop-resizing-map : {i : Level}
                     → (Prop_ i) → Prop_ (lsuc i)
 Prop-resizing-map (A , X) = (raise _ A) , (λ { (map-raise x) (map-raise x₁) → ap (map-raise) (X x x₁) })

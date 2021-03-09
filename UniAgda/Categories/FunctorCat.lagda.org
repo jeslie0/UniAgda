@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: hideblocks
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.FunctorCat where
 
@@ -14,7 +14,7 @@ open NaturalTransformation
 #+end_src
 * Functor Precategories
 Given two precategories, there is a precategory of functors between them, with natural transformations as morphisms.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 _^_ : ∀ {i₁ i₂ i₃ i₄} (A : Precategory i₁ i₂) (B : Precategory i₃ i₄)
         → Precategory (i₁ ⊔ i₂ ⊔ i₃ ⊔ i₄) (i₂ ⊔ i₃ ⊔ i₄)
 ob (A ^ B) = Functor B A
@@ -28,7 +28,7 @@ Assoc (A ^ B) = nat-trans-comp-assoc
 #+end_src
 * Natural isomorphisms
 One of the first results about natural transformations that one proves, is that a natural transformation is an isomorphism if and only if each component is an isomorphism. We prove that now, hiding each direction in a "private" environment. The forward direction is straightforward, we just need to convert the paths between records into a path between Σ types. Then it is easy to show that we do have an isomorphism.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 private
   lemma9-2-4i : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {F G : (B ^ A) .ob}
                   (γ : (B ^ A) .hom F G)
@@ -42,7 +42,7 @@ private
 #+end_src
 
 The reverse direction mainly consists of some path algebra. It is mathematically straightforward, but due to associativity, can be unsightly in the details.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
   lemma9-2-4ii : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {F G : (B ^ A) .ob}
                   (γ : (B ^ A) .hom F G)
                    → ((a : A .ob) → isIso B (γ .α-ob a)) → isIso (B ^ A) γ
@@ -63,7 +63,7 @@ The reverse direction mainly consists of some path algebra. It is mathematically
 #+end_src
 
 Combining the above results, we get the desired proof.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 nat-trans-iso-components : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {F G : (B ^ A) .ob}
                              (γ : (B ^ A) .hom F G)
                              → isIso (B ^ A) γ ↔ ((a : A .ob) → isIso B (γ .α-ob a))
@@ -73,7 +73,7 @@ nat-trans-iso-components γ =
 #+end_src
 * Functor Categories
 A result which will be central to the study of categories is the following: if A is a precategory and B is a category, then B ^ A is also a category. We need to show that id-to-iso in B ^ A is an equivalence, so first, we define a quasi-inverse to it.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 -- private
 --   functor-cat-γ' : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
 --                      (univB : isCategory B) (F G : (B ^ A) .ob)
@@ -83,7 +83,7 @@ A result which will be central to the study of categories is the following: if A
 --       {!pr₁ (pr₂ x)!}
 --       {!!}
 #+end_src
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 -- functor-cat-condition : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
 --                         → isCategory B
 --                         → isCategory (B ^ A)

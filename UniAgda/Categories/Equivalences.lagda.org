@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K --rewriting #-}
 module UniAgda.Categories.Equivalences where
 
@@ -12,7 +12,7 @@ open import UniAgda.Equiv.Inj-Surj public
 open import UniAgda.Logic.Exists public
 #+end_src
 * Definition
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 record isCatEquiv {i j k l : Level} {A : Precategory i j} {B : Precategory k l}
        (F : Functor A B)
        : Type (i ⊔ j ⊔ k ⊔ l) where
@@ -30,7 +30,7 @@ record isCatEquiv {i j k l : Level} {A : Precategory i j} {B : Precategory k l}
     counit-is-iso : (b : B.ob) → B.isIso (adj.counit.α-ob b)
 #+end_src
 ** Sigma version
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 isCatEquiv-sig : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
                  (F : Functor A B)
                  → Type (i ⊔ j ⊔ k ⊔ l)
@@ -79,7 +79,7 @@ isCatEquiv-sig-Equiv = equiv-adjointify
   isCatEquiv-sig→rec→sig)
 #+end_src
 ** Fully faithful, essentially surjective
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 faithful : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
            (F : Functor A B)
            → Type (i ⊔ j ⊔ l)
@@ -105,12 +105,12 @@ split-essentially-surjective {A = A} {B = B} F =
 #+end_src
 
 We aim to show that a equivalences fully faithful, split essentially surjective functions are equivalent as types.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 
 #+end_src
 
 As we are working constructively, essentially surjective by itself means that there merely exists an isomorphism, whilst split essentially surjective gives us a specific choice. We define the former here.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 essentially-surjective : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
                          (F : Functor A B)
                          → Type (i ⊔ k ⊔ l)
@@ -121,7 +121,7 @@ essentially-surjective {A = A} {B = B} F =
 #+end_src
 
 This leads us to the notion of a weak equivalence between categories.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 weak-equivalence : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
                    (F : Functor A B)
                    → Type (i ⊔ j ⊔ k ⊔ l)
@@ -129,7 +129,7 @@ weak-equivalence F = fully-faithful F × essentially-surjective F
 #+end_src
 
 Being a weak equivalence is a proposition.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 
 #+end_src
 

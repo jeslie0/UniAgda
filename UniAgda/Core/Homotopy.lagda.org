@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K --safe #-}
 module UniAgda.Core.Homotopy where
 
@@ -14,7 +14,7 @@ open import UniAgda.Core.PathAlgebra
 * Definition
 We give the definition of a homotopy of functions, which states that two functions are homotopic when they are equal pointwise.
 #+name: Definition2.4.1
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 _~_ : ∀ {i j} {A : Type i} {P : A → Type j}
            (f g : (x : A) → P x)
            → Type (i ⊔ j)
@@ -24,7 +24,7 @@ infix 6 _~_
 * Homotopy forms an equivalence relation
 Homotopy defines an equivalence relation on function types.
 #+name: Lemma2.4.2
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 hrefl : ∀ {i j} {A : Type i} {P : A → Type j} {f : (x : A) → P x}
         → f ~ f
 hrefl x = refl
@@ -44,7 +44,7 @@ _∘ₕ_ = hconcatenation
 * Homotopy is natural
 Homotopies act like natural transformations.
 #+name: Lemma2.4.3
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 homotopy-natural : ∀ {i j} {A : Type i} {B : Type j} {x y : A} {f g : A → B}
                    (H : f ~ g) (p : x ≡ y)
                    → (H x ∘ (ap g p)) ≡ (ap f p ∘ H y)
@@ -53,7 +53,7 @@ homotopy-natural {x = x} H refl = p-refl (H x) ∘ refl-p (H x)
 
 This leads to the following useful result:
 #+name: Corollary2.4.4
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 cor2-4-4 : ∀ {i} {A : Type i}
            (f : A → A) (H : f ~ id) (x : A)
            → (H (f x)) ≡ (ap f (H x))
@@ -67,7 +67,7 @@ cor2-4-4 {i} {A} f H x =
 #+end_src
 * Whiskering
 We can whisker homotopies and homotopies
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 whisker-r : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k} {f g : A → B}
           (H : f ~ g) (h : C → A)
           → f o h ~ g o h
@@ -81,7 +81,7 @@ whisker-l H h x = ap h (H x)
 #+end_src
 * Homotopy algebra
 We include some results for manipulating homotopies.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 hass-l : ∀ {i j} {A : Type i} {B : A → Type j} {f₁ f₂ f₃ f₄ : (x : A) → B x}
          (H : f₁ ~ f₂) (G : f₂ ~ f₃) (F : f₃ ~ f₄)
          → (H ∘ₕ G) ∘ₕ F ~ H ∘ₕ (G ∘ₕ F)

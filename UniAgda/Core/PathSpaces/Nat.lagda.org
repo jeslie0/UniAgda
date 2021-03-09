@@ -2,20 +2,24 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K --safe #-}
 module UniAgda.Core.PathSpaces.Nat where
 
-open import UniAgda.Core.Types.Main
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Sigma
 open import UniAgda.Core.Types.Nat
 open import UniAgda.Core.Types.Unit
 open import UniAgda.Core.Types.Empty
+
 open import UniAgda.Core.PathAlgebra
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
 #+end_src
 * Paths in Nat
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 nat-code : ℕ → ℕ → Type lzero
 nat-code zero zero = Unit
 nat-code zero (suc m) = Empty

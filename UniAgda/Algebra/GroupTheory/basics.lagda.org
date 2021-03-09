@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: hideblocks noindent
 * Prelude
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 {-# OPTIONS --without-K #-}
 module UniAgda.Algebra.GroupTheory.basics where
 
@@ -10,7 +10,7 @@ open import UniAgda.Core.Everything public
 #+end_src
 
 * Group definition
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 record Group (i : Level) : Type (lsuc i) where
   eta-equality
   field
@@ -29,7 +29,7 @@ record Group (i : Level) : Type (lsuc i) where
   _og_ : carrier → carrier → carrier
   _og_ = op
 #+end_src
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 
   {- The identity is unique -}
   e-unique : (X : Σ[ e' ∈ carrier ] (
@@ -107,7 +107,7 @@ record Group (i : Level) : Type (lsuc i) where
 #+end_src
 
 ** Sigma definition
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 Group-sig : (i : Level) → Type (lsuc i)
 Group-sig i =
   Σ[ carrier ∈ (Type i) ](
@@ -182,7 +182,7 @@ Group-sig-Equiv = equiv-adjointify
 #+end_src
 
 * Group homomorphism definition
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 record Group-hom {i j : Level} (G : Group i) (H : Group j) : Type (i ⊔ j) where
   eta-equality
   module G = Group G
@@ -192,7 +192,7 @@ record Group-hom {i j : Level} (G : Group i) (H : Group j) : Type (i ⊔ j) wher
     g-linear : (g g' : G.carrier) → g-func (g G.og g') ≡ g-func g H.og (g-func g')
 #+end_src
 ** Group homomorphism sig version
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 Group-hom-sig : ∀ {i j}
                 (G : Group i) (H : Group j)
                 → Type (i ⊔ j)
@@ -234,7 +234,7 @@ Group-hom-sig-Equiv {i} {j} {G} {H} = equiv-adjointify
 #+end_src
 ** Equality of Group homomorphisms
 Two group homomorphisms are equal exactly when their functions are equal.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 Group-hom-eq : ∀ {i j} {G : Group i} {H : Group j} {f g : Group-hom G H}
                → Group-hom.g-func f ≡ Group-hom.g-func g → f ≡ g
 Group-hom-eq {H = H} p =
@@ -248,7 +248,7 @@ Group-hom-eq {H = H} p =
 #+end_src
 
 This shows that we have a set of group homomorphisms between two groups.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 Group-hom-is-set : ∀ {i j} {G : Group i} {H : Group j}
                    → isSet (Group-hom G H)
 Group-hom-is-set {G = G} {H = H} =
@@ -263,7 +263,7 @@ Group-hom-is-set {G = G} {H = H} =
 #+end_src
 ** Categorical properties
 Group homomorphisms can be composed.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 ghom-comp : ∀ {i j k} {G : Group i} {H : Group j} {K : Group k}
              → Group-hom H K → Group-hom G H → Group-hom G K
 Group-hom.g-func (ghom-comp g f) = Group-hom.g-func g o Group-hom.g-func f
@@ -278,7 +278,7 @@ Group-hom.g-linear (ghom-comp {G = G} {H = H} {K = K} g f) a b =
 #+end_src
 
 We have an identity group homomorphism for every group.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 Idᵍ : ∀ {i} {G : Group i}
       → Group-hom G G
 Group-hom.g-func Idᵍ = id
@@ -286,7 +286,7 @@ Group-hom.g-linear Idᵍ g g' = refl
 #+end_src
 
 Composition on the left and right with the identity doesn't change the morphism.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 ghom-lId : ∀ {i j} {G : Group i} {H : Group j}
            (f : Group-hom G H)
            → ghom-comp f Idᵍ ≡ f
@@ -299,7 +299,7 @@ ghom-rId f = Group-hom-eq refl
 #+end_src
 
 Finally, composition is associative.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 ghom-assoc : ∀ {i₁ i₂ i₃ i₄} {G₁ : Group i₁} {G₂ : Group i₂} {G₃ : Group i₃} {G₄ : Group i₄}
              (f : Group-hom G₁ G₂) (g : Group-hom G₂ G₃) (h : Group-hom G₃ G₄)
              → ghom-comp h (ghom-comp g f) ≡ ghom-comp (ghom-comp h g) f
@@ -307,7 +307,7 @@ ghom-assoc f g h = Group-hom-eq refl
 #+end_src
 * Trivial Group
 There is a trivial group that has exactly one element in it.
-#+begin_src agda2 :tangle yes
+#+begin_src agda2
 Group-trivial : Group lzero
 Group.carrier Group-trivial = Unit
 Group.op Group-trivial = λ _ _ → tt
