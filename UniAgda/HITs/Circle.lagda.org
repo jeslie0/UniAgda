@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 {-# OPTIONS --without-K --rewriting #-}
 module UniAgda.HITs.Circle where
 

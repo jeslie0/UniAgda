@@ -1,0 +1,26 @@
+#+title: UniAgda.Categories.Everything
+#+author: James Leslie
+#+STARTUP: noindent hideblocks latexpreview
+* Prelude
+#+begin_src agda2
+{-# OPTIONS --without-K #-}
+module UniAgda.Categories.Everything where
+#+end_src
+* Categories
+#+begin_src agda2
+open import UniAgda.Categories.Category public
+open import UniAgda.Categories.Functor public
+open import UniAgda.Categories.Natural-Transformation public
+open import UniAgda.Categories.FunctorCat public
+open import UniAgda.Categories.Adjunctions public
+open import UniAgda.Categories.Equivalences public
+#+end_src
+
+* Examples
+#+begin_src agda2
+open import UniAgda.Categories.Examples.Group public
+open import UniAgda.Categories.Examples.Set public
+open import UniAgda.Categories.Examples.Terminal public
+open import UniAgda.Categories.Examples.Initial public
+#+end_src
+

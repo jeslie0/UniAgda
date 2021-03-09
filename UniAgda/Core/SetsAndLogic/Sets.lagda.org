@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 {-# OPTIONS --without-K #-}
 module UniAgda.Core.SetsAndLogic.Sets where
 
@@ -19,7 +19,7 @@ open import UniAgda.Core.SetsAndLogic.Props
 * Products of sets are sets
 The product of two sets is also a set.
 #+name: Example 3.1.5
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 Sigma-of-sets-is-set : ∀ {i j} {A : Type i} {B : A → Type j}
                        → (isSet A) → ((x : A) → isSet (B x))
                        → isSet (Σ[ x ∈ A ] B x)
@@ -37,7 +37,7 @@ prod-of-sets-is-set H₁ H₂ = Sigma-of-sets-is-set H₁ λ x → H₂
 #+end_src
 * Function types between sets are sets
 #+name: Example3.1.6
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 fibs-are-sets-PI-is-set : ∀ {i j} {A : Type i} {B : A → Type j}
                           → ((x : A) → (isSet (B x)))
                           → (isSet ((x : A) → B x))
@@ -56,7 +56,7 @@ func-of-sets-is-set H =
 #+end_src
 * Sets are 1-Types
 #+name: Lemma3.1.8
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 private
   helper : ∀ {i} {A : Type i}
            → (f : isSet {i} A) → (x y : A) → (p q q' : x ≡ y) → (r : q ≡ q')
@@ -69,7 +69,7 @@ sets-are-1types : ∀ {i} {A : Type i}
 sets-are-1types f x y p q r s = pq=r-to-q=p^r (f x y p p) r (f x y p q) (helper f x y p p q r) ∘ (pq=r-to-q=p^r (f x y p p) s (f x y p q) (helper f x y p p q s)) ^
 #+end_src  
 * Results
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 isSet-is-prop : {i : Level}
                 (A : Type i)
                 → isProp (isSet A)
@@ -77,7 +77,7 @@ isSet-is-prop A f g = funextD λ {x → funextD λ x₁ → funextD λ x₂ → 
 #+end_src
 
 Being a set is preserved by equivalence.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 equiv-with-set : ∀ {i j} {A : Type i} {B : Type j}
                  → A ≃ B → isSet A
                  → isSet B
@@ -89,7 +89,7 @@ equiv-with-set (f , g , α , β , γ) F x y =
 #+end_src
 
 If a type family has fibres valued in props and comes from a set, the total space is a set.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 prop-fibres-totalspace-set : ∀ {i j} {A : Type i} {P : A → Type j}
                              → isSet A → ((a : A) → isProp (P a))
                              → isSet (Σ[ a ∈ A ] (P a))
@@ -105,21 +105,21 @@ prop-fibres-totalspace-set {i} {j} {A} {P} H f (a , X) (b , Y) =
 * Unit is a set
 The unit type is a set.
 #+name: Example3.1.2
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 unit-is-set : isSet Unit
 unit-is-set = props-are-sets λ { tt tt → refl}
 #+end_src  
 * Empty is a set
 The empty type is a set
 #+name: Example3.1.3
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 empty-is-set : isSet Empty
 empty-is-set () y
 #+end_src
 * The natural numbers are a set
 The natural numbers are a set, as their path space is either contractible or empty.
 #+name: Example3.1.4
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 ℕ-is-set : isSet ℕ
 ℕ-is-set zero zero = equiv-with-prop (thm2-13-1 zero zero ^ᵉ) Unit-is-prop
 ℕ-is-set zero (suc m) = equiv-with-prop (thm2-13-1 zero (suc m) ^ᵉ) λ x ()

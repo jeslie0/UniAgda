@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 {-# OPTIONS --without-K --safe #-}
 module UniAgda.Core.PathSpaces.Coproduct where
 
@@ -16,7 +16,7 @@ open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
 #+end_src
 * Paths in Coproducts
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 coprod-code : {i j : Level} {A : Type i} {B : Type j}
               (a₀ : A)
               → A + B → Type (i ⊔ j)
@@ -53,7 +53,7 @@ thm2-12-5 : {i j : Level} {A : Type i} {B : Type j}
 thm2-12-5 a₀ x = equiv-adjointify (coprod-encode a₀ x , coprod-decode a₀ x , coprod-encode-decode-id a₀ x , coprod-decode-encode-id a₀ x)
 #+end_src
 * Bool is a coproduct
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 Bool-is-coprod : Bool ≃ (Unit + Unit)
 Bool-is-coprod = equiv-adjointify ((λ { true → inl tt ; false → inr tt}) ,
                                   (λ { (inl x) → true ; (inr x) → false}) ,

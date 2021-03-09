@@ -3,8 +3,8 @@
 #+description: Definition of Categories along with some results about them, following the HoTT Book, Chapter 9.
 #+STARTUP: hideblocks
 * Prelude
-#+begin_src agda2
-{-# OPTIONS --without-K  #-}
+#+begin_src agda2 :tangle yes
+{-# OPTIONS --without-K  #-} 
 module UniAgda.Categories.Category where
 open import UniAgda.Core.Everything public
 #+end_src
@@ -13,7 +13,7 @@ open import UniAgda.Core.Everything public
 We introduce categories both as record and as a Σ type. The reason for the double definition is that using record types with this amount of data is much more organised and neater than working with Σ types. However, proving results about categories is much easier given the tools that we have developed for Σ types. We also construct an equivalence between the two different types.
 
 A precategory is defined as follows:
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 record Precategory (i j : Level) : Type (lsuc (i ⊔ j)) where
   eta-equality
   field
@@ -29,7 +29,7 @@ record Precategory (i j : Level) : Type (lsuc (i ⊔ j)) where
 ** Isomorphisms
 As isomorphisms are internal to a category, we define them in the record. 
 
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
   isIso : {a b : ob} (f : hom a b) → Type j
   isIso {a} {b} f = Σ[ g ∈ (hom b a) ] ((comp f g ≡ Id) × (comp g f ≡ Id))
 
@@ -39,7 +39,7 @@ As isomorphisms are internal to a category, we define them in the record.
 #+end_src
 
 The expected results about isomorphisms all hold, in particular that "iso" is an equivalence relation.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
   iso-refl : (a : ob)
                 → iso a a
   iso-refl a =
@@ -72,7 +72,7 @@ The expected results about isomorphisms all hold, in particular that "iso" is an
 #+end_src
 
 Importantly, the type "isIso" is a proposition, which means that we have a set of isomorphisms.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
   isIso-is-prop : {a b : ob} (f : hom a b)
                   → isProp (isIso f)
   isIso-is-prop {a} {b} f (g , η , ε) (g' , η' , ε') =
@@ -87,7 +87,7 @@ Importantly, the type "isIso" is a proposition, which means that we have a set o
 #+end_src
 
 Any path in a category can be transformed into an isomorphism, by induction. This function will be important when we deal with Categories, rather than Precategories.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
   id-to-iso : {a b : ob}
               → (a ≡ b) → (iso a b)
   id-to-iso refl =
@@ -99,7 +99,7 @@ Any path in a category can be transformed into an isomorphism, by induction. Thi
 
 ** Whiskering
 Given an equality in a precategory, we can whisker with a morphism.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
   precat-whiskerL : {x y z : ob} {f g : hom x y}
                        (p : f ≡ g) (h : hom y z)
                        → comp h f ≡ comp h g
@@ -113,7 +113,7 @@ Given an equality in a precategory, we can whisker with a morphism.
 #+end_src
 ** Sigma definition and equivalence
 We now give the alternative definition as a Σ type:
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 Precategory-sig : ∀ (i j : Level) → Type (lsuc (i ⊔ j))
 Precategory-sig i j =
   Σ[ ob ∈ (Type i) ] (
@@ -127,7 +127,7 @@ Precategory-sig i j =
 #+end_src
 
 We have maps going between both types, as follows.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 precategory-rec→sig : ∀ {i j}
                         → Precategory i j → Precategory-sig i j
 precategory-rec→sig record { ob = ob ; hom = hom ; hom-set = hom-set ; Id = Id ; comp = comp ; IdL = IdL ; IdR = IdR ; Assoc = Assoc } =
@@ -156,7 +156,7 @@ precategory-sig→rec (ob , hom , hom-set , Id , comp , IdL , IdR , Assoc) =
 #+end_src
 
 These functions both compose to give the identity.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 precategory-sig→rec→sig : ∀ {i j}
                           (C : Precategory-sig i j)
                           → (precategory-rec→sig o precategory-sig→rec) C ≡ C
@@ -177,7 +177,7 @@ precategory-rec→sig→rec C = refl
 #+end_src
 
 The above is combined into a proof of equivalence.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 Precategory-sig-equiv : ∀ {i j}
                         → Precategory-sig i j ≃ Precategory i j
 Precategory-sig-equiv =
@@ -189,13 +189,13 @@ Precategory-sig-equiv =
 #+end_src
 
 We open the precategory record so the rest of the file can use better notation.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 open Precategory
 #+end_src
 
 ** Notation
 It will be helpful to have some notation, to make it easier to reason about categories. This notation is taken from the [[https://github.com/agda/cubical/blob/master/Cubical/Categories/Category.agda][Cubical Agda library]].
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 _[_,_] : ∀ {i j} (C : Precategory i j) → (x y : C .ob) → Type j
 C [ x , y ] = C .hom x y
 
@@ -212,7 +212,7 @@ syntax comp' C g f = g o⟨ C ⟩ f
 * Categories
 A category, in the sense of the HoTT book, is a Precategory where the map "id-to-iso" is an equivalence. These are sometimes referred to as "univalent categories".
 
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 isCategory : ∀ {i j}
              (∁ : Precategory i j)
              → Type (i ⊔ j)
@@ -221,7 +221,7 @@ isCategory {i} {j} ∁ =
 #+end_src
 
 We define a "Category" to be a record of a Precategory, with a witness of "isCategory".
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 record Category (i j : Level) : Type (lsuc (i ⊔ j)) where
   eta-equality
   open Precategory
@@ -242,19 +242,19 @@ record Category (i j : Level) : Type (lsuc (i ⊔ j)) where
 #+end_src
 
 There are some immediate results that we can prove about categories. As they are "univalent", we would expect isomorphic objects to be equal. This is the case and we prove them /in/ the record.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
   cat-iso-to-id : (a b : ∁ .ob) → iso ∁ a b → a ≡ b
   cat-iso-to-id a b x = pr₁ (univ a b) x
 #+end_src
 
 We also have that the type of objects of any Category must be a 1-type.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
   cat-ob-is1type : is1type (∁ .ob)
   cat-ob-is1type a b = equiv-with-set (((id-to-iso ∁) , (univ a b)) ^ᵉ) (iso-is-set ∁ a b)
 #+end_src
 
 We also have the following few lemmas that hold in categories. The first says that if we transport an isomorphism along "hom", regarded as a type family, we conjugate with the carriers of the isomorphisms.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
   hom' : (∁ .ob × ∁ .ob) → Type j
   hom' (a , b) = hom ∁ a b
 
@@ -292,7 +292,7 @@ We also have the following few lemmas that hold in categories. The first says th
 
 ** Sigma definition and equivalence
 We now give the Σ definition of a category.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 Category-sig : (i j : Level)
                    → Type (lsuc (i ⊔ j))
 Category-sig i j =
@@ -301,7 +301,7 @@ Category-sig i j =
 #+end_src
 
 We have that the two different definitions are equivalent.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 category-rec→sig : ∀ {i j}
                         → Category i j → Category-sig i j
 category-rec→sig record { ∁ = ∁ ; univ = univ } = (∁ , univ)
@@ -323,7 +323,7 @@ category-rec→sig→rec ∁ = refl
 #+end_src
 
 These are combined into an equivalence.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 Category-sig-equiv : ∀ {i j}
                        → Category-sig i j ≃ Category i j
 Category-sig-equiv =
@@ -334,14 +334,14 @@ Category-sig-equiv =
     category-sig→rec→sig)
 #+end_src
 
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 open Category
 #+end_src
 
 * Opposite category
 We define the opposite of a category and show that \((C ^\text{op})^\text{op} = C\).
 
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 _^op : ∀ {i j} (C : Precategory i j)
        → Precategory i j
 ob (C ^op) = C .ob
@@ -355,7 +355,7 @@ Assoc (C ^op) f g h = Assoc C h g f ^
 #+end_src
 
 To show that "op" is an involution, we need to convert to Σ types, \(p ^ ^\) is equal to p only up to a path. The proof uses refl on every component except for associativity. Here, we need to unpack using implicit and explicit function extensionalities, then give the proof of  \(p^ ^ = p\).
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 op-involution : ∀ {i j}
                   (C : Precategory i j)
                   → (C ^op) ^op ≡ C

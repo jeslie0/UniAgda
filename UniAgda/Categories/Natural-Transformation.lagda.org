@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: hideblocks 
 * Prelude
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.Natural-Transformation where
 
@@ -12,7 +12,7 @@ open Functor
 #+end_src
 * Natural transformations
 A natural transformation is a map between functors. We define it as a record.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 record NaturalTransformation {i j k l : Level} {A : Precategory i j} {B : Precategory k l} (F G : Functor A B) : Type (i ⊔ j ⊔ l) where
   eta-equality
   module F = Functor F
@@ -23,7 +23,7 @@ record NaturalTransformation {i j k l : Level} {A : Precategory i j} {B : Precat
 #+end_src
 
 As precategories have sets of morphisms, the hom condition is a proposition. We use this later to show that there is a set of natural transformations between two functors.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
   α-hom-is-prop : {x y : A .ob}
                   → isProp ((f : hom A x y) → comp B (α-ob y) (F.₁ f) ≡ comp B (G.₁ f) (α-ob x))
   α-hom-is-prop = prop-fibres-Pi-is-prop λ f₁ → sets-have-prop-ids _ (B .hom-set _ _) _ _
@@ -31,7 +31,7 @@ As precategories have sets of morphisms, the hom condition is a proposition. We 
 
 ** Sigma definition and equivalence
 The Σ definition of a natural transformation is presented here.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 Nat-trans-sig : {i j k l : Level} {A : Precategory i j} {B : Precategory k l}
             (F G : Functor A B)
             → Type (i ⊔ j ⊔ l)
@@ -45,7 +45,7 @@ Nat-trans-sig {i} {j} {k} {l} {A} {B} F G =
 #+end_src
 
 Of course, we have an equivalence between the two definitions.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 nat-trans-sig→rec : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
                      (F G : Functor A B)
                      → Nat-trans-sig F G → NaturalTransformation F G
@@ -80,13 +80,13 @@ Nat-trans-sig-equiv F G = equiv-adjointify
   (nat-trans-sig→rec→sig F G))
 #+end_src
 
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 open NaturalTransformation
 #+end_src
 
 * Natural transformations properties
 As natural transformations have a prop as their second piece of data, we only need to consider what two natural transformations do on objects, to see if they are equal or not.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 nat-trans-id : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
                {F G : Functor A B} {α β : NaturalTransformation F G}
                → (α .α-ob ≡ β .α-ob) → α ≡ β
@@ -102,7 +102,7 @@ nat-trans-id {i} {j} {k} {l} {A} {B} {F} {G} {α} {β} p =
 #+end_src
 
 As previously mentioned, the type of natural transformations between two functors is a set.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 Nat-trans-is-set : {i j k l : Level} {A : Precategory i j} {B : Precategory k l}
                       (F G : Functor A B)
                       → isSet (NaturalTransformation F G)
@@ -116,7 +116,7 @@ Nat-trans-is-set {A = A} {B = B} F G = equiv-with-set (Nat-trans-sig-equiv F G)
 
 * Categorical properties
 We prove some useful results which will be used to show that functors form a precategory. Firstly, there is an identity natural transformation.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 idⁿ : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F : Functor A B}
       → NaturalTransformation F F
 idⁿ {i} {j} {k} {l} {A} {B} {F} =
@@ -125,7 +125,7 @@ idⁿ {i} {j} {k} {l} {A} {B} {F} =
 #+end_src
 
 We also have (vertical) composition of natural transformations.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 nat-trans-compᵛ : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F G H : Functor A B}
                   (β : NaturalTransformation G H) (α : NaturalTransformation F G)
                   → NaturalTransformation F H
@@ -144,7 +144,7 @@ infixr 9 _oᴺ_
 #+end_src
 
 Composing with the identity is as expected.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 nat-trans-id-compᵛ : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F G : Functor A B}
                      (α : NaturalTransformation F G)
                      → nat-trans-compᵛ idⁿ α ≡ α
@@ -159,7 +159,7 @@ nat-trans-compᵛ-id {B = B} record { α-ob = α₁ ; α-nat = α₂ } =
 #+end_src
 
 Finally, composition is associative.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 nat-trans-comp-assoc : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F G H K : Functor A B}
                        (α : NaturalTransformation F G) (β : NaturalTransformation G H) (γ : NaturalTransformation H K)
                      → nat-trans-compᵛ γ (nat-trans-compᵛ β α) ≡ nat-trans-compᵛ (nat-trans-compᵛ γ β) α
@@ -173,7 +173,7 @@ nat-trans-comp-assoc {B = B}
 
 ** 2 - Categorical aspects
 Natural transformations also have a notion of horizontal composition.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 -- compʰ : ∀ {i₁ i₂ i₃ i₄ i₅ i₆} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {C : Precategory i₅ i₆} {F F' : Functor A B} {G G' : Functor B C}
 --           (β : NaturalTransformation G G') (α : NaturalTransformation F F')
 --           → NaturalTransformation (compᶠ G F) (compᶠ G' F')
@@ -182,7 +182,7 @@ Natural transformations also have a notion of horizontal composition.
 #+end_src
 
 We can also whisker natural transformations with functors.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 _▹_ : ∀ {i₁ i₂ i₃ i₄ i₅ i₆} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {C : Precategory i₅ i₆} {G H : Functor B C}
         (γ : NaturalTransformation G H) (F : Functor A B)
         → NaturalTransformation (compᶠ G F) (compᶠ H F)

@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 {-# OPTIONS --without-K --safe #-}
 module UniAgda.Core.PathSpaces.Nat where
 
@@ -15,7 +15,7 @@ open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
 #+end_src
 * Paths in Nat
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 nat-code : ℕ → ℕ → Type lzero
 nat-code zero zero = Unit
 nat-code zero (suc m) = Empty

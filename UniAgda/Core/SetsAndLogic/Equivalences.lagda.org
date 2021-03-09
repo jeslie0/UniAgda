@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 {-# OPTIONS --without-K #-}
 module UniAgda.Core.SetsAndLogic.Equivalences where
 
@@ -18,7 +18,7 @@ open import UniAgda.Core.SetsAndLogic.Props
 open import UniAgda.Core.SetsAndLogic.Contractible
 #+end_src
 * 
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 
 equiv-fibres-to-equiv-sigma : ∀ {i j } {A : Type i} {B : A → Type j} {C : A → Type j}
       → ((x : A) → (B x ≃ C x))

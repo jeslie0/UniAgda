@@ -2,16 +2,16 @@
 #+author: James Leslie
 #+STARTUP: hideblocks noindent
 * Prelude
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.Examples.Group where
 
-open import UniAgda.Categories.Category
+open import UniAgda.Categories.Category public
 open import UniAgda.Algebra.GroupTheory.basics public
 open Precategory
 #+end_src
 * Category of groups
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 GROUP : (i : Level) → Precategory (lsuc i) i
 ob (GROUP i) = Group i
 hom (GROUP i) = Group-hom {i} {i}

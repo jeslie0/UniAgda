@@ -2,7 +2,7 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 {-# OPTIONS --without-K --safe #-}
 module UniAgda.Core.PathSpaces.Identity where
 open import UniAgda.Core.Types.Main
@@ -11,7 +11,7 @@ open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
 #+end_src
 * Paths in Identity Types
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 private
   lemma₁ : {i j : Level} {A : Type i} {B : Type j} (f : A → B) (g : B → A) (α : f o g ~ id) (a a' : A) (p : a ≡ a')
            → ap f p ≡ ((whisker-r α f a ^) ∘ (ap f (ap (g o f) p))) ∘ whisker-r α f a'
@@ -55,7 +55,7 @@ private
   thm2-11-1-ε f g β a .a refl = p^p (β a)
 #+end_src
 
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 thm2-11-1 : {i j : Level} {A : Type i} {B : Type j} {f : A → B} {a a' : A}
             → isEquiv f
             → isEquiv (λ (p : a ≡ a') → ap f p)
@@ -70,7 +70,7 @@ thm2-11-1 {i} {j} {A} {B} {f} {a} {a'} X =
     thm2-11-1-ε f g β a a')
 #+end_src
 * Other results
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 lemma2-11-2i : {i : Level} {A : Type i} {x₁ x₂ : A}
                (a : A) (p : x₁ ≡ x₂) (q : a ≡ x₁)
                → transport (λ x → a ≡ x) p q ≡ q ∘ p

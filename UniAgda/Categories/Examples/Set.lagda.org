@@ -2,17 +2,17 @@
 #+author: James Leslie
 #+STARTUP: hideblocks
 * Prelude
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.Examples.Set where
 
-open import UniAgda.Categories.Category 
+open import UniAgda.Categories.Category public
 open Precategory
 open Category
 #+end_src
 * SET is a precategory
 We first show define SET as a precategory.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 SET : ∀ i → Precategory (lsuc i) i
 ob (SET i) = Set_ i
 hom (SET i) a b = pr₁ a → pr₁ b
@@ -25,7 +25,7 @@ Assoc (SET i) f g h = refl
 #+end_src
 * SET is a category
 To show this, we need first prove a handful of results. The over arching idea is that we can restrict the map "id-to-eqv" to just those types that are sets, and use univalence at this level. First, we prove univalence for sets.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 UA-for-sets : ∀ {i} (X X' : Set_ i)
               → (X ≡ X') ≃ (pr₁ X ≃ pr₁ X')
 UA-for-sets {i} (X₁ , a) (X₂ , b) =
@@ -33,7 +33,7 @@ UA-for-sets {i} (X₁ , a) (X₂ , b) =
 #+end_src
 
 Next, we show that an isomorphism of sets is equivalent to a quasi-equivalence of sets.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 set-equiv-iso-qinv : ∀ {i} (A B : ob (SET i))
                      → (qequiv (pr₁ A) (pr₁ B)) ≃ (iso (SET i) A B)
 set-equiv-iso-qinv {i} (X , a) (X' , b) = equiv-adjointify
@@ -50,7 +50,7 @@ set-equiv-iso-qinv {i} (X , a) (X' , b) = equiv-adjointify
 #+end_src
 
 While in general it is not true that "qinv" is a proposition, it is the case if we are working with sets.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 qinv-of-sets-is-prop : ∀ {i} {A B : Set_ i}
                        (f : pr₁ A → pr₁ B)
                        → isProp (qinv f)
@@ -61,7 +61,7 @@ qinv-of-sets-is-prop {i} {X , a} {Y , b} f (g , α , β) (g' , α' , β') =
 #+end_src
 
 The above two results give us an equivalence between paths and isomorphisms in SET.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 SET-id-equiv-iso : ∀ {i}
                    (A B : ob (SET i)) →
                    (A ≡ B) ≃ (iso (SET i) A B)
@@ -74,7 +74,7 @@ SET-id-equiv-iso {i} (X , a) (X' , b) =
 #+end_src
 
 The map first map in this equivalence is then shown to be id-to-iso, as required.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 id-to-iso-equality : ∀ {i}
                      (A B : ob (SET i))
                      → pr₁ (SET-id-equiv-iso A B) ≡ id-to-iso (SET i) {A} {B}
@@ -85,7 +85,7 @@ id-to-iso-equality {i} (X , a) (X' , b) =
 #+end_src
 
 We can then show that SET is indeed a category.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 SET-is-category : ∀ {i}
                   → isCategory (SET i)
 SET-is-category A B =

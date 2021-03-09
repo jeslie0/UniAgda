@@ -2,13 +2,13 @@
 #+author: James Leslie
 #+STARTUP: noindent hideblocks 
 * Prelude
-#+begin_src agda2 :tangle
+#+begin_src agda2 :tangle yes :tangle
 {-# OPTIONS --without-K --no-import-sorts --safe #-}
 module UniAgda.Core.Types.Universes where
 #+end_src
 * Universes
 This is mostly taken from the Cubical library and Egbert Rijke's HoTT library.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 open import Agda.Primitive public
   using    ( Level ; lzero ; lsuc ; _⊔_)
   renaming ( Set  to Type

@@ -1,3 +1,8 @@
+#+title: Core - Types - Everything
+#+author: James Leslie
+#+STARTUP: noindent hideblocks latexpreview
+* Prelude
+#+begin_src agda2
 {-# OPTIONS --without-K --safe #-}
 module UniAgda.Core.Types.Everything where
 
@@ -11,3 +16,4 @@ open import UniAgda.Core.Types.Unit public
 open import UniAgda.Core.Types.Empty public
 open import UniAgda.Core.Types.Bool public
 open import UniAgda.Core.Types.Nat public
+#+end_src

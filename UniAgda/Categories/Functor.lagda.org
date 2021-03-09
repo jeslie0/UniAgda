@@ -3,7 +3,7 @@
 #+description: Functors and their some properties
 #+STARTUP: hideblocks
 * Prelude
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.Functor where
 open import UniAgda.Categories.Category public
@@ -12,7 +12,7 @@ open Precategory
 #+end_src
 * Definition
 We introduce functors between precategories as a record, giving the sigma type and equivalence later.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 record Functor {i j k l} (A : Precategory i j) (B : Precategory k l) : Type (i ⊔ j ⊔ k ⊔ l) where
   eta-equality
   private module A = Precategory A
@@ -27,7 +27,7 @@ record Functor {i j k l} (A : Precategory i j) (B : Precategory k l) : Type (i �
   ₁ = F₁
 #+end_src
 ** Sigma definition and equivalence
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 Functor-sig : ∀ {i j k l}
           (A : Precategory i j) (B : Precategory k l)
           → Type (i ⊔ j ⊔ k ⊔ l)
@@ -78,12 +78,12 @@ Functor-sig-Equiv A B = equiv-adjointify
   functor-sig→rec→sig A B)
 #+end_src
 
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 open Functor
 #+end_src
 * Paths between functors
 To show two functors are equal, it suffices to show only that they are equal on objects and maps. This is because the last two components in the definition are mere propositions, following from precategories having hom sets.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 Functor-path : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
                {F G : Functor A B} (p : F .F₀ ≡ G .F₀) (q : transport (λ F₀ →  Σ[ F₁ ∈ ({a b : A .ob} → A .hom a b → B .hom (F₀ a) (F₀ b))] (
           Σ[ F-id ∈ ({a : A .ob} → F₁ (A .Id {a}) ≡ (B .Id {F₀ a}))] (
@@ -101,7 +101,7 @@ Functor-path {A = A} {B = B} p q =
         funextD λ g → B .hom-set _ _ _ _ _ _)))))
 #+end_src
 * Functor composition
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 compᶠ : ∀ {i₁ i₂ i₃ i₄ i₅ i₆} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {C : Precategory i₅ i₆}
           (G : Functor B C) (F : Functor A B)
           → Functor A C
@@ -115,7 +115,7 @@ infixr 9 _oF_
 #+end_src
 
 This composition is associative.
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 F-Assoc : ∀ {i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {C : Precategory i₅ i₆} {D : Precategory i₇ i₈}
             (F : Functor A B) (G : Functor B C) (H : Functor C D)
             → (H oF G) oF F ≡ H oF (G oF F)
@@ -133,7 +133,7 @@ F-Assoc {D = D} F G H =
 #+end_src
 
 * Identity functor
-#+begin_src agda2
+#+begin_src agda2 :tangle yes
 Idᶠ : ∀ {i j} {C : Precategory i j}
       → Functor C C
 F₀ (Idᶠ {i} {j} {C}) = id

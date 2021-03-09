@@ -1,3 +1,8 @@
+#+title: UniAgda.HITs.Everything
+#+author: James Leslie
+#+STARTUP: noindent hideblocks latexpreview
+* Prelude
+#+begin_src agda2
 {-# OPTIONS --without-K --rewriting #-}
 module UniAgda.HITs.Everything where
 
@@ -12,3 +17,4 @@ open import UniAgda.HITs.PropTrunc public
 open import UniAgda.HITs.Pushouts public
 
 open import UniAgda.HITs.Suspensions public
+#+end_src
