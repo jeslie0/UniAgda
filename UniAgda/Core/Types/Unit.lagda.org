@@ -1,0 +1,17 @@
+#+title: Unit Type
+#+author: James Leslie
+#+STARTUP: noindent hideblocks latexpreview
+* Prelude
+#+begin_src agda2
+{-# OPTIONS --without-K --no-import-sorts --safe #-}
+module UniAgda.Core.Types.Unit where
+
+open import UniAgda.Core.Types.Universes
+#+end_src
+* Unit Type
+The unit type is an inductive type with only one term defined.
+
+#+begin_src agda2
+data Unit : Type lzero where
+  tt : Unit
+#+end_src

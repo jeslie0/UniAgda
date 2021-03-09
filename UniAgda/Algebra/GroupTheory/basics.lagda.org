@@ -6,7 +6,7 @@
 {-# OPTIONS --without-K #-}
 module UniAgda.Algebra.GroupTheory.basics where
 
-open import UniAgda.core.CORE public
+open import UniAgda.Core.Everything public
 #+end_src
 
 * Group definition

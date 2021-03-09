@@ -1,6 +1,6 @@
 {-# OPTIONS --without-K #-}
 module UniAgda.experimental.exp where
-open import UniAgda.core.CORE public
+open import UniAgda.Core.Everything public
 
 contrapos1 : ∀ {i j} {A : Type i} {B : Type j}
             → (A → B)
@@ -18,9 +18,9 @@ contrapos2 f a x = f x a
 --         → ((pr₁ X) , (pr₁ (pr₂ X))) ≡ ((pr₁ Y) , (pr₁ (pr₂ Y))) → X ≡ Y
 -- lemma x X Y p = {!!}
 
-open import UniAgda.categories.category
-open import UniAgda.categories.functor
-open import UniAgda.categories.natural-transformation
+open import UniAgda.Categories.Category
+open import UniAgda.Categories.Functor
+open import UniAgda.Categories.Natural-Transformation
 
 
 record Monad {i j : Level} (C : Precategory i j) : Type (lsuc (i ⊔ j)) where

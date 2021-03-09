@@ -1,0 +1,24 @@
+#+title: Existential Quantifier
+#+author: James Leslie
+#+STARTUP: noindent hideblocks latexpreview
+* Prelude
+#+begin_src agda2
+{-# OPTIONS --without-K --rewriting #-}
+module UniAgda.Logic.Exists where
+open import UniAgda.Core.Everything public
+open import UniAgda.HITs.PropTrunc public
+
+-- Merely exists
+∃ : ∀ {i j}
+    (A : Type i) (B : A → Type j)
+    → Type (i ⊔ j)
+∃ A B = ∥ Σ[ x ∈ A ] B x ∥
+
+syntax ∃ A (λ x → B) = ∃[ x ∈ A ] B
+
+-- Merely or
+_∨_ : ∀ {i j}
+      (A : Type i) (B : Type j)
+      → Type (i ⊔ j)
+A ∨ B = ∥ A + B ∥
+#+end_src

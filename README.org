@@ -54,7 +54,7 @@ There are rough naming conventions that I try to follow.
     + [X] 4.6
     + [ ] 4.7
     + [ ] 4.8
-  + [ ] Redo prop-sets-properties without using univalence
+  + [X] Redo prop-sets-properties without using univalence
   + [ ] Define horizontal composition of natural transformations, and whiskering.
   + [ ] Category Theory
     - [ ] Theorem 9.2.5
@@ -91,6 +91,8 @@ There are rough naming conventions that I try to follow.
 - [X] Axioms
 - [ ] PropSetProperties
   - Mostly done. Needs tidying up in Logic/Equiv section.
-
-
+- [ ] HITs
+  - In literate form, needs to actually be made literate though.
+- [ ] Inj-Surj
+- [ ] Logic
 
