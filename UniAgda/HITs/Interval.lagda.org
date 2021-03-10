@@ -6,6 +6,8 @@
 {-# OPTIONS --without-K --rewriting #-}
 module UniAgda.HITs.Interval where
 
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Identity
 open import UniAgda.HITs.Core public
 
 postulate

@@ -23,3 +23,11 @@ id : ∀ {i} {A : Type i}
      → A → A
 id a = a
 #+end_src
+
+We introduce Haskell notation for function application.
+#+begin_src agda2
+_$_ : ∀ {i j} {A : Type i} {B : Type j}
+     → (A → B) → A
+     → B
+f $ a = f a
+#+end_src

@@ -46,15 +46,13 @@ There are rough naming conventions that I try to follow.
 
 * Current goals
 - Need to finish proofs in Equivalences, in particular, need to prove the following: (Equivalences will need to be tidied up)
-  + [X] "isContrmap" is a prop
-  + [X] "isContr f" is equiv to "isEquiv f"
-  + [X] "isBiinv" is a prop
-  + [X] "isBiinv f" is equiv to "isEquiv f"
   + [-] Sections:
     + [X] 4.6
     + [ ] 4.7
+      + [ ] Lemma 4.7.3
     + [ ] 4.8
-  + [X] Redo prop-sets-properties without using univalence
+  + [ ] Section 2.15 - universal properties
+    + [ ] Finished Thm2.15.7
   + [ ] Define horizontal composition of natural transformations, and whiskering.
   + [ ] Category Theory
     - [ ] Theorem 9.2.5
@@ -71,24 +69,12 @@ There are rough naming conventions that I try to follow.
 - Add in n-types.
 - Add in some more HITs - in particular n-truncation
 - Refactor path-algebra names. Make more consistent.
-  
-
 
 * Refactoring notes
 - [ ] Change "^" to "\(^{-1}\)" using unicode?
-- [X] Add in IFF somewhere [[file:UniAgda/core/primitives.agda::_↔_ : ∀ {i j} (A : Type i) (B : Type j) → Type (i ⊔ j)][LINK]]
-- [X] Add negation in somewhere [[file:UniAgda/core/primitives.agda::¬ : {i : Level}][LINK]]
 
 * Conversion progress
-
 ** Core
-- [X] Primitives
-- [X] PathAlgebra
-- [X] Homotopy
-- [X] Contr-prop-set
-- [X] Equivalences
-- [X] PathSpaces
-- [X] Axioms
 - [ ] PropSetProperties
   - Mostly done. Needs tidying up in Logic/Equiv section.
 - [ ] HITs

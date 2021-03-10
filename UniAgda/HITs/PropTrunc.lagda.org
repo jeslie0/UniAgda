@@ -6,6 +6,12 @@
 {-# OPTIONS --without-K --rewriting #-}
 module UniAgda.HITs.PropTrunc where
 
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Identity
+
+open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
+open import UniAgda.Core.SetsAndLogic.Props
+open import UniAgda.Core.Equivalences
 open import UniAgda.HITs.Core public
 
 postulate

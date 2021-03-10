@@ -4,7 +4,9 @@
 {-# OPTIONS --without-K #-}
 module UniAgda.Categories.Adjunctions where
 
-open import UniAgda.Categories.FunctorCat public
+open import UniAgda.Categories.Category
+open import UniAgda.Categories.Functor
+open import UniAgda.Categories.Natural-Transformation
 #+end_src
 * Definition
 #+begin_src agda2

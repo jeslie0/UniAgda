@@ -5,6 +5,20 @@
 #+begin_src agda2
 {-# OPTIONS --without-K --rewriting #-}
 module UniAgda.HITs.Suspensions where
+
+
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Sigma
+open import UniAgda.Core.Types.Nat
+open import UniAgda.Core.Types.Bool
+
+open import UniAgda.Core.Homotopy
+open import UniAgda.Core.Equivalences
+
+open import UniAgda.Core.PathAlgebra
+open import UniAgda.Core.PathSpaces.Identity
 open import UniAgda.HITs.Core public
 open import UniAgda.HITs.Circle public
 

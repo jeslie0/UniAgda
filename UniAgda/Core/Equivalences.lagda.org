@@ -360,7 +360,7 @@ isretr-isContrmap {_} {_} {A} {B} {f} X x = ap ( pr₁ {B = λ z → f z ≡ f x
       (contraction (X (f x)) (x , refl)) )
 #+end_src
 * Useful results
-  We can take an equivalence, a term of the first type then construct a term of the second.
+We can take an equivalence, a term of the first type then construct a term of the second.
 #+begin_src agda2
 e-ap : ∀ {i j} {A : Type i} {B : Type j}
       → A ≃ B → A
@@ -375,3 +375,4 @@ equiv-types-eq : ∀ {i j} {A : Type i} {B : Type j}
         → pr₁ (pr₂ F) x ≡ pr₁ (pr₂ F) y → x ≡ y
 equiv-types-eq {x = x} {y = y} (f , g , η , ε , τ) p = ε x ^ ∘ (ap f p) ∘ ε y
 #+end_src
+

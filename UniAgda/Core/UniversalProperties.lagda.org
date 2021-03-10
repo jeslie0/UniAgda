@@ -1,0 +1,78 @@
+#+title: Universal Properties
+#+author: James Leslie
+#+STARTUP: noindent hideblocks latexpreview
+* Prelude
+#+begin_src agda2
+{-# OPTIONS --without-K #-}
+module UniAgda.Core.UniversalProperties where
+
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Sigma
+open import UniAgda.Core.Types.Identity
+
+open import UniAgda.Core.Homotopy
+open import UniAgda.Core.Equivalences
+
+open import UniAgda.Core.PathSpaces.Sigma
+open import UniAgda.Core.Axioms
+#+end_src
+* Products
+#+name: 2.15.1
+#+begin_src agda2
+into-product : ∀ {i j k} {A : Type i} {B : Type j} {X : Type k}
+                 → (X → A × B)
+                 → (X → A) × (X → B)
+into-product f = pr₁ o f , pr₂ o f
+#+end_src
+
+#+name: Theorem2.15.2
+#+begin_src agda2
+into-product-is-equiv : ∀ {i j k} {A : Type i} {B : Type j} {X : Type k}
+                        → isEquiv (into-product {A = A} {B = B} {X = X})
+into-product-is-equiv {A = A} {B = B} {X = X} =
+  isequiv-adjointify
+    ((λ { (f , g) x → (f x) , (g x)}) ,
+    (λ { (f , g) → refl}) ,
+    λ f → funext λ x → path-equiv-prod (refl , refl))
+#+end_src
+
+#+name: Theorem2.15.4
+#+begin_src agda2
+into-product-dep : ∀ {i j k} {X : Type i} {A : X → Type j} {B : X → Type k}
+                     → ((x : X) → (A x × B x))
+                     → ((x : X) → A x) × ((x : X) → B x)
+into-product-dep F = (λ x → pr₁ (F x)) , (λ x → pr₂ (F x))
+#+end_src
+
+#+name: Theorem2.15.5
+#+begin_src agda2
+into-product-dep-is-equiv : ∀ {i j k} {X : Type i} {A : X → Type j} {B : X → Type k}
+                            → isEquiv (into-product-dep {X = X} {A = A} {B = B})
+into-product-dep-is-equiv =
+  isequiv-adjointify
+    ((λ { (F , G) x → F x , G x}) ,
+    (λ { (F , G) → refl}) ,
+    λ { F → funextD λ x → path-equiv-prod (refl , refl)})
+#+end_src
+
+#+name: 2.15.6
+#+begin_src agda2
+into-dep-product : ∀ {i j k} {X : Type i} {A : X → Type j} {P : (x : X) → A x → Type k}
+                     → ((x : X) → Σ[ a ∈ (A x) ] P x a)
+                     → (Σ[ g ∈ ((x : X) → A x) ] ((x : X) → P x (g x)))
+into-dep-product F = (λ x → pr₁ (F x)) , (λ x → pr₂ (F x))
+#+end_src
+
+#+name: Theorem2.15.7
+#+begin_src agda2
+into-dep-product-is-equiv : ∀ {i j k} {X : Type i} {A : X → Type j} {P : (x : X) → A x → Type k}
+                            → isEquiv (into-dep-product {X = X} {A = A} {P = P})
+into-dep-product-is-equiv =
+  isequiv-adjointify
+    ((λ { (F , G) x → (F x) , (G x)}) ,
+    (λ { (F , G) → refl}) ,
+    λ F → funextD λ x → path-equiv-sigma (refl , refl))
+#+end_src
+* Functions
+

@@ -5,8 +5,11 @@
 #+begin_src agda2
 {-# OPTIONS --without-K --rewriting #-}
 module UniAgda.Logic.Exists where
-open import UniAgda.Core.Everything public
-open import UniAgda.HITs.PropTrunc public
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Sigma
+open import UniAgda.Core.Types.Coproduct
+
+open import UniAgda.HITs.PropTrunc
 
 -- Merely exists
 ∃ : ∀ {i j}

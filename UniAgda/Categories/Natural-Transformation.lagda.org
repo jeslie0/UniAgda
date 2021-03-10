@@ -6,7 +6,9 @@
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.Natural-Transformation where
 
-open import UniAgda.Categories.Functor public
+open import UniAgda.Categories.Category
+open import UniAgda.Categories.Functor
+
 open Precategory
 open Functor
 #+end_src

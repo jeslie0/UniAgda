@@ -46,3 +46,7 @@ open import UniAgda.Core.SetsAndLogic.Sets public
 open import UniAgda.Core.SetsAndLogic.Contractible public
 open import UniAgda.Core.SetsAndLogic.Equivalences public
 #+end_src
+* Universal Properties
+#+begin_src agda2
+open import UniAgda.Core.UniversalProperties public
+#+end_src

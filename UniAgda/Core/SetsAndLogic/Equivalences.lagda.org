@@ -242,3 +242,17 @@ isBiinv-equiv-isEquiv f =
     (qinv-to-ishae o isBiinv-to-qinv)
     (qinv-to-isBiinv o isEquiv-to-qinv)
 #+end_src
+* More results
+
+The inverse of a composite of equivalences is the composites inverses.
+#+begin_src agda2
+inv-of-comp-of-eqv : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k}
+                     (f : A ≃ B) (g : B ≃ C)
+                     → (f oₑ g) ^ᵉ ≡ (g ^ᵉ) oₑ (f ^ᵉ)
+inv-of-comp-of-eqv f g =
+  fibres-props-eq
+    isEquiv-is-prop
+    ((f oₑ g) ^ᵉ)
+    ((g ^ᵉ) oₑ (f ^ᵉ))
+    refl
+#+end_src

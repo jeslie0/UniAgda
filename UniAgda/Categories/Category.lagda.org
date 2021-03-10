@@ -1,16 +1,16 @@
 #+title: Categories
 #+author: James Leslie
 #+description: Definition of Categories along with some results about them, following the HoTT Book, Chapter 9.
-#+STARTUP: hideblocks
+#+STARTUP: hideblocks latexpreview noindent
 * Prelude
 #+begin_src agda2
-{-# OPTIONS --without-K  #-} 
+{-# OPTIONS --without-K #-} 
 module UniAgda.Categories.Category where
+
 open import UniAgda.Core.Everything public
 #+end_src
-
 * Precategories
-We introduce categories both as record and as a Σ type. The reason for the double definition is that using record types with this amount of data is much more organised and neater than working with Σ types. However, proving results about categories is much easier given the tools that we have developed for Σ types. We also construct an equivalence between the two different types.
+We introduce precategories both as record and as a Σ type. The reason for the double definition is that using record types with this amount of data is much more organised and neater than working with Σ types. However, proving results about categories is much easier given the tools that we have developed for Σ types. We also construct an equivalence between the two different types.
 
 A precategory is defined as follows:
 #+begin_src agda2
@@ -27,7 +27,7 @@ record Precategory (i j : Level) : Type (lsuc (i ⊔ j)) where
     Assoc : {a b c d : ob} (f : hom a b) (g : hom b c) (h : hom c d) → comp h (comp g f) ≡ comp (comp h g) f
 #+end_src
 ** Isomorphisms
-As isomorphisms are internal to a category, we define them in the record. 
+As isomorphisms are internal to a precategory, we define them in the record. 
 
 #+begin_src agda2
   isIso : {a b : ob} (f : hom a b) → Type j
@@ -86,7 +86,7 @@ Importantly, the type "isIso" is a proposition, which means that we have a set o
     prop-fibres-totalspace-set (hom-set a b) λ x → isIso-is-prop x
 #+end_src
 
-Any path in a category can be transformed into an isomorphism, by induction. This function will be important when we deal with Categories, rather than Precategories.
+Any path in a precategory can be transformed into an isomorphism, by induction. This function will be important when we deal with Categories, rather than Precategories.
 #+begin_src agda2
   id-to-iso : {a b : ob}
               → (a ≡ b) → (iso a b)
@@ -210,7 +210,7 @@ syntax comp' C g f = g o⟨ C ⟩ f
 #+end_src
 
 * Categories
-A category, in the sense of the HoTT book, is a Precategory where the map "id-to-iso" is an equivalence. These are sometimes referred to as "univalent categories".
+A category, in the sense of the HoTT book, is a precategory where the map "id-to-iso" is an equivalence. These are sometimes referred to as "univalent categories".
 
 #+begin_src agda2
 isCategory : ∀ {i j}
@@ -220,7 +220,7 @@ isCategory {i} {j} ∁ =
   (a b : ∁ .ob) → isEquiv (id-to-iso ∁ {a} {b})
 #+end_src
 
-We define a "Category" to be a record of a Precategory, with a witness of "isCategory".
+We define a "category" to be a record of a precategory, with a witness of "isCategory".
 #+begin_src agda2
 record Category (i j : Level) : Type (lsuc (i ⊔ j)) where
   eta-equality
@@ -247,7 +247,7 @@ There are some immediate results that we can prove about categories. As they are
   cat-iso-to-id a b x = pr₁ (univ a b) x
 #+end_src
 
-We also have that the type of objects of any Category must be a 1-type.
+We also have that the type of objects of any category must be a 1-type.
 #+begin_src agda2
   cat-ob-is1type : is1type (∁ .ob)
   cat-ob-is1type a b = equiv-with-set (((id-to-iso ∁) , (univ a b)) ^ᵉ) (iso-is-set ∁ a b)

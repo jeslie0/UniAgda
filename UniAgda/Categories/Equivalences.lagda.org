@@ -6,10 +6,13 @@
 {-# OPTIONS --without-K --rewriting #-}
 module UniAgda.Categories.Equivalences where
 
-open import UniAgda.Categories.Adjunctions public
+open import UniAgda.Categories.Category
+open import UniAgda.Categories.Functor
+open import UniAgda.Categories.Natural-Transformation
+open import UniAgda.Categories.Adjunctions
 
-open import UniAgda.Equiv.Inj-Surj public
-open import UniAgda.Logic.Exists public
+open import UniAgda.Equiv.Inj-Surj
+open import UniAgda.Logic.Exists
 #+end_src
 * Definition
 #+begin_src agda2

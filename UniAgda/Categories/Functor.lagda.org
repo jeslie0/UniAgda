@@ -6,7 +6,8 @@
 #+begin_src agda2
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.Functor where
-open import UniAgda.Categories.Category public
+
+open import UniAgda.Categories.Category
 
 open Precategory
 #+end_src

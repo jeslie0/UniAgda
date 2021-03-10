@@ -6,7 +6,10 @@
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.FunctorCat where
 
-open import UniAgda.Categories.Natural-Transformation public
+open import UniAgda.Categories.Category
+open import UniAgda.Categories.Functor
+open import UniAgda.Categories.Natural-Transformation
+
 open Precategory
 open Category
 open Functor
