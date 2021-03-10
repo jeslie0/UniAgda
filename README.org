@@ -51,8 +51,9 @@ There are rough naming conventions that I try to follow.
     + [ ] 4.7
       + [ ] Lemma 4.7.3
     + [ ] 4.8
-  + [ ] Section 2.15 - universal properties
-    + [ ] Finished Thm2.15.7
+  + [-] Section 2.15 - universal properties
+    + [X] Finished Thm2.15.7
+    + [ ] Finish pullbacks
   + [ ] Define horizontal composition of natural transformations, and whiskering.
   + [ ] Category Theory
     - [ ] Theorem 9.2.5
