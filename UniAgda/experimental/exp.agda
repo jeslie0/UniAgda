@@ -1,67 +1,16 @@
 {-# OPTIONS --without-K #-}
 module UniAgda.experimental.exp where
-
 open import UniAgda.Core.Everything
--- contrapos1 : ∀ {i j} {A : Type i} {B : Type j}
---             → (A → B)
---             → (¬ B → ¬ A)
--- contrapos1 f x₁ x₂ = x₁ (f x₂)
+open import UniAgda.Categories.Category
+--SIP
 
--- contrapos2 : ∀ {i j} {A : Type i} {B : Type j}
---             → (¬ B → ¬ A)
---             → (A → ¬ (¬ B))
--- contrapos2 f a x = f x a
-
-
--- -- lemma : ∀ {i j k} {A : Type i} {B : A → Type j} {C : (a : A) → B a → Type k}
--- --         → ((a : A) → (b : B a) → isProp (C a b)) → (X Y : Σ[ a ∈ A ] (Σ[ b ∈ (B a)] (C a b)))
--- --         → ((pr₁ X) , (pr₁ (pr₂ X))) ≡ ((pr₁ Y) , (pr₁ (pr₂ Y))) → X ≡ Y
--- -- lemma x X Y p = {!!}
-
--- open import UniAgda.Categories.Category
--- open import UniAgda.Categories.Functor
--- open import UniAgda.Categories.Natural-Transformation
-
-
--- record Monad {i j : Level} (C : Precategory i j) : Type (lsuc (i ⊔ j)) where
---   field
---     F : Functor C C
---     η : NaturalTransformation Idᶠ F
---     μ : NaturalTransformation (compᶠ F F) F
-
---   module F = Functor F
---   module η = NaturalTransformation η
---   module μ = NaturalTransformation μ
-
--- lemma : power 3 2 ≡ 9
--- lemma = refl
-
--- ℤ : Type lzero
--- ℤ = ℕ + ℕ
-
--- pre : ℤ → ℤ
--- pre (inl zero) = inl (suc zero)
--- pre (inl (suc x)) = inl x
--- pre (inr zero) = inl zero
--- pre (inr (suc x)) = inr x
-
-
--- ℤplus : ℤ → ℤ → ℤ
--- ℤplus (inl x) (inl y) = inl (plus x y)
--- ℤplus (inl zero) (inr y) = inr y
--- ℤplus (inl (suc x)) (inr y) = {!!}
--- ℤplus (inr x) (inl y) = {!!}
--- ℤplus (inr x) (inr y) = inr (plus x y)
-
-
-
-inv-of-comp-of-eqv : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k}
-                     (f : A ≃ B) (g : B ≃ C)
-                     → (f oₑ g) ^ᵉ ≡ (g ^ᵉ) oₑ (f ^ᵉ)
-inv-of-comp-of-eqv (f , f' , α , β , γ) (g , g' , α' , β' , γ') =
-  fibres-props-eq
-    isEquiv-is-prop
-    (equiv-adjointify
-      (f' o g' , (g o f , ? , ? )))
-    {!!}
-    {!!}
+record Notion-of-Structure {i j k l : Level} (X : Precategory i j) : Type (lsuc (i ⊔ j ⊔ k ⊔ l)) where
+  eta-equality
+  module X = Precategory X
+  field
+    P : X.ob → Type k
+    H : {x y : X.ob} (α : P x) (β : P y) (f : X.hom x y) → Type l
+    H-is-prop : {x y : X.ob} (α : P x) (β : P y) (f : X.hom x y) → isProp (H α β f)
+    iii : {x : X.ob} (α : P x) → H α α X.Id
+    iv : {x y z : X.ob} (α : P x) (β : P y) (γ : P z) (f : X.hom x y) (g : X.hom y z)
+         → H α β f → H β γ g → H α γ (g X.<o> f)

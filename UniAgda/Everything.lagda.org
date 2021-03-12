@@ -96,5 +96,3 @@ open import UniAgda.Categories.Examples.Terminal public
 open import UniAgda.Categories.Examples.Initial public
 #+end_src
 
-
-

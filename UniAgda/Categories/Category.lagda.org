@@ -7,7 +7,23 @@
 {-# OPTIONS --without-K #-} 
 module UniAgda.Categories.Category where
 
-open import UniAgda.Core.Everything public
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Sigma
+open import UniAgda.Core.Types.Identity
+
+open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
+open import UniAgda.Core.SetsAndLogic.Props
+open import UniAgda.Core.SetsAndLogic.Sets
+
+open import UniAgda.Core.Homotopy
+open import UniAgda.Core.Equivalences
+
+open import UniAgda.Core.PathSpaces.Sigma
+open import UniAgda.Core.PathAlgebra
+
+
+open import UniAgda.Core.Axioms
 #+end_src
 * Precategories
 We introduce precategories both as record and as a Σ type. The reason for the double definition is that using record types with this amount of data is much more organised and neater than working with Σ types. However, proving results about categories is much easier given the tools that we have developed for Σ types. We also construct an equivalence between the two different types.
@@ -25,6 +41,8 @@ record Precategory (i j : Level) : Type (lsuc (i ⊔ j)) where
     IdL : {a b : ob} (f : hom a b) → comp f Id ≡ f
     IdR : {a b : ob} (f : hom a b) → comp Id f ≡ f
     Assoc : {a b c d : ob} (f : hom a b) (g : hom b c) (h : hom c d) → comp h (comp g f) ≡ comp (comp h g) f
+
+  _<o>_ = comp
 #+end_src
 ** Isomorphisms
 As isomorphisms are internal to a precategory, we define them in the record. 
@@ -77,7 +95,7 @@ Importantly, the type "isIso" is a proposition, which means that we have a set o
   isIso-is-prop : {a b : ob} (f : hom a b)
                   → isProp (isIso f)
   isIso-is-prop {a} {b} f (g , η , ε) (g' , η' , ε') =
-    path-equiv-sigma
+                path-equiv-sigma
       (IdR g ^ ∘ transport (λ x → comp x g ≡ g') (ε') ((Assoc _ _ _) ^ ∘ transport (λ x → comp g' x ≡ g') (η ^) (IdL g')) ,
       path-equiv-prod ((hom-set _ _ _ _ _ η') , hom-set _ _ _ _ _ ε'))
 
@@ -160,7 +178,7 @@ These functions both compose to give the identity.
 #+begin_src agda2
 precategory-sig→rec→sig : ∀ {i j}
                           (C : Precategory-sig i j)
-                          → (precategory-rec→sig o precategory-sig→rec) C ≡ C
+                             → (precategory-rec→sig o precategory-sig→rec) C ≡ C
 precategory-sig→rec→sig (ob , hom , hom-set , Id , comp , IdL , IdR , Assoc) =
   path-equiv-sigma (refl ,
     (path-equiv-sigma (refl ,
