@@ -13,6 +13,13 @@ The empty type is an inductive type with no elements defined.
 #+begin_src agda2
 data Empty : Type lzero where
 #+end_src
+* Induction
+The induction principle is defined as follows:
+#+begin_src agda2
+Empty-ind : ∀ {i} {A : Type i}
+            → Empty → A
+Empty-ind ()
+#+end_src  
 * Negation
 The empty type allows us to define logical negation.
 #+begin_src agda2

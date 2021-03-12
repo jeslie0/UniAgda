@@ -36,6 +36,7 @@ As isomorphisms are internal to a precategory, we define them in the record.
   iso : (a b : ob)
         → Type j
   iso a b = Σ[ f ∈ (hom a b) ] (isIso f)
+  syntax iso a b = a ≅ b
 #+end_src
 
 The expected results about isomorphisms all hold, in particular that "iso" is an equivalence relation.

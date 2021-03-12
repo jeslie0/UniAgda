@@ -73,6 +73,7 @@ There are rough naming conventions that I try to follow.
 
 * Refactoring notes
 - [ ] Change "^" to "\(^{-1}\)" using unicode?
+- [ ] Need to decide on how to present results about fibres of type families being props and sets and 1-types
 
 * Conversion progress
 ** Core

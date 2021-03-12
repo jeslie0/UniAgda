@@ -15,3 +15,12 @@ data _+_ {i j : Level} (A : Type i) (B : Type j) : Type (i ⊔ j) where
   inl : A → A + B
   inr : B → A + B
 #+end_src
+* Induction
+The induction principle can be defined as follows:
+#+begin_src agda2
+coproduct-ind : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k}
+             → (A → C) → (B → C)
+             → A + B → C
+coproduct-ind x x₁ (inl x₂) = x x₂
+coproduct-ind x x₁ (inr x₂) = x₁ x₂
+#+end_src

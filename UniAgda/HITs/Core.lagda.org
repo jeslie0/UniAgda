@@ -1,6 +1,6 @@
 #+title: Higher Inductive Type Core
 #+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
+#+STARTUP: noindent
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --rewriting #-}
