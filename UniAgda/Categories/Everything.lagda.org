@@ -3,7 +3,7 @@
 #+STARTUP: noindent hideblocks latexpreview
 * Prelude
 #+begin_src agda2
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K --rewriting #-}
 module UniAgda.Categories.Everything where
 #+end_src
 * Categories
@@ -18,6 +18,8 @@ open import UniAgda.Categories.Equivalences public
 
 * Examples
 #+begin_src agda2
+open import UniAgda.Categories.Examples.HomotopyPrecategory public
+open import UniAgda.Categories.Examples.FundamentalPregroupoid public
 open import UniAgda.Categories.Examples.Group public
 open import UniAgda.Categories.Examples.Set public
 open import UniAgda.Categories.Examples.Terminal public

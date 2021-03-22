@@ -14,6 +14,8 @@ open import UniAgda.HITs.Interval public
 
 open import UniAgda.HITs.PropTrunc public
 
+open import UniAgda.HITs.0truncation public
+
 open import UniAgda.HITs.Pushouts public
 
 open import UniAgda.HITs.Suspensions public

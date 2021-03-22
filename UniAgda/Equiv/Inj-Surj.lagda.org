@@ -5,13 +5,33 @@
 #+begin_src agda2
 {-# OPTIONS --without-K --rewriting #-}
 module UniAgda.Equiv.Inj-Surj where
-open import UniAgda.Core.Everything public
-open import UniAgda.HITs.PropTrunc public
 
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Sigma
+
+open import UniAgda.Core.PathAlgebra
+
+open import UniAgda.Core.Equivalences
+
+open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
+open import UniAgda.Core.SetsAndLogic.Props
+open import UniAgda.Core.SetsAndLogic.Contractible
+open import UniAgda.Core.SetsAndLogic.Equivalences
+
+open import UniAgda.Core.PathSpaces.Sigma
+open import UniAgda.Core.PathSpaces.Identity
+
+open import UniAgda.HITs.PropTrunc
+#+end_src
+* Results
+#+begin_src agda2
 surjective : ∀ {i j} {A : Type i} {B : Type j}
        (f : A → B)
        → Type (i ⊔ j)
 surjective {i} {j} {A} {B} f = (b : B) → ∥ fib f b ∥ 
+isSurj = surjective
 
 surjective-is-prop : ∀ {i j} {A : Type i} {B : Type j}
                      (f : A → B)

@@ -7,6 +7,17 @@
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.Functor where
 
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Sigma
+
+open import UniAgda.Core.Equivalences
+
+open import UniAgda.Core.PathSpaces.Sigma
+
+open import UniAgda.Core.Axioms
+
 open import UniAgda.Categories.Category
 
 open Precategory

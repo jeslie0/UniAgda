@@ -5,6 +5,17 @@
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.Examples.Terminal where
 
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Unit
+open import UniAgda.Core.Types.Sigma
+
+open import UniAgda.Core.PathSpaces.Sigma
+open import UniAgda.Core.Equivalences
+
+open import UniAgda.Core.SetsAndLogic.Sets
+open import UniAgda.Core.SetsAndLogic.Equivalences
+
 open import UniAgda.Categories.Category public
 open Precategory
 open Category

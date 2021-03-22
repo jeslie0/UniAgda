@@ -6,9 +6,18 @@
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.FunctorCat where
 
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Sigma
+
 open import UniAgda.Categories.Category
 open import UniAgda.Categories.Functor
 open import UniAgda.Categories.Natural-Transformation
+
+open import UniAgda.Core.PathSpaces.Sigma
+
+open import UniAgda.Core.Axioms
 
 open Precategory
 open Category
@@ -19,7 +28,7 @@ open NaturalTransformation
 Given two precategories, there is a precategory of functors between them, with natural transformations as morphisms.
 #+begin_src agda2
 _^_ : ∀ {i₁ i₂ i₃ i₄} (A : Precategory i₁ i₂) (B : Precategory i₃ i₄)
-        → Precategory (i₁ ⊔ i₂ ⊔ i₃ ⊔ i₄) (i₂ ⊔ i₃ ⊔ i₄)
+      → Precategory (i₁ ⊔ i₂ ⊔ i₃ ⊔ i₄) (i₂ ⊔ i₃ ⊔ i₄)
 ob (A ^ B) = Functor B A
 hom (A ^ B) F G = NaturalTransformation F G
 hom-set (A ^ B) = Nat-trans-is-set

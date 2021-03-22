@@ -26,8 +26,8 @@ pr₁ : ∀ {i j} {A : Type i} {B : A → Type j}
 pr₁ (a , b) = a
 
 pr₂ : ∀ {i j} {A : Type i} {B : A → Type j}
-      (p : Σ A B)
-      → B(pr₁ p)
+      (w : Σ A B)
+      → B (pr₁ w)
 pr₂ (a , b) = b
 #+end_src
 * Product Types

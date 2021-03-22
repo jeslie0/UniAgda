@@ -82,3 +82,21 @@ apD : ∀ {i j} {A : Type i} {x y : A} {P : A → Type j}
       → (transport P p (f x)) ≡ (f y)
 apD f refl = refl
 #+end_src
+* Higher transports
+The higher groupoid nature allows us to treat functions not just as functors, but \(\infty-\) functors. We define the second level of this.
+#+begin_src agda2
+ap² : ∀ {i j} {A : Type i} {B : Type j} {x y : A} {p q : x ≡ y}
+      (f : A → B) (r : p ≡ q)
+      → ap f p ≡ ap f q
+ap² f refl = refl
+
+transport² : ∀ {i j} {A : Type i} {x y : A} {p q : x ≡ y}
+             {P : A → Type j} (r : p ≡ q) (u : P x)
+             → transport P p u ≡ transport P q u
+transport² refl u = refl
+
+apD² : ∀ {i j} {A : Type i} {P : A → Type j} {x y : A} {p q : x ≡ y}
+       (f : (x : A) → P x) (r : p ≡ q)
+       → apD f p ≡ transport² r (f x) ∘ (apD f q)
+apD² f refl = refl
+#+end_src

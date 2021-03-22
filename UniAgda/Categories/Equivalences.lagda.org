@@ -6,13 +6,25 @@
 {-# OPTIONS --without-K --rewriting #-}
 module UniAgda.Categories.Equivalences where
 
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Sigma
+
+open import UniAgda.Core.PathSpaces.Sigma
+
+open import UniAgda.Core.Axioms
+
+open import UniAgda.Equiv.Inj-Surj
+open import UniAgda.Logic.Exists
+
+open import UniAgda.Core.Equivalences
+
 open import UniAgda.Categories.Category
 open import UniAgda.Categories.Functor
 open import UniAgda.Categories.Natural-Transformation
 open import UniAgda.Categories.Adjunctions
 
-open import UniAgda.Equiv.Inj-Surj
-open import UniAgda.Logic.Exists
 #+end_src
 * Definition
 #+begin_src agda2

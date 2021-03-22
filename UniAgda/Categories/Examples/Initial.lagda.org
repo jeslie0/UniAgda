@@ -5,7 +5,10 @@
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.Examples.Initial where
 
-open import UniAgda.Categories.Category public
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Empty
+
+open import UniAgda.Categories.Category
 open Precategory
 open Category
 #+end_src

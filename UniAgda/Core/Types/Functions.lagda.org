@@ -27,7 +27,7 @@ id a = a
 We introduce Haskell notation for function application.
 #+begin_src agda2
 _$_ : ∀ {i j} {A : Type i} {B : Type j}
-     → (A → B) → A
-     → B
+     → (A → B) → A → B
 f $ a = f a
+infixr 0 _$_
 #+end_src

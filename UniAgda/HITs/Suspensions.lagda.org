@@ -70,6 +70,7 @@ postulate
                     (n : P N) (s : P S) (m : (a : A) → transport P (merid a) n ≡ s) (a : A)
                     → apD (Susp-ind n s m) (merid a) ↦  m a
 
+{-# REWRITE βSusp-ind-merid #-}
 
 𝕊 : ℕ → Type lzero
 𝕊 zero = Bool
