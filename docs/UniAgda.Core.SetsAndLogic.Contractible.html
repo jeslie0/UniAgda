@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-03-22 Mon 19:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Properties of Contractible Types</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="James Leslie" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Properties of Contractible Types</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgb436317">1. Prelude</a></li>
+<li><a href="#org73b25fc">2. Unit is contractible</a></li>
+<li><a href="#orgaba1d06">3. Equivalent definitions</a></li>
+<li><a href="#org64030df">4. Being contractible is a proposition</a></li>
+<li><a href="#org96649d0">5. Contractibility is preserved by equivalence</a></li>
+<li><a href="#orgf7cb32b">6. Sigma types and contractibility</a></li>
+<li><a href="#orgcbc1c7b">7. Contractible fibres</a></li>
+<li><a href="#orgcf96f09">8. Path spaces</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb436317" class="outline-2">
+<h2 id="orgb436317"><span class="section-number-2">1</span> Prelude</h2>
+<div class="outline-text-2" id="text-1">
+<pre class="Agda">
+<a id="139" class="Symbol">{-#</a> <a id="143" class="Keyword">OPTIONS</a> <a id="151" class="Pragma">--without-K</a> <a id="163" class="Symbol">#-}</a>
+<a id="167" class="Keyword">module</a> <a id="174" href="UniAgda.Core.SetsAndLogic.Contractible.html" class="Module">UniAgda.Core.SetsAndLogic.Contractible</a> <a id="213" class="Keyword">where</a>
+
+<a id="220" class="Keyword">open</a> <a id="225" class="Keyword">import</a> <a id="232" href="UniAgda.Core.Types.Universes.html" class="Module">UniAgda.Core.Types.Universes</a>
+<a id="261" class="Keyword">open</a> <a id="266" class="Keyword">import</a> <a id="273" href="UniAgda.Core.Types.Functions.html" class="Module">UniAgda.Core.Types.Functions</a>
+<a id="302" class="Keyword">open</a> <a id="307" class="Keyword">import</a> <a id="314" href="UniAgda.Core.Types.Identity.html" class="Module">UniAgda.Core.Types.Identity</a>
+<a id="342" class="Keyword">open</a> <a id="347" class="Keyword">import</a> <a id="354" href="UniAgda.Core.Types.Sigma.html" class="Module">UniAgda.Core.Types.Sigma</a>
+<a id="379" class="Keyword">open</a> <a id="384" class="Keyword">import</a> <a id="391" href="UniAgda.Core.Types.Coproduct.html" class="Module">UniAgda.Core.Types.Coproduct</a>
+<a id="420" class="Keyword">open</a> <a id="425" class="Keyword">import</a> <a id="432" href="UniAgda.Core.Types.W.html" class="Module">UniAgda.Core.Types.W</a>
+<a id="453" class="Keyword">open</a> <a id="458" class="Keyword">import</a> <a id="465" href="UniAgda.Core.Types.Unit.html" class="Module">UniAgda.Core.Types.Unit</a>
+<a id="489" class="Keyword">open</a> <a id="494" class="Keyword">import</a> <a id="501" href="UniAgda.Core.Types.Empty.html" class="Module">UniAgda.Core.Types.Empty</a>
+<a id="526" class="Keyword">open</a> <a id="531" class="Keyword">import</a> <a id="538" href="UniAgda.Core.Types.Bool.html" class="Module">UniAgda.Core.Types.Bool</a>
+<a id="562" class="Keyword">open</a> <a id="567" class="Keyword">import</a> <a id="574" href="UniAgda.Core.Types.Nat.html" class="Module">UniAgda.Core.Types.Nat</a>
+
+<a id="598" class="Keyword">open</a> <a id="603" class="Keyword">import</a> <a id="610" href="UniAgda.Core.PathAlgebra.html" class="Module">UniAgda.Core.PathAlgebra</a>
+<a id="635" class="Keyword">open</a> <a id="640" class="Keyword">import</a> <a id="647" href="UniAgda.Core.Homotopy.html" class="Module">UniAgda.Core.Homotopy</a>
+<a id="669" class="Keyword">open</a> <a id="674" class="Keyword">import</a> <a id="681" href="UniAgda.Core.Equivalences.html" class="Module">UniAgda.Core.Equivalences</a>
+<a id="707" class="Keyword">open</a> <a id="712" class="Keyword">import</a> <a id="719" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html" class="Module">UniAgda.Core.SetsAndLogic.ContPropSet1Type</a>
+
+<a id="763" class="Keyword">open</a> <a id="768" class="Keyword">import</a> <a id="775" href="UniAgda.Core.PathSpaces.Coproduct.html" class="Module">UniAgda.Core.PathSpaces.Coproduct</a>
+<a id="809" class="Keyword">open</a> <a id="814" class="Keyword">import</a> <a id="821" href="UniAgda.Core.PathSpaces.Identity.html" class="Module">UniAgda.Core.PathSpaces.Identity</a>
+<a id="854" class="Keyword">open</a> <a id="859" class="Keyword">import</a> <a id="866" href="UniAgda.Core.PathSpaces.Nat.html" class="Module">UniAgda.Core.PathSpaces.Nat</a>
+<a id="894" class="Keyword">open</a> <a id="899" class="Keyword">import</a> <a id="906" href="UniAgda.Core.PathSpaces.Sigma.html" class="Module">UniAgda.Core.PathSpaces.Sigma</a>
+<a id="936" class="Keyword">open</a> <a id="941" class="Keyword">import</a> <a id="948" href="UniAgda.Core.PathSpaces.Unit.html" class="Module">UniAgda.Core.PathSpaces.Unit</a>
+
+<a id="978" class="Keyword">open</a> <a id="983" class="Keyword">import</a> <a id="990" href="UniAgda.Core.Axioms.html" class="Module">UniAgda.Core.Axioms</a>
+<a id="1010" class="Keyword">open</a> <a id="1015" class="Keyword">import</a> <a id="1022" href="UniAgda.Core.SetsAndLogic.Props.html" class="Module">UniAgda.Core.SetsAndLogic.Props</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-org73b25fc" class="outline-2">
+<h2 id="org73b25fc"><span class="section-number-2">2</span> Unit is contractible</h2>
+<div class="outline-text-2" id="text-2">
+<pre class="Agda">
+<a id="Unit-is-contr"></a><a id="1105" href="UniAgda.Core.SetsAndLogic.Contractible.html#1105" class="Function">Unit-is-contr</a> <a id="1119" class="Symbol">:</a> <a id="1121" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="1129" href="UniAgda.Core.Types.Unit.html#356" class="Datatype">Unit</a>
+<a id="1134" href="UniAgda.Core.SetsAndLogic.Contractible.html#1105" class="Function">Unit-is-contr</a> <a id="1148" class="Symbol">=</a> <a id="1150" href="UniAgda.Core.Types.Unit.html#382" class="InductiveConstructor">tt</a> <a id="1153" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="1155" class="Symbol">(λ</a> <a id="1158" class="Symbol">{</a> <a id="1160" href="UniAgda.Core.Types.Unit.html#382" class="InductiveConstructor">tt</a> <a id="1163" class="Symbol">→</a> <a id="1165" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a><a id="1169" class="Symbol">})</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-orgaba1d06" class="outline-2">
+<h2 id="orgaba1d06"><span class="section-number-2">3</span> Equivalent definitions</h2>
+<div class="outline-text-2" id="text-3">
+<pre class="Agda">
+<a id="contr-to-pointed-prop"></a><a id="1250" href="UniAgda.Core.SetsAndLogic.Contractible.html#1250" class="Function">contr-to-pointed-prop</a> <a id="1272" class="Symbol">:</a> <a id="1274" class="Symbol">∀</a> <a id="1276" class="Symbol">{</a><a id="1277" href="UniAgda.Core.SetsAndLogic.Contractible.html#1277" class="Bound">i</a><a id="1278" class="Symbol">}</a> <a id="1280" class="Symbol">{</a><a id="1281" href="UniAgda.Core.SetsAndLogic.Contractible.html#1281" class="Bound">A</a> <a id="1283" class="Symbol">:</a> <a id="1285" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1290" href="UniAgda.Core.SetsAndLogic.Contractible.html#1277" class="Bound">i</a><a id="1291" class="Symbol">}</a>
+                        <a id="1317" class="Symbol">→</a> <a id="1319" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="1327" href="UniAgda.Core.SetsAndLogic.Contractible.html#1281" class="Bound">A</a>
+                        <a id="1353" class="Symbol">→</a> <a id="1355" href="UniAgda.Core.SetsAndLogic.Contractible.html#1281" class="Bound">A</a> <a id="1357" href="UniAgda.Core.Types.Sigma.html#962" class="Function Operator">×</a> <a id="1359" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="1366" href="UniAgda.Core.SetsAndLogic.Contractible.html#1281" class="Bound">A</a>
+<a id="1368" href="UniAgda.Core.SetsAndLogic.Contractible.html#1250" class="Function">contr-to-pointed-prop</a> <a id="1390" class="Symbol">(</a><a id="1391" href="UniAgda.Core.SetsAndLogic.Contractible.html#1391" class="Bound">a</a> <a id="1393" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="1395" href="UniAgda.Core.SetsAndLogic.Contractible.html#1395" class="Bound">F</a><a id="1396" class="Symbol">)</a> <a id="1398" class="Symbol">=</a> <a id="1400" href="UniAgda.Core.SetsAndLogic.Contractible.html#1391" class="Bound">a</a> <a id="1402" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="1404" class="Symbol">(λ</a> <a id="1407" href="UniAgda.Core.SetsAndLogic.Contractible.html#1407" class="Bound">x</a> <a id="1409" href="UniAgda.Core.SetsAndLogic.Contractible.html#1409" class="Bound">y</a> <a id="1411" class="Symbol">→</a> <a id="1413" href="UniAgda.Core.SetsAndLogic.Contractible.html#1395" class="Bound">F</a> <a id="1415" href="UniAgda.Core.SetsAndLogic.Contractible.html#1407" class="Bound">x</a> <a id="1417" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a> <a id="1419" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="1421" href="UniAgda.Core.SetsAndLogic.Contractible.html#1395" class="Bound">F</a> <a id="1423" href="UniAgda.Core.SetsAndLogic.Contractible.html#1409" class="Bound">y</a><a id="1424" class="Symbol">)</a>
+</pre>
+
+<pre class="Agda">
+<a id="pointed-prop-to-contr"></a><a id="1480" href="UniAgda.Core.SetsAndLogic.Contractible.html#1480" class="Function">pointed-prop-to-contr</a> <a id="1502" class="Symbol">:</a> <a id="1504" class="Symbol">∀</a> <a id="1506" class="Symbol">{</a><a id="1507" href="UniAgda.Core.SetsAndLogic.Contractible.html#1507" class="Bound">i</a><a id="1508" class="Symbol">}</a> <a id="1510" class="Symbol">{</a><a id="1511" href="UniAgda.Core.SetsAndLogic.Contractible.html#1511" class="Bound">A</a> <a id="1513" class="Symbol">:</a> <a id="1515" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1520" href="UniAgda.Core.SetsAndLogic.Contractible.html#1507" class="Bound">i</a><a id="1521" class="Symbol">}</a>
+                        <a id="1547" class="Symbol">→</a> <a id="1549" href="UniAgda.Core.SetsAndLogic.Contractible.html#1511" class="Bound">A</a> <a id="1551" href="UniAgda.Core.Types.Sigma.html#962" class="Function Operator">×</a> <a id="1553" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="1560" href="UniAgda.Core.SetsAndLogic.Contractible.html#1511" class="Bound">A</a>
+                        <a id="1586" class="Symbol">→</a> <a id="1588" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="1596" href="UniAgda.Core.SetsAndLogic.Contractible.html#1511" class="Bound">A</a>
+<a id="1598" href="UniAgda.Core.SetsAndLogic.Contractible.html#1480" class="Function">pointed-prop-to-contr</a> <a id="1620" class="Symbol">(</a><a id="1621" href="UniAgda.Core.SetsAndLogic.Contractible.html#1621" class="Bound">a</a> <a id="1623" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="1625" href="UniAgda.Core.SetsAndLogic.Contractible.html#1625" class="Bound">F</a><a id="1626" class="Symbol">)</a> <a id="1628" class="Symbol">=</a> <a id="1630" href="UniAgda.Core.SetsAndLogic.Contractible.html#1621" class="Bound">a</a> <a id="1632" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="1634" class="Symbol">(</a><a id="1635" href="UniAgda.Core.SetsAndLogic.Contractible.html#1625" class="Bound">F</a> <a id="1637" href="UniAgda.Core.SetsAndLogic.Contractible.html#1621" class="Bound">a</a><a id="1638" class="Symbol">)</a>
+</pre>
+
+<pre class="Agda">
+<a id="contr-equiv-to-Unit"></a><a id="1695" href="UniAgda.Core.SetsAndLogic.Contractible.html#1695" class="Function">contr-equiv-to-Unit</a> <a id="1715" class="Symbol">:</a> <a id="1717" class="Symbol">∀</a> <a id="1719" class="Symbol">{</a><a id="1720" href="UniAgda.Core.SetsAndLogic.Contractible.html#1720" class="Bound">i</a><a id="1721" class="Symbol">}</a> <a id="1723" class="Symbol">{</a><a id="1724" href="UniAgda.Core.SetsAndLogic.Contractible.html#1724" class="Bound">A</a> <a id="1726" class="Symbol">:</a> <a id="1728" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1733" href="UniAgda.Core.SetsAndLogic.Contractible.html#1720" class="Bound">i</a><a id="1734" class="Symbol">}</a>
+                      <a id="1758" class="Symbol">→</a> <a id="1760" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="1768" href="UniAgda.Core.SetsAndLogic.Contractible.html#1724" class="Bound">A</a>
+                      <a id="1792" class="Symbol">→</a> <a id="1794" href="UniAgda.Core.SetsAndLogic.Contractible.html#1724" class="Bound">A</a> <a id="1796" href="UniAgda.Core.Equivalences.html#2993" class="Function Operator">≃</a> <a id="1798" href="UniAgda.Core.Types.Unit.html#356" class="Datatype">Unit</a>
+<a id="1803" href="UniAgda.Core.SetsAndLogic.Contractible.html#1695" class="Function">contr-equiv-to-Unit</a> <a id="1823" class="Symbol">(</a><a id="1824" href="UniAgda.Core.SetsAndLogic.Contractible.html#1824" class="Bound">a</a> <a id="1826" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="1828" href="UniAgda.Core.SetsAndLogic.Contractible.html#1828" class="Bound">F</a><a id="1829" class="Symbol">)</a> <a id="1831" class="Symbol">=</a> <a id="1833" href="UniAgda.Core.Equivalences.html#5661" class="Function">equiv-adjointify</a> <a id="1850" class="Symbol">((λ</a> <a id="1854" href="UniAgda.Core.SetsAndLogic.Contractible.html#1854" class="Bound">_</a> <a id="1856" class="Symbol">→</a> <a id="1858" href="UniAgda.Core.Types.Unit.html#382" class="InductiveConstructor">tt</a><a id="1860" class="Symbol">)</a> <a id="1862" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a>
+                                               <a id="1911" class="Symbol">((λ</a> <a id="1915" class="Symbol">{</a> <a id="1917" href="UniAgda.Core.Types.Unit.html#382" class="InductiveConstructor">tt</a> <a id="1920" class="Symbol">→</a> <a id="1922" href="UniAgda.Core.SetsAndLogic.Contractible.html#1824" class="Bound">a</a><a id="1923" class="Symbol">})</a> <a id="1926" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a>
+                                               <a id="1975" class="Symbol">((λ</a> <a id="1979" class="Symbol">{</a> <a id="1981" href="UniAgda.Core.Types.Unit.html#382" class="InductiveConstructor">tt</a> <a id="1984" class="Symbol">→</a> <a id="1986" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a><a id="1990" class="Symbol">})</a> <a id="1993" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a>
+                                               <a id="2042" class="Symbol">λ</a> <a id="2044" href="UniAgda.Core.SetsAndLogic.Contractible.html#2044" class="Bound">x</a> <a id="2046" class="Symbol">→</a> <a id="2048" href="UniAgda.Core.SetsAndLogic.Contractible.html#1828" class="Bound">F</a> <a id="2050" href="UniAgda.Core.SetsAndLogic.Contractible.html#2044" class="Bound">x</a><a id="2051" class="Symbol">)))</a>
+</pre>
+
+<pre class="Agda">
+<a id="equiv-Unit-to-contr"></a><a id="2110" href="UniAgda.Core.SetsAndLogic.Contractible.html#2110" class="Function">equiv-Unit-to-contr</a> <a id="2130" class="Symbol">:</a> <a id="2132" class="Symbol">∀</a> <a id="2134" class="Symbol">{</a><a id="2135" href="UniAgda.Core.SetsAndLogic.Contractible.html#2135" class="Bound">i</a><a id="2136" class="Symbol">}</a> <a id="2138" class="Symbol">{</a><a id="2139" href="UniAgda.Core.SetsAndLogic.Contractible.html#2139" class="Bound">A</a> <a id="2141" class="Symbol">:</a> <a id="2143" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="2148" href="UniAgda.Core.SetsAndLogic.Contractible.html#2135" class="Bound">i</a><a id="2149" class="Symbol">}</a>
+                      <a id="2173" class="Symbol">→</a> <a id="2175" href="UniAgda.Core.SetsAndLogic.Contractible.html#2139" class="Bound">A</a> <a id="2177" href="UniAgda.Core.Equivalences.html#2993" class="Function Operator">≃</a> <a id="2179" href="UniAgda.Core.Types.Unit.html#356" class="Datatype">Unit</a>
+                      <a id="2206" class="Symbol">→</a> <a id="2208" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="2216" href="UniAgda.Core.SetsAndLogic.Contractible.html#2139" class="Bound">A</a>
+<a id="2218" href="UniAgda.Core.SetsAndLogic.Contractible.html#2110" class="Function">equiv-Unit-to-contr</a> <a id="2238" class="Symbol">(</a><a id="2239" href="UniAgda.Core.SetsAndLogic.Contractible.html#2239" class="Bound">f</a> <a id="2241" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2243" href="UniAgda.Core.SetsAndLogic.Contractible.html#2243" class="Bound">g</a> <a id="2245" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2247" href="UniAgda.Core.SetsAndLogic.Contractible.html#2247" class="Bound">α</a> <a id="2249" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2251" href="UniAgda.Core.SetsAndLogic.Contractible.html#2251" class="Bound">β</a> <a id="2253" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2255" href="UniAgda.Core.SetsAndLogic.Contractible.html#2255" class="Bound">γ</a><a id="2256" class="Symbol">)</a> <a id="2258" class="Symbol">=</a> <a id="2260" href="UniAgda.Core.SetsAndLogic.Contractible.html#1480" class="Function">pointed-prop-to-contr</a> <a id="2282" class="Symbol">((</a><a id="2284" href="UniAgda.Core.SetsAndLogic.Contractible.html#2243" class="Bound">g</a> <a id="2286" href="UniAgda.Core.Types.Unit.html#382" class="InductiveConstructor">tt</a><a id="2288" class="Symbol">)</a> <a id="2290" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2292" class="Symbol">(</a><a id="2293" href="UniAgda.Core.SetsAndLogic.Props.html#1889" class="Function">equiv-with-prop</a> <a id="2309" class="Symbol">((</a><a id="2311" href="UniAgda.Core.SetsAndLogic.Contractible.html#2239" class="Bound">f</a> <a id="2313" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2315" href="UniAgda.Core.SetsAndLogic.Contractible.html#2243" class="Bound">g</a> <a id="2317" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2319" href="UniAgda.Core.SetsAndLogic.Contractible.html#2247" class="Bound">α</a> <a id="2321" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2323" href="UniAgda.Core.SetsAndLogic.Contractible.html#2251" class="Bound">β</a> <a id="2325" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2327" href="UniAgda.Core.SetsAndLogic.Contractible.html#2255" class="Bound">γ</a><a id="2328" class="Symbol">)</a> <a id="2330" href="UniAgda.Core.Equivalences.html#6114" class="Function Operator">^ᵉ</a><a id="2332" class="Symbol">)</a> <a id="2334" href="UniAgda.Core.SetsAndLogic.Props.html#1050" class="Function">Unit-is-prop</a><a id="2346" class="Symbol">))</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-org64030df" class="outline-2">
+<h2 id="org64030df"><span class="section-number-2">4</span> Being contractible is a proposition</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Contractible types are propositions.
+</p>
+<pre class="Agda">
+<a id="contr-are-props"></a><a id="2472" href="UniAgda.Core.SetsAndLogic.Contractible.html#2472" class="Function">contr-are-props</a> <a id="2488" class="Symbol">:</a> <a id="2490" class="Symbol">∀</a> <a id="2492" class="Symbol">{</a><a id="2493" href="UniAgda.Core.SetsAndLogic.Contractible.html#2493" class="Bound">i</a><a id="2494" class="Symbol">}</a> <a id="2496" class="Symbol">{</a><a id="2497" href="UniAgda.Core.SetsAndLogic.Contractible.html#2497" class="Bound">A</a> <a id="2499" class="Symbol">:</a> <a id="2501" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="2506" href="UniAgda.Core.SetsAndLogic.Contractible.html#2493" class="Bound">i</a><a id="2507" class="Symbol">}</a>
+                  <a id="2527" class="Symbol">→</a> <a id="2529" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="2537" href="UniAgda.Core.SetsAndLogic.Contractible.html#2497" class="Bound">A</a>
+                  <a id="2557" class="Symbol">→</a> <a id="2559" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="2566" href="UniAgda.Core.SetsAndLogic.Contractible.html#2497" class="Bound">A</a>
+<a id="2568" href="UniAgda.Core.SetsAndLogic.Contractible.html#2472" class="Function">contr-are-props</a> <a id="2584" href="UniAgda.Core.SetsAndLogic.Contractible.html#2584" class="Bound">X</a> <a id="2586" class="Symbol">=</a> <a id="2588" href="UniAgda.Core.Types.Sigma.html#687" class="Function">pr₂</a> <a id="2592" class="Symbol">(</a><a id="2593" href="UniAgda.Core.SetsAndLogic.Contractible.html#1250" class="Function">contr-to-pointed-prop</a> <a id="2615" href="UniAgda.Core.SetsAndLogic.Contractible.html#2584" class="Bound">X</a><a id="2616" class="Symbol">)</a>
+</pre>
+
+<p>
+Being a contractible is a proposition.
+</p>
+<pre class="Agda">
+<a id="isContr-is-prop"></a><a id="2711" href="UniAgda.Core.SetsAndLogic.Contractible.html#2711" class="Function">isContr-is-prop</a> <a id="2727" class="Symbol">:</a> <a id="2729" class="Symbol">∀</a> <a id="2731" class="Symbol">{</a><a id="2732" href="UniAgda.Core.SetsAndLogic.Contractible.html#2732" class="Bound">i</a><a id="2733" class="Symbol">}</a> <a id="2735" class="Symbol">{</a><a id="2736" href="UniAgda.Core.SetsAndLogic.Contractible.html#2736" class="Bound">A</a> <a id="2738" class="Symbol">:</a> <a id="2740" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="2745" href="UniAgda.Core.SetsAndLogic.Contractible.html#2732" class="Bound">i</a><a id="2746" class="Symbol">}</a>
+                  <a id="2766" class="Symbol">→</a> <a id="2768" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="2775" class="Symbol">(</a><a id="2776" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="2784" href="UniAgda.Core.SetsAndLogic.Contractible.html#2736" class="Bound">A</a><a id="2785" class="Symbol">)</a>
+<a id="2787" href="UniAgda.Core.SetsAndLogic.Contractible.html#2711" class="Function">isContr-is-prop</a> <a id="2803" class="Symbol">(</a><a id="2804" href="UniAgda.Core.SetsAndLogic.Contractible.html#2804" class="Bound">a</a> <a id="2806" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2808" href="UniAgda.Core.SetsAndLogic.Contractible.html#2808" class="Bound">p</a><a id="2809" class="Symbol">)</a> <a id="2811" class="Symbol">(</a><a id="2812" href="UniAgda.Core.SetsAndLogic.Contractible.html#2812" class="Bound">a&#39;</a> <a id="2815" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2817" href="UniAgda.Core.SetsAndLogic.Contractible.html#2817" class="Bound">p&#39;</a><a id="2819" class="Symbol">)</a> <a id="2821" class="Symbol">=</a> <a id="2823" href="UniAgda.Core.PathSpaces.Sigma.html#728" class="Function">path-equiv-sigma</a> <a id="2840" class="Symbol">((</a><a id="2842" href="UniAgda.Core.SetsAndLogic.Contractible.html#2808" class="Bound">p</a> <a id="2844" href="UniAgda.Core.SetsAndLogic.Contractible.html#2812" class="Bound">a&#39;</a><a id="2846" class="Symbol">)</a> <a id="2848" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2850" href="UniAgda.Core.SetsAndLogic.Props.html#4102" class="Function">prop-fibres-Pi-is-prop</a> <a id="2873" class="Symbol">(λ</a> <a id="2876" href="UniAgda.Core.SetsAndLogic.Contractible.html#2876" class="Bound">x</a> <a id="2878" class="Symbol">→</a> <a id="2880" href="UniAgda.Core.SetsAndLogic.Props.html#2432" class="Function">props-are-sets</a> <a id="2895" class="Symbol">(</a><a id="2896" href="UniAgda.Core.SetsAndLogic.Contractible.html#2472" class="Function">contr-are-props</a> <a id="2912" class="Symbol">(</a><a id="2913" href="UniAgda.Core.SetsAndLogic.Contractible.html#2804" class="Bound">a</a> <a id="2915" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2917" href="UniAgda.Core.SetsAndLogic.Contractible.html#2808" class="Bound">p</a><a id="2918" class="Symbol">))</a> <a id="2921" class="Symbol">_</a> <a id="2923" class="Symbol">_)</a> <a id="2926" class="Symbol">_</a> <a id="2928" class="Symbol">_)</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-org96649d0" class="outline-2">
+<h2 id="org96649d0"><span class="section-number-2">5</span> Contractibility is preserved by equivalence</h2>
+<div class="outline-text-2" id="text-5">
+<pre class="Agda">
+<a id="equiv-with-contr"></a><a id="3005" href="UniAgda.Core.SetsAndLogic.Contractible.html#3005" class="Function">equiv-with-contr</a> <a id="3022" class="Symbol">:</a> <a id="3024" class="Symbol">∀</a> <a id="3026" class="Symbol">{</a><a id="3027" href="UniAgda.Core.SetsAndLogic.Contractible.html#3027" class="Bound">i</a> <a id="3029" href="UniAgda.Core.SetsAndLogic.Contractible.html#3029" class="Bound">j</a><a id="3030" class="Symbol">}</a> <a id="3032" class="Symbol">{</a><a id="3033" href="UniAgda.Core.SetsAndLogic.Contractible.html#3033" class="Bound">A</a> <a id="3035" class="Symbol">:</a> <a id="3037" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3042" href="UniAgda.Core.SetsAndLogic.Contractible.html#3027" class="Bound">i</a><a id="3043" class="Symbol">}</a> <a id="3045" class="Symbol">{</a><a id="3046" href="UniAgda.Core.SetsAndLogic.Contractible.html#3046" class="Bound">B</a> <a id="3048" class="Symbol">:</a> <a id="3050" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3055" href="UniAgda.Core.SetsAndLogic.Contractible.html#3029" class="Bound">j</a><a id="3056" class="Symbol">}</a>
+                   <a id="3077" class="Symbol">→</a> <a id="3079" href="UniAgda.Core.SetsAndLogic.Contractible.html#3033" class="Bound">A</a> <a id="3081" href="UniAgda.Core.Equivalences.html#2993" class="Function Operator">≃</a> <a id="3083" href="UniAgda.Core.SetsAndLogic.Contractible.html#3046" class="Bound">B</a> <a id="3085" class="Symbol">→</a> <a id="3087" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="3095" href="UniAgda.Core.SetsAndLogic.Contractible.html#3033" class="Bound">A</a>
+                   <a id="3116" class="Symbol">→</a> <a id="3118" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="3126" href="UniAgda.Core.SetsAndLogic.Contractible.html#3046" class="Bound">B</a>
+<a id="3128" href="UniAgda.Core.SetsAndLogic.Contractible.html#3005" class="Function">equiv-with-contr</a> <a id="3145" href="UniAgda.Core.SetsAndLogic.Contractible.html#3145" class="Bound">X</a> <a id="3147" href="UniAgda.Core.SetsAndLogic.Contractible.html#3147" class="Bound">Y</a> <a id="3149" class="Symbol">=</a> <a id="3151" href="UniAgda.Core.SetsAndLogic.Contractible.html#2110" class="Function">equiv-Unit-to-contr</a> <a id="3171" class="Symbol">((</a><a id="3173" href="UniAgda.Core.SetsAndLogic.Contractible.html#3145" class="Bound">X</a> <a id="3175" href="UniAgda.Core.Equivalences.html#6114" class="Function Operator">^ᵉ</a><a id="3177" class="Symbol">)</a> <a id="3179" href="UniAgda.Core.Equivalences.html#6524" class="Function Operator">oₑ</a> <a id="3182" href="UniAgda.Core.SetsAndLogic.Contractible.html#1695" class="Function">contr-equiv-to-Unit</a> <a id="3202" href="UniAgda.Core.SetsAndLogic.Contractible.html#3147" class="Bound">Y</a><a id="3203" class="Symbol">)</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-orgf7cb32b" class="outline-2">
+<h2 id="orgf7cb32b"><span class="section-number-2">6</span> Sigma types and contractibility</h2>
+<div class="outline-text-2" id="text-6">
+<pre class="Agda">
+<a id="Sigma-path-is-contr"></a><a id="3287" href="UniAgda.Core.SetsAndLogic.Contractible.html#3287" class="Function">Sigma-path-is-contr</a> <a id="3307" class="Symbol">:</a> <a id="3309" class="Symbol">∀</a> <a id="3311" class="Symbol">{</a><a id="3312" href="UniAgda.Core.SetsAndLogic.Contractible.html#3312" class="Bound">i</a><a id="3313" class="Symbol">}</a> <a id="3315" class="Symbol">{</a><a id="3316" href="UniAgda.Core.SetsAndLogic.Contractible.html#3316" class="Bound">A</a> <a id="3318" class="Symbol">:</a> <a id="3320" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3325" href="UniAgda.Core.SetsAndLogic.Contractible.html#3312" class="Bound">i</a><a id="3326" class="Symbol">}</a>
+                      <a id="3350" class="Symbol">(</a><a id="3351" href="UniAgda.Core.SetsAndLogic.Contractible.html#3351" class="Bound">a</a> <a id="3353" class="Symbol">:</a> <a id="3355" href="UniAgda.Core.SetsAndLogic.Contractible.html#3316" class="Bound">A</a><a id="3356" class="Symbol">)</a>
+                      <a id="3380" class="Symbol">→</a> <a id="3382" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="3390" class="Symbol">(</a><a id="3391" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">Σ[</a> <a id="3394" href="UniAgda.Core.SetsAndLogic.Contractible.html#3394" class="Bound">x</a> <a id="3396" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">∈</a> <a id="3398" href="UniAgda.Core.SetsAndLogic.Contractible.html#3316" class="Bound">A</a> <a id="3400" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">]</a> <a id="3402" class="Symbol">(</a><a id="3403" href="UniAgda.Core.SetsAndLogic.Contractible.html#3351" class="Bound">a</a> <a id="3405" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="3407" href="UniAgda.Core.SetsAndLogic.Contractible.html#3394" class="Bound">x</a><a id="3408" class="Symbol">))</a>
+<a id="3411" href="UniAgda.Core.SetsAndLogic.Contractible.html#3287" class="Function">Sigma-path-is-contr</a> <a id="3431" href="UniAgda.Core.SetsAndLogic.Contractible.html#3431" class="Bound">a</a> <a id="3433" class="Symbol">=</a> <a id="3435" class="Symbol">(</a><a id="3436" href="UniAgda.Core.SetsAndLogic.Contractible.html#3431" class="Bound">a</a> <a id="3438" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3440" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a><a id="3444" class="Symbol">)</a> <a id="3446" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3448" class="Symbol">(λ</a> <a id="3451" class="Symbol">{</a> <a id="3453" class="Symbol">(</a><a id="3454" href="UniAgda.Core.SetsAndLogic.Contractible.html#3454" class="Bound">x</a> <a id="3456" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3458" href="UniAgda.Core.SetsAndLogic.Contractible.html#3458" class="Bound">p</a><a id="3459" class="Symbol">)</a> <a id="3461" class="Symbol">→</a> <a id="3463" href="UniAgda.Core.PathSpaces.Sigma.html#728" class="Function">path-equiv-sigma</a> <a id="3480" class="Symbol">(</a><a id="3481" href="UniAgda.Core.SetsAndLogic.Contractible.html#3458" class="Bound">p</a> <a id="3483" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3485" class="Symbol">(</a><a id="3486" href="UniAgda.Core.PathSpaces.Identity.html#3815" class="Function">lemma2-11-2i</a> <a id="3499" href="UniAgda.Core.SetsAndLogic.Contractible.html#3431" class="Bound">a</a> <a id="3501" href="UniAgda.Core.SetsAndLogic.Contractible.html#3458" class="Bound">p</a> <a id="3503" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a><a id="3507" class="Symbol">))})</a>
+</pre>
+
+<pre class="Agda">
+<a id="lemma3-11-9i"></a><a id="3562" href="UniAgda.Core.SetsAndLogic.Contractible.html#3562" class="Function">lemma3-11-9i</a> <a id="3575" class="Symbol">:</a> <a id="3577" class="Symbol">∀</a> <a id="3579" class="Symbol">{</a><a id="3580" href="UniAgda.Core.SetsAndLogic.Contractible.html#3580" class="Bound">i</a> <a id="3582" href="UniAgda.Core.SetsAndLogic.Contractible.html#3582" class="Bound">j</a><a id="3583" class="Symbol">}</a> <a id="3585" class="Symbol">{</a><a id="3586" href="UniAgda.Core.SetsAndLogic.Contractible.html#3586" class="Bound">A</a> <a id="3588" class="Symbol">:</a> <a id="3590" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3595" href="UniAgda.Core.SetsAndLogic.Contractible.html#3580" class="Bound">i</a><a id="3596" class="Symbol">}</a> <a id="3598" class="Symbol">{</a><a id="3599" href="UniAgda.Core.SetsAndLogic.Contractible.html#3599" class="Bound">P</a> <a id="3601" class="Symbol">:</a> <a id="3603" href="UniAgda.Core.SetsAndLogic.Contractible.html#3586" class="Bound">A</a> <a id="3605" class="Symbol">→</a> <a id="3607" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3612" href="UniAgda.Core.SetsAndLogic.Contractible.html#3582" class="Bound">j</a><a id="3613" class="Symbol">}</a>
+               <a id="3630" class="Symbol">→</a> <a id="3632" class="Symbol">((</a><a id="3634" href="UniAgda.Core.SetsAndLogic.Contractible.html#3634" class="Bound">x</a> <a id="3636" class="Symbol">:</a> <a id="3638" href="UniAgda.Core.SetsAndLogic.Contractible.html#3586" class="Bound">A</a><a id="3639" class="Symbol">)</a> <a id="3641" class="Symbol">→</a> <a id="3643" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="3651" class="Symbol">(</a><a id="3652" href="UniAgda.Core.SetsAndLogic.Contractible.html#3599" class="Bound">P</a> <a id="3654" href="UniAgda.Core.SetsAndLogic.Contractible.html#3634" class="Bound">x</a><a id="3655" class="Symbol">))</a>
+               <a id="3673" class="Symbol">→</a> <a id="3675" class="Symbol">(</a><a id="3676" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">Σ[</a> <a id="3679" href="UniAgda.Core.SetsAndLogic.Contractible.html#3679" class="Bound">x</a> <a id="3681" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">∈</a> <a id="3683" href="UniAgda.Core.SetsAndLogic.Contractible.html#3586" class="Bound">A</a> <a id="3685" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">]</a> <a id="3687" href="UniAgda.Core.SetsAndLogic.Contractible.html#3599" class="Bound">P</a> <a id="3689" href="UniAgda.Core.SetsAndLogic.Contractible.html#3679" class="Bound">x</a><a id="3690" class="Symbol">)</a> <a id="3692" href="UniAgda.Core.Equivalences.html#2993" class="Function Operator">≃</a> <a id="3694" href="UniAgda.Core.SetsAndLogic.Contractible.html#3586" class="Bound">A</a>
+<a id="3696" href="UniAgda.Core.SetsAndLogic.Contractible.html#3562" class="Function">lemma3-11-9i</a> <a id="3709" href="UniAgda.Core.SetsAndLogic.Contractible.html#3709" class="Bound">F</a> <a id="3711" class="Symbol">=</a> <a id="3713" href="UniAgda.Core.Equivalences.html#5661" class="Function">equiv-adjointify</a> <a id="3730" class="Symbol">((λ</a> <a id="3734" href="UniAgda.Core.SetsAndLogic.Contractible.html#3734" class="Bound">x</a> <a id="3736" class="Symbol">→</a> <a id="3738" href="UniAgda.Core.Types.Sigma.html#602" class="Function">pr₁</a> <a id="3742" href="UniAgda.Core.SetsAndLogic.Contractible.html#3734" class="Bound">x</a><a id="3743" class="Symbol">)</a> <a id="3745" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3747" class="Symbol">((λ</a> <a id="3751" href="UniAgda.Core.SetsAndLogic.Contractible.html#3751" class="Bound">x</a> <a id="3753" class="Symbol">→</a> <a id="3755" href="UniAgda.Core.SetsAndLogic.Contractible.html#3751" class="Bound">x</a> <a id="3757" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3759" class="Symbol">(</a><a id="3760" href="UniAgda.Core.Types.Sigma.html#602" class="Function">pr₁</a> <a id="3764" class="Symbol">(</a><a id="3765" href="UniAgda.Core.SetsAndLogic.Contractible.html#3709" class="Bound">F</a> <a id="3767" href="UniAgda.Core.SetsAndLogic.Contractible.html#3751" class="Bound">x</a><a id="3768" class="Symbol">)))</a> <a id="3772" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3774" class="Symbol">((λ</a> <a id="3778" href="UniAgda.Core.SetsAndLogic.Contractible.html#3778" class="Bound">x</a> <a id="3780" class="Symbol">→</a> <a id="3782" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a><a id="3786" class="Symbol">)</a> <a id="3788" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3790" class="Symbol">(λ</a> <a id="3793" class="Symbol">{</a> <a id="3795" class="Symbol">(</a><a id="3796" href="UniAgda.Core.SetsAndLogic.Contractible.html#3796" class="Bound">a</a> <a id="3798" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3800" href="UniAgda.Core.SetsAndLogic.Contractible.html#3800" class="Bound">b</a><a id="3801" class="Symbol">)</a> <a id="3803" class="Symbol">→</a> <a id="3805" href="UniAgda.Core.PathSpaces.Sigma.html#728" class="Function">path-equiv-sigma</a> <a id="3822" class="Symbol">(</a><a id="3823" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a> <a id="3828" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3830" class="Symbol">(</a><a id="3831" href="UniAgda.Core.SetsAndLogic.Contractible.html#2472" class="Function">contr-are-props</a> <a id="3847" class="Symbol">(</a><a id="3848" href="UniAgda.Core.SetsAndLogic.Contractible.html#3709" class="Bound">F</a> <a id="3850" href="UniAgda.Core.SetsAndLogic.Contractible.html#3796" class="Bound">a</a><a id="3851" class="Symbol">)</a> <a id="3853" class="Symbol">_</a> <a id="3855" class="Symbol">_))}))))</a>
+</pre>
+
+<pre class="Agda">
+<a id="contr-base-equiv-fibres"></a><a id="3893" href="UniAgda.Core.SetsAndLogic.Contractible.html#3893" class="Function">contr-base-equiv-fibres</a> <a id="3917" class="Symbol">:</a> <a id="3919" class="Symbol">∀</a> <a id="3921" class="Symbol">{</a><a id="3922" href="UniAgda.Core.SetsAndLogic.Contractible.html#3922" class="Bound">i</a> <a id="3924" href="UniAgda.Core.SetsAndLogic.Contractible.html#3924" class="Bound">j</a><a id="3925" class="Symbol">}</a> <a id="3927" class="Symbol">{</a><a id="3928" href="UniAgda.Core.SetsAndLogic.Contractible.html#3928" class="Bound">A</a> <a id="3930" class="Symbol">:</a> <a id="3932" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3937" href="UniAgda.Core.SetsAndLogic.Contractible.html#3922" class="Bound">i</a><a id="3938" class="Symbol">}</a> <a id="3940" class="Symbol">{</a><a id="3941" href="UniAgda.Core.SetsAndLogic.Contractible.html#3941" class="Bound">P</a> <a id="3943" class="Symbol">:</a> <a id="3945" href="UniAgda.Core.SetsAndLogic.Contractible.html#3928" class="Bound">A</a> <a id="3947" class="Symbol">→</a> <a id="3949" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3954" href="UniAgda.Core.SetsAndLogic.Contractible.html#3924" class="Bound">j</a><a id="3955" class="Symbol">}</a>
+                        <a id="3981" class="Symbol">(</a><a id="3982" href="UniAgda.Core.SetsAndLogic.Contractible.html#3982" class="Bound">X</a> <a id="3984" class="Symbol">:</a> <a id="3986" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="3994" href="UniAgda.Core.SetsAndLogic.Contractible.html#3928" class="Bound">A</a><a id="3995" class="Symbol">)</a>
+                        <a id="4021" class="Symbol">→</a> <a id="4023" class="Symbol">(</a><a id="4024" href="UniAgda.Core.SetsAndLogic.Contractible.html#4024" class="Bound">x</a> <a id="4026" class="Symbol">:</a> <a id="4028" href="UniAgda.Core.SetsAndLogic.Contractible.html#3928" class="Bound">A</a><a id="4029" class="Symbol">)</a> <a id="4031" class="Symbol">→</a> <a id="4033" class="Symbol">(</a><a id="4034" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">Σ[</a> <a id="4037" href="UniAgda.Core.SetsAndLogic.Contractible.html#4037" class="Bound">x</a> <a id="4039" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">∈</a> <a id="4041" href="UniAgda.Core.SetsAndLogic.Contractible.html#3928" class="Bound">A</a> <a id="4043" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">]</a> <a id="4045" href="UniAgda.Core.SetsAndLogic.Contractible.html#3941" class="Bound">P</a> <a id="4047" href="UniAgda.Core.SetsAndLogic.Contractible.html#4037" class="Bound">x</a><a id="4048" class="Symbol">)</a> <a id="4050" href="UniAgda.Core.Equivalences.html#2993" class="Function Operator">≃</a> <a id="4052" class="Symbol">(</a><a id="4053" href="UniAgda.Core.SetsAndLogic.Contractible.html#3941" class="Bound">P</a> <a id="4055" href="UniAgda.Core.SetsAndLogic.Contractible.html#4024" class="Bound">x</a><a id="4056" class="Symbol">)</a>
+<a id="4058" href="UniAgda.Core.SetsAndLogic.Contractible.html#3893" class="Function">contr-base-equiv-fibres</a> <a id="4082" class="Symbol">{</a><a id="4083" href="UniAgda.Core.SetsAndLogic.Contractible.html#4083" class="Bound">i</a><a id="4084" class="Symbol">}</a> <a id="4086" class="Symbol">{</a><a id="4087" href="UniAgda.Core.SetsAndLogic.Contractible.html#4087" class="Bound">j</a><a id="4088" class="Symbol">}</a> <a id="4090" class="Symbol">{</a><a id="4091" href="UniAgda.Core.SetsAndLogic.Contractible.html#4091" class="Bound">A</a><a id="4092" class="Symbol">}</a> <a id="4094" class="Symbol">{</a><a id="4095" href="UniAgda.Core.SetsAndLogic.Contractible.html#4095" class="Bound">P</a><a id="4096" class="Symbol">}</a> <a id="4098" class="Symbol">(</a><a id="4099" href="UniAgda.Core.SetsAndLogic.Contractible.html#4099" class="Bound">a</a> <a id="4101" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="4103" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a><a id="4104" class="Symbol">)</a> <a id="4106" href="UniAgda.Core.SetsAndLogic.Contractible.html#4106" class="Bound">x</a> <a id="4108" class="Symbol">=</a> <a id="4110" href="UniAgda.Core.Equivalences.html#5661" class="Function">equiv-adjointify</a> <a id="4127" class="Symbol">((λ</a> <a id="4131" class="Symbol">{</a> <a id="4133" class="Symbol">(</a><a id="4134" href="UniAgda.Core.SetsAndLogic.Contractible.html#4134" class="Bound">a&#39;</a> <a id="4137" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="4139" href="UniAgda.Core.SetsAndLogic.Contractible.html#4139" class="Bound">p</a><a id="4140" class="Symbol">)</a> <a id="4142" class="Symbol">→</a> <a id="4144" href="UniAgda.Core.Types.Identity.html#1909" class="Function">transport</a> <a id="4154" href="UniAgda.Core.SetsAndLogic.Contractible.html#4095" class="Bound">P</a> <a id="4156" class="Symbol">(</a><a id="4157" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4159" href="UniAgda.Core.SetsAndLogic.Contractible.html#4134" class="Bound">a&#39;</a> <a id="4162" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a> <a id="4164" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="4166" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4168" href="UniAgda.Core.SetsAndLogic.Contractible.html#4106" class="Bound">x</a><a id="4169" class="Symbol">)</a> <a id="4171" href="UniAgda.Core.SetsAndLogic.Contractible.html#4139" class="Bound">p</a><a id="4172" class="Symbol">})</a> <a id="4175" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a>
+                        <a id="4201" class="Symbol">(λ</a> <a id="4204" href="UniAgda.Core.SetsAndLogic.Contractible.html#4204" class="Bound">u</a> <a id="4206" class="Symbol">→</a> <a id="4208" href="UniAgda.Core.SetsAndLogic.Contractible.html#4106" class="Bound">x</a> <a id="4210" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="4212" href="UniAgda.Core.SetsAndLogic.Contractible.html#4204" class="Bound">u</a><a id="4213" class="Symbol">)</a> <a id="4215" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a>
+                        <a id="4241" class="Symbol">((λ</a> <a id="4245" href="UniAgda.Core.SetsAndLogic.Contractible.html#4245" class="Bound">u</a> <a id="4247" class="Symbol">→</a> <a id="4249" href="UniAgda.Core.Types.Identity.html#1909" class="Function">transport</a> <a id="4259" class="Symbol">(λ</a> <a id="4262" href="UniAgda.Core.SetsAndLogic.Contractible.html#4262" class="Bound">q</a> <a id="4264" class="Symbol">→</a> <a id="4266" href="UniAgda.Core.Types.Identity.html#1909" class="Function">transport</a> <a id="4276" href="UniAgda.Core.SetsAndLogic.Contractible.html#4095" class="Bound">P</a> <a id="4278" href="UniAgda.Core.SetsAndLogic.Contractible.html#4262" class="Bound">q</a> <a id="4280" href="UniAgda.Core.SetsAndLogic.Contractible.html#4245" class="Bound">u</a> <a id="4282" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="4284" href="UniAgda.Core.SetsAndLogic.Contractible.html#4245" class="Bound">u</a><a id="4285" class="Symbol">)</a> <a id="4287" class="Symbol">(</a><a id="4288" href="UniAgda.Core.PathAlgebra.html#979" class="Function">p^p</a> <a id="4292" class="Symbol">(</a><a id="4293" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4295" href="UniAgda.Core.SetsAndLogic.Contractible.html#4106" class="Bound">x</a><a id="4296" class="Symbol">)</a> <a id="4298" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a><a id="4299" class="Symbol">)</a> <a id="4301" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a> <a id="4306" class="Symbol">)</a> <a id="4308" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a>
+                        <a id="4334" class="Symbol">λ</a> <a id="4336" class="Symbol">{</a> <a id="4338" class="Symbol">(</a><a id="4339" href="UniAgda.Core.SetsAndLogic.Contractible.html#4339" class="Bound">a</a> <a id="4341" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="4343" href="UniAgda.Core.SetsAndLogic.Contractible.html#4343" class="Bound">u</a><a id="4344" class="Symbol">)</a> <a id="4346" class="Symbol">→</a> <a id="4348" href="UniAgda.Core.PathSpaces.Sigma.html#728" class="Function">path-equiv-sigma</a> <a id="4365" class="Symbol">((</a><a id="4367" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4369" href="UniAgda.Core.SetsAndLogic.Contractible.html#4106" class="Bound">x</a> <a id="4371" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a> <a id="4373" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="4375" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4377" href="UniAgda.Core.SetsAndLogic.Contractible.html#4339" class="Bound">a</a><a id="4378" class="Symbol">)</a> <a id="4380" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="4382" class="Symbol">(</a><a id="4383" href="UniAgda.Core.PathAlgebra.html#8448" class="Function">tr-pq</a>  <a id="4390" class="Symbol">(</a><a id="4391" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4393" href="UniAgda.Core.SetsAndLogic.Contractible.html#4339" class="Bound">a</a> <a id="4395" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a> <a id="4397" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="4399" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4401" href="UniAgda.Core.SetsAndLogic.Contractible.html#4106" class="Bound">x</a><a id="4402" class="Symbol">)</a> <a id="4404" class="Symbol">(</a><a id="4405" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4407" href="UniAgda.Core.SetsAndLogic.Contractible.html#4106" class="Bound">x</a> <a id="4409" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a> <a id="4411" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="4413" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4415" href="UniAgda.Core.SetsAndLogic.Contractible.html#4339" class="Bound">a</a><a id="4416" class="Symbol">)</a> <a id="4418" href="UniAgda.Core.SetsAndLogic.Contractible.html#4343" class="Bound">u</a> <a id="4420" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a> <a id="4422" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a>
+                        <a id="4448" href="UniAgda.Core.Types.Identity.html#1909" class="Function">transport</a> <a id="4458" class="Symbol">(λ</a> <a id="4461" href="UniAgda.Core.SetsAndLogic.Contractible.html#4461" class="Bound">q</a> <a id="4463" class="Symbol">→</a> <a id="4465" href="UniAgda.Core.Types.Identity.html#1909" class="Function">transport</a> <a id="4475" class="Symbol">(λ</a> <a id="4478" href="UniAgda.Core.SetsAndLogic.Contractible.html#4478" class="Bound">v</a> <a id="4480" class="Symbol">→</a> <a id="4482" href="UniAgda.Core.SetsAndLogic.Contractible.html#4095" class="Bound">P</a> <a id="4484" href="UniAgda.Core.SetsAndLogic.Contractible.html#4478" class="Bound">v</a><a id="4485" class="Symbol">)</a> <a id="4487" class="Symbol">((</a><a id="4489" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4491" href="UniAgda.Core.SetsAndLogic.Contractible.html#4339" class="Bound">a</a> <a id="4493" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a> <a id="4495" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="4497" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4499" href="UniAgda.Core.SetsAndLogic.Contractible.html#4106" class="Bound">x</a><a id="4500" class="Symbol">)</a> <a id="4502" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="4504" href="UniAgda.Core.SetsAndLogic.Contractible.html#4461" class="Bound">q</a><a id="4505" class="Symbol">)</a> <a id="4507" href="UniAgda.Core.SetsAndLogic.Contractible.html#4343" class="Bound">u</a> <a id="4509" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="4511" href="UniAgda.Core.SetsAndLogic.Contractible.html#4343" class="Bound">u</a><a id="4512" class="Symbol">)</a> <a id="4514" class="Symbol">(</a><a id="4515" href="UniAgda.Core.PathAlgebra.html#6987" class="Function">pq-^-to-q^p^</a> <a id="4528" class="Symbol">(</a><a id="4529" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4531" href="UniAgda.Core.SetsAndLogic.Contractible.html#4339" class="Bound">a</a> <a id="4533" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a><a id="4534" class="Symbol">)</a> <a id="4536" class="Symbol">(</a><a id="4537" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4539" href="UniAgda.Core.SetsAndLogic.Contractible.html#4106" class="Bound">x</a><a id="4540" class="Symbol">)</a> <a id="4542" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a>
+                        <a id="4568" href="UniAgda.Core.PathAlgebra.html#6596" class="Function">p=q-to-rp=rq</a> <a id="4581" class="Symbol">(</a><a id="4582" href="UniAgda.Core.PathAlgebra.html#1545" class="Function">p^^=p</a> <a id="4588" class="Symbol">(</a><a id="4589" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4591" href="UniAgda.Core.SetsAndLogic.Contractible.html#4339" class="Bound">a</a><a id="4592" class="Symbol">)</a> <a id="4594" class="Symbol">)</a> <a id="4596" class="Symbol">(</a><a id="4597" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4599" href="UniAgda.Core.SetsAndLogic.Contractible.html#4106" class="Bound">x</a> <a id="4601" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a><a id="4602" class="Symbol">)</a> <a id="4604" class="Symbol">)</a> <a id="4606" class="Symbol">(</a><a id="4607" href="UniAgda.Core.Types.Identity.html#1909" class="Function">transport</a> <a id="4617" class="Symbol">(λ</a> <a id="4620" href="UniAgda.Core.SetsAndLogic.Contractible.html#4620" class="Bound">q</a> <a id="4622" class="Symbol">→</a> <a id="4624" class="Symbol">(</a><a id="4625" href="UniAgda.Core.Types.Identity.html#1909" class="Function">transport</a> <a id="4635" href="UniAgda.Core.SetsAndLogic.Contractible.html#4095" class="Bound">P</a> <a id="4637" href="UniAgda.Core.SetsAndLogic.Contractible.html#4620" class="Bound">q</a> <a id="4639" href="UniAgda.Core.SetsAndLogic.Contractible.html#4343" class="Bound">u</a><a id="4640" class="Symbol">)</a> <a id="4642" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="4644" href="UniAgda.Core.SetsAndLogic.Contractible.html#4343" class="Bound">u</a><a id="4645" class="Symbol">)</a> <a id="4647" class="Symbol">(</a><a id="4648" href="UniAgda.Core.PathAlgebra.html#886" class="Function">pp^</a> <a id="4652" class="Symbol">(</a><a id="4653" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4655" href="UniAgda.Core.SetsAndLogic.Contractible.html#4339" class="Bound">a</a> <a id="4657" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a> <a id="4659" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="4661" href="UniAgda.Core.SetsAndLogic.Contractible.html#4103" class="Bound">F</a> <a id="4663" href="UniAgda.Core.SetsAndLogic.Contractible.html#4106" class="Bound">x</a><a id="4664" class="Symbol">)</a> <a id="4666" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a><a id="4667" class="Symbol">)</a> <a id="4669" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a><a id="4673" class="Symbol">)</a> <a id="4675" class="Symbol">))}))</a>
+</pre>
+
+<pre class="Agda">
+<a id="lemma3-11-9ii"></a><a id="4732" href="UniAgda.Core.SetsAndLogic.Contractible.html#4732" class="Function">lemma3-11-9ii</a> <a id="4746" class="Symbol">:</a> <a id="4748" class="Symbol">∀</a> <a id="4750" class="Symbol">{</a><a id="4751" href="UniAgda.Core.SetsAndLogic.Contractible.html#4751" class="Bound">i</a> <a id="4753" href="UniAgda.Core.SetsAndLogic.Contractible.html#4753" class="Bound">j</a><a id="4754" class="Symbol">}</a> <a id="4756" class="Symbol">{</a><a id="4757" href="UniAgda.Core.SetsAndLogic.Contractible.html#4757" class="Bound">A</a> <a id="4759" class="Symbol">:</a> <a id="4761" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="4766" href="UniAgda.Core.SetsAndLogic.Contractible.html#4751" class="Bound">i</a><a id="4767" class="Symbol">}</a> <a id="4769" class="Symbol">{</a><a id="4770" href="UniAgda.Core.SetsAndLogic.Contractible.html#4770" class="Bound">P</a> <a id="4772" class="Symbol">:</a> <a id="4774" href="UniAgda.Core.SetsAndLogic.Contractible.html#4757" class="Bound">A</a> <a id="4776" class="Symbol">→</a> <a id="4778" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="4783" href="UniAgda.Core.SetsAndLogic.Contractible.html#4753" class="Bound">j</a><a id="4784" class="Symbol">}</a>
+                <a id="4802" class="Symbol">(</a><a id="4803" href="UniAgda.Core.SetsAndLogic.Contractible.html#4803" class="Bound">X</a> <a id="4805" class="Symbol">:</a> <a id="4807" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="4815" href="UniAgda.Core.SetsAndLogic.Contractible.html#4757" class="Bound">A</a><a id="4816" class="Symbol">)</a>
+                <a id="4834" class="Symbol">→</a> <a id="4836" class="Symbol">(</a><a id="4837" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">Σ[</a> <a id="4840" href="UniAgda.Core.SetsAndLogic.Contractible.html#4840" class="Bound">x</a> <a id="4842" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">∈</a> <a id="4844" href="UniAgda.Core.SetsAndLogic.Contractible.html#4757" class="Bound">A</a> <a id="4846" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">]</a> <a id="4848" href="UniAgda.Core.SetsAndLogic.Contractible.html#4770" class="Bound">P</a> <a id="4850" href="UniAgda.Core.SetsAndLogic.Contractible.html#4840" class="Bound">x</a><a id="4851" class="Symbol">)</a> <a id="4853" href="UniAgda.Core.Equivalences.html#2993" class="Function Operator">≃</a> <a id="4855" class="Symbol">(</a><a id="4856" href="UniAgda.Core.SetsAndLogic.Contractible.html#4770" class="Bound">P</a> <a id="4858" class="Symbol">(</a><a id="4859" href="UniAgda.Core.Types.Sigma.html#602" class="Function">pr₁</a> <a id="4863" href="UniAgda.Core.SetsAndLogic.Contractible.html#4803" class="Bound">X</a><a id="4864" class="Symbol">))</a>
+<a id="4867" href="UniAgda.Core.SetsAndLogic.Contractible.html#4732" class="Function">lemma3-11-9ii</a> <a id="4881" class="Symbol">{</a><a id="4882" href="UniAgda.Core.SetsAndLogic.Contractible.html#4882" class="Bound">i</a><a id="4883" class="Symbol">}</a> <a id="4885" class="Symbol">{</a><a id="4886" href="UniAgda.Core.SetsAndLogic.Contractible.html#4886" class="Bound">j</a><a id="4887" class="Symbol">}</a> <a id="4889" class="Symbol">{</a><a id="4890" href="UniAgda.Core.SetsAndLogic.Contractible.html#4890" class="Bound">A</a><a id="4891" class="Symbol">}</a> <a id="4893" class="Symbol">{</a><a id="4894" href="UniAgda.Core.SetsAndLogic.Contractible.html#4894" class="Bound">P</a><a id="4895" class="Symbol">}</a> <a id="4897" class="Symbol">(</a><a id="4898" href="UniAgda.Core.SetsAndLogic.Contractible.html#4898" class="Bound">a</a> <a id="4900" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="4902" href="UniAgda.Core.SetsAndLogic.Contractible.html#4902" class="Bound">F</a><a id="4903" class="Symbol">)</a> <a id="4905" class="Symbol">=</a> <a id="4907" href="UniAgda.Core.SetsAndLogic.Contractible.html#3893" class="Function">contr-base-equiv-fibres</a> <a id="4931" class="Symbol">(</a><a id="4932" href="UniAgda.Core.SetsAndLogic.Contractible.html#4898" class="Bound">a</a> <a id="4934" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="4936" href="UniAgda.Core.SetsAndLogic.Contractible.html#4902" class="Bound">F</a><a id="4937" class="Symbol">)</a> <a id="4939" href="UniAgda.Core.SetsAndLogic.Contractible.html#4898" class="Bound">a</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-orgcbc1c7b" class="outline-2">
+<h2 id="orgcbc1c7b"><span class="section-number-2">7</span> Contractible fibres</h2>
+<div class="outline-text-2" id="text-7">
+<pre class="Agda">
+<a id="contr-fibres-to-contr-Pi"></a><a id="5011" href="UniAgda.Core.SetsAndLogic.Contractible.html#5011" class="Function">contr-fibres-to-contr-Pi</a> <a id="5036" class="Symbol">:</a> <a id="5038" class="Symbol">∀</a> <a id="5040" class="Symbol">{</a><a id="5041" href="UniAgda.Core.SetsAndLogic.Contractible.html#5041" class="Bound">i</a> <a id="5043" href="UniAgda.Core.SetsAndLogic.Contractible.html#5043" class="Bound">j</a><a id="5044" class="Symbol">}</a> <a id="5046" class="Symbol">{</a><a id="5047" href="UniAgda.Core.SetsAndLogic.Contractible.html#5047" class="Bound">A</a> <a id="5049" class="Symbol">:</a> <a id="5051" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="5056" href="UniAgda.Core.SetsAndLogic.Contractible.html#5041" class="Bound">i</a><a id="5057" class="Symbol">}</a> <a id="5059" class="Symbol">{</a><a id="5060" href="UniAgda.Core.SetsAndLogic.Contractible.html#5060" class="Bound">P</a> <a id="5062" class="Symbol">:</a> <a id="5064" href="UniAgda.Core.SetsAndLogic.Contractible.html#5047" class="Bound">A</a> <a id="5066" class="Symbol">→</a> <a id="5068" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="5073" href="UniAgda.Core.SetsAndLogic.Contractible.html#5043" class="Bound">j</a><a id="5074" class="Symbol">}</a>
+                           <a id="5103" class="Symbol">→</a> <a id="5105" class="Symbol">((</a><a id="5107" href="UniAgda.Core.SetsAndLogic.Contractible.html#5107" class="Bound">x</a> <a id="5109" class="Symbol">:</a> <a id="5111" href="UniAgda.Core.SetsAndLogic.Contractible.html#5047" class="Bound">A</a><a id="5112" class="Symbol">)</a> <a id="5114" class="Symbol">→</a> <a id="5116" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="5124" class="Symbol">(</a><a id="5125" href="UniAgda.Core.SetsAndLogic.Contractible.html#5060" class="Bound">P</a> <a id="5127" href="UniAgda.Core.SetsAndLogic.Contractible.html#5107" class="Bound">x</a><a id="5128" class="Symbol">))</a>
+                           <a id="5158" class="Symbol">→</a> <a id="5160" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="5168" class="Symbol">((</a><a id="5170" href="UniAgda.Core.SetsAndLogic.Contractible.html#5170" class="Bound">x</a> <a id="5172" class="Symbol">:</a> <a id="5174" href="UniAgda.Core.SetsAndLogic.Contractible.html#5047" class="Bound">A</a><a id="5175" class="Symbol">)</a> <a id="5177" class="Symbol">→</a> <a id="5179" href="UniAgda.Core.SetsAndLogic.Contractible.html#5060" class="Bound">P</a> <a id="5181" href="UniAgda.Core.SetsAndLogic.Contractible.html#5170" class="Bound">x</a><a id="5182" class="Symbol">)</a>
+<a id="5184" href="UniAgda.Core.SetsAndLogic.Contractible.html#5011" class="Function">contr-fibres-to-contr-Pi</a> <a id="5209" href="UniAgda.Core.SetsAndLogic.Contractible.html#5209" class="Bound">F</a> <a id="5211" class="Symbol">=</a> <a id="5213" href="UniAgda.Core.SetsAndLogic.Contractible.html#1480" class="Function">pointed-prop-to-contr</a> <a id="5235" class="Symbol">((λ</a> <a id="5239" href="UniAgda.Core.SetsAndLogic.Contractible.html#5239" class="Bound">x</a> <a id="5241" class="Symbol">→</a> <a id="5243" href="UniAgda.Core.Types.Sigma.html#602" class="Function">pr₁</a> <a id="5247" class="Symbol">(</a><a id="5248" href="UniAgda.Core.SetsAndLogic.Contractible.html#5209" class="Bound">F</a> <a id="5250" href="UniAgda.Core.SetsAndLogic.Contractible.html#5239" class="Bound">x</a><a id="5251" class="Symbol">))</a> <a id="5254" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="5256" class="Symbol">(</a><a id="5257" href="UniAgda.Core.SetsAndLogic.Props.html#4102" class="Function">prop-fibres-Pi-is-prop</a> <a id="5280" class="Symbol">(λ</a> <a id="5283" href="UniAgda.Core.SetsAndLogic.Contractible.html#5283" class="Bound">x</a> <a id="5285" class="Symbol">→</a> <a id="5287" href="UniAgda.Core.SetsAndLogic.Contractible.html#2472" class="Function">contr-are-props</a> <a id="5303" class="Symbol">(</a><a id="5304" href="UniAgda.Core.SetsAndLogic.Contractible.html#5209" class="Bound">F</a> <a id="5306" href="UniAgda.Core.SetsAndLogic.Contractible.html#5283" class="Bound">x</a><a id="5307" class="Symbol">))))</a>
+</pre>
+
+<pre class="Agda">
+<a id="contr-fibres-to-contr-Sigma"></a><a id="5341" href="UniAgda.Core.SetsAndLogic.Contractible.html#5341" class="Function">contr-fibres-to-contr-Sigma</a> <a id="5369" class="Symbol">:</a> <a id="5371" class="Symbol">∀</a> <a id="5373" class="Symbol">{</a><a id="5374" href="UniAgda.Core.SetsAndLogic.Contractible.html#5374" class="Bound">i</a> <a id="5376" href="UniAgda.Core.SetsAndLogic.Contractible.html#5376" class="Bound">j</a><a id="5377" class="Symbol">}</a> <a id="5379" class="Symbol">{</a><a id="5380" href="UniAgda.Core.SetsAndLogic.Contractible.html#5380" class="Bound">A</a> <a id="5382" class="Symbol">:</a> <a id="5384" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="5389" href="UniAgda.Core.SetsAndLogic.Contractible.html#5374" class="Bound">i</a><a id="5390" class="Symbol">}</a> <a id="5392" class="Symbol">{</a><a id="5393" href="UniAgda.Core.SetsAndLogic.Contractible.html#5393" class="Bound">P</a> <a id="5395" class="Symbol">:</a> <a id="5397" href="UniAgda.Core.SetsAndLogic.Contractible.html#5380" class="Bound">A</a> <a id="5399" class="Symbol">→</a> <a id="5401" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="5406" href="UniAgda.Core.SetsAndLogic.Contractible.html#5376" class="Bound">j</a><a id="5407" class="Symbol">}</a>
+                              <a id="5439" class="Symbol">→</a> <a id="5441" class="Symbol">((</a><a id="5443" href="UniAgda.Core.SetsAndLogic.Contractible.html#5443" class="Bound">x</a> <a id="5445" class="Symbol">:</a> <a id="5447" href="UniAgda.Core.SetsAndLogic.Contractible.html#5380" class="Bound">A</a><a id="5448" class="Symbol">)</a> <a id="5450" class="Symbol">→</a> <a id="5452" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="5460" class="Symbol">(</a><a id="5461" href="UniAgda.Core.SetsAndLogic.Contractible.html#5393" class="Bound">P</a> <a id="5463" href="UniAgda.Core.SetsAndLogic.Contractible.html#5443" class="Bound">x</a><a id="5464" class="Symbol">))</a> <a id="5467" class="Symbol">→</a> <a id="5469" class="Symbol">(</a><a id="5470" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="5478" href="UniAgda.Core.SetsAndLogic.Contractible.html#5380" class="Bound">A</a><a id="5479" class="Symbol">)</a>
+                              <a id="5511" class="Symbol">→</a> <a id="5513" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="5521" class="Symbol">(</a><a id="5522" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">Σ[</a> <a id="5525" href="UniAgda.Core.SetsAndLogic.Contractible.html#5525" class="Bound">x</a> <a id="5527" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">∈</a> <a id="5529" href="UniAgda.Core.SetsAndLogic.Contractible.html#5380" class="Bound">A</a> <a id="5531" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">]</a> <a id="5533" href="UniAgda.Core.SetsAndLogic.Contractible.html#5393" class="Bound">P</a> <a id="5535" href="UniAgda.Core.SetsAndLogic.Contractible.html#5525" class="Bound">x</a><a id="5536" class="Symbol">)</a>
+<a id="5538" href="UniAgda.Core.SetsAndLogic.Contractible.html#5341" class="Function">contr-fibres-to-contr-Sigma</a> <a id="5566" href="UniAgda.Core.SetsAndLogic.Contractible.html#5566" class="Bound">F</a> <a id="5568" href="UniAgda.Core.SetsAndLogic.Contractible.html#5568" class="Bound">X</a> <a id="5570" class="Symbol">=</a> <a id="5572" href="UniAgda.Core.SetsAndLogic.Contractible.html#3005" class="Function">equiv-with-contr</a> <a id="5589" class="Symbol">(</a><a id="5590" href="UniAgda.Core.SetsAndLogic.Contractible.html#3562" class="Function">lemma3-11-9i</a> <a id="5603" href="UniAgda.Core.SetsAndLogic.Contractible.html#5566" class="Bound">F</a> <a id="5605" href="UniAgda.Core.Equivalences.html#6114" class="Function Operator">^ᵉ</a><a id="5607" class="Symbol">)</a> <a id="5609" href="UniAgda.Core.SetsAndLogic.Contractible.html#5568" class="Bound">X</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-orgcf96f09" class="outline-2">
+<h2 id="orgcf96f09"><span class="section-number-2">8</span> Path spaces</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+Contractible types have contractible path spaces.
+</p>
+<pre class="Agda">
+<a id="contr-has-contr-path-space"></a><a id="5703" href="UniAgda.Core.SetsAndLogic.Contractible.html#5703" class="Function">contr-has-contr-path-space</a> <a id="5730" class="Symbol">:</a> <a id="5732" class="Symbol">∀</a> <a id="5734" class="Symbol">{</a><a id="5735" href="UniAgda.Core.SetsAndLogic.Contractible.html#5735" class="Bound">i</a><a id="5736" class="Symbol">}</a> <a id="5738" class="Symbol">{</a><a id="5739" href="UniAgda.Core.SetsAndLogic.Contractible.html#5739" class="Bound">A</a> <a id="5741" class="Symbol">:</a> <a id="5743" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="5748" href="UniAgda.Core.SetsAndLogic.Contractible.html#5735" class="Bound">i</a><a id="5749" class="Symbol">}</a> <a id="5751" class="Symbol">{</a><a id="5752" href="UniAgda.Core.SetsAndLogic.Contractible.html#5752" class="Bound">x</a> <a id="5754" href="UniAgda.Core.SetsAndLogic.Contractible.html#5754" class="Bound">y</a> <a id="5756" class="Symbol">:</a> <a id="5758" href="UniAgda.Core.SetsAndLogic.Contractible.html#5739" class="Bound">A</a><a id="5759" class="Symbol">}</a>
+                             <a id="5790" class="Symbol">→</a> <a id="5792" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="5800" href="UniAgda.Core.SetsAndLogic.Contractible.html#5739" class="Bound">A</a> <a id="5802" class="Symbol">→</a> <a id="5804" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="5812" class="Symbol">(</a><a id="5813" href="UniAgda.Core.SetsAndLogic.Contractible.html#5752" class="Bound">x</a> <a id="5815" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="5817" href="UniAgda.Core.SetsAndLogic.Contractible.html#5754" class="Bound">y</a><a id="5818" class="Symbol">)</a>
+<a id="5820" href="UniAgda.Core.SetsAndLogic.Contractible.html#5703" class="Function">contr-has-contr-path-space</a> <a id="5847" class="Symbol">{</a><a id="5848" href="UniAgda.Core.SetsAndLogic.Contractible.html#5848" class="Bound">i</a><a id="5849" class="Symbol">}</a> <a id="5851" class="Symbol">{</a><a id="5852" href="UniAgda.Core.SetsAndLogic.Contractible.html#5852" class="Bound">A</a><a id="5853" class="Symbol">}</a> <a id="5855" class="Symbol">{</a><a id="5856" href="UniAgda.Core.SetsAndLogic.Contractible.html#5856" class="Bound">x</a><a id="5857" class="Symbol">}</a> <a id="5859" class="Symbol">{</a><a id="5860" href="UniAgda.Core.SetsAndLogic.Contractible.html#5860" class="Bound">y</a><a id="5861" class="Symbol">}</a> <a id="5863" class="Symbol">(</a><a id="5864" href="UniAgda.Core.SetsAndLogic.Contractible.html#5864" class="Bound">a</a> <a id="5866" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="5868" href="UniAgda.Core.SetsAndLogic.Contractible.html#5868" class="Bound">F</a><a id="5869" class="Symbol">)</a> <a id="5871" class="Symbol">=</a> <a id="5873" class="Symbol">(</a><a id="5874" href="UniAgda.Core.SetsAndLogic.Contractible.html#5868" class="Bound">F</a> <a id="5876" href="UniAgda.Core.SetsAndLogic.Contractible.html#5856" class="Bound">x</a><a id="5877" class="Symbol">)</a> <a id="5879" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a> <a id="5881" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="5883" href="UniAgda.Core.SetsAndLogic.Contractible.html#5868" class="Bound">F</a> <a id="5885" href="UniAgda.Core.SetsAndLogic.Contractible.html#5860" class="Bound">y</a> <a id="5887" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="5889" class="Symbol">λ</a> <a id="5891" class="Symbol">{</a> <a id="5893" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a> <a id="5898" class="Symbol">→</a> <a id="5900" href="UniAgda.Core.PathAlgebra.html#979" class="Function">p^p</a> <a id="5904" class="Symbol">(</a><a id="5905" href="UniAgda.Core.SetsAndLogic.Contractible.html#5868" class="Bound">F</a> <a id="5907" href="UniAgda.Core.SetsAndLogic.Contractible.html#5856" class="Bound">x</a><a id="5908" class="Symbol">)}</a>
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: James Leslie</p>
+<p class="date">Created: 2021-03-22 Mon 19:50</p>
+</div>
+</body>
+</html>

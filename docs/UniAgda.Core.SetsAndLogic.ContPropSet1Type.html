@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-03-22 Mon 19:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contractability, Propositions, Sets and 1-types</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="James Leslie" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Contractability, Propositions, Sets and 1-types</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgb2ba870">1. Prelude</a></li>
+<li><a href="#orgda5561c">2. Definition</a>
+<ul>
+<li><a href="#org5ecfab1">2.1. Contractible Types</a></li>
+<li><a href="#orgf47a8f5">2.2. Propositions</a></li>
+<li><a href="#org0fd9741">2.3. Sets</a></li>
+<li><a href="#org502e1cc">2.4. 1-Types</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb2ba870" class="outline-2">
+<h2 id="orgb2ba870"><span class="section-number-2">1</span> Prelude</h2>
+<div class="outline-text-2" id="text-1">
+<pre class="Agda">
+<a id="153" class="Symbol">{-#</a> <a id="157" class="Keyword">OPTIONS</a> <a id="165" class="Pragma">--without-K</a> <a id="177" class="Pragma">--safe</a> <a id="184" class="Symbol">#-}</a>
+<a id="188" class="Keyword">module</a> <a id="195" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html" class="Module">UniAgda.Core.SetsAndLogic.ContPropSet1Type</a> <a id="238" class="Keyword">where</a>
+
+<a id="245" class="Keyword">open</a> <a id="250" class="Keyword">import</a> <a id="257" href="UniAgda.Core.Types.Universes.html" class="Module">UniAgda.Core.Types.Universes</a>
+<a id="286" class="Keyword">open</a> <a id="291" class="Keyword">import</a> <a id="298" href="UniAgda.Core.Types.Identity.html" class="Module">UniAgda.Core.Types.Identity</a>
+<a id="326" class="Keyword">open</a> <a id="331" class="Keyword">import</a> <a id="338" href="UniAgda.Core.Types.Sigma.html" class="Module">UniAgda.Core.Types.Sigma</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-orgda5561c" class="outline-2">
+<h2 id="orgda5561c"><span class="section-number-2">2</span> Definition</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org5ecfab1" class="outline-3">
+<h3 id="org5ecfab1"><span class="section-number-3">2.1</span> Contractible Types</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+A contractible type is one which has a point and a path from every other point to that point.
+</p>
+<pre class="Agda">
+<a id="isContr"></a><a id="545" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="553" class="Symbol">:</a> <a id="555" class="Symbol">∀</a> <a id="557" class="Symbol">{</a><a id="558" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#558" class="Bound">i</a><a id="559" class="Symbol">}</a>
+          <a id="571" class="Symbol">(</a><a id="572" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#572" class="Bound">A</a> <a id="574" class="Symbol">:</a> <a id="576" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="581" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#558" class="Bound">i</a><a id="582" class="Symbol">)</a>
+           <a id="595" class="Symbol">→</a> <a id="597" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="602" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#558" class="Bound">i</a>
+<a id="604" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#545" class="Function">isContr</a> <a id="612" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#612" class="Bound">A</a> <a id="614" class="Symbol">=</a> <a id="616" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">Σ[</a> <a id="619" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#619" class="Bound">a</a> <a id="621" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">∈</a> <a id="623" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#612" class="Bound">A</a> <a id="625" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">]</a> <a id="627" class="Symbol">((</a><a id="629" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#629" class="Bound">x</a> <a id="631" class="Symbol">:</a> <a id="633" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#612" class="Bound">A</a><a id="634" class="Symbol">)</a> <a id="636" class="Symbol">→</a> <a id="638" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#619" class="Bound">a</a> <a id="640" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="642" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#629" class="Bound">x</a><a id="643" class="Symbol">)</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-orgf47a8f5" class="outline-3">
+<h3 id="orgf47a8f5"><span class="section-number-3">2.2</span> Propositions</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+A proposition is a type with a path between any two terms.
+</p>
+<pre class="Agda">
+<a id="isProp"></a><a id="772" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="779" class="Symbol">:</a> <a id="781" class="Symbol">∀</a> <a id="783" class="Symbol">{</a><a id="784" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#784" class="Bound">i</a><a id="785" class="Symbol">}</a>
+         <a id="796" class="Symbol">(</a><a id="797" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#797" class="Bound">A</a> <a id="799" class="Symbol">:</a> <a id="801" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="806" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#784" class="Bound">i</a><a id="807" class="Symbol">)</a>
+         <a id="818" class="Symbol">→</a> <a id="820" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="825" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#784" class="Bound">i</a>
+<a id="827" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="834" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#834" class="Bound">A</a> <a id="836" class="Symbol">=</a> <a id="838" class="Symbol">(</a><a id="839" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#839" class="Bound">x</a> <a id="841" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#841" class="Bound">y</a> <a id="843" class="Symbol">:</a> <a id="845" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#834" class="Bound">A</a><a id="846" class="Symbol">)</a> <a id="848" class="Symbol">→</a> <a id="850" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#839" class="Bound">x</a> <a id="852" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="854" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#841" class="Bound">y</a>
+</pre>
+
+<p>
+We define the type of propositions to be the Sigma type of types that are propositions.
+</p>
+<pre class="Agda">
+<a id="Prop_"></a><a id="973" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#973" class="Function Operator">Prop_</a> <a id="979" class="Symbol">:</a> <a id="981" class="Symbol">(</a><a id="982" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#982" class="Bound">i</a> <a id="984" class="Symbol">:</a> <a id="986" href="Agda.Primitive.html#597" class="Postulate">Level</a><a id="991" class="Symbol">)</a>
+        <a id="1001" class="Symbol">→</a> <a id="1003" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1008" class="Symbol">(</a><a id="1009" href="Agda.Primitive.html#780" class="Primitive">lsuc</a> <a id="1014" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#982" class="Bound">i</a><a id="1015" class="Symbol">)</a>
+<a id="1017" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#973" class="Function Operator">Prop</a> <a id="1022" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1022" class="Bound">i</a> <a id="1024" class="Symbol">=</a>  <a id="1027" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">Σ[</a> <a id="1030" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1030" class="Bound">A</a> <a id="1032" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">∈</a> <a id="1034" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1039" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1022" class="Bound">i</a> <a id="1041" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">]</a> <a id="1043" class="Symbol">(</a><a id="1044" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="1051" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1030" class="Bound">A</a><a id="1052" class="Symbol">)</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-org0fd9741" class="outline-3">
+<h3 id="org0fd9741"><span class="section-number-3">2.3</span> Sets</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+A set is a type with all path spaces propositions.
+</p>
+<pre class="Agda">
+<a id="isSet"></a><a id="1165" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1165" class="Function">isSet</a> <a id="1171" class="Symbol">:</a> <a id="1173" class="Symbol">∀</a> <a id="1175" class="Symbol">{</a><a id="1176" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1176" class="Bound">i</a><a id="1177" class="Symbol">}</a>
+        <a id="1187" class="Symbol">(</a><a id="1188" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1188" class="Bound">A</a> <a id="1190" class="Symbol">:</a> <a id="1192" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1197" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1176" class="Bound">i</a><a id="1198" class="Symbol">)</a>
+        <a id="1208" class="Symbol">→</a> <a id="1210" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1215" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1176" class="Bound">i</a>
+<a id="1217" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1165" class="Function">isSet</a> <a id="1223" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1223" class="Bound">A</a> <a id="1225" class="Symbol">=</a> <a id="1227" class="Symbol">(</a><a id="1228" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1228" class="Bound">x</a> <a id="1230" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1230" class="Bound">y</a> <a id="1232" class="Symbol">:</a> <a id="1234" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1223" class="Bound">A</a><a id="1235" class="Symbol">)</a> <a id="1237" class="Symbol">(</a><a id="1238" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1238" class="Bound">p</a> <a id="1240" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1240" class="Bound">q</a> <a id="1242" class="Symbol">:</a> <a id="1244" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1228" class="Bound">x</a> <a id="1246" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="1248" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1230" class="Bound">y</a><a id="1249" class="Symbol">)</a> <a id="1251" class="Symbol">→</a> <a id="1253" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1238" class="Bound">p</a> <a id="1255" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="1257" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1240" class="Bound">q</a>
+</pre>
+
+<pre class="Agda">
+<a id="sets-have-prop-ids"></a><a id="1288" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1288" class="Function">sets-have-prop-ids</a> <a id="1307" class="Symbol">:</a> <a id="1309" class="Symbol">∀</a> <a id="1311" class="Symbol">{</a><a id="1312" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1312" class="Bound">i</a><a id="1313" class="Symbol">}</a>
+                     <a id="1336" class="Symbol">(</a><a id="1337" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1337" class="Bound">A</a> <a id="1339" class="Symbol">:</a> <a id="1341" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1346" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1312" class="Bound">i</a><a id="1347" class="Symbol">)</a> <a id="1349" class="Symbol">→</a> <a id="1351" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1165" class="Function">isSet</a> <a id="1357" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1337" class="Bound">A</a>
+                     <a id="1380" class="Symbol">→</a> <a id="1382" class="Symbol">(</a><a id="1383" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1383" class="Bound">x</a> <a id="1385" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1385" class="Bound">y</a> <a id="1387" class="Symbol">:</a> <a id="1389" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1337" class="Bound">A</a><a id="1390" class="Symbol">)</a> <a id="1392" class="Symbol">→</a> <a id="1394" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="1401" class="Symbol">(</a><a id="1402" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1383" class="Bound">x</a> <a id="1404" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="1406" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1385" class="Bound">y</a><a id="1407" class="Symbol">)</a>
+<a id="1409" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1288" class="Function">sets-have-prop-ids</a> <a id="1428" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1428" class="Bound">A</a> <a id="1430" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1430" class="Bound">H</a> <a id="1432" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1432" class="Bound">x</a> <a id="1434" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1434" class="Bound">y</a> <a id="1436" class="Symbol">=</a> <a id="1438" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1430" class="Bound">H</a> <a id="1440" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1432" class="Bound">x</a> <a id="1442" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1434" class="Bound">y</a>
+</pre>
+<p>
+A set is then a type with a proof that it is a set. This is how we define the type of sets.
+</p>
+<pre class="Agda">
+<a id="Set_"></a><a id="1564" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1564" class="Function Operator">Set_</a> <a id="1569" class="Symbol">:</a> <a id="1571" class="Symbol">(</a><a id="1572" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1572" class="Bound">i</a> <a id="1574" class="Symbol">:</a> <a id="1576" href="Agda.Primitive.html#597" class="Postulate">Level</a><a id="1581" class="Symbol">)</a>
+       <a id="1590" class="Symbol">→</a> <a id="1592" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1597" class="Symbol">(</a><a id="1598" href="Agda.Primitive.html#780" class="Primitive">lsuc</a> <a id="1603" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1572" class="Bound">i</a><a id="1604" class="Symbol">)</a>
+<a id="1606" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1564" class="Function Operator">Set_</a> <a id="1611" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1611" class="Bound">i</a> <a id="1613" class="Symbol">=</a> <a id="1615" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">Σ[</a> <a id="1618" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1618" class="Bound">A</a> <a id="1620" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">∈</a> <a id="1622" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1627" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1611" class="Bound">i</a> <a id="1629" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">]</a> <a id="1631" class="Symbol">(</a><a id="1632" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1165" class="Function">isSet</a> <a id="1638" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1618" class="Bound">A</a><a id="1639" class="Symbol">)</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-org502e1cc" class="outline-3">
+<h3 id="org502e1cc"><span class="section-number-3">2.4</span> 1-Types</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+We can extend this higher and we get a tower of <img src="ltximg/UniAgda.Core.SetsAndLogic.ContPropSet1Type_f5ba79590e484437b7eb5ad1767d5a33baea1fe4.png" alt="\(n\)" />-types. We just define 1-types here.
+</p>
+<pre class="Agda">
+<a id="is1type"></a><a id="1794" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1794" class="Function">is1type</a> <a id="1802" class="Symbol">:</a> <a id="1804" class="Symbol">∀</a> <a id="1806" class="Symbol">{</a><a id="1807" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1807" class="Bound">i</a><a id="1808" class="Symbol">}</a>
+          <a id="1820" class="Symbol">(</a><a id="1821" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1821" class="Bound">A</a> <a id="1823" class="Symbol">:</a> <a id="1825" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1830" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1807" class="Bound">i</a><a id="1831" class="Symbol">)</a>
+          <a id="1843" class="Symbol">→</a> <a id="1845" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1850" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1807" class="Bound">i</a>
+<a id="1852" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1794" class="Function">is1type</a> <a id="1860" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1860" class="Bound">A</a> <a id="1862" class="Symbol">=</a> <a id="1864" class="Symbol">(</a><a id="1865" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1865" class="Bound">a</a> <a id="1867" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1867" class="Bound">b</a> <a id="1869" class="Symbol">:</a> <a id="1871" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1860" class="Bound">A</a><a id="1872" class="Symbol">)</a> <a id="1874" class="Symbol">→</a> <a id="1876" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1165" class="Function">isSet</a> <a id="1882" class="Symbol">(</a><a id="1883" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1865" class="Bound">a</a> <a id="1885" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="1887" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1867" class="Bound">b</a><a id="1888" class="Symbol">)</a>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: James Leslie</p>
+<p class="date">Created: 2021-03-22 Mon 19:50</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-03-22 Mon 19:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Properties of Properties</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="James Leslie" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Properties of Properties</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orga875b32">1. Prelude</a></li>
+<li><a href="#org0271a59">2. The unit is a proposition</a></li>
+<li><a href="#org9de2f33">3. Results</a>
+<ul>
+<li><a href="#org4d391f2">3.1. Inhabited propositions</a></li>
+<li><a href="#orgb2a55fe">3.2. Equivalence of propositions</a></li>
+<li><a href="#org2ab0895">3.3. Every proposition is a set</a></li>
+<li><a href="#org9be108b">3.4. Being a set or proposition is a proposition</a></li>
+<li><a href="#orgf145291">3.5. Type families with prop valued fibres</a></li>
+<li><a href="#org5ff8879">3.6. Propositions are preserved under products</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga875b32" class="outline-2">
+<h2 id="orga875b32"><span class="section-number-2">1</span> Prelude</h2>
+<div class="outline-text-2" id="text-1">
+<pre class="Agda">
+<a id="130" class="Symbol">{-#</a> <a id="134" class="Keyword">OPTIONS</a> <a id="142" class="Pragma">--without-K</a> <a id="154" class="Symbol">#-}</a>
+<a id="158" class="Keyword">module</a> <a id="165" href="UniAgda.Core.SetsAndLogic.Props.html" class="Module">UniAgda.Core.SetsAndLogic.Props</a> <a id="197" class="Keyword">where</a>
+
+<a id="204" class="Keyword">open</a> <a id="209" class="Keyword">import</a> <a id="216" href="UniAgda.Core.Types.Universes.html" class="Module">UniAgda.Core.Types.Universes</a>
+<a id="245" class="Keyword">open</a> <a id="250" class="Keyword">import</a> <a id="257" href="UniAgda.Core.Types.Functions.html" class="Module">UniAgda.Core.Types.Functions</a>
+<a id="286" class="Keyword">open</a> <a id="291" class="Keyword">import</a> <a id="298" href="UniAgda.Core.Types.Identity.html" class="Module">UniAgda.Core.Types.Identity</a>
+<a id="326" class="Keyword">open</a> <a id="331" class="Keyword">import</a> <a id="338" href="UniAgda.Core.Types.Sigma.html" class="Module">UniAgda.Core.Types.Sigma</a>
+<a id="363" class="Keyword">open</a> <a id="368" class="Keyword">import</a> <a id="375" href="UniAgda.Core.Types.Coproduct.html" class="Module">UniAgda.Core.Types.Coproduct</a>
+<a id="404" class="Keyword">open</a> <a id="409" class="Keyword">import</a> <a id="416" href="UniAgda.Core.Types.W.html" class="Module">UniAgda.Core.Types.W</a>
+<a id="437" class="Keyword">open</a> <a id="442" class="Keyword">import</a> <a id="449" href="UniAgda.Core.Types.Unit.html" class="Module">UniAgda.Core.Types.Unit</a>
+<a id="473" class="Keyword">open</a> <a id="478" class="Keyword">import</a> <a id="485" href="UniAgda.Core.Types.Empty.html" class="Module">UniAgda.Core.Types.Empty</a>
+<a id="510" class="Keyword">open</a> <a id="515" class="Keyword">import</a> <a id="522" href="UniAgda.Core.Types.Bool.html" class="Module">UniAgda.Core.Types.Bool</a>
+<a id="546" class="Keyword">open</a> <a id="551" class="Keyword">import</a> <a id="558" href="UniAgda.Core.Types.Nat.html" class="Module">UniAgda.Core.Types.Nat</a>
+
+<a id="582" class="Keyword">open</a> <a id="587" class="Keyword">import</a> <a id="594" href="UniAgda.Core.PathAlgebra.html" class="Module">UniAgda.Core.PathAlgebra</a>
+<a id="619" class="Keyword">open</a> <a id="624" class="Keyword">import</a> <a id="631" href="UniAgda.Core.Homotopy.html" class="Module">UniAgda.Core.Homotopy</a>
+<a id="653" class="Keyword">open</a> <a id="658" class="Keyword">import</a> <a id="665" href="UniAgda.Core.Equivalences.html" class="Module">UniAgda.Core.Equivalences</a>
+<a id="691" class="Keyword">open</a> <a id="696" class="Keyword">import</a> <a id="703" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html" class="Module">UniAgda.Core.SetsAndLogic.ContPropSet1Type</a>
+
+<a id="747" class="Keyword">open</a> <a id="752" class="Keyword">import</a> <a id="759" href="UniAgda.Core.PathSpaces.Coproduct.html" class="Module">UniAgda.Core.PathSpaces.Coproduct</a>
+<a id="793" class="Keyword">open</a> <a id="798" class="Keyword">import</a> <a id="805" href="UniAgda.Core.PathSpaces.Identity.html" class="Module">UniAgda.Core.PathSpaces.Identity</a>
+<a id="838" class="Keyword">open</a> <a id="843" class="Keyword">import</a> <a id="850" href="UniAgda.Core.PathSpaces.Nat.html" class="Module">UniAgda.Core.PathSpaces.Nat</a>
+<a id="878" class="Keyword">open</a> <a id="883" class="Keyword">import</a> <a id="890" href="UniAgda.Core.PathSpaces.Sigma.html" class="Module">UniAgda.Core.PathSpaces.Sigma</a>
+<a id="920" class="Keyword">open</a> <a id="925" class="Keyword">import</a> <a id="932" href="UniAgda.Core.PathSpaces.Unit.html" class="Module">UniAgda.Core.PathSpaces.Unit</a>
+
+<a id="962" class="Keyword">open</a> <a id="967" class="Keyword">import</a> <a id="974" href="UniAgda.Core.Axioms.html" class="Module">UniAgda.Core.Axioms</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-org0271a59" class="outline-2">
+<h2 id="org0271a59"><span class="section-number-2">2</span> The unit is a proposition</h2>
+<div class="outline-text-2" id="text-2">
+<pre class="Agda">
+<a id="Unit-is-prop"></a><a id="1050" href="UniAgda.Core.SetsAndLogic.Props.html#1050" class="Function">Unit-is-prop</a> <a id="1063" class="Symbol">:</a> <a id="1065" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="1072" href="UniAgda.Core.Types.Unit.html#356" class="Datatype">Unit</a>
+<a id="1077" href="UniAgda.Core.SetsAndLogic.Props.html#1050" class="Function">Unit-is-prop</a> <a id="1090" href="UniAgda.Core.Types.Unit.html#382" class="InductiveConstructor">tt</a> <a id="1093" href="UniAgda.Core.Types.Unit.html#382" class="InductiveConstructor">tt</a> <a id="1096" class="Symbol">=</a> <a id="1098" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-org9de2f33" class="outline-2">
+<h2 id="org9de2f33"><span class="section-number-2">3</span> Results</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org4d391f2" class="outline-3">
+<h3 id="org4d391f2"><span class="section-number-3">3.1</span> Inhabited propositions</h3>
+<div class="outline-text-3" id="text-3-1">
+<pre class="Agda">
+<a id="x-in-prop-equiv-unit"></a><a id="1186" href="UniAgda.Core.SetsAndLogic.Props.html#1186" class="Function">x-in-prop-equiv-unit</a> <a id="1207" class="Symbol">:</a> <a id="1209" class="Symbol">{</a><a id="1210" href="UniAgda.Core.SetsAndLogic.Props.html#1210" class="Bound">i</a> <a id="1212" class="Symbol">:</a> <a id="1214" href="Agda.Primitive.html#597" class="Postulate">Level</a><a id="1219" class="Symbol">}</a> <a id="1221" class="Symbol">{</a><a id="1222" href="UniAgda.Core.SetsAndLogic.Props.html#1222" class="Bound">P</a> <a id="1224" class="Symbol">:</a> <a id="1226" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1231" href="UniAgda.Core.SetsAndLogic.Props.html#1210" class="Bound">i</a><a id="1232" class="Symbol">}</a>
+                       <a id="1257" class="Symbol">→</a> <a id="1259" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="1266" href="UniAgda.Core.SetsAndLogic.Props.html#1222" class="Bound">P</a> <a id="1268" class="Symbol">→</a> <a id="1270" href="UniAgda.Core.SetsAndLogic.Props.html#1222" class="Bound">P</a>
+                       <a id="1295" class="Symbol">→</a> <a id="1297" href="UniAgda.Core.SetsAndLogic.Props.html#1222" class="Bound">P</a> <a id="1299" href="UniAgda.Core.Equivalences.html#2993" class="Function Operator">≃</a> <a id="1301" href="UniAgda.Core.Types.Unit.html#356" class="Datatype">Unit</a>
+<a id="1306" href="UniAgda.Core.SetsAndLogic.Props.html#1186" class="Function">x-in-prop-equiv-unit</a> <a id="1327" href="UniAgda.Core.SetsAndLogic.Props.html#1327" class="Bound">X</a> <a id="1329" href="UniAgda.Core.SetsAndLogic.Props.html#1329" class="Bound">x₀</a> <a id="1332" class="Symbol">=</a> <a id="1334" href="UniAgda.Core.Equivalences.html#5661" class="Function">equiv-adjointify</a> <a id="1351" class="Symbol">((λ</a> <a id="1355" href="UniAgda.Core.SetsAndLogic.Props.html#1355" class="Bound">x</a> <a id="1357" class="Symbol">→</a> <a id="1359" href="UniAgda.Core.Types.Unit.html#382" class="InductiveConstructor">tt</a><a id="1361" class="Symbol">)</a> <a id="1363" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="1365" class="Symbol">((λ</a> <a id="1369" href="UniAgda.Core.SetsAndLogic.Props.html#1369" class="Bound">x</a> <a id="1371" class="Symbol">→</a> <a id="1373" href="UniAgda.Core.SetsAndLogic.Props.html#1329" class="Bound">x₀</a><a id="1375" class="Symbol">)</a> <a id="1377" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="1379" class="Symbol">((λ</a> <a id="1383" class="Symbol">{</a> <a id="1385" href="UniAgda.Core.Types.Unit.html#382" class="InductiveConstructor">tt</a> <a id="1388" class="Symbol">→</a> <a id="1390" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a><a id="1394" class="Symbol">})</a> <a id="1397" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="1399" class="Symbol">λ</a> <a id="1401" href="UniAgda.Core.SetsAndLogic.Props.html#1401" class="Bound">x</a> <a id="1403" class="Symbol">→</a> <a id="1405" href="UniAgda.Core.SetsAndLogic.Props.html#1327" class="Bound">X</a> <a id="1407" href="UniAgda.Core.SetsAndLogic.Props.html#1329" class="Bound">x₀</a> <a id="1410" href="UniAgda.Core.SetsAndLogic.Props.html#1401" class="Bound">x</a><a id="1411" class="Symbol">)))</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-orgb2a55fe" class="outline-3">
+<h3 id="orgb2a55fe"><span class="section-number-3">3.2</span> Equivalence of propositions</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Two propositions are equivalent if and only if they are logically equivalent.
+</p>
+<pre class="Agda">
+<a id="props-equiv"></a><a id="1571" href="UniAgda.Core.SetsAndLogic.Props.html#1571" class="Function">props-equiv</a> <a id="1583" class="Symbol">:</a> <a id="1585" class="Symbol">{</a><a id="1586" href="UniAgda.Core.SetsAndLogic.Props.html#1586" class="Bound">i</a> <a id="1588" href="UniAgda.Core.SetsAndLogic.Props.html#1588" class="Bound">j</a> <a id="1590" class="Symbol">:</a> <a id="1592" href="Agda.Primitive.html#597" class="Postulate">Level</a><a id="1597" class="Symbol">}</a> <a id="1599" class="Symbol">{</a><a id="1600" href="UniAgda.Core.SetsAndLogic.Props.html#1600" class="Bound">P</a> <a id="1602" class="Symbol">:</a> <a id="1604" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1609" href="UniAgda.Core.SetsAndLogic.Props.html#1586" class="Bound">i</a><a id="1610" class="Symbol">}</a> <a id="1612" class="Symbol">{</a><a id="1613" href="UniAgda.Core.SetsAndLogic.Props.html#1613" class="Bound">Q</a> <a id="1615" class="Symbol">:</a> <a id="1617" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1622" href="UniAgda.Core.SetsAndLogic.Props.html#1588" class="Bound">j</a><a id="1623" class="Symbol">}</a>
+         <a id="1634" class="Symbol">→</a> <a id="1636" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="1643" href="UniAgda.Core.SetsAndLogic.Props.html#1600" class="Bound">P</a> <a id="1645" class="Symbol">→</a> <a id="1647" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="1654" href="UniAgda.Core.SetsAndLogic.Props.html#1613" class="Bound">Q</a> <a id="1656" class="Symbol">→</a> <a id="1658" class="Symbol">(</a><a id="1659" href="UniAgda.Core.SetsAndLogic.Props.html#1600" class="Bound">P</a> <a id="1661" class="Symbol">→</a> <a id="1663" href="UniAgda.Core.SetsAndLogic.Props.html#1613" class="Bound">Q</a><a id="1664" class="Symbol">)</a> <a id="1666" class="Symbol">→</a> <a id="1668" class="Symbol">(</a><a id="1669" href="UniAgda.Core.SetsAndLogic.Props.html#1613" class="Bound">Q</a> <a id="1671" class="Symbol">→</a> <a id="1673" href="UniAgda.Core.SetsAndLogic.Props.html#1600" class="Bound">P</a><a id="1674" class="Symbol">)</a>
+         <a id="1685" class="Symbol">→</a> <a id="1687" href="UniAgda.Core.SetsAndLogic.Props.html#1600" class="Bound">P</a> <a id="1689" href="UniAgda.Core.Equivalences.html#2993" class="Function Operator">≃</a> <a id="1691" href="UniAgda.Core.SetsAndLogic.Props.html#1613" class="Bound">Q</a>
+<a id="1693" href="UniAgda.Core.SetsAndLogic.Props.html#1571" class="Function">props-equiv</a> <a id="1705" class="Symbol">{</a><a id="1706" href="UniAgda.Core.SetsAndLogic.Props.html#1706" class="Bound">i</a><a id="1707" class="Symbol">}</a> <a id="1709" class="Symbol">{</a><a id="1710" href="UniAgda.Core.SetsAndLogic.Props.html#1710" class="Bound">j</a><a id="1711" class="Symbol">}</a> <a id="1713" class="Symbol">{</a><a id="1714" href="UniAgda.Core.SetsAndLogic.Props.html#1714" class="Bound">P</a><a id="1715" class="Symbol">}</a> <a id="1717" class="Symbol">{</a><a id="1718" href="UniAgda.Core.SetsAndLogic.Props.html#1718" class="Bound">Q</a><a id="1719" class="Symbol">}</a> <a id="1721" href="UniAgda.Core.SetsAndLogic.Props.html#1721" class="Bound">X</a> <a id="1723" href="UniAgda.Core.SetsAndLogic.Props.html#1723" class="Bound">Y</a> <a id="1725" href="UniAgda.Core.SetsAndLogic.Props.html#1725" class="Bound">f</a> <a id="1727" href="UniAgda.Core.SetsAndLogic.Props.html#1727" class="Bound">g</a> <a id="1729" class="Symbol">=</a> <a id="1731" href="UniAgda.Core.Equivalences.html#5661" class="Function">equiv-adjointify</a> <a id="1748" class="Symbol">(</a><a id="1749" href="UniAgda.Core.SetsAndLogic.Props.html#1725" class="Bound">f</a> <a id="1751" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="1753" href="UniAgda.Core.SetsAndLogic.Props.html#1727" class="Bound">g</a> <a id="1755" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="1757" class="Symbol">((λ</a> <a id="1761" href="UniAgda.Core.SetsAndLogic.Props.html#1761" class="Bound">y</a> <a id="1763" class="Symbol">→</a> <a id="1765" href="UniAgda.Core.SetsAndLogic.Props.html#1723" class="Bound">Y</a> <a id="1767" class="Symbol">((</a><a id="1769" href="UniAgda.Core.SetsAndLogic.Props.html#1725" class="Bound">f</a> <a id="1771" href="UniAgda.Core.Types.Functions.html#469" class="Function Operator">o</a> <a id="1773" href="UniAgda.Core.SetsAndLogic.Props.html#1727" class="Bound">g</a><a id="1774" class="Symbol">)</a> <a id="1776" href="UniAgda.Core.SetsAndLogic.Props.html#1761" class="Bound">y</a><a id="1777" class="Symbol">)</a> <a id="1779" href="UniAgda.Core.SetsAndLogic.Props.html#1761" class="Bound">y</a><a id="1780" class="Symbol">)</a> <a id="1782" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="1784" class="Symbol">λ</a> <a id="1786" href="UniAgda.Core.SetsAndLogic.Props.html#1786" class="Bound">x</a> <a id="1788" class="Symbol">→</a> <a id="1790" href="UniAgda.Core.SetsAndLogic.Props.html#1721" class="Bound">X</a> <a id="1792" class="Symbol">((</a><a id="1794" href="UniAgda.Core.SetsAndLogic.Props.html#1727" class="Bound">g</a> <a id="1796" href="UniAgda.Core.Types.Functions.html#469" class="Function Operator">o</a> <a id="1798" href="UniAgda.Core.SetsAndLogic.Props.html#1725" class="Bound">f</a><a id="1799" class="Symbol">)</a> <a id="1801" href="UniAgda.Core.SetsAndLogic.Props.html#1786" class="Bound">x</a><a id="1802" class="Symbol">)</a> <a id="1804" href="UniAgda.Core.SetsAndLogic.Props.html#1786" class="Bound">x</a><a id="1805" class="Symbol">))</a>
+</pre>
+
+<p>
+Being a proposition is preserved under equivalence.
+</p>
+<pre class="Agda">
+<a id="equiv-with-prop"></a><a id="1889" href="UniAgda.Core.SetsAndLogic.Props.html#1889" class="Function">equiv-with-prop</a> <a id="1905" class="Symbol">:</a> <a id="1907" class="Symbol">∀</a> <a id="1909" class="Symbol">{</a><a id="1910" href="UniAgda.Core.SetsAndLogic.Props.html#1910" class="Bound">i</a> <a id="1912" href="UniAgda.Core.SetsAndLogic.Props.html#1912" class="Bound">j</a><a id="1913" class="Symbol">}</a> <a id="1915" class="Symbol">{</a><a id="1916" href="UniAgda.Core.SetsAndLogic.Props.html#1916" class="Bound">A</a> <a id="1918" class="Symbol">:</a> <a id="1920" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1925" href="UniAgda.Core.SetsAndLogic.Props.html#1910" class="Bound">i</a><a id="1926" class="Symbol">}</a> <a id="1928" class="Symbol">{</a><a id="1929" href="UniAgda.Core.SetsAndLogic.Props.html#1929" class="Bound">B</a> <a id="1931" class="Symbol">:</a> <a id="1933" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="1938" href="UniAgda.Core.SetsAndLogic.Props.html#1912" class="Bound">j</a><a id="1939" class="Symbol">}</a>
+                  <a id="1959" class="Symbol">→</a> <a id="1961" href="UniAgda.Core.SetsAndLogic.Props.html#1916" class="Bound">A</a> <a id="1963" href="UniAgda.Core.Equivalences.html#2993" class="Function Operator">≃</a> <a id="1965" href="UniAgda.Core.SetsAndLogic.Props.html#1929" class="Bound">B</a> <a id="1967" class="Symbol">→</a> <a id="1969" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="1976" href="UniAgda.Core.SetsAndLogic.Props.html#1916" class="Bound">A</a>
+                  <a id="1996" class="Symbol">→</a> <a id="1998" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="2005" href="UniAgda.Core.SetsAndLogic.Props.html#1929" class="Bound">B</a>
+<a id="2007" href="UniAgda.Core.SetsAndLogic.Props.html#1889" class="Function">equiv-with-prop</a> <a id="2023" class="Symbol">(</a><a id="2024" href="UniAgda.Core.SetsAndLogic.Props.html#2024" class="Bound">f</a> <a id="2026" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2028" href="UniAgda.Core.SetsAndLogic.Props.html#2028" class="Bound">g</a> <a id="2030" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2032" href="UniAgda.Core.SetsAndLogic.Props.html#2032" class="Bound">α</a> <a id="2034" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2036" href="UniAgda.Core.SetsAndLogic.Props.html#2036" class="Bound">β</a> <a id="2038" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="2040" href="UniAgda.Core.SetsAndLogic.Props.html#2040" class="Bound">γ</a><a id="2041" class="Symbol">)</a> <a id="2043" href="UniAgda.Core.SetsAndLogic.Props.html#2043" class="Bound">F</a> <a id="2045" href="UniAgda.Core.SetsAndLogic.Props.html#2045" class="Bound">x</a> <a id="2047" href="UniAgda.Core.SetsAndLogic.Props.html#2047" class="Bound">y</a> <a id="2049" class="Symbol">=</a> <a id="2051" class="Symbol">(((</a><a id="2054" href="UniAgda.Core.Types.Identity.html#1697" class="Function">ap</a> <a id="2057" href="UniAgda.Core.SetsAndLogic.Props.html#2024" class="Bound">f</a> <a id="2059" class="Symbol">(</a><a id="2060" href="UniAgda.Core.SetsAndLogic.Props.html#2043" class="Bound">F</a> <a id="2062" class="Symbol">(</a><a id="2063" href="UniAgda.Core.SetsAndLogic.Props.html#2028" class="Bound">g</a> <a id="2065" href="UniAgda.Core.SetsAndLogic.Props.html#2047" class="Bound">y</a><a id="2066" class="Symbol">)</a> <a id="2068" class="Symbol">(</a><a id="2069" href="UniAgda.Core.SetsAndLogic.Props.html#2028" class="Bound">g</a> <a id="2071" href="UniAgda.Core.SetsAndLogic.Props.html#2045" class="Bound">x</a><a id="2072" class="Symbol">)))</a> <a id="2076" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="2078" href="UniAgda.Core.SetsAndLogic.Props.html#2036" class="Bound">β</a> <a id="2080" href="UniAgda.Core.SetsAndLogic.Props.html#2045" class="Bound">x</a><a id="2081" class="Symbol">)</a> <a id="2083" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a><a id="2084" class="Symbol">)</a> <a id="2086" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="2088" href="UniAgda.Core.SetsAndLogic.Props.html#2036" class="Bound">β</a> <a id="2090" href="UniAgda.Core.SetsAndLogic.Props.html#2047" class="Bound">y</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-org2ab0895" class="outline-3">
+<h3 id="org2ab0895"><span class="section-number-3">3.3</span> Every proposition is a set</h3>
+<div class="outline-text-3" id="text-3-3">
+<pre class="Agda">
+<a id="2169" class="Keyword">private</a>
+  <a id="lemma3-3-4-help"></a><a id="2179" href="UniAgda.Core.SetsAndLogic.Props.html#2179" class="Function">lemma3-3-4-help</a> <a id="2195" class="Symbol">:</a> <a id="2197" class="Symbol">{</a><a id="2198" href="UniAgda.Core.SetsAndLogic.Props.html#2198" class="Bound">i</a> <a id="2200" class="Symbol">:</a> <a id="2202" href="Agda.Primitive.html#597" class="Postulate">Level</a><a id="2207" class="Symbol">}</a> <a id="2209" class="Symbol">{</a><a id="2210" href="UniAgda.Core.SetsAndLogic.Props.html#2210" class="Bound">A</a> <a id="2212" class="Symbol">:</a> <a id="2214" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="2219" href="UniAgda.Core.SetsAndLogic.Props.html#2198" class="Bound">i</a><a id="2220" class="Symbol">}</a> <a id="2222" class="Symbol">{</a><a id="2223" href="UniAgda.Core.SetsAndLogic.Props.html#2223" class="Bound">f</a> <a id="2225" class="Symbol">:</a> <a id="2227" class="Symbol">(</a><a id="2228" href="UniAgda.Core.SetsAndLogic.Props.html#2228" class="Bound">x</a> <a id="2230" href="UniAgda.Core.SetsAndLogic.Props.html#2230" class="Bound">y</a> <a id="2232" class="Symbol">:</a> <a id="2234" href="UniAgda.Core.SetsAndLogic.Props.html#2210" class="Bound">A</a><a id="2235" class="Symbol">)</a> <a id="2237" class="Symbol">→</a> <a id="2239" href="UniAgda.Core.SetsAndLogic.Props.html#2228" class="Bound">x</a> <a id="2241" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="2243" href="UniAgda.Core.SetsAndLogic.Props.html#2230" class="Bound">y</a><a id="2244" class="Symbol">}</a> <a id="2246" class="Symbol">{</a><a id="2247" href="UniAgda.Core.SetsAndLogic.Props.html#2247" class="Bound">x</a> <a id="2249" class="Symbol">:</a> <a id="2251" href="UniAgda.Core.SetsAndLogic.Props.html#2210" class="Bound">A</a><a id="2252" class="Symbol">}</a>
+                    <a id="2274" class="Symbol">→</a> <a id="2276" class="Symbol">(</a><a id="2277" href="UniAgda.Core.SetsAndLogic.Props.html#2277" class="Bound">y</a> <a id="2279" href="UniAgda.Core.SetsAndLogic.Props.html#2279" class="Bound">z</a> <a id="2281" class="Symbol">:</a> <a id="2283" href="UniAgda.Core.SetsAndLogic.Props.html#2210" class="Bound">A</a><a id="2284" class="Symbol">)</a> <a id="2286" class="Symbol">(</a><a id="2287" href="UniAgda.Core.SetsAndLogic.Props.html#2287" class="Bound">p</a> <a id="2289" class="Symbol">:</a> <a id="2291" href="UniAgda.Core.SetsAndLogic.Props.html#2277" class="Bound">y</a> <a id="2293" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="2295" href="UniAgda.Core.SetsAndLogic.Props.html#2279" class="Bound">z</a><a id="2296" class="Symbol">)</a>
+                    <a id="2318" class="Symbol">→</a> <a id="2320" class="Symbol">(</a><a id="2321" href="UniAgda.Core.SetsAndLogic.Props.html#2223" class="Bound">f</a> <a id="2323" href="UniAgda.Core.SetsAndLogic.Props.html#2247" class="Bound">x</a> <a id="2325" href="UniAgda.Core.SetsAndLogic.Props.html#2277" class="Bound">y</a><a id="2326" class="Symbol">)</a> <a id="2328" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="2330" href="UniAgda.Core.SetsAndLogic.Props.html#2287" class="Bound">p</a> <a id="2332" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="2334" href="UniAgda.Core.SetsAndLogic.Props.html#2223" class="Bound">f</a> <a id="2336" href="UniAgda.Core.SetsAndLogic.Props.html#2247" class="Bound">x</a> <a id="2338" href="UniAgda.Core.SetsAndLogic.Props.html#2279" class="Bound">z</a>
+  <a id="2342" href="UniAgda.Core.SetsAndLogic.Props.html#2179" class="Function">lemma3-3-4-help</a> <a id="2358" class="Symbol">{_}</a> <a id="2362" class="Symbol">{</a><a id="2363" href="UniAgda.Core.SetsAndLogic.Props.html#2363" class="Bound">A</a><a id="2364" class="Symbol">}</a> <a id="2366" class="Symbol">{</a><a id="2367" href="UniAgda.Core.SetsAndLogic.Props.html#2367" class="Bound">f</a><a id="2368" class="Symbol">}</a> <a id="2370" class="Symbol">{</a><a id="2371" href="UniAgda.Core.SetsAndLogic.Props.html#2371" class="Bound">x</a><a id="2372" class="Symbol">}</a> <a id="2374" href="UniAgda.Core.SetsAndLogic.Props.html#2374" class="Bound">y</a> <a id="2376" href="UniAgda.Core.SetsAndLogic.Props.html#2376" class="Bound">z</a> <a id="2378" href="UniAgda.Core.SetsAndLogic.Props.html#2378" class="Bound">p</a> <a id="2380" class="Symbol">=</a> <a id="2382" href="UniAgda.Core.PathSpaces.Identity.html#3815" class="Function">lemma2-11-2i</a> <a id="2395" href="UniAgda.Core.SetsAndLogic.Props.html#2371" class="Bound">x</a> <a id="2397" href="UniAgda.Core.SetsAndLogic.Props.html#2378" class="Bound">p</a> <a id="2399" class="Symbol">(</a><a id="2400" href="UniAgda.Core.SetsAndLogic.Props.html#2367" class="Bound">f</a> <a id="2402" href="UniAgda.Core.SetsAndLogic.Props.html#2371" class="Bound">x</a> <a id="2404" href="UniAgda.Core.SetsAndLogic.Props.html#2374" class="Bound">y</a><a id="2405" class="Symbol">)</a> <a id="2407" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a> <a id="2409" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="2411" href="UniAgda.Core.Types.Identity.html#2158" class="Function">apD</a> <a id="2415" class="Symbol">(λ</a> <a id="2418" href="UniAgda.Core.SetsAndLogic.Props.html#2418" class="Bound">y</a> <a id="2420" class="Symbol">→</a> <a id="2422" href="UniAgda.Core.SetsAndLogic.Props.html#2367" class="Bound">f</a> <a id="2424" href="UniAgda.Core.SetsAndLogic.Props.html#2371" class="Bound">x</a> <a id="2426" href="UniAgda.Core.SetsAndLogic.Props.html#2418" class="Bound">y</a><a id="2427" class="Symbol">)</a> <a id="2429" href="UniAgda.Core.SetsAndLogic.Props.html#2378" class="Bound">p</a>
+
+<a id="props-are-sets"></a><a id="2432" href="UniAgda.Core.SetsAndLogic.Props.html#2432" class="Function">props-are-sets</a> <a id="2447" class="Symbol">:</a> <a id="2449" class="Symbol">{</a><a id="2450" href="UniAgda.Core.SetsAndLogic.Props.html#2450" class="Bound">i</a> <a id="2452" class="Symbol">:</a> <a id="2454" href="Agda.Primitive.html#597" class="Postulate">Level</a><a id="2459" class="Symbol">}</a> <a id="2461" class="Symbol">{</a><a id="2462" href="UniAgda.Core.SetsAndLogic.Props.html#2462" class="Bound">A</a> <a id="2464" class="Symbol">:</a> <a id="2466" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="2471" href="UniAgda.Core.SetsAndLogic.Props.html#2450" class="Bound">i</a><a id="2472" class="Symbol">}</a>
+             <a id="2487" class="Symbol">→</a> <a id="2489" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="2496" href="UniAgda.Core.SetsAndLogic.Props.html#2462" class="Bound">A</a> <a id="2498" class="Symbol">→</a> <a id="2500" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#1165" class="Function">isSet</a> <a id="2506" href="UniAgda.Core.SetsAndLogic.Props.html#2462" class="Bound">A</a>
+<a id="2508" href="UniAgda.Core.SetsAndLogic.Props.html#2432" class="Function">props-are-sets</a> <a id="2523" class="Symbol">{</a><a id="2524" href="UniAgda.Core.SetsAndLogic.Props.html#2524" class="Bound">i</a><a id="2525" class="Symbol">}</a> <a id="2527" class="Symbol">{</a><a id="2528" href="UniAgda.Core.SetsAndLogic.Props.html#2528" class="Bound">A</a><a id="2529" class="Symbol">}</a> <a id="2531" href="UniAgda.Core.SetsAndLogic.Props.html#2531" class="Bound">f</a> <a id="2533" href="UniAgda.Core.SetsAndLogic.Props.html#2533" class="Bound">x</a> <a id="2535" href="UniAgda.Core.SetsAndLogic.Props.html#2535" class="Bound">y</a> <a id="2537" href="UniAgda.Core.SetsAndLogic.Props.html#2537" class="Bound">p</a> <a id="2539" href="UniAgda.Core.SetsAndLogic.Props.html#2539" class="Bound">q</a> <a id="2541" class="Symbol">=</a> <a id="2543" href="UniAgda.Core.PathAlgebra.html#3858" class="Function">pq=r-to-q=p^r</a> <a id="2557" class="Symbol">(</a><a id="2558" href="UniAgda.Core.SetsAndLogic.Props.html#2531" class="Bound">f</a> <a id="2560" href="UniAgda.Core.SetsAndLogic.Props.html#2533" class="Bound">x</a> <a id="2562" href="UniAgda.Core.SetsAndLogic.Props.html#2533" class="Bound">x</a><a id="2563" class="Symbol">)</a> <a id="2565" href="UniAgda.Core.SetsAndLogic.Props.html#2537" class="Bound">p</a> <a id="2567" class="Symbol">(</a><a id="2568" href="UniAgda.Core.SetsAndLogic.Props.html#2531" class="Bound">f</a> <a id="2570" href="UniAgda.Core.SetsAndLogic.Props.html#2533" class="Bound">x</a> <a id="2572" href="UniAgda.Core.SetsAndLogic.Props.html#2535" class="Bound">y</a><a id="2573" class="Symbol">)</a> <a id="2575" class="Symbol">(</a><a id="2576" href="UniAgda.Core.SetsAndLogic.Props.html#2179" class="Function">lemma3-3-4-help</a> <a id="2592" class="Symbol">{_}</a> <a id="2596" class="Symbol">{_}</a> <a id="2600" class="Symbol">{</a><a id="2601" href="UniAgda.Core.SetsAndLogic.Props.html#2531" class="Bound">f</a><a id="2602" class="Symbol">}</a> <a id="2604" class="Symbol">{</a><a id="2605" href="UniAgda.Core.SetsAndLogic.Props.html#2533" class="Bound">x</a><a id="2606" class="Symbol">}</a> <a id="2608" href="UniAgda.Core.SetsAndLogic.Props.html#2533" class="Bound">x</a> <a id="2610" href="UniAgda.Core.SetsAndLogic.Props.html#2535" class="Bound">y</a> <a id="2612" href="UniAgda.Core.SetsAndLogic.Props.html#2537" class="Bound">p</a><a id="2613" class="Symbol">)</a> <a id="2615" href="UniAgda.Core.Types.Identity.html#1414" class="Function Operator">∘</a> <a id="2617" href="UniAgda.Core.PathAlgebra.html#3858" class="Function">pq=r-to-q=p^r</a> <a id="2631" class="Symbol">{_}</a> <a id="2635" class="Symbol">{</a><a id="2636" href="UniAgda.Core.SetsAndLogic.Props.html#2528" class="Bound">A</a><a id="2637" class="Symbol">}</a> <a id="2639" class="Symbol">{_}</a> <a id="2643" class="Symbol">{_}</a> <a id="2647" class="Symbol">{_}</a> <a id="2651" class="Symbol">(</a><a id="2652" href="UniAgda.Core.SetsAndLogic.Props.html#2531" class="Bound">f</a> <a id="2654" href="UniAgda.Core.SetsAndLogic.Props.html#2533" class="Bound">x</a> <a id="2656" href="UniAgda.Core.SetsAndLogic.Props.html#2533" class="Bound">x</a><a id="2657" class="Symbol">)</a> <a id="2659" href="UniAgda.Core.SetsAndLogic.Props.html#2539" class="Bound">q</a> <a id="2661" class="Symbol">(</a><a id="2662" href="UniAgda.Core.SetsAndLogic.Props.html#2531" class="Bound">f</a> <a id="2664" href="UniAgda.Core.SetsAndLogic.Props.html#2533" class="Bound">x</a> <a id="2666" href="UniAgda.Core.SetsAndLogic.Props.html#2535" class="Bound">y</a><a id="2667" class="Symbol">)</a> <a id="2669" class="Symbol">(</a><a id="2670" href="UniAgda.Core.SetsAndLogic.Props.html#2179" class="Function">lemma3-3-4-help</a> <a id="2686" class="Symbol">{_}</a> <a id="2690" class="Symbol">{_}</a> <a id="2694" class="Symbol">{</a><a id="2695" href="UniAgda.Core.SetsAndLogic.Props.html#2531" class="Bound">f</a><a id="2696" class="Symbol">}</a> <a id="2698" class="Symbol">{</a><a id="2699" href="UniAgda.Core.SetsAndLogic.Props.html#2533" class="Bound">x</a><a id="2700" class="Symbol">}</a> <a id="2702" href="UniAgda.Core.SetsAndLogic.Props.html#2533" class="Bound">x</a> <a id="2704" href="UniAgda.Core.SetsAndLogic.Props.html#2535" class="Bound">y</a> <a id="2706" href="UniAgda.Core.SetsAndLogic.Props.html#2539" class="Bound">q</a><a id="2707" class="Symbol">)</a> <a id="2709" href="UniAgda.Core.Types.Identity.html#1208" class="Function Operator">^</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-org9be108b" class="outline-3">
+<h3 id="org9be108b"><span class="section-number-3">3.4</span> Being a set or proposition is a proposition</h3>
+<div class="outline-text-3" id="text-3-4">
+<pre class="Agda">
+<a id="isProp-is-prop"></a><a id="2806" href="UniAgda.Core.SetsAndLogic.Props.html#2806" class="Function">isProp-is-prop</a> <a id="2821" class="Symbol">:</a> <a id="2823" class="Symbol">∀</a> <a id="2825" class="Symbol">{</a><a id="2826" href="UniAgda.Core.SetsAndLogic.Props.html#2826" class="Bound">i</a><a id="2827" class="Symbol">}</a>
+                 <a id="2846" class="Symbol">(</a><a id="2847" href="UniAgda.Core.SetsAndLogic.Props.html#2847" class="Bound">A</a> <a id="2849" class="Symbol">:</a> <a id="2851" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="2856" href="UniAgda.Core.SetsAndLogic.Props.html#2826" class="Bound">i</a><a id="2857" class="Symbol">)</a>
+                 <a id="2876" class="Symbol">→</a> <a id="2878" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="2885" class="Symbol">(</a><a id="2886" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="2893" href="UniAgda.Core.SetsAndLogic.Props.html#2847" class="Bound">A</a><a id="2894" class="Symbol">)</a>
+<a id="2896" href="UniAgda.Core.SetsAndLogic.Props.html#2806" class="Function">isProp-is-prop</a> <a id="2911" href="UniAgda.Core.SetsAndLogic.Props.html#2911" class="Bound">A</a> <a id="2913" href="UniAgda.Core.SetsAndLogic.Props.html#2913" class="Bound">f</a> <a id="2915" href="UniAgda.Core.SetsAndLogic.Props.html#2915" class="Bound">g</a> <a id="2917" class="Symbol">=</a>
+  <a id="2921" href="UniAgda.Core.Axioms.html#2071" class="Function">funextD</a> <a id="2929" class="Symbol">λ</a> <a id="2931" href="UniAgda.Core.SetsAndLogic.Props.html#2931" class="Bound">x</a> <a id="2933" class="Symbol">→</a> <a id="2935" href="UniAgda.Core.Axioms.html#2071" class="Function">funextD</a> <a id="2943" class="Symbol">λ</a> <a id="2945" href="UniAgda.Core.SetsAndLogic.Props.html#2945" class="Bound">y</a> <a id="2947" class="Symbol">→</a> <a id="2949" href="UniAgda.Core.SetsAndLogic.Props.html#2432" class="Function">props-are-sets</a> <a id="2964" href="UniAgda.Core.SetsAndLogic.Props.html#2913" class="Bound">f</a> <a id="2966" href="UniAgda.Core.SetsAndLogic.Props.html#2931" class="Bound">x</a> <a id="2968" href="UniAgda.Core.SetsAndLogic.Props.html#2945" class="Bound">y</a> <a id="2970" class="Symbol">(</a><a id="2971" href="UniAgda.Core.SetsAndLogic.Props.html#2913" class="Bound">f</a> <a id="2973" href="UniAgda.Core.SetsAndLogic.Props.html#2931" class="Bound">x</a> <a id="2975" href="UniAgda.Core.SetsAndLogic.Props.html#2945" class="Bound">y</a><a id="2976" class="Symbol">)</a> <a id="2978" class="Symbol">(</a><a id="2979" href="UniAgda.Core.SetsAndLogic.Props.html#2915" class="Bound">g</a> <a id="2981" href="UniAgda.Core.SetsAndLogic.Props.html#2931" class="Bound">x</a> <a id="2983" href="UniAgda.Core.SetsAndLogic.Props.html#2945" class="Bound">y</a><a id="2984" class="Symbol">)</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-orgf145291" class="outline-3">
+<h3 id="orgf145291"><span class="section-number-3">3.5</span> Type families with prop valued fibres</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+If a type family has prop valued fibres, then two terms are equal when their first projections are equal.
+</p>
+<pre class="Agda">
+<a id="fibres-props-eq"></a><a id="3180" href="UniAgda.Core.SetsAndLogic.Props.html#3180" class="Function">fibres-props-eq</a> <a id="3196" class="Symbol">:</a> <a id="3198" class="Symbol">{</a><a id="3199" href="UniAgda.Core.SetsAndLogic.Props.html#3199" class="Bound">i</a> <a id="3201" href="UniAgda.Core.SetsAndLogic.Props.html#3201" class="Bound">j</a> <a id="3203" class="Symbol">:</a> <a id="3205" href="Agda.Primitive.html#597" class="Postulate">Level</a><a id="3210" class="Symbol">}</a> <a id="3212" class="Symbol">{</a><a id="3213" href="UniAgda.Core.SetsAndLogic.Props.html#3213" class="Bound">A</a> <a id="3215" class="Symbol">:</a> <a id="3217" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3222" href="UniAgda.Core.SetsAndLogic.Props.html#3199" class="Bound">i</a><a id="3223" class="Symbol">}</a> <a id="3225" class="Symbol">{</a><a id="3226" href="UniAgda.Core.SetsAndLogic.Props.html#3226" class="Bound">P</a> <a id="3228" class="Symbol">:</a> <a id="3230" href="UniAgda.Core.SetsAndLogic.Props.html#3213" class="Bound">A</a> <a id="3232" class="Symbol">→</a> <a id="3234" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3239" href="UniAgda.Core.SetsAndLogic.Props.html#3201" class="Bound">j</a><a id="3240" class="Symbol">}</a>
+                   <a id="3261" class="Symbol">→</a> <a id="3263" class="Symbol">((</a><a id="3265" href="UniAgda.Core.SetsAndLogic.Props.html#3265" class="Bound">x</a> <a id="3267" class="Symbol">:</a> <a id="3269" href="UniAgda.Core.SetsAndLogic.Props.html#3213" class="Bound">A</a><a id="3270" class="Symbol">)</a> <a id="3272" class="Symbol">→</a> <a id="3274" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="3281" class="Symbol">(</a><a id="3282" href="UniAgda.Core.SetsAndLogic.Props.html#3226" class="Bound">P</a> <a id="3284" href="UniAgda.Core.SetsAndLogic.Props.html#3265" class="Bound">x</a><a id="3285" class="Symbol">))</a> <a id="3288" class="Symbol">→</a> <a id="3290" class="Symbol">(</a><a id="3291" href="UniAgda.Core.SetsAndLogic.Props.html#3291" class="Bound">u</a> <a id="3293" href="UniAgda.Core.SetsAndLogic.Props.html#3293" class="Bound">v</a> <a id="3295" class="Symbol">:</a> <a id="3297" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">Σ[</a> <a id="3300" href="UniAgda.Core.SetsAndLogic.Props.html#3300" class="Bound">x</a> <a id="3302" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">∈</a> <a id="3304" href="UniAgda.Core.SetsAndLogic.Props.html#3213" class="Bound">A</a> <a id="3306" href="UniAgda.Core.Types.Sigma.html#364" class="Datatype">]</a> <a id="3308" class="Symbol">(</a><a id="3309" href="UniAgda.Core.SetsAndLogic.Props.html#3226" class="Bound">P</a> <a id="3311" href="UniAgda.Core.SetsAndLogic.Props.html#3300" class="Bound">x</a><a id="3312" class="Symbol">))</a> <a id="3315" class="Symbol">→</a> <a id="3317" class="Symbol">(</a><a id="3318" href="UniAgda.Core.Types.Sigma.html#602" class="Function">pr₁</a> <a id="3322" href="UniAgda.Core.SetsAndLogic.Props.html#3291" class="Bound">u</a> <a id="3324" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="3326" href="UniAgda.Core.Types.Sigma.html#602" class="Function">pr₁</a> <a id="3330" href="UniAgda.Core.SetsAndLogic.Props.html#3293" class="Bound">v</a><a id="3331" class="Symbol">)</a>
+                   <a id="3352" class="Symbol">→</a> <a id="3354" href="UniAgda.Core.SetsAndLogic.Props.html#3291" class="Bound">u</a> <a id="3356" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="3358" href="UniAgda.Core.SetsAndLogic.Props.html#3293" class="Bound">v</a>
+<a id="3360" href="UniAgda.Core.SetsAndLogic.Props.html#3180" class="Function">fibres-props-eq</a> <a id="3376" class="Symbol">{_}</a> <a id="3380" class="Symbol">{_}</a> <a id="3384" class="Symbol">{</a><a id="3385" href="UniAgda.Core.SetsAndLogic.Props.html#3385" class="Bound">A</a><a id="3386" class="Symbol">}</a> <a id="3388" class="Symbol">{</a><a id="3389" href="UniAgda.Core.SetsAndLogic.Props.html#3389" class="Bound">P</a><a id="3390" class="Symbol">}</a> <a id="3392" href="UniAgda.Core.SetsAndLogic.Props.html#3392" class="Bound">X</a> <a id="3394" href="UniAgda.Core.SetsAndLogic.Props.html#3394" class="Bound">u</a> <a id="3396" href="UniAgda.Core.SetsAndLogic.Props.html#3396" class="Bound">v</a> <a id="3398" href="UniAgda.Core.SetsAndLogic.Props.html#3398" class="Bound">p</a> <a id="3400" class="Symbol">=</a> <a id="3402" href="UniAgda.Core.PathSpaces.Sigma.html#728" class="Function">path-equiv-sigma</a> <a id="3419" class="Symbol">(</a><a id="3420" href="UniAgda.Core.SetsAndLogic.Props.html#3398" class="Bound">p</a> <a id="3422" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3424" class="Symbol">(</a><a id="3425" href="UniAgda.Core.SetsAndLogic.Props.html#3392" class="Bound">X</a> <a id="3427" class="Symbol">(</a><a id="3428" href="UniAgda.Core.Types.Sigma.html#602" class="Function">pr₁</a> <a id="3432" href="UniAgda.Core.SetsAndLogic.Props.html#3396" class="Bound">v</a><a id="3433" class="Symbol">)</a> <a id="3435" class="Symbol">(</a><a id="3436" href="UniAgda.Core.Types.Identity.html#1909" class="Function">transport</a> <a id="3446" href="UniAgda.Core.SetsAndLogic.Props.html#3389" class="Bound">P</a> <a id="3448" href="UniAgda.Core.SetsAndLogic.Props.html#3398" class="Bound">p</a> <a id="3450" class="Symbol">(</a><a id="3451" href="UniAgda.Core.Types.Sigma.html#687" class="Function">pr₂</a> <a id="3455" href="UniAgda.Core.SetsAndLogic.Props.html#3394" class="Bound">u</a><a id="3456" class="Symbol">))</a> <a id="3459" class="Symbol">(</a><a id="3460" href="UniAgda.Core.Types.Sigma.html#687" class="Function">pr₂</a> <a id="3464" href="UniAgda.Core.SetsAndLogic.Props.html#3396" class="Bound">v</a><a id="3465" class="Symbol">)))</a>
+</pre>
+
+<p>
+This can be extended to give an equivalence of identity types.
+</p>
+<pre class="Agda">
+<a id="id-equiv-to-prop-on-type"></a><a id="3561" href="UniAgda.Core.SetsAndLogic.Props.html#3561" class="Function">id-equiv-to-prop-on-type</a> <a id="3586" class="Symbol">:</a> <a id="3588" class="Symbol">∀</a> <a id="3590" class="Symbol">{</a><a id="3591" href="UniAgda.Core.SetsAndLogic.Props.html#3591" class="Bound">i</a> <a id="3593" href="UniAgda.Core.SetsAndLogic.Props.html#3593" class="Bound">j</a><a id="3594" class="Symbol">}</a> <a id="3596" class="Symbol">(</a><a id="3597" href="UniAgda.Core.SetsAndLogic.Props.html#3597" class="Bound">X</a> <a id="3599" href="UniAgda.Core.SetsAndLogic.Props.html#3599" class="Bound">X&#39;</a> <a id="3602" class="Symbol">:</a> <a id="3604" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3609" href="UniAgda.Core.SetsAndLogic.Props.html#3591" class="Bound">i</a><a id="3610" class="Symbol">)</a> <a id="3612" class="Symbol">(</a><a id="3613" href="UniAgda.Core.SetsAndLogic.Props.html#3613" class="Bound">Q</a> <a id="3615" class="Symbol">:</a> <a id="3617" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3622" href="UniAgda.Core.SetsAndLogic.Props.html#3591" class="Bound">i</a> <a id="3624" class="Symbol">→</a> <a id="3626" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3631" href="UniAgda.Core.SetsAndLogic.Props.html#3593" class="Bound">j</a><a id="3632" class="Symbol">)</a>
+              <a id="3648" class="Symbol">(</a><a id="3649" href="UniAgda.Core.SetsAndLogic.Props.html#3649" class="Bound">F</a> <a id="3651" class="Symbol">:</a> <a id="3653" class="Symbol">(</a><a id="3654" href="UniAgda.Core.SetsAndLogic.Props.html#3654" class="Bound">A</a> <a id="3656" class="Symbol">:</a> <a id="3658" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="3663" href="UniAgda.Core.SetsAndLogic.Props.html#3591" class="Bound">i</a><a id="3664" class="Symbol">)</a> <a id="3666" class="Symbol">→</a> <a id="3668" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="3675" class="Symbol">(</a><a id="3676" href="UniAgda.Core.SetsAndLogic.Props.html#3613" class="Bound">Q</a> <a id="3678" href="UniAgda.Core.SetsAndLogic.Props.html#3654" class="Bound">A</a><a id="3679" class="Symbol">))</a>
+              <a id="3696" class="Symbol">→</a> <a id="3698" class="Symbol">(</a><a id="3699" href="UniAgda.Core.SetsAndLogic.Props.html#3699" class="Bound">a</a> <a id="3701" class="Symbol">:</a> <a id="3703" href="UniAgda.Core.SetsAndLogic.Props.html#3613" class="Bound">Q</a> <a id="3705" href="UniAgda.Core.SetsAndLogic.Props.html#3597" class="Bound">X</a><a id="3706" class="Symbol">)</a> <a id="3708" class="Symbol">→</a> <a id="3710" class="Symbol">(</a><a id="3711" href="UniAgda.Core.SetsAndLogic.Props.html#3711" class="Bound">b</a> <a id="3713" class="Symbol">:</a> <a id="3715" href="UniAgda.Core.SetsAndLogic.Props.html#3613" class="Bound">Q</a> <a id="3717" href="UniAgda.Core.SetsAndLogic.Props.html#3599" class="Bound">X&#39;</a><a id="3719" class="Symbol">)</a>
+              <a id="3735" class="Symbol">→</a> <a id="3737" class="Symbol">(</a><a id="3738" href="UniAgda.Core.SetsAndLogic.Props.html#3597" class="Bound">X</a> <a id="3740" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="3742" href="UniAgda.Core.SetsAndLogic.Props.html#3599" class="Bound">X&#39;</a><a id="3744" class="Symbol">)</a> <a id="3746" href="UniAgda.Core.Equivalences.html#2993" class="Function Operator">≃</a> <a id="3748" class="Symbol">((</a><a id="3750" href="UniAgda.Core.SetsAndLogic.Props.html#3597" class="Bound">X</a> <a id="3752" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3754" href="UniAgda.Core.SetsAndLogic.Props.html#3699" class="Bound">a</a><a id="3755" class="Symbol">)</a> <a id="3757" href="UniAgda.Core.Types.Identity.html#403" class="Datatype Operator">≡</a> <a id="3759" class="Symbol">(</a><a id="3760" href="UniAgda.Core.SetsAndLogic.Props.html#3599" class="Bound">X&#39;</a> <a id="3763" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3765" href="UniAgda.Core.SetsAndLogic.Props.html#3711" class="Bound">b</a><a id="3766" class="Symbol">))</a>
+<a id="3769" href="UniAgda.Core.SetsAndLogic.Props.html#3561" class="Function">id-equiv-to-prop-on-type</a> <a id="3794" href="UniAgda.Core.SetsAndLogic.Props.html#3794" class="Bound">X</a> <a id="3796" href="UniAgda.Core.SetsAndLogic.Props.html#3796" class="Bound">X&#39;</a> <a id="3799" href="UniAgda.Core.SetsAndLogic.Props.html#3799" class="Bound">Q</a> <a id="3801" href="UniAgda.Core.SetsAndLogic.Props.html#3801" class="Bound">F</a> <a id="3803" href="UniAgda.Core.SetsAndLogic.Props.html#3803" class="Bound">a</a> <a id="3805" href="UniAgda.Core.SetsAndLogic.Props.html#3805" class="Bound">b</a> <a id="3807" class="Symbol">=</a> <a id="3809" href="UniAgda.Core.Equivalences.html#5661" class="Function">equiv-adjointify</a> <a id="3826" class="Symbol">((λ</a> <a id="3830" class="Symbol">{</a> <a id="3832" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a> <a id="3837" class="Symbol">→</a> <a id="3839" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a> <a id="3844" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3846" class="Symbol">(</a><a id="3847" href="UniAgda.Core.SetsAndLogic.Props.html#3801" class="Bound">F</a> <a id="3849" href="UniAgda.Core.SetsAndLogic.Props.html#3794" class="Bound">X</a> <a id="3851" href="UniAgda.Core.SetsAndLogic.Props.html#3803" class="Bound">a</a> <a id="3853" href="UniAgda.Core.SetsAndLogic.Props.html#3805" class="Bound">b</a><a id="3854" class="Symbol">)})</a> <a id="3858" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a>
+                         <a id="3885" class="Symbol">(λ</a> <a id="3888" class="Symbol">{</a> <a id="3890" class="Symbol">(</a><a id="3891" href="UniAgda.Core.SetsAndLogic.Props.html#3891" class="Bound">p</a> <a id="3893" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3895" href="UniAgda.Core.SetsAndLogic.Props.html#3895" class="Bound">u</a><a id="3896" class="Symbol">)</a> <a id="3898" class="Symbol">→</a> <a id="3900" href="UniAgda.Core.SetsAndLogic.Props.html#3891" class="Bound">p</a><a id="3901" class="Symbol">})</a> <a id="3904" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a>
+                         <a id="3931" class="Symbol">(λ</a> <a id="3934" class="Symbol">{</a> <a id="3936" class="Symbol">(</a><a id="3937" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a> <a id="3942" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3944" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a><a id="3948" class="Symbol">)</a> <a id="3950" class="Symbol">→</a> <a id="3952" href="UniAgda.Core.PathSpaces.Sigma.html#728" class="Function">path-equiv-sigma</a> <a id="3969" class="Symbol">(</a><a id="3970" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a> <a id="3975" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="3977" class="Symbol">(</a><a id="3978" href="UniAgda.Core.SetsAndLogic.Props.html#2432" class="Function">props-are-sets</a> <a id="3993" class="Symbol">(</a><a id="3994" href="UniAgda.Core.SetsAndLogic.Props.html#3801" class="Bound">F</a> <a id="3996" href="UniAgda.Core.SetsAndLogic.Props.html#3794" class="Bound">X</a><a id="3997" class="Symbol">)</a> <a id="3999" class="Symbol">_</a> <a id="4001" class="Symbol">_</a> <a id="4003" class="Symbol">_</a> <a id="4005" class="Symbol">_))})</a> <a id="4011" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a>
+                         <a id="4038" class="Symbol">λ</a> <a id="4040" class="Symbol">{</a> <a id="4042" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a> <a id="4047" class="Symbol">→</a> <a id="4049" href="UniAgda.Core.Types.Identity.html#461" class="InductiveConstructor">refl</a><a id="4053" class="Symbol">})</a> <a id="4056" href="UniAgda.Core.Equivalences.html#6524" class="Function Operator">oₑ</a> <a id="4059" class="Symbol">(</a><a id="4060" href="UniAgda.Core.PathSpaces.Sigma.html#1502" class="Function">thm2-7-2</a> <a id="4069" href="UniAgda.Core.Equivalences.html#6114" class="Function Operator">^ᵉ</a><a id="4071" class="Symbol">)</a>
+</pre>
+
+<pre class="Agda">
+<a id="prop-fibres-Pi-is-prop"></a><a id="4102" href="UniAgda.Core.SetsAndLogic.Props.html#4102" class="Function">prop-fibres-Pi-is-prop</a> <a id="4125" class="Symbol">:</a> <a id="4127" class="Symbol">∀</a> <a id="4129" class="Symbol">{</a><a id="4130" href="UniAgda.Core.SetsAndLogic.Props.html#4130" class="Bound">i</a> <a id="4132" href="UniAgda.Core.SetsAndLogic.Props.html#4132" class="Bound">j</a><a id="4133" class="Symbol">}</a> <a id="4135" class="Symbol">{</a><a id="4136" href="UniAgda.Core.SetsAndLogic.Props.html#4136" class="Bound">A</a> <a id="4138" class="Symbol">:</a> <a id="4140" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="4145" href="UniAgda.Core.SetsAndLogic.Props.html#4130" class="Bound">i</a><a id="4146" class="Symbol">}</a> <a id="4148" class="Symbol">{</a><a id="4149" href="UniAgda.Core.SetsAndLogic.Props.html#4149" class="Bound">B</a> <a id="4151" class="Symbol">:</a> <a id="4153" href="UniAgda.Core.SetsAndLogic.Props.html#4136" class="Bound">A</a> <a id="4155" class="Symbol">→</a> <a id="4157" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="4162" href="UniAgda.Core.SetsAndLogic.Props.html#4132" class="Bound">j</a><a id="4163" class="Symbol">}</a>
+                         <a id="4190" class="Symbol">→</a> <a id="4192" class="Symbol">((</a><a id="4194" href="UniAgda.Core.SetsAndLogic.Props.html#4194" class="Bound">x</a> <a id="4196" class="Symbol">:</a> <a id="4198" href="UniAgda.Core.SetsAndLogic.Props.html#4136" class="Bound">A</a><a id="4199" class="Symbol">)</a> <a id="4201" class="Symbol">→</a> <a id="4203" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="4210" class="Symbol">(</a><a id="4211" href="UniAgda.Core.SetsAndLogic.Props.html#4149" class="Bound">B</a> <a id="4213" href="UniAgda.Core.SetsAndLogic.Props.html#4194" class="Bound">x</a><a id="4214" class="Symbol">))</a>
+                         <a id="4242" class="Symbol">→</a> <a id="4244" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="4251" class="Symbol">((</a><a id="4253" href="UniAgda.Core.SetsAndLogic.Props.html#4253" class="Bound">x</a> <a id="4255" class="Symbol">:</a> <a id="4257" href="UniAgda.Core.SetsAndLogic.Props.html#4136" class="Bound">A</a><a id="4258" class="Symbol">)</a> <a id="4260" class="Symbol">→</a> <a id="4262" href="UniAgda.Core.SetsAndLogic.Props.html#4149" class="Bound">B</a> <a id="4264" href="UniAgda.Core.SetsAndLogic.Props.html#4253" class="Bound">x</a><a id="4265" class="Symbol">)</a>
+<a id="4267" href="UniAgda.Core.SetsAndLogic.Props.html#4102" class="Function">prop-fibres-Pi-is-prop</a> <a id="4290" href="UniAgda.Core.SetsAndLogic.Props.html#4290" class="Bound">F</a> <a id="4292" href="UniAgda.Core.SetsAndLogic.Props.html#4292" class="Bound">f</a> <a id="4294" href="UniAgda.Core.SetsAndLogic.Props.html#4294" class="Bound">g</a> <a id="4296" class="Symbol">=</a> <a id="4298" href="UniAgda.Core.Axioms.html#2071" class="Function">funextD</a> <a id="4306" class="Symbol">λ</a> <a id="4308" href="UniAgda.Core.SetsAndLogic.Props.html#4308" class="Bound">x</a> <a id="4310" class="Symbol">→</a> <a id="4312" href="UniAgda.Core.SetsAndLogic.Props.html#4290" class="Bound">F</a> <a id="4314" href="UniAgda.Core.SetsAndLogic.Props.html#4308" class="Bound">x</a> <a id="4316" class="Symbol">(</a><a id="4317" href="UniAgda.Core.SetsAndLogic.Props.html#4292" class="Bound">f</a> <a id="4319" href="UniAgda.Core.SetsAndLogic.Props.html#4308" class="Bound">x</a><a id="4320" class="Symbol">)</a> <a id="4322" class="Symbol">(</a><a id="4323" href="UniAgda.Core.SetsAndLogic.Props.html#4294" class="Bound">g</a> <a id="4325" href="UniAgda.Core.SetsAndLogic.Props.html#4308" class="Bound">x</a><a id="4326" class="Symbol">)</a>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org5ff8879" class="outline-3">
+<h3 id="org5ff8879"><span class="section-number-3">3.6</span> Propositions are preserved under products</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+Given a two proposition, their product is a proposition.
+</p>
+<pre class="Agda">
+<a id="prod-of-props-is-prop"></a><a id="4459" href="UniAgda.Core.SetsAndLogic.Props.html#4459" class="Function">prod-of-props-is-prop</a> <a id="4481" class="Symbol">:</a> <a id="4483" class="Symbol">∀</a> <a id="4485" class="Symbol">{</a><a id="4486" href="UniAgda.Core.SetsAndLogic.Props.html#4486" class="Bound">i</a> <a id="4488" href="UniAgda.Core.SetsAndLogic.Props.html#4488" class="Bound">j</a><a id="4489" class="Symbol">}</a> <a id="4491" class="Symbol">{</a><a id="4492" href="UniAgda.Core.SetsAndLogic.Props.html#4492" class="Bound">A</a> <a id="4494" class="Symbol">:</a> <a id="4496" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="4501" href="UniAgda.Core.SetsAndLogic.Props.html#4486" class="Bound">i</a><a id="4502" class="Symbol">}</a> <a id="4504" class="Symbol">{</a><a id="4505" href="UniAgda.Core.SetsAndLogic.Props.html#4505" class="Bound">B</a> <a id="4507" class="Symbol">:</a> <a id="4509" href="UniAgda.Core.Types.Universes.html#421" class="Primitive">Type</a> <a id="4514" href="UniAgda.Core.SetsAndLogic.Props.html#4488" class="Bound">j</a><a id="4515" class="Symbol">}</a>
+                        <a id="4541" class="Symbol">→</a> <a id="4543" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="4550" href="UniAgda.Core.SetsAndLogic.Props.html#4492" class="Bound">A</a> <a id="4552" class="Symbol">→</a> <a id="4554" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="4561" href="UniAgda.Core.SetsAndLogic.Props.html#4505" class="Bound">B</a>
+                        <a id="4587" class="Symbol">→</a> <a id="4589" href="UniAgda.Core.SetsAndLogic.ContPropSet1Type.html#772" class="Function">isProp</a> <a id="4596" class="Symbol">(</a><a id="4597" href="UniAgda.Core.SetsAndLogic.Props.html#4492" class="Bound">A</a> <a id="4599" href="UniAgda.Core.Types.Sigma.html#962" class="Function Operator">×</a> <a id="4601" href="UniAgda.Core.SetsAndLogic.Props.html#4505" class="Bound">B</a><a id="4602" class="Symbol">)</a>
+<a id="4604" href="UniAgda.Core.SetsAndLogic.Props.html#4459" class="Function">prod-of-props-is-prop</a> <a id="4626" href="UniAgda.Core.SetsAndLogic.Props.html#4626" class="Bound">H</a> <a id="4628" href="UniAgda.Core.SetsAndLogic.Props.html#4628" class="Bound">H&#39;</a> <a id="4631" class="Symbol">(</a><a id="4632" href="UniAgda.Core.SetsAndLogic.Props.html#4632" class="Bound">a</a> <a id="4634" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="4636" href="UniAgda.Core.SetsAndLogic.Props.html#4636" class="Bound">b</a><a id="4637" class="Symbol">)</a> <a id="4639" class="Symbol">(</a><a id="4640" href="UniAgda.Core.SetsAndLogic.Props.html#4640" class="Bound">a&#39;</a> <a id="4643" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="4645" href="UniAgda.Core.SetsAndLogic.Props.html#4645" class="Bound">b&#39;</a><a id="4647" class="Symbol">)</a> <a id="4649" class="Symbol">=</a>
+  <a id="4653" href="UniAgda.Core.PathSpaces.Sigma.html#2053" class="Function">path-equiv-prod</a>
+    <a id="4673" class="Symbol">((</a><a id="4675" href="UniAgda.Core.SetsAndLogic.Props.html#4626" class="Bound">H</a> <a id="4677" href="UniAgda.Core.SetsAndLogic.Props.html#4632" class="Bound">a</a> <a id="4679" href="UniAgda.Core.SetsAndLogic.Props.html#4640" class="Bound">a&#39;</a><a id="4681" class="Symbol">)</a> <a id="4683" href="UniAgda.Core.Types.Sigma.html#433" class="InductiveConstructor Operator">,</a> <a id="4685" class="Symbol">(</a><a id="4686" href="UniAgda.Core.SetsAndLogic.Props.html#4628" class="Bound">H&#39;</a> <a id="4689" href="UniAgda.Core.SetsAndLogic.Props.html#4636" class="Bound">b</a> <a id="4691" href="UniAgda.Core.SetsAndLogic.Props.html#4645" class="Bound">b&#39;</a><a id="4693" class="Symbol">))</a>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: James Leslie</p>
+<p class="date">Created: 2021-03-22 Mon 19:50</p>
+</div>
+</body>
+</html>

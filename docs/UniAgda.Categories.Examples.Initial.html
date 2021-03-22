@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-03-22 Mon 19:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Initial Category</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="James Leslie" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">The Initial Category</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org0b89027">1. Prelude</a></li>
+<li><a href="#orgba13a5d">2. Definition</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org0b89027" class="outline-2">
+<h2 id="org0b89027"><span class="section-number-2">1</span> Prelude</h2>
+<div class="outline-text-2" id="text-1">
+<pre class="Agda">
+<a id="82" class="Symbol">{-#</a> <a id="86" class="Keyword">OPTIONS</a> <a id="94" class="Pragma">--without-K</a>  <a id="107" class="Symbol">#-}</a>
+<a id="111" class="Keyword">module</a> <a id="118" href="UniAgda.Categories.Examples.Initial.html" class="Module">UniAgda.Categories.Examples.Initial</a> <a id="154" class="Keyword">where</a>
+
+<a id="161" class="Keyword">open</a> <a id="166" class="Keyword">import</a> <a id="173" href="UniAgda.Core.Types.Universes.html" class="Module">UniAgda.Core.Types.Universes</a>
+<a id="202" class="Keyword">open</a> <a id="207" class="Keyword">import</a> <a id="214" href="UniAgda.Core.Types.Empty.html" class="Module">UniAgda.Core.Types.Empty</a>
+
+<a id="240" class="Keyword">open</a> <a id="245" class="Keyword">import</a> <a id="252" href="UniAgda.Categories.Category.html" class="Module">UniAgda.Categories.Category</a>
+<a id="280" class="Keyword">open</a> <a id="285" href="UniAgda.Categories.Category.html#1431" class="Module">Precategory</a>
+<a id="297" class="Keyword">open</a> <a id="302" href="UniAgda.Categories.Category.html#8231" class="Module">Category</a>
+</pre>
+</div>
+</div>
+<div id="outline-container-orgba13a5d" class="outline-2">
+<h2 id="orgba13a5d"><span class="section-number-2">2</span> Definition</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The initial precategory is a category with no objects. It is defined as follows.
+</p>
+<pre class="Agda">
+<a id="𝟘"></a><a id="433" href="UniAgda.Categories.Examples.Initial.html#433" class="Function">𝟘</a> <a id="435" class="Symbol">:</a> <a id="437" href="UniAgda.Categories.Category.html#1431" class="Record">Precategory</a> <a id="449" href="Agda.Primitive.html#764" class="Primitive">lzero</a> <a id="455" href="Agda.Primitive.html#764" class="Primitive">lzero</a>
+<a id="461" href="UniAgda.Categories.Category.html#1512" class="Field">ob</a> <a id="464" href="UniAgda.Categories.Examples.Initial.html#433" class="Function">𝟘</a> <a id="466" class="Symbol">=</a> <a id="468" href="UniAgda.Core.Types.Empty.html#357" class="Datatype">Empty</a>
+<a id="474" href="UniAgda.Categories.Category.html#1528" class="Field">hom</a> <a id="478" href="UniAgda.Categories.Examples.Initial.html#433" class="Function">𝟘</a> <a id="480" class="Symbol">()</a> <a id="483" href="UniAgda.Categories.Examples.Initial.html#483" class="Bound">b</a>
+<a id="485" href="UniAgda.Categories.Category.html#1558" class="Field">hom-set</a> <a id="493" href="UniAgda.Categories.Examples.Initial.html#433" class="Function">𝟘</a> <a id="495" class="Symbol">()</a> <a id="498" href="UniAgda.Categories.Examples.Initial.html#498" class="Bound">b</a>
+<a id="500" href="UniAgda.Categories.Category.html#1601" class="Field">Id</a> <a id="503" href="UniAgda.Categories.Examples.Initial.html#433" class="Function">𝟘</a> <a id="505" class="Symbol">{()}</a>
+<a id="510" href="UniAgda.Categories.Category.html#1631" class="Field">comp</a> <a id="515" href="UniAgda.Categories.Examples.Initial.html#433" class="Function">𝟘</a> <a id="517" class="Symbol">{()}</a> <a id="522" href="UniAgda.Categories.Examples.Initial.html#522" class="Bound">f</a> <a id="524" href="UniAgda.Categories.Examples.Initial.html#524" class="Bound">g</a>
+<a id="526" href="UniAgda.Categories.Category.html#1687" class="Field">IdL</a> <a id="530" href="UniAgda.Categories.Examples.Initial.html#433" class="Function">𝟘</a> <a id="532" class="Symbol">{()}</a> <a id="537" href="UniAgda.Categories.Examples.Initial.html#537" class="Bound">f</a>
+<a id="539" href="UniAgda.Categories.Category.html#1738" class="Field">IdR</a> <a id="543" href="UniAgda.Categories.Examples.Initial.html#433" class="Function">𝟘</a> <a id="545" class="Symbol">{()}</a> <a id="550" href="UniAgda.Categories.Examples.Initial.html#550" class="Bound">f</a>
+<a id="552" href="UniAgda.Categories.Category.html#1789" class="Field">Assoc</a> <a id="558" href="UniAgda.Categories.Examples.Initial.html#433" class="Function">𝟘</a> <a id="560" class="Symbol">{()}</a> <a id="565" href="UniAgda.Categories.Examples.Initial.html#565" class="Bound">f</a> <a id="567" href="UniAgda.Categories.Examples.Initial.html#567" class="Bound">g</a> <a id="569" href="UniAgda.Categories.Examples.Initial.html#569" class="Bound">h</a>
+</pre>
+
+<p>
+It is immediate that it is a category.
+</p>
+<pre class="Agda">
+<a id="𝟘-is-category"></a><a id="639" href="UniAgda.Categories.Examples.Initial.html#639" class="Function">𝟘-is-category</a> <a id="653" class="Symbol">:</a> <a id="655" href="UniAgda.Categories.Category.html#7952" class="Function">isCategory</a> <a id="666" href="UniAgda.Categories.Examples.Initial.html#433" class="Function">𝟘</a>
+<a id="668" href="UniAgda.Categories.Examples.Initial.html#639" class="Function">𝟘-is-category</a> <a id="682" class="Symbol">()</a> <a id="685" href="UniAgda.Categories.Examples.Initial.html#685" class="Bound">b</a>
+
+<a id="𝟘-Cat"></a><a id="688" href="UniAgda.Categories.Examples.Initial.html#688" class="Function">𝟘-Cat</a> <a id="694" class="Symbol">:</a> <a id="696" href="UniAgda.Categories.Category.html#8231" class="Record">Category</a> <a id="705" href="Agda.Primitive.html#764" class="Primitive">lzero</a> <a id="711" href="Agda.Primitive.html#764" class="Primitive">lzero</a>
+<a id="717" href="UniAgda.Categories.Category.html#8328" class="Field">∁</a> <a id="719" href="UniAgda.Categories.Examples.Initial.html#688" class="Function">𝟘-Cat</a> <a id="725" class="Symbol">=</a> <a id="727" href="UniAgda.Categories.Examples.Initial.html#433" class="Function">𝟘</a>
+<a id="729" href="UniAgda.Categories.Category.html#8352" class="Field">univ</a> <a id="734" href="UniAgda.Categories.Examples.Initial.html#688" class="Function">𝟘-Cat</a> <a id="740" class="Symbol">=</a> <a id="742" href="UniAgda.Categories.Examples.Initial.html#639" class="Function">𝟘-is-category</a>
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: James Leslie</p>
+<p class="date">Created: 2021-03-22 Mon 19:50</p>
+</div>
+</body>
+</html>
