@@ -1,6 +1,8 @@
-#+title: 0 (Set) truncation
+#+title: UniAgda.HITs.0truncation
+#+description: 0 (Set) truncation
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --rewriting #-}

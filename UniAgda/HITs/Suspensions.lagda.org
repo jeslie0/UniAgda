@@ -1,6 +1,8 @@
-#+title: Suspensions
+#+title: UniAgda.HITs.Suspensions
+#+description: Suspensions
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --rewriting #-}

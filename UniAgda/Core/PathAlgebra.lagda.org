@@ -1,11 +1,11 @@
-#+title: Path Algebra
+#+title: UniAgda.Core.PathAlgebra
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
 #+description: Module contains lots of useful lemmas for manipulating paths.
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --safe #-}
-
 module UniAgda.Core.PathAlgebra where
 
 open import UniAgda.Core.Types.Universes

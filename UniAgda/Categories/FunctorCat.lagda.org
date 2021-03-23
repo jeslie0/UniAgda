@@ -1,6 +1,8 @@
-#+title: Functor Categories
+#+title:  UniAgda.Categories.FunctorCat
+#+description: Functor Categories
 #+author: James Leslie
 #+STARTUP: hideblocks
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K  #-}

@@ -1,6 +1,8 @@
-#+title: Properties of Properties
+#+title: UniAgda.Core.SetsAndLogic.Props
+#+description: Properties of Properties
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K #-}

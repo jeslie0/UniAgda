@@ -1,6 +1,8 @@
-#+title: Universal Properties
+#+title: UniAgda.Core.UniversalProperties
+#+description: Universal Properties
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+options: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K #-}

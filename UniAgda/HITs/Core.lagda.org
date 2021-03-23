@@ -1,6 +1,8 @@
-#+title: Higher Inductive Type Core
+#+title: UniAgda.HITs.Core
+#+description: Higher Inductive Type Core
 #+author: James Leslie
 #+STARTUP: noindent
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --rewriting #-}

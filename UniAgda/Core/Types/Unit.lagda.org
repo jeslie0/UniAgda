@@ -1,6 +1,8 @@
-#+title: Unit Type
+#+title: UniAgda.Core.Types.Unit
+#+description: Unit Type
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts --safe #-}

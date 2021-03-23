@@ -1,7 +1,8 @@
-#+title: Categories
+#+title: UniAgda.Categories.Category
 #+author: James Leslie
 #+description: Definition of Categories along with some results about them, following the HoTT Book, Chapter 9.
 #+STARTUP: hideblocks latexpreview noindent
+#+OPTIONS: tex:t
 Note - Loading all of the sigma type conversions causes a long delay in loading this file. To save that, I will comment it out and move it to another file at some point.
 * Prelude
 #+begin_src agda2

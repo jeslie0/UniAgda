@@ -1,6 +1,8 @@
-#+title: Properties of Sets
+#+title: UniAgda.Core.SetsAndLogic.Sets
+#+description: Properties of Sets
 #+author: James Leslie
 #+STARTUP: noindent latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K #-}
@@ -140,4 +142,4 @@ The natural numbers are a set, as their path space is either contractible or emp
 ℕ-is-set zero (suc m) = equiv-with-prop (thm2-13-1 zero (suc m) ^ᵉ) λ x ()
 ℕ-is-set (suc n) zero = equiv-with-prop (thm2-13-1 (suc n) zero ^ᵉ) λ x ()
 ℕ-is-set (suc n) (suc m) = equiv-with-prop (thm2-13-1 (suc n) (suc m) ^ᵉ) (equiv-with-prop (thm2-13-1 n m) (ℕ-is-set n m))
--- #+end_src
+#+end_src

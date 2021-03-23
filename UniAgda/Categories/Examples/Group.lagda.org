@@ -1,6 +1,8 @@
-#+title: Category of Groups
+#+title: UniAgda.Categories.Examples.Group
+#+description: Category of Groups
 #+author: James Leslie
 #+STARTUP: hideblocks noindent
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K  #-}

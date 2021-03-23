@@ -1,6 +1,8 @@
-#+title: Properties of Equivalences
+#+title: UniAgda.Core.SetsAndLogic.Equivalences
+#+description: Properties of Equivalences
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K #-}
@@ -32,7 +34,7 @@ open import UniAgda.Core.Axioms
 open import UniAgda.Core.SetsAndLogic.Props
 open import UniAgda.Core.SetsAndLogic.Contractible
 #+end_src
-* 
+* Results
 #+begin_src agda2
 
 equiv-fibres-to-equiv-sigma : ∀ {i j } {A : Type i} {B : A → Type j} {C : A → Type j}

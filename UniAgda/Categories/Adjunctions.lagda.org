@@ -1,4 +1,7 @@
-#+title: Adjunctions
+#+title: UniAgda.Categories.Adjunctions
+#+description: Adjunctions
+#+author: James Leslie
+#+STARTUP: noindent hideblocks latexpreview
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K #-}

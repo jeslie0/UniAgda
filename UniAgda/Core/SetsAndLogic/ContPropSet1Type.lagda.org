@@ -1,6 +1,8 @@
-#+title: Contractability, Propositions, Sets and 1-types
+#+title: UniAgda.Core.SetsAndLogic.ContPropSet1Type
+#+description: Contractability, Propositions, Sets and 1-types
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --safe #-}

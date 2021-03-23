@@ -1,6 +1,8 @@
-#+title: Paths in the Unit Type
+#+title: UniAgda.Core.PathSpaces.Unit
+#+description: Paths in the Unit Type
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --safe #-}

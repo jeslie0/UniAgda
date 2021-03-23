@@ -1,7 +1,8 @@
-#+title: Functors
+#+title:  UniAgda.Categories.Functor
 #+author: James Leslie
 #+description: Functors and their some properties
-#+STARTUP: hideblocks
+#+STARTUP: hideblocks latexpreview noindent
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K  #-}

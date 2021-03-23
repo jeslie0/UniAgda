@@ -1,6 +1,8 @@
-#+title: Natural Transformations
+#+title: UniAgda.Categories.Natural-Transformation
+#+description: Natural Transformations
 #+author: James Leslie
 #+STARTUP: hideblocks 
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K  #-}

@@ -1,6 +1,8 @@
-#+title: Paths in Sigma Types
+#+title: UniAgda.Core.PathSpaces.Sigma
+#+description: Paths in Sigma Types
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --safe #-}

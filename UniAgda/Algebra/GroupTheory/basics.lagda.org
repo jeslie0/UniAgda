@@ -1,4 +1,5 @@
-#+title: Basic results in group theory
+#+title: UniAgda.Algebra.GroupTheory.basics
+#+description: Basic results in group theory
 #+author: James Leslie
 #+STARTUP: hideblocks noindent
 * Prelude

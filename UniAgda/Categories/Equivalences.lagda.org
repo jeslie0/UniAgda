@@ -1,6 +1,8 @@
-#+title: Equivalences of Categories
+#+title: UniAgda.Categories.Equivalences
+#+description: Equivalences of Categories
 #+author: James Leslie
 #+STARTUP: noindent hideblocks
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --rewriting #-}

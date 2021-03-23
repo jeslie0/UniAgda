@@ -1,6 +1,8 @@
-#+title: Sigma Types
+#+title: UniAgda.Core.Types.Sigma
+#+description: Sigma Types
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts --safe #-}

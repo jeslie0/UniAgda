@@ -1,6 +1,8 @@
-#+title: Boolean Type
+#+title: UniAgda.Core.Types.Bool
+#+description: Boolean Type
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts --safe #-}

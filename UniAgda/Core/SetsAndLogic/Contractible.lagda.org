@@ -1,6 +1,8 @@
-#+title: Properties of Contractible Types 
+#+title: UniAgda.Core.SetsAndLogic.Contractible
+#+description: Properties of Contractible Types 
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K #-}

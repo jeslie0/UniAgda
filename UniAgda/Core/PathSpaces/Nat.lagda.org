@@ -1,6 +1,8 @@
-#+title: Paths in the Natural Numbers
+#+title: UniAgda.Core.PathSpaces.Nat
+#+description: Paths in the Natural Numbers
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --safe #-}

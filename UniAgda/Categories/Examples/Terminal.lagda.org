@@ -1,5 +1,8 @@
-#+title: The Terminal Category
+#+title: UniAgda.Categories.Examples.Terminal
+#+description: The Terminal Category
 #+author: James Leslie
+#+STARTUP: latexpreview noindent hideblocks
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K  #-}

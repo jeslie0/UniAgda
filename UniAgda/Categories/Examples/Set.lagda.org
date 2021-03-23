@@ -1,6 +1,8 @@
-#+title: The category of sets
+#+title: UniAgda.Categories.Examples.Set
+#+description: The category of sets
 #+author: James Leslie
-#+STARTUP: hideblocks
+#+STARTUP: latexpreview noindent hideblocks
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K  #-}

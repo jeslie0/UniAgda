@@ -1,8 +1,10 @@
-#+title: Universes
+#+title: UniAgda.Core.Types.Universes
+#+description: Universes
 #+author: James Leslie
 #+STARTUP: noindent hideblocks 
+#+OPTIONS: tex:t
 * Prelude
-#+begin_src agda2 :tangle
+#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts --safe #-}
 module UniAgda.Core.Types.Universes where
 #+end_src

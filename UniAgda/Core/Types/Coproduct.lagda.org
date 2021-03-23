@@ -1,6 +1,8 @@
-#+title: Coproduct Types
+#+title: UniAgda.Core.Types.Coproduct
+#+description: Coproduct Types
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
+#+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts --safe #-}
