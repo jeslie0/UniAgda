@@ -26,3 +26,10 @@ coproduct-ind : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k}
 coproduct-ind x x₁ (inl x₂) = x x₂
 coproduct-ind x x₁ (inr x₂) = x₁ x₂
 #+end_src
+* Coproduct commutes
+#+begin_src agda2
+coprod-swap : ∀ {i j} {A : Type i} {B : Type j}
+              → A + B → B + A
+coprod-swap (inl x) = inr x
+coprod-swap (inr x) = inl x
+#+end_src

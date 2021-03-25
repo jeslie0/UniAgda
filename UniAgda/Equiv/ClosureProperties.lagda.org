@@ -95,7 +95,7 @@ retract-of-types A B = retract (λ (a : A) → tt) (λ (b : B) → tt)
 -- retract.bot-id (retract-fibres g f H b) = hrefl
 -- retract.left-square (retract-fibres g f H b) x = refl
 -- retract.right-square (retract-fibres g f H b) (a , b₁) = Unit-is-prop _ _
--- retract.rectangle (retract-fibres g f H b) a = unit-is-set _ _ _ _
+-- retract.rectangle (retract-fibres g f H b) a = Unit-is-set _ _ _ _
 #+end_src
 
 I

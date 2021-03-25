@@ -18,6 +18,7 @@ open import UniAgda.Core.Types.Unit public
 open import UniAgda.Core.Types.Empty public
 open import UniAgda.Core.Types.Bool public
 open import UniAgda.Core.Types.Nat public
+open import UniAgda.Core.Types.FiniteSets public
 #+end_src
 
 * Homotopy, PathAlgebra, Equivalences 

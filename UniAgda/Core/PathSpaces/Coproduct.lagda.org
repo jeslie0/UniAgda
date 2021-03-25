@@ -58,6 +58,43 @@ thm2-12-5 : {i j : Level} {A : Type i} {B : Type j}
             → (x : A + B) → (inl a₀ ≡ x) ≃ coprod-code a₀ x
 thm2-12-5 a₀ x = equiv-adjointify (coprod-encode a₀ x , coprod-decode a₀ x , coprod-encode-decode-id a₀ x , coprod-decode-encode-id a₀ x)
 #+end_src
+
+#+begin_src agda2
+coprod-code' : {i j : Level} {A : Type i} {B : Type j}
+              (b₀ : B)
+              → A + B → Type (i ⊔ j)
+coprod-code' {i} {j} b₀ (inl a) = raise _ Empty
+coprod-code' {i} {j} b₀ (inr b) = raise i (b₀ ≡ b)
+
+coprod-encode' : {i j : Level} {A : Type i}  {B : Type j}
+                (b₀ : B)
+                → (x : A + B) (p : inr b₀ ≡ x) → coprod-code' b₀ x
+coprod-encode' b₀ x p = transport (coprod-code' b₀) p (map-raise refl)
+
+coprod-decode' : {i j : Level} {A : Type i} {B : Type j}
+                (b₀ : B)
+                → (x : A + B) (c : coprod-code' b₀ x) → (inr b₀ ≡ x)
+coprod-decode' b₀ (inl x) (map-raise ())
+coprod-decode' b₀ (inr x) c = ap inr (map-inv-raise c) 
+
+coprod-encode-decode-id' : {i j : Level} {A : Type i} {B : Type j}
+                           (b₀ : B)
+                          → (x : A + B) → coprod-encode' b₀ x o coprod-decode' b₀ x ~ id
+coprod-encode-decode-id' b₀ (inl a) = λ { (map-raise ())}
+coprod-encode-decode-id' b₀ (inr b) = λ { (map-raise refl) → refl} 
+
+coprod-decode-encode-id' : {i j : Level} {A : Type i} {B : Type j}
+                          (b₀ : B)
+                          → (x : A + B) → coprod-decode' b₀ x o coprod-encode' b₀ x ~ id
+coprod-decode-encode-id' b₀ (inl a) = λ {()}
+coprod-decode-encode-id' b₀ (inr b) = λ {refl → refl}
+
+
+thm2-12-5ii : {i j : Level} {A : Type i} {B : Type j}
+              (b₀ : B)
+              → (x : A + B) → (inr b₀ ≡ x) ≃ coprod-code' b₀ x
+thm2-12-5ii b₀ x = equiv-adjointify (coprod-encode' b₀ x , coprod-decode' b₀ x , coprod-encode-decode-id' b₀ x , coprod-decode-encode-id' b₀ x)
+#+end_src
 * Bool is a coproduct
 #+begin_src agda2
 Bool-is-coprod : Bool ≃ (Unit + Unit)

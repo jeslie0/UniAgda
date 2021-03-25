@@ -378,3 +378,28 @@ equiv-types-eq : ∀ {i j} {A : Type i} {B : Type j}
 equiv-types-eq {x = x} {y = y} (f , g , η , ε , τ) p = ε x ^ ∘ (ap f p) ∘ ε y
 #+end_src
 
+Another useful result is that if we know two types are equivalent, then \(\Pi\) and \(\Sigma\) types over one of the equivalent types are logically equivalent, in the following sense:
+#+begin_src agda2
+equiv-base-Pi : ∀ {i j k} {A : Type i} {A' : Type j} {B : A → Type k}
+      (F : A ≃ A')
+      → ((x : A') → B o (pr₁ (pr₂ F)) $ x) → ((x : A) → B x)
+equiv-base-Pi {B = B} (f , g , α , β , γ) Q a = transport B (α a) (Q (f a))
+
+equiv-base-Sigma : ∀ {i j k} {A : Type i} {A' : Type j} {B : A → Type k}
+                   (F : A ≃ A')
+                   → (Σ[ x' ∈ A' ] (B o pr₁ (pr₂ F) $ x')) → (Σ[ x ∈ A ] B x)
+equiv-base-Sigma (f , g , α , β , γ) (a' , b') = g a' , b'
+#+end_src
+ 
+Note that with univalence, these types are equivalent (I don't know if we need univalence for this, but logical equivalence is sufficient for our needs).
+
+A result we expect is for the type of paths \(a = b\) to be equivalent to the type of paths \(b = a\).
+#+begin_src agda2
+a=b≃b=a : ∀ {i} {A : Type i} {a b : A}
+          → (a ≡ b) ≃ (b ≡ a)
+a=b≃b=a = equiv-adjointify
+  ((λ { refl → refl}) ,
+  (λ { refl → refl}) ,
+  (λ { refl → refl}) ,
+  λ { refl → refl})
+#+end_src

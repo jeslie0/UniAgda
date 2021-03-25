@@ -18,6 +18,7 @@ open import UniAgda.Core.Types.Unit
 open import UniAgda.Core.Types.Empty
 open import UniAgda.Core.Types.Bool
 open import UniAgda.Core.Types.Nat
+open import UniAgda.Core.Types.FiniteSets
 
 open import UniAgda.Core.PathAlgebra
 open import UniAgda.Core.Homotopy
@@ -51,6 +52,29 @@ prod-of-sets-is-set : ∀ {i j} {A : Type i} {B : Type j}
                       → (isSet A) → (isSet B)
                       → (isSet (A × B))
 prod-of-sets-is-set H₁ H₂ = Sigma-of-sets-is-set H₁ λ x → H₂
+#+end_src
+* Coproducts of sets are sets
+The coproduct of two sets is a set.
+#+begin_src agda2
+coproduct-of-sets-is-set : ∀ {i j} {A : Type i} {B : Type j}
+                           → isSet A → isSet B
+                           → isSet (A + B)
+coproduct-of-sets-is-set X Y (inl a) (inl a') =
+  (equiv-base-Pi
+    (thm2-12-5 a (inl a')))
+    λ { (map-raise x) refl → ap (ap inl) (X a a x refl) }
+coproduct-of-sets-is-set X Y (inl a) (inr b) =
+  equiv-base-Pi
+    (thm2-12-5 a (inr b))
+    λ x ()
+coproduct-of-sets-is-set X Y (inr b) (inl a) =
+  equiv-base-Pi
+    (a=b≃b=a oₑ thm2-12-5 a (inr b))
+    λ x ()
+coproduct-of-sets-is-set X Y (inr b) (inr b') =
+  equiv-base-Pi
+    (thm2-12-5ii b (inr b'))
+    λ { (map-raise x) refl → ap (ap inr) (Y b b x refl)}
 #+end_src
 * Function types between sets are sets
 #+name: Example3.1.6
@@ -123,15 +147,15 @@ prop-fibres-totalspace-set {i} {j} {A} {P} H f (a , X) (b , Y) =
 The unit type is a set.
 #+name: Example3.1.2
 #+begin_src agda2
-unit-is-set : isSet Unit
-unit-is-set = props-are-sets λ { tt tt → refl}
+Unit-is-set : isSet Unit
+Unit-is-set = props-are-sets λ { tt tt → refl}
 #+end_src  
 * Empty is a set
 The empty type is a set
 #+name: Example3.1.3
 #+begin_src agda2
-empty-is-set : isSet Empty
-empty-is-set () y
+Empty-is-set : isSet Empty
+Empty-is-set () y
 #+end_src
 * The natural numbers are a set
 The natural numbers are a set, as their path space is either contractible or empty.
@@ -142,4 +166,19 @@ The natural numbers are a set, as their path space is either contractible or emp
 ℕ-is-set zero (suc m) = equiv-with-prop (thm2-13-1 zero (suc m) ^ᵉ) λ x ()
 ℕ-is-set (suc n) zero = equiv-with-prop (thm2-13-1 (suc n) zero ^ᵉ) λ x ()
 ℕ-is-set (suc n) (suc m) = equiv-with-prop (thm2-13-1 (suc n) (suc m) ^ᵉ) (equiv-with-prop (thm2-13-1 n m) (ℕ-is-set n m))
+#+end_src
+* Finite sets are sets
+For each \(n\), the type \(\operatorname{Fin}  n\) is a set.
+#+begin_src agda2
+Fin-n-is-set : (n : ℕ) → isSet (Fin n)
+Fin-n-is-set zero = Empty-is-set
+Fin-n-is-set (suc n) =
+  coproduct-of-sets-is-set (Fin-n-is-set n) Unit-is-set
+#+end_src  
+
+This extends to the dependent function too.
+#+begin_src agda2
+Fin-is-set : isSet ((n : ℕ) → Fin n)
+Fin-is-set =
+  fibs-are-sets-PI-is-set Fin-n-is-set
 #+end_src
