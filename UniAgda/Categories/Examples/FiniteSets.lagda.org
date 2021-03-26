@@ -16,7 +16,7 @@ open import UniAgda.Core.Types.FiniteSets
 
 open import UniAgda.Core.Equivalences
 
-open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
+open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type
 open import UniAgda.Core.SetsAndLogic.Sets
 
 open import UniAgda.HITs.PropTrunc

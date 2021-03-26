@@ -1,22 +1,16 @@
 #+title: UniAgda.HITs.Everything
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
-* Prelude
+* Imports
 #+begin_src agda2
 {-# OPTIONS --without-K --rewriting #-}
 module UniAgda.HITs.Everything where
 
-open import UniAgda.HITs.Core public
-
-open import UniAgda.HITs.Circle public
-
-open import UniAgda.HITs.Interval public
-
 open import UniAgda.HITs.PropTrunc public
-
 open import UniAgda.HITs.0truncation public
-
-open import UniAgda.HITs.Pushouts public
-
 open import UniAgda.HITs.Suspensions public
+open import UniAgda.HITs.Circle public
+open import UniAgda.HITs.Interval public
+open import UniAgda.HITs.Core public
+open import UniAgda.HITs.Pushouts public
 #+end_src

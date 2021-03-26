@@ -8,7 +8,14 @@
 {-# OPTIONS --without-K #-}
 module UniAgda.Equiv.ClosureProperties where
 
-open import UniAgda.Core.Everything
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Sigma
+open import UniAgda.Core.Types.Unit
+
+open import UniAgda.Core.Homotopy
+open import UniAgda.Core.Equivalences
 #+end_src
 * 2-out-of-3
 Equivalences satisfy the 2-out-of-3 property, which states that given a commuting triangle of equivalences, if any two of them are equivalences, then the third one is. We know that composing two equivalences is an equivalence, so we need to show that the other two parts hold.

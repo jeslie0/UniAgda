@@ -8,8 +8,10 @@
 {-# OPTIONS --without-K  #-}
 module UniAgda.Categories.Examples.Group where
 
-open import UniAgda.Categories.Category public
-open import UniAgda.Algebra.GroupTheory.basics public
+open import UniAgda.Core.Types.Universes
+
+open import UniAgda.Categories.Category
+open import UniAgda.Algebra.GroupTheory.basics
 open Precategory
 #+end_src
 * Category of groups

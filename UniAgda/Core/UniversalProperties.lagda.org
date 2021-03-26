@@ -19,7 +19,7 @@ open import UniAgda.Core.Types.Empty
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
 
-open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
+open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type
 open import UniAgda.Core.SetsAndLogic.Props
 
 open import UniAgda.Core.PathSpaces.Sigma

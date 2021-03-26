@@ -1,4 +1,4 @@
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K --rewriting #-}
 module UniAgda.experimental.exp2 where
 
 open import UniAgda.Core.Everything public

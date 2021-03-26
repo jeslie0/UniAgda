@@ -1,0 +1,12 @@
+#+title: UniAgda.Equiv.Everything
+#+author: James Leslie
+#+STARTUP: noindent hideblocks latexpreview
+* Imports
+#+begin_src agda2
+{-# OPTIONS --without-K --rewriting #-}
+module UniAgda.Equiv.Everything where
+
+open import UniAgda.Equiv.Inj-Surj public
+open import UniAgda.Equiv.Bool public
+open import UniAgda.Equiv.ClosureProperties public
+#+end_src

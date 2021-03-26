@@ -17,7 +17,7 @@ open import UniAgda.Core.PathAlgebra
 
 open import UniAgda.Core.Equivalences
 
-open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
+open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type
 open import UniAgda.Core.SetsAndLogic.Props
 open import UniAgda.Core.SetsAndLogic.Contractible
 open import UniAgda.Core.SetsAndLogic.Equivalences

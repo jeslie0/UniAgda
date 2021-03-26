@@ -1,17 +1,14 @@
 #+title: UniAgda.Core.SetsAndLogic.Everything
 #+author: James Leslie
 #+STARTUP: noindent hideblocks latexpreview
-* Prelude
+* Imports
 #+begin_src agda2
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K --rewriting #-}
 module UniAgda.Core.SetsAndLogic.Everything where
 
-open import UniAgda.Core.SetsAndLogic.ContPropSet1Type public
-open import UniAgda.Core.SetsAndLogic.Props public
-open import UniAgda.Core.SetsAndLogic.Sets public
-open import UniAgda.Core.SetsAndLogic.Contractible public
 open import UniAgda.Core.SetsAndLogic.Equivalences public
+open import UniAgda.Core.SetsAndLogic.Props public
+open import UniAgda.Core.SetsAndLogic.Contractible public
+open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type public
+open import UniAgda.Core.SetsAndLogic.Sets public
 #+end_src
-
-
-

@@ -18,7 +18,7 @@ open import UniAgda.Core.Equivalences
 
 open import UniAgda.Core.Axioms
 
-open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
+open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type
 open import UniAgda.Core.SetsAndLogic.Props
 open import UniAgda.Core.SetsAndLogic.Sets
 open import UniAgda.Core.SetsAndLogic.Equivalences

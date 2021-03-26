@@ -11,10 +11,10 @@ module UniAgda.HITs.PropTrunc where
 open import UniAgda.Core.Types.Universes
 open import UniAgda.Core.Types.Identity
 
-open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
+open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type
 open import UniAgda.Core.SetsAndLogic.Props
 open import UniAgda.Core.Equivalences
-open import UniAgda.HITs.Core public
+open import UniAgda.HITs.Core
 
 postulate
   ∥_∥ : {i : Level} (A : Type i) → Type i

@@ -7,7 +7,19 @@
 {-# OPTIONS --without-K #-}
 module UniAgda.Algebra.GroupTheory.basics where
 
-open import UniAgda.Core.Everything public
+open import UniAgda.Core.Types.Universes
+open import UniAgda.Core.Types.Functions
+open import UniAgda.Core.Types.Identity
+open import UniAgda.Core.Types.Sigma
+open import UniAgda.Core.Types.Unit
+
+open import UniAgda.Core.Homotopy
+open import UniAgda.Core.Axioms
+open import UniAgda.Core.Equivalences
+
+open import UniAgda.Core.PathSpaces.Sigma
+open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type
+open import UniAgda.Core.SetsAndLogic.Sets
 #+end_src
 
 * Group definition

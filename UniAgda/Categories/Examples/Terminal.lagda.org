@@ -19,7 +19,7 @@ open import UniAgda.Core.Equivalences
 open import UniAgda.Core.SetsAndLogic.Sets
 open import UniAgda.Core.SetsAndLogic.Equivalences
 
-open import UniAgda.Categories.Category public
+open import UniAgda.Categories.Category
 open Precategory
 open Category
 #+end_src

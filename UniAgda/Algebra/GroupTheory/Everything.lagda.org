@@ -1,0 +1,10 @@
+#+title: UniAgda.Algebra.GroupTheory.Everything
+#+author: James Leslie
+#+STARTUP: noindent hideblocks latexpreview
+* Imports
+#+begin_src agda2
+{-# OPTIONS --without-K --rewriting #-}
+module UniAgda.Algebra.GroupTheory.Everything where
+
+open import UniAgda.Algebra.GroupTheory.basics public
+#+end_src

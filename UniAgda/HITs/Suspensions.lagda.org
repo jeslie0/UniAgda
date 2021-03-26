@@ -21,8 +21,8 @@ open import UniAgda.Core.Equivalences
 
 open import UniAgda.Core.PathAlgebra
 open import UniAgda.Core.PathSpaces.Identity
-open import UniAgda.HITs.Core public
-open import UniAgda.HITs.Circle public
+open import UniAgda.HITs.Core
+open import UniAgda.HITs.Circle
 
 postulate
   Susp : {i : Level} (A : Type i) → Type i

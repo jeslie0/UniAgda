@@ -21,7 +21,7 @@ open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
 open import UniAgda.Core.Axioms
 
-open import UniAgda.Core.SetsAndLogic.ContPropSet1Type
+open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type
 open import UniAgda.Core.SetsAndLogic.Props
 open import UniAgda.Core.SetsAndLogic.Equivalences
 
@@ -54,7 +54,7 @@ private
 #+end_src
 
 For the second, we need the to use three important results regarding Bool. The first is that every \(x\) in Bool is equal to true or false.
-#+begin_src 2
+#+begin_src agda2
 eq-T-F-Bool : (x : Bool) → (x ≡ true) + (x ≡ false)
 eq-T-F-Bool true = inl refl 
 eq-T-F-Bool false = inr refl 
@@ -69,7 +69,7 @@ true-neq-false p = transport (λ { true → Unit ; false → Empty}) p tt
 Finally, we need that every equivalence on Bool commutes with \(\text{swap}\). That is, if \(f: \text{Bool} \to \text{Bool}\) is an equivalence, then \(\text{swap} \circ f = f \circ \text{swap}\). This is just done by a case analysis on both \(h(true), h(false)\) being true or false.
 #+begin_src agda2
 Bool-autoequiv-not-const : (H : Bool ≃ Bool) → (pr₁ H o swap ~ swap o pr₁ H)
-Bool-autoequiv-not-const (h , h' , α , β , γ) with eq-T-F-Bool (h true) | eq-T-F-Bool (h false)
+Bool-autoequiv-not-const (h , h' , α , β , γ) with (eq-T-F-Bool (h true)) | eq-T-F-Bool (h false)
 ... | inl q | inl s = λ {x → Empty-ind (true-neq-false (α true ^ ∘ ap h' (q ∘ s ^) ∘ α false))}
 ... | inl q | inr s = λ { true → s ∘ ap swap q ^
                         ; false → q ∘ ap swap s ^}

@@ -10,7 +10,7 @@ module UniAgda.HITs.Pushouts where
 
 open import UniAgda.Core.Types.Universes
 open import UniAgda.Core.Types.Identity
-open import UniAgda.HITs.Core public
+open import UniAgda.HITs.Core 
 
 postulate
   pushout : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Type i₃}

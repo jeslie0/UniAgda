@@ -1,0 +1,10 @@
+#+title: UniAgda.Logic.Everything
+#+author: James Leslie
+#+STARTUP: noindent hideblocks latexpreview
+* Imports
+#+begin_src agda2
+{-# OPTIONS --without-K --rewriting #-}
+module UniAgda.Logic.Everything where
+
+open import UniAgda.Logic.Exists public
+#+end_src
