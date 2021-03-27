@@ -5,7 +5,7 @@
 #+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
-{-# OPTIONS --without-K --rewriting #-}
+{-# OPTIONS --without-K --rewriting --no-import-sorts #-}
 module UniAgda.Categories.Examples.FundamentalPregroupoid where
 
 open import UniAgda.Core.Types.Universes

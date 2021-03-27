@@ -5,7 +5,7 @@
 #+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
-{-# OPTIONS --without-K  #-}
+{-# OPTIONS --without-K  --no-import-sorts #-}
 module UniAgda.Categories.Examples.Set where
 
 

@@ -5,7 +5,7 @@
 #+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
-{-# OPTIONS --without-K --safe #-}
+{-# OPTIONS --without-K --safe --no-import-sorts #-}
 module UniAgda.Core.PathSpaces.Unit where
 
 open import UniAgda.Core.Types.Universes

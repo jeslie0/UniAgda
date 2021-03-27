@@ -6,7 +6,7 @@
 Note - Loading all of the sigma type conversions causes a long delay in loading this file. To save that, I will comment it out and move it to another file at some point.
 * Prelude
 #+begin_src agda2
-{-# OPTIONS --without-K #-} 
+{-# OPTIONS --without-K --no-import-sorts #-} 
 module UniAgda.Categories.Category where
 
 open import UniAgda.Core.Types.Universes

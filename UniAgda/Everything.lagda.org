@@ -3,7 +3,7 @@
 #+STARTUP: noindent hideblocks latexpreview
 * Imports
 #+begin_src agda2
-{-# OPTIONS --without-K --rewriting #-}
+{-# OPTIONS --without-K --rewriting --no-import-sorts #-}
 module UniAgda.Everything where
 
 open import UniAgda.Equiv.Inj-Surj public

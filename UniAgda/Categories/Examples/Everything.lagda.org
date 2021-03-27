@@ -3,7 +3,7 @@
 #+STARTUP: noindent hideblocks latexpreview
 * Imports
 #+begin_src agda2
-{-# OPTIONS --without-K --rewriting #-}
+{-# OPTIONS --without-K --no-import-sorts #-}
 module UniAgda.Categories.Examples.Everything where
 
 open import UniAgda.Categories.Examples.FundamentalPregroupoid public

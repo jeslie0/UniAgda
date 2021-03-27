@@ -1,4 +1,4 @@
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K --no-import-sorts #-}
 module UniAgda.experimental.exp where
 open import UniAgda.Core.Everything
 open import UniAgda.Categories.Category

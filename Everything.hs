@@ -1,113 +1,85 @@
-import System.Environment
-import System.Directory
-import System.IO
-import Data.List
+import           Data.List
+import           System.Directory
+import           System.Environment
 
--- initDirectory = "/home/james/Dropbox/Documents/Haskell/TEST/"
--- folderName = "s"
+-- Agda specific code, based off the previous functions
 
--- listTupleSwap :: [(a , b)] -> ([a] , [b])
--- listTupleSwap [] = ([] , [])
--- listTupleSwap ((x,y):xs) = (x : fst (listTupleSwap xs) , y : snd (listTupleSwap xs))
-
-
-
-
--- folderNameIO :: IO String
--- folderNameIO = do
---   fullDirectory <- getCurrentDirectory
---   let fullDirectoryReverse = reverse fullDirectory
---       shortList = takeWhile (\x -> x /= '/') fullDirectoryReverse
-  -- return $ reverse shortList
-
-
-
--- func :: IO ()
--- func = do
---   filesInDirList <- listDirectory initDirectory
---   folderName <- folderNameIO
---   let initString = "{-# --without-k --rewriting #-}\nmodule UniAgda." ++ folderName ++ " where\n\n"
---       contents = [initString] ++ (map (\x -> "open import " ++ x ++ " public \n") filesInDirList)
---   writeFile (initDirectory ++ "Everything.agda") $ concat contents
-
-
--- filesAndFolders :: FilePath -> IO ([FilePath], [FilePath])
--- filesAndFolders path = do
---   contents <- listDirectory path
---   let (files, dirs) = partition (\xs -> '.' `elem` xs) contents
---   return (files, dirs)
-  
--- agdaListofFiles :: FilePath -> IO ([FilePath])
--- agdaListofFiles path = do
---   contents <- listDirectory path
---   let (files, dirs) = partition (\xs -> '.' `elem` xs) contents
---       cleanDirs = delete "ltximg" dirs
---       cleanFiles = delete "Everything.lagda.org" $ delete "Everything.agda" files
---       subDirNames = map ((path ++ "/") ++) cleanDirs
---       ioListofFiles = sequence $ map agdaListofFiles subDirNames
---   listofFiles <- ioListofFiles
---   return $ cleanFiles ++ concat listofFiles
-
-
+-- Using literate agda through org can generate latex fragments. We don't want to import them, or other misc files, so we filter them out.
 cleaningDirs :: [String] -> [String]
 cleaningDirs = delete "ltximg" . delete "experimental" . delete "org" . delete "Everything" . delete "_build"
 
 cleaningFiles :: [String] -> [String]
-cleaningFiles files = delete "Everything" $ map (takeWhile (\x -> x /= '.')) files
+cleaningFiles = delete "Everything" . delete "Everything.lagda.org" . delete "Everything.agda"
 
 
-
-agdaListofFilePaths :: FilePath -> IO ([FilePath])
-agdaListofFilePaths path = do
+agdaListAllFilePaths :: FilePath -> IO ([FilePath])
+agdaListAllFilePaths path = do
   contents <- listDirectory path
   let (files, dirs) = partition (\xs -> '.' `elem` xs) contents
       cleanDirs = cleaningDirs dirs
-      cleanFiles = map (\x -> (path ++ "/") ++ x) $ cleaningFiles files
+      cleanFiles = map ((path ++ "/") ++) $ cleaningFiles files
       subDirNames = map ((path ++ "/") ++) cleanDirs
-      ioListofFiles = sequence $ map (\x -> agdaListofFilePaths x) subDirNames
+      ioListofFiles = sequence $ map (\x -> agdaListAllFilePaths x) subDirNames
   listofFiles <- ioListofFiles
   return $ cleanFiles ++ concat listofFiles
 
 
+-- Now we need to clean the files for use. We want to remove the given file path, the extension, change all '/' into '.' and add "UniAgda." as a prefix
 
-replaceChar :: Char -> Char -> String -> String
-replaceChar _ _ "" = ""
-replaceChar c d (s:str)
-  | c == s    = d : replaceChar c d str
-  | otherwise = s : replaceChar c d str
+
+replace :: (Eq a) => a -> a -> [a] -> [a]
+replace _ _ [] = []
+replace c d (x:xs)
+  | c == x    = d : replace c d xs
+  | otherwise = x : replace c d xs
+
+
+-- really, we want to find the last string that this happens for
+findSubstringStart :: (Integral a) => String -> String -> a
+findSubstringStart "" _ = 0
+findSubstringStart _ "" = 0
+findSubstringStart word sentence
+  | word == take (length word) sentence = 0
+  | otherwise                           = findSubstringStart word (tail sentence) + 1
+
 
 uniAgdaFiles :: FilePath -> IO ([FilePath])
 uniAgdaFiles path = do
-  fileList <- agdaListofFilePaths path
-  let newList = map (drop (length "/home/james/Dropbox/Documents/Agda/Univalent-Agda/")) fileList
-      dotsNotSlashList = map (replaceChar '/' '.') newList
-  return dotsNotSlashList
+  filePathList <- agdaListAllFilePaths path
+  let fileList = map (drop (findSubstringStart "UniAgda" path)) filePathList
+      filesNoExt = map (reverse . drop (length ".lagda.org") . reverse) fileList
+      cleanedFiles = map (replace '/' '.') filesNoExt
+  return  cleanedFiles
 
 
+
+-- Given a file path, it makes the Everything.lagda.org file in that folder, importing everything in all sub directories
 makeEverythingFile :: FilePath -> IO ()
 makeEverythingFile path = do
   fileList <- uniAgdaFiles path
-  let imports = map (\x -> "open import " ++ x ++ " public\n") fileList
-  writeFile (path ++ "/Everything.lagda.org") $ concat $ [prelude] ++ imports ++ ["#+end_src"]
-    where
-      name = replaceChar '/' '.' $ drop (length "/home/james/Dropbox/Documents/Agda/Univalent-Agda/UniAgda/") path
-      prelude = if name == "" then "#+title: UniAgda.Everything\n#+author: James Leslie\n#+STARTUP: noindent hideblocks latexpreview\n* Imports\n#+begin_src agda2\n{-# OPTIONS --without-K --rewriting #-}\nmodule UniAgda.Everything where\n\n"
-        else "#+title: UniAgda." ++ name ++ ".Everything\n#+author: James Leslie\n#+STARTUP: noindent hideblocks latexpreview\n* Imports\n#+begin_src agda2\n{-# OPTIONS --without-K --rewriting #-}\nmodule UniAgda." ++ name ++ ".Everything where\n\n"
-
-
+  let fileName = path ++ "/Everything.lagda.org"
+      imports = map (\x -> "open import " ++ x ++ " public\n") fileList
+      title = replace '/' '.' $ drop (findSubstringStart "UniAgda" path) path
+      options = if "UniAgda/Core" `isSubsequenceOf` path then
+        "{-# OPTIONS --without-K --no-import-sorts #-}"
+        else
+        "{-# OPTIONS --without-K --rewriting --no-import-sorts #-}"
+      prelude = "#+title: " ++ title ++ ".Everything\n#+author: James Leslie\n#+STARTUP: noindent hideblocks latexpreview\n* Imports\n#+begin_src agda2\n" ++ options ++ "\nmodule " ++ title ++ ".Everything where\n\n"
+      contents = concat $ [prelude] ++ imports ++ ["#+end_src"]
+  writeFile fileName contents
 
 listofDirs :: FilePath -> IO ([FilePath])
 listofDirs path = do
   contents <- listDirectory path
-  let (files, dirs) = partition (\xs -> '.' `elem` xs) contents
+  let dirs = snd $ partition (\xs -> '.' `elem` xs) contents
       cleanDirs = cleaningDirs dirs
       subDirNames = map ((path ++ "/") ++) cleanDirs
       ioListofDirs = sequence $ map (\x -> listofDirs x) subDirNames
   list <- ioListofDirs
   return $ subDirNames ++ concat list
 
+main :: IO [()]
 main = do
-  dirs <- listofDirs path
+  args <- getArgs
+  dirs <- listofDirs (args !! 0)
   sequence $ map makeEverythingFile $ dirs
-  where
-    path = "/home/james/Dropbox/Documents/Agda/Univalent-Agda"
