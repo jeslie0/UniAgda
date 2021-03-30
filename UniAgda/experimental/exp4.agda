@@ -9,3 +9,5 @@ record monoid {i : Level} : Type (lsuc i) where
     M : Type i
     _<>_ : M → M → M
     monoid-is-set : isSet M
+
+

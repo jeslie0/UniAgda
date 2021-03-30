@@ -23,7 +23,7 @@ private
 #+end_src
 
 * Definition
-We mostly use Lemma 6.9.1 to define the 0 truncation of a type, rather than the formal induction principle defined before it in the book. I haven't checked to see if they are equivalent, but hopefully they are. The one we use is easier to use in practice though.
+We mostly use Lemma 6.9.1 to define the 0 truncation of a type, rather than the formal induction principle defined before it in the book. I haven't checked to see if they are equivalent, but hopeisFully they are. The one we use is easier to use in practice though.
 #+name: Lemma6.9.1
 #+begin_src agda2
 postulate

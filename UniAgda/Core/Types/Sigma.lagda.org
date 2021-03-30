@@ -18,6 +18,7 @@ data Σ {i j : Level} (A : Type i) (B : A → Type j) : Type (i ⊔ j) where
 
 syntax Σ A (λ x → B) = Σ[ x ∈ A ] B
 infixr 4 _,_
+infixr 4 Σ
 #+end_src
 
 They come with projection functions for each component:
@@ -39,6 +40,7 @@ _×_ : ∀ {i j}
       (A : Type i) (B : Type j)
       → Type (i ⊔ j)
 A × B = Σ A (λ _ → B)
+infixr 4 _×_
 #+end_src
 ** If and only if
 We can define if and only if using product types.

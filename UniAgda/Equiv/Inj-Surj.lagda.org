@@ -14,7 +14,9 @@ open import UniAgda.Core.Types.Identity
 open import UniAgda.Core.Types.Sigma
 
 open import UniAgda.Core.PathAlgebra
+open import UniAgda.Core.Homotopy
 
+open import UniAgda.Core.Axioms
 open import UniAgda.Core.Equivalences
 
 open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type
@@ -29,42 +31,49 @@ open import UniAgda.HITs.PropTrunc
 #+end_src
 * Results
 #+begin_src agda2
-surjective : ∀ {i j} {A : Type i} {B : Type j}
+isSurjective : ∀ {i j} {A : Type i} {B : Type j}
        (f : A → B)
        → Type (i ⊔ j)
-surjective {i} {j} {A} {B} f = (b : B) → ∥ fib f b ∥ 
-isSurj = surjective
+isSurjective {i} {j} {A} {B} f = (b : B) → ∥ fib f b ∥ 
 
-surjective-is-prop : ∀ {i j} {A : Type i} {B : Type j}
+isSurjective-is-prop : ∀ {i j} {A : Type i} {B : Type j}
                      (f : A → B)
-                     → isProp (surjective f)
-surjective-is-prop f =
+                     → isProp (isSurjective f)
+isSurjective-is-prop f =
   prop-fibres-Pi-is-prop
-    λ b → Ptrunc-is-prop (fib f b)
+    λ b → prop-trunc-is-prop (fib f b)
 
 
 
-embedding : ∀ {i j} {A : Type i} {B : Type j}
+isEmbedding : ∀ {i j} {A : Type i} {B : Type j}
           (f : A → B)
           → Type (i ⊔ j)
-embedding {i} {j} {A} {B} f = (x y : A) → isEquiv (ap {i} {j} {A} {B} {x} {y} f)
+isEmbedding {i} {j} {A} {B} f = (x y : A) → isEquiv (ap {i} {j} {A} {B} {x} {y} f)
 
-embedding-is-prop : ∀ {i j} {A : Type i} {B : Type j}
+isEmbedding-is-prop : ∀ {i j} {A : Type i} {B : Type j}
           (f : A → B)
-          → isProp (embedding f)
-embedding-is-prop f =
+          → isProp (isEmbedding f)
+isEmbedding-is-prop f =
   prop-fibres-Pi-is-prop λ a →
     prop-fibres-Pi-is-prop λ b →
       isEquiv-is-prop (ap f)
 
-
-injective : ∀ {i j} {A : Set_ i} {B : Set_ j}
+isInjective : ∀ {i j} {A : Set_ i} {B : Set_ j}
             (f : pr₁ A → pr₁ B)
             → Type (i ⊔ j)
-injective {i} {j} {A , p} {B , q} f = (x y : A) → (f x ≡ f y) → (x ≡ y)
+isInjective {i} {j} {A , p} {B , q} f = (x y : A) → (f x ≡ f y) → (x ≡ y)
+
+isInjective-is-prop : ∀ {i j} {A : Set_ i} {B : Set_ j}
+                    (f : pr₁ A → pr₁ B)
+                    → isProp (isInjective {A = A} {B = B} f)
+isInjective-is-prop {i} {j} {A , X} {B , Y} f =
+  prop-fibres-Pi-is-prop λ x →
+    prop-fibres-Pi-is-prop λ y →
+      func-of-props-is-prop (X x y)
+
 
 thm4-6-3 : ∀ {i j} {A : Type i} {B : Type j} {f : A → B}
-           → isEquiv f ↔ (surjective f × embedding f)
+           → isEquiv f ↔ (isSurjective f × isEmbedding f)
 thm4-6-3 {i} {j} {A} {B} {f} =
          (λ x → (λ b → ∣ pr₁ (isEquiv-to-isContrmap x b) ∣) , λ a b → thm2-11-1 x) ,
          λ { (X , Y) → isContrmap-to-isEquiv λ y →
@@ -86,13 +95,13 @@ thm4-6-3 {i} {j} {A} {B} {f} =
 
 cor4-6-4 : ∀ {i j} {A : Type i} {B : Type j}
            (f : A → B)
-           → isEquiv f ≃ (surjective f × embedding f)
+           → isEquiv f ≃ (isSurjective f × isEmbedding f)
 cor4-6-4 f =
   props-equiv
     (isEquiv-is-prop f)
     (prod-of-props-is-prop
-      (surjective-is-prop f)
-      (embedding-is-prop f))
+      (isSurjective-is-prop f)
+      (isEmbedding-is-prop f))
     (pr₁ (thm4-6-3 {f = f}))
     (pr₂ (thm4-6-3 {f = f}))
 #+end_src

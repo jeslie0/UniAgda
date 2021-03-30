@@ -13,6 +13,9 @@ open import UniAgda.Core.Types.Functions
 open import UniAgda.Core.Types.Identity
 open import UniAgda.Core.Types.Sigma
 
+open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type
+open import UniAgda.Core.SetsAndLogic.Props
+
 open import UniAgda.Core.PathSpaces.Sigma
 
 open import UniAgda.Core.Axioms
@@ -21,6 +24,8 @@ open import UniAgda.Equiv.Inj-Surj
 open import UniAgda.Logic.Exists
 
 open import UniAgda.Core.Equivalences
+
+open import UniAgda.HITs.PropTrunc
 
 open import UniAgda.Categories.Category
 open import UniAgda.Categories.Functor
@@ -95,23 +100,65 @@ isCatEquiv-sig-Equiv = equiv-adjointify
   isCatEquiv-rec→sig→rec ,
   isCatEquiv-sig→rec→sig)
 #+end_src
-** Fully faithful, essentially surjective
+** Natural transformation version
+In category theory, one usually defines an equivalence of categories by giving two functors which are pseudo-inverses. This is a result in our setup.
+#+name:Lemma9.4.2
 #+begin_src agda2
-faithful : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
+
+#+end_src   
+
+** Fully faithful, essentially surjective
+
+#+name: Definition9.4.3
+#+begin_src agda2
+isFaithful : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
            (F : Functor A B)
            → Type (i ⊔ j ⊔ l)
-faithful {A = A} {B = B} F = (a b : Precategory.ob A) → injective {A = (A [ a , b ]) , (Precategory.hom-set A a b)} {B = (B [ Functor.F₀ F a , Functor.F₀ F b ]) , Precategory.hom-set B (Functor.F₀ F a) (Functor.F₀ F b)} (Functor.F₁ F {a = a} {b = b})
+isFaithful {A = A} {B = B} F = (a b : Precategory.ob A) → isInjective {A = (A [ a , b ]) , (Precategory.hom-set A a b)} {B = (B [ Functor.F₀ F a , Functor.F₀ F b ]) , Precategory.hom-set B (Functor.F₀ F a) (Functor.F₀ F b)} (Functor.F₁ F {a = a} {b = b})
 
-full : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
+isFaithful-is-prop : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
+                     (F : Functor A B)
+                     → isProp (isFaithful F)
+isFaithful-is-prop {A = A} {B = B} F =
+  let module A = Precategory A
+      module B = Precategory B
+      module F = Functor F in
+  prop-fibres-Pi-is-prop λ x →
+    prop-fibres-Pi-is-prop λ y →
+      isInjective-is-prop
+        {A = (A.hom x y , A.hom-set x y)}
+        {B = (B.hom (F.₀ x) (F.₀ y) , B.hom-set (F.₀ x) (F.₀ y))}
+        F.₁
+
+isFull : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
        (F : Functor A B)
        → Type (i ⊔ j ⊔ l)
-full {A = A} {B = B} F = (a b : Precategory.ob A) → surjective (Functor.F₁ F {a} {b})
+isFull {A = A} {B = B} F = (a b : Precategory.ob A) → isSurjective (Functor.F₁ F {a} {b})
 
-fully-faithful : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
+isFull-is-prop : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
+                 (F : Functor A B)
+                 → isProp (isFull F)
+isFull-is-prop F =
+  prop-fibres-Pi-is-prop λ x →
+    prop-fibres-Pi-is-prop λ y →
+      isSurjective-is-prop (Functor.F₁ F)
+
+isFullyFaithful : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
                  (F : Functor A B)
                  → Type (i ⊔ j ⊔ l)
-fully-faithful {A = A} {B = B} F = full F × faithful F
+isFullyFaithful {A = A} {B = B} F = isFull F × isFaithful F
 
+isFullyFaithful-is-prop : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
+                          (F : Functor A B)
+                          → isProp (isFullyFaithful F)
+isFullyFaithful-is-prop F =
+  prod-of-props-is-prop
+    (isFull-is-prop F)
+    (isFaithful-is-prop F)
+#+end_src
+
+#+name: Definition9.4.4
+#+begin_src agda2
 split-essentially-surjective : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
                                (F : Functor A B)
                                → Type (i ⊔ k ⊔ l)
@@ -122,31 +169,49 @@ split-essentially-surjective {A = A} {B = B} F =
 #+end_src
 
 We aim to show that a equivalences fully faithful, split essentially surjective functions are equivalent as types.
+#+name: Lemma9.4.5
 #+begin_src agda2
 
 #+end_src
 
 As we are working constructively, essentially surjective by itself means that there merely exists an isomorphism, whilst split essentially surjective gives us a specific choice. We define the former here.
+#+name: Definition9.4.6i
 #+begin_src agda2
-essentially-surjective : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
+isEssentiallySurjective : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
                          (F : Functor A B)
                          → Type (i ⊔ k ⊔ l)
-essentially-surjective {A = A} {B = B} F =
+isEssentiallySurjective {A = A} {B = B} F =
   (b : Precategory.ob B) →
     ∃[ a ∈ (Precategory.ob A) ] (
       Precategory.iso B (Functor.F₀ F a) b)
+
+isEssentiallySurjective-is-prop : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
+                                  (F : Functor A B)
+                                  → isProp (isEssentiallySurjective F)
+isEssentiallySurjective-is-prop F =
+  prop-fibres-Pi-is-prop λ b →
+    prop-trunc-is-prop _
 #+end_src
 
 This leads us to the notion of a weak equivalence between categories.
+#+name: Definition9.4.6ii
 #+begin_src agda2
-weak-equivalence : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
+isWeakEquivalence : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
                    (F : Functor A B)
                    → Type (i ⊔ j ⊔ k ⊔ l)
-weak-equivalence F = fully-faithful F × essentially-surjective F
+isWeakEquivalence F = isFull F × isFaithful F × isEssentiallySurjective F
 #+end_src
 
 Being a weak equivalence is a proposition.
 #+begin_src agda2
-
+isWeakEquivalence-is-prop : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l}
+                            (F : Functor A B)
+                            → isProp (isWeakEquivalence F)
+isWeakEquivalence-is-prop {A = A} F =
+  prod-of-props-is-prop
+    (isFull-is-prop F)
+    (prod-of-props-is-prop
+      (isFaithful-is-prop F)
+      (isEssentiallySurjective-is-prop F))
 #+end_src
 

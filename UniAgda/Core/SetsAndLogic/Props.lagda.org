@@ -114,6 +114,14 @@ prop-fibres-Pi-is-prop : ∀ {i j} {A : Type i} {B : A → Type j}
 prop-fibres-Pi-is-prop F f g = funextD λ x → F x (f x) (g x)
 #+end_src
 
+This also gives us the non-dependant case.
+#+begin_src agda2
+func-of-props-is-prop : ∀ {i j} {A : Type i} {B : Type j}
+                        → isProp B
+                        → isProp (A → B)
+func-of-props-is-prop {B = B} F f g = funext λ x → F (f x) (g x)
+#+end_src
+
 ** Propositions are preserved under products
 Given a two proposition, their product is a proposition.
 #+begin_src agda2

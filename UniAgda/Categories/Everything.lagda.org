@@ -3,7 +3,7 @@
 #+STARTUP: noindent hideblocks latexpreview
 * Imports
 #+begin_src agda2
-{-# OPTIONS --without-K --no-import-sorts #-}
+{-# OPTIONS --without-K --rewriting --no-import-sorts #-}
 module UniAgda.Categories.Everything where
 
 open import UniAgda.Categories.Natural-Transformation public

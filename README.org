@@ -55,7 +55,7 @@ There are rough naming conventions that I try to follow.
     + [X] Finished Thm2.15.7
     + [ ] Finish pullbacks
   + [ ] Define horizontal composition of natural transformations, and whiskering.
-  + [ ] Category Theory
+  + [-] Category Theory
     - [ ] Theorem 9.2.5
     - [ ] Definition 9.2.7
     - [ ] Lemma 9.2.8
@@ -63,9 +63,9 @@ There are rough naming conventions that I try to follow.
     - [ ] Lemma 9.2.10
     - [ ] Lemma 9.2.11
     - [ ] Lemma 9.3.2
-    - [ ] Lemma 9.4.2
+    - [ ] [[file:UniAgda/Categories/Equivalences.lagda.org::Lemma9.4.2][Lemma 9.4.2]]
     - [ ] [[file:UniAgda/categories/equivalences.lagda.org::*Fully faithful, essentially surjective][Lemma 9.4.5]]
-    - [ ] [[file:UniAgda/categories/equivalences.lagda.org][Weak equivalence is a prop]]
+    - [X] [[file:UniAgda/categories/equivalences.lagda.org][Weak equivalence is a prop]]
 
 - Add in n-types.
 - Add in some more HITs - in particular n-truncation

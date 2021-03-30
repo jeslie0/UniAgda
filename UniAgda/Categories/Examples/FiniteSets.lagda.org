@@ -29,7 +29,7 @@ Following [[https://homotopytypetheory.org/2016/07/20/combinatorial-species-and-
 isFinite : ∀ {i}
            (A : Type i)
            → Type i
-isFinite A = ∥ (Σ[ n ∈ ℕ ] (A ≃ Fin n)) ∥
+isFinite A = Σ[ n ∈ ℕ ] ∥ (A ≃ Fin n) ∥
 #+end_src
 
 We then define the type of finite sets to be the appropriate \(\Sigma\)-type.
@@ -43,11 +43,11 @@ If a type \(A\) is a finite set, then it is indeed a set.
 #+begin_src agda2
 finite-sets-are-sets : ∀ {i} (A : Fin-set i)
                        → isSet (pr₁ A)
-finite-sets-are-sets (A , X) =
-  Ptrunc-rec
+finite-sets-are-sets (A , n , b) =
+  prop-trunc-rec
     (isSet-is-prop A)
-    (λ { (n , f) → equiv-with-set (f ^ᵉ) (Fin-n-is-set n)})
-    X
+    (λ x → equiv-with-set (x ^ᵉ) (Fin-n-is-set n))
+    b
 #+end_src
 * The precategory of finite sets
 #+begin_src agda2
