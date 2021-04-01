@@ -35,17 +35,17 @@ A natural transformation is a map between functors. We define it as a record.
 #+begin_src agda2
 record NaturalTransformation {i j k l : Level} {A : Precategory i j} {B : Precategory k l} (F G : Functor A B) : Type (i ⊔ j ⊔ l) where
   eta-equality
-  module F = Functor F
-  module G = Functor G
   field
-    α-ob : (x : A .ob) → B .hom (F.₀ x) (G.₀ x)
-    α-nat : {x y : A .ob} (f : A [ x , y ]) → (α-ob y) o⟨ B ⟩ (F.₁ f) ≡ (G.₁ f) o⟨ B ⟩ (α-ob x)
+    α-ob : (x : A .ob) → B .hom (F .F₀ x) (G .F₀ x)
+    α-nat : {x y : A .ob} (f : A [ x , y ]) → (α-ob y) o⟨ B ⟩ (F .F₁ f) ≡ (G .F₁ f) o⟨ B ⟩ (α-ob x)
+
+  open Functor
 #+end_src
 
 As precategories have sets of morphisms, the hom condition is a proposition. We use this later to show that there is a set of natural transformations between two functors.
 #+begin_src agda2
   α-hom-is-prop : {x y : A .ob}
-                  → isProp ((f : hom A x y) → comp B (α-ob y) (F.₁ f) ≡ comp B (G.₁ f) (α-ob x))
+                  → isProp ((f : hom A x y) → comp B (α-ob y) (F .F₁ f) ≡ comp B (G .F₁ f) (α-ob x))
   α-hom-is-prop = prop-fibres-Pi-is-prop λ f₁ → sets-have-prop-ids _ (B .hom-set _ _) _ _
 #+end_src
 

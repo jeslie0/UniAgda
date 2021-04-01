@@ -53,42 +53,42 @@ Functor-sig {i} {j} {k} {l} A B =
             ({a b c : A.ob} (g : A.hom b c) (f : A.hom a b) → F₁ (A.comp g f) ≡ B.comp (F₁ g) (F₁ f)))))
 
 functor-sig→rec : ∀ {i j k l}
-                  (A : Precategory i j) (B : Precategory k l)
+                  {A : Precategory i j} {B : Precategory k l}
                   → Functor-sig A B → Functor A B
-functor-sig→rec A B (F₀ , F₁ , F-id , F-comp) =
+functor-sig→rec (F₀ , F₁ , F-id , F-comp) =
   record { F₀ = F₀ ; F₁ = F₁ ; F-id = F-id ; F-comp = F-comp }
 
 functor-rec→sig : ∀ {i j k l}
-                  (A : Precategory i j) (B : Precategory k l)
+                  {A : Precategory i j} {B : Precategory k l}
                   → Functor A B → Functor-sig A B
-functor-rec→sig A B record { F₀ = F₀ ; F₁ = F₁ ; F-id = F-id ; F-comp = F-comp } =
+functor-rec→sig record { F₀ = F₀ ; F₁ = F₁ ; F-id = F-id ; F-comp = F-comp } =
   (F₀ ,
   F₁ ,
   F-id ,
   F-comp)
 
 functor-rec→sig→rec : ∀ {i j k l}
-                      (A : Precategory i j) (B : Precategory k l)
-                      → (F : Functor A B) → (functor-sig→rec A B o functor-rec→sig A B) F ≡ F
-functor-rec→sig→rec A B F = refl
+                      {A : Precategory i j} {B : Precategory k l}
+                      → (F : Functor A B) → (functor-sig→rec o functor-rec→sig) F ≡ F
+functor-rec→sig→rec F = refl
 
 functor-sig→rec→sig : ∀ {i j k l}
-                      (A : Precategory i j) (B : Precategory k l)
-                      → (F : Functor-sig A B) → (functor-rec→sig A B o functor-sig→rec A B) F ≡ F
-functor-sig→rec→sig A B (F₀ , F₁ , F-id , F-comp) =
+                      {A : Precategory i j} {B : Precategory k l}
+                      → (F : Functor-sig A B) → (functor-rec→sig o functor-sig→rec {A = A} {B = B}) F ≡ F
+functor-sig→rec→sig (F₀ , F₁ , F-id , F-comp) =
   path-equiv-sigma (refl ,
     (path-equiv-sigma (refl ,
       (path-equiv-sigma (refl ,
         refl)))))
 
 Functor-sig-Equiv : ∀ {i j k l}
-                    (A : Precategory i j) (B : Precategory k l)
+                    {A : Precategory i j} {B : Precategory k l}
                     → Functor-sig A B ≃ Functor A B
-Functor-sig-Equiv A B = equiv-adjointify
-  (functor-sig→rec A B ,
-  functor-rec→sig A B ,
-  functor-rec→sig→rec A B ,
-  functor-sig→rec→sig A B)
+Functor-sig-Equiv = equiv-adjointify
+  (functor-sig→rec ,
+  functor-rec→sig ,
+  functor-rec→sig→rec ,
+  functor-sig→rec→sig)
 #+end_src
 
 #+begin_src agda2
@@ -100,10 +100,10 @@ To show two functors are equal, it suffices to show only that they are equal on 
 Functor-path : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
                {F G : Functor A B} (p : F .F₀ ≡ G .F₀) (q : transport (λ F₀ →  Σ[ F₁ ∈ ({a b : A .ob} → A .hom a b → B .hom (F₀ a) (F₀ b))] (
           Σ[ F-id ∈ ({a : A .ob} → F₁ (A .Id {a}) ≡ (B .Id {F₀ a}))] (
-            ({a b c : A .ob} (g : A .hom b c) (f : A .hom a b) → F₁ (A .comp g f) ≡ B .comp (F₁ g) (F₁ f))))) p (pr₂ (functor-rec→sig A B F)) ≡ pr₂ (functor-rec→sig A B G))
+            ({a b c : A .ob} (g : A .hom b c) (f : A .hom a b) → F₁ (A .comp g f) ≡ B .comp (F₁ g) (F₁ f))))) p (pr₂ (functor-rec→sig F)) ≡ pr₂ (functor-rec→sig G))
                → F ≡ G
 Functor-path {A = A} {B = B} p q =
-  equiv-types-eq (Functor-sig-Equiv A B)
+  equiv-types-eq (Functor-sig-Equiv)
   (path-equiv-sigma (p ,
     (path-equiv-sigma (ap pr₁ q ,
       path-equiv-sigma (implicit-funext (λ x → B .hom-set _ _ _ _ _ _) ,
@@ -154,16 +154,16 @@ F₁ (Idᶠ {i} {j} {C}) = id
 F-id (Idᶠ {i} {j} {C}) = refl
 F-comp (Idᶠ {i} {j} {C}) g f = refl
 
-F-o-id : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F : Functor A B}
+F-o-Id : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F : Functor A B}
          → F ≡ compᶠ F Idᶠ
-F-o-id =
+F-o-Id =
   Functor-path
     refl
     refl
 
-id-o-F : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F : Functor A B}
+Id-o-F : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F : Functor A B}
          → F ≡ compᶠ Idᶠ F
-id-o-F {B = B} =
+Id-o-F {B = B} =
   Functor-path
     refl
     (path-equiv-sigma (refl ,

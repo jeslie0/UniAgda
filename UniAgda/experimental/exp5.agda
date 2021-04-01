@@ -7,48 +7,9 @@ open import UniAgda.Categories.Everything
 
 
 
-lemma : ∀ {i} → isSet (Prop_ i)
-lemma (A , X) (B , Y) =
-  equiv-base-Pi
-    thm2-7-2
-    λ { (p , b) → equiv-base-Pi thm2-7-2
-      λ { (q , c) → ap path-equiv-sigma (path-equiv-sigma ({!!} , {!!}))}}
 
 
 open Precategory
-
-Fin-set' : (i : Level) → Precategory lzero lzero
-ob (Fin-set' i) = ℕ
-hom (Fin-set' i) n m = Fin n → Fin m
-hom-set (Fin-set' i) n m = func-of-sets-is-set (Fin-n-is-set m)
-Id (Fin-set' i) = id
-comp (Fin-set' i) g f = g o f
-IdL (Fin-set' i) f = funext λ x → refl
-IdR (Fin-set' i) f = funext λ x → refl
-Assoc (Fin-set' i) f g h = funext λ x → refl
-
-
-test : ∀ (i) → Functor (Fin-set' i) (FIN-SET i)
-Functor.F₀ (test i) n = (raise i $ Fin n) , n , ∣ equiv-adjointify ((λ x →  map-inv-raise x) , ((λ x → map-raise  x) , ((λ {x → refl}) , λ { (map-raise x) → refl}))) ∣
-Functor.F₁ (test i) f (map-raise a) = map-raise (f a)
-Functor.F-id (test i) {a} = funext λ { (map-raise x) → refl}
-Functor.F-comp (test i) g f = funext λ { (map-raise x) → refl}
-
-
-foo : ∀ (i) → isCatEquiv (test i)
-isLeftAdjoint.Right (isCatEquiv.adj (foo i)) = {!!}
-isLeftAdjoint.unit (isCatEquiv.adj (foo i)) = {!!}
-isLeftAdjoint.counit (isCatEquiv.adj (foo i)) = {!!}
-isLeftAdjoint.left-triangle (isCatEquiv.adj (foo i)) = {!!}
-isLeftAdjoint.right-triangle (isCatEquiv.adj (foo i)) = {!!}
-isCatEquiv.unit-is-iso (foo i) = {!!}
-isCatEquiv.counit-is-iso (foo i) = {!!}
-
-
-
-
-
-
 
 ℜel : (i j : Level) → Precategory (lsuc i) (lsuc i)
 Precategory.ob (ℜel i j) = Set_ i
@@ -75,6 +36,21 @@ Precategory.IdR (ℜel i j) = {!!}
 Precategory.Assoc (ℜel i j) = {!!}
 
 
+
+CAT : (i j : Level) → Precategory (lsuc i ⊔ lsuc j) (i ⊔ j)
+ob (CAT i j) = Precategory i j
+hom (CAT i j) A B = Functor A B
+hom-set (CAT i j) A B =
+  equiv-with-set
+    (Functor-sig-Equiv A B)
+    λ {(F₀ , F₁ , Fa) (G₀ , G₁ , Ga) → equiv-base-Pi thm2-7-2
+      λ { (p , q) → equiv-base-Pi thm2-7-2
+        λ { (r , s) → ap path-equiv-sigma (path-equiv-sigma ({!!} , {!!}))}}}
+Id (CAT i j) = Idᶠ
+comp (CAT i j) = compᶠ
+IdL (CAT i j) F = F-o-Id ^
+IdR (CAT i j) F = Id-o-F ^
+Assoc (CAT i j) F G H = F-Assoc F G H ^
 
 
 
