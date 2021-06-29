@@ -34,7 +34,7 @@ ax2-9-3 = happly-isEquiv
 funext : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
          → f ~ g → f ≡ g
 funext = pr₁ ax2-9-3
-#+end_src 
+#+end_src
 
 We also have some results about funext.
 #+begin_src agda2
@@ -42,11 +42,11 @@ funext-equiv : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
                  → (f ≡ g) ≃ (f ~ g)
 funext-equiv = happly , ax2-9-3
 
-funext-happly-to-id : {i j : Level} {A : Type i} {B : Type j} {f g : A → B} 
+funext-happly-to-id : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
                        → funext o happly {i} {j} {A} {B} {f} {g} ≡ id
 funext-happly-to-id = funext (pr₁ ( (pr₂ happly-isEquiv)))
 
-happly-funext-to-id : {i j : Level} {A : Type i} {B : Type j} {f g : A → B} 
+happly-funext-to-id : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
                       → happly o funext {i} {j} {A} {B} {f} {g} ≡ id
 happly-funext-to-id = funext (pr₁ (pr₂ (pr₂ happly-isEquiv)))
 #+end_src
@@ -70,7 +70,7 @@ abstract
 funextD-equiv : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
                 → (f ≡ g) ≃ (f ~ g)
 funextD-equiv = happlyD , happlyD-isEquiv
-#+end_src  
+#+end_src
 ** Implicit Function Extensionality
 At times we will need to use a version of function extensionality that works with implicit arguments. We introduce this here.
 #+begin_src agda2
@@ -84,6 +84,29 @@ implicit-funext : ∀ {i j} {A : Type i} {B : A → Type j} {f g : {x : A} → B
                   → (λ {x} → f {x}) ≡ (λ {x} → g {x})
 implicit-funext {f = f} {g = g} H = ap implicit-eval (funextD {f = λ x → f{x}} {g = λ x → g{x}} H)
 #+end_src
+** Transport into a \(\Pi\)-type
+   #+name: Result 2.9.4
+   #+begin_src agda2
+   transport-into-func : ∀ {i j k} {X : Type i} {x₁ x₂ : X}
+                         (A : X → Type j)
+                         (B : X → Type k)
+                         (p : x₁ ≡ x₂)
+                         (f : A x₁ → B x₁)
+                         → transport (λ x → A x → B x) p f ≡ λ x → transport B p (f (transport A (p ^) x))
+   transport-into-func A B refl f = refl
+   #+end_src
+
+   #+name: Result 2.9.5
+   #+begin_src agda2
+   transport-into-Pi : ∀ {i j k} {X : Type i} {x₁ x₂ : X}
+                       (A : X → Type j)
+                       (B : (x : X) → A x → Type k)
+                       (p : x₁ ≡ x₂)
+                       (f : (a : A x₁) → B x₁ a)
+                       → (a : A x₂)
+                       → ((transport (λ x → (a' : A x) → B x a') p f) a) ≡ transport (λ w → B (pr₁ w) (pr₂ w)) ((path-equiv-sigma {i} {j} {X} {A} {x₂ , a} {x₁ , transport A (p ^) a} ((p ^) , refl)) ^) (f (transport A (p ^) a))
+   transport-into-Pi A B refl f a = refl
+   #+end_src
 * Univalence
 Univalence says that equivalence of types is equivalent to equality of types.
 #+begin_src agda2
@@ -110,7 +133,7 @@ ax2-10-3 = isequiv-adjointify (ua , hom₁ , hom₂)
 univalence : {i : Level} {A B : Type i}
              → (A ≡ B) ≃ (A ≃ B)
 univalence = id-to-eqv , ax2-10-3
-#+end_src  
+#+end_src
 
 We have the following rules that univalence satisfies.
 #+begin_src agda2
