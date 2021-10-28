@@ -203,19 +203,19 @@ Natural transformations also have a notion of horizontal composition.
 
 We can also whisker natural transformations with functors.
 #+begin_src agda2
-_▹_ : ∀ {i₁ i₂ i₃ i₄ i₅ i₆} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {C : Precategory i₅ i₆} {G H : Functor B C}
-        (γ : NaturalTransformation G H) (F : Functor A B)
-        → NaturalTransformation (compᶠ G F) (compᶠ H F)
-α-ob (γ ▹ F) a = γ .α-ob (F .F₀ a)
-α-nat (γ ▹ F) f = γ .α-nat (F .F₁ f)
+-- _▹_ : ∀ {i₁ i₂ i₃ i₄ i₅ i₆} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {C : Precategory i₅ i₆} {G H : Functor B C}
+--         (γ : NaturalTransformation G H) (F : Functor A B)
+--         → NaturalTransformation (compᶠ G F) (compᶠ H F)
+-- α-ob (γ ▹ F) a = γ .α-ob (F .F₀ a)
+-- α-nat (γ ▹ F) f = γ .α-nat (F .F₁ f)
 
-_◃_ : ∀ {i₁ i₂ i₃ i₄ i₅ i₆} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {C : Precategory i₅ i₆} {G H : Functor A B}
-      (F : Functor B C) (γ : NaturalTransformation G H) 
-      → NaturalTransformation (compᶠ F G) (compᶠ F H)
-α-ob (F ◃ γ) a = F .F₁ (γ .α-ob a)
-α-nat (_◃_ {G = G} {H = H} F γ) {x} {y} f =
-  F .F-comp (γ .α-ob y) (G .F₁ f) ^ ∘
-  ap (λ z → F₁ F z) (γ .α-nat f) ∘
-  F .F-comp (H .F₁ f) (γ .α-ob x)
+-- _◃_ : ∀ {i₁ i₂ i₃ i₄ i₅ i₆} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {C : Precategory i₅ i₆} {G H : Functor A B}
+--       (F : Functor B C) (γ : NaturalTransformation G H) 
+--       → NaturalTransformation (compᶠ F G) (compᶠ F H)
+-- α-ob (F ◃ γ) a = F .F₁ (γ .α-ob a)
+-- α-nat (_◃_ {G = G} {H = H} F γ) {x} {y} f =
+--   F .F-comp (γ .α-ob y) (G .F₁ f) ^ ∘
+--   ap (λ z → F₁ F z) (γ .α-nat f) ∘
+--   F .F-comp (H .F₁ f) (γ .α-ob x)
 #+end_src
 

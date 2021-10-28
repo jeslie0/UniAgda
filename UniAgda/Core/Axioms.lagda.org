@@ -13,6 +13,7 @@ open import UniAgda.Core.Types.Functions
 open import UniAgda.Core.Types.Identity
 open import UniAgda.Core.Types.Sigma
 
+open import UniAgda.Core.PathSpaces.Sigma
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
 open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type
@@ -43,12 +44,12 @@ funext-equiv : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
 funext-equiv = happly , ax2-9-3
 
 funext-happly-to-id : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
-                       → funext o happly {i} {j} {A} {B} {f} {g} ≡ id
-funext-happly-to-id = funext (pr₁ ( (pr₂ happly-isEquiv)))
+                       → funext o happly {i} {j} {A} {B} {f} {g} ~ id
+funext-happly-to-id = pr₁ ( (pr₂ happly-isEquiv))
 
 happly-funext-to-id : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
-                      → happly o funext {i} {j} {A} {B} {f} {g} ≡ id
-happly-funext-to-id = funext (pr₁ (pr₂ (pr₂ happly-isEquiv)))
+                      → happly o funext {i} {j} {A} {B} {f} {g} ~ id
+happly-funext-to-id = (pr₁ (pr₂ (pr₂ happly-isEquiv)))
 #+end_src
 ** Dependant Function Extensionality
 We also postulate a dependant version of function extensionality.
@@ -58,14 +59,20 @@ happlyD : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
 happlyD refl x₁ = refl
 
 postulate
-  happlyD-isEquiv : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
-                    → isEquiv (happlyD {i} {j} {A} {B} {f} {g})
-
-
-abstract
   funextD : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
-            → (f ~ g) → f ≡ g
-  funextD = pr₁ happlyD-isEquiv
+          → (f ~ g) → f ≡ g
+
+postulate
+  happlyD-funextD~Id : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
+                            → happlyD {i} {j} {A} {B} {f} {g} o funextD ~ id
+
+postulate
+  funextD-happlyD~Id : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
+                            → funextD {i} {j} {A} {B} {f} {g} o happlyD ~ id
+
+happlyD-isEquiv : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
+                    → isEquiv (happlyD {i} {j} {A} {B} {f} {g})
+happlyD-isEquiv = isequiv-adjointify (funextD , happlyD-funextD~Id , funextD-happlyD~Id)
 
 funextD-equiv : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
                 → (f ≡ g) ≃ (f ~ g)
@@ -83,30 +90,44 @@ implicit-funext : ∀ {i j} {A : Type i} {B : A → Type j} {f g : {x : A} → B
                   (H : (x : A) → f {x} ≡ g {x})
                   → (λ {x} → f {x}) ≡ (λ {x} → g {x})
 implicit-funext {f = f} {g = g} H = ap implicit-eval (funextD {f = λ x → f{x}} {g = λ x → g{x}} H)
+
+postulate
+  implicit-funext-is-equiv : {i j : Level} {A : Type i} {B : A → Type j} {f g : {x : A} → B x}
+                           → isEquiv (implicit-funext {i} {j} {A} {B} {f} {g})
+
+implicit-funext-equiv :  {i j : Level} {A : Type i} {B : A → Type j} {f g : {x : A} → B x}
+                            →  ((x : A) → f {x} ≡ g {x}) ≃ ( (λ {x} → f {x}) ≡ (λ {x} → g {x}))
+implicit-funext-equiv = implicit-funext , implicit-funext-is-equiv
+
+implicit-happly : {i j : Level} {A : Type i} {B : A → Type j} {f g : {x : A} → B x}
+                         → (λ {a} → f {a}) ≡ (λ {a} → g {a})
+                         → ((x : A) → f {x} ≡ g {x})
+implicit-happly {i} {j} {A} {B} {f} {g} = pr₁ (implicit-funext-is-equiv {i} {j} {A} {B} {f} {g})
 #+end_src
 ** Transport into a \(\Pi\)-type
    #+name: Result 2.9.4
    #+begin_src agda2
-   transport-into-func : ∀ {i j k} {X : Type i} {x₁ x₂ : X}
-                         (A : X → Type j)
-                         (B : X → Type k)
-                         (p : x₁ ≡ x₂)
-                         (f : A x₁ → B x₁)
-                         → transport (λ x → A x → B x) p f ≡ λ x → transport B p (f (transport A (p ^) x))
-   transport-into-func A B refl f = refl
+transport-into-func : ∀ {i j k} {X : Type i} {x₁ x₂ : X}
+                      (A : X → Type j)
+                      (B : X → Type k)
+                      (p : x₁ ≡ x₂)
+                      (f : A x₁ → B x₁)
+                      → transport (λ x → A x → B x) p f ≡ λ x → transport B p (f (transport A (p ^) x))
+transport-into-func A B refl f = refl
    #+end_src
 
    #+name: Result 2.9.5
    #+begin_src agda2
-   transport-into-Pi : ∀ {i j k} {X : Type i} {x₁ x₂ : X}
-                       (A : X → Type j)
-                       (B : (x : X) → A x → Type k)
-                       (p : x₁ ≡ x₂)
-                       (f : (a : A x₁) → B x₁ a)
-                       → (a : A x₂)
-                       → ((transport (λ x → (a' : A x) → B x a') p f) a) ≡ transport (λ w → B (pr₁ w) (pr₂ w)) ((path-equiv-sigma {i} {j} {X} {A} {x₂ , a} {x₁ , transport A (p ^) a} ((p ^) , refl)) ^) (f (transport A (p ^) a))
-   transport-into-Pi A B refl f a = refl
+transport-into-Pi : ∀ {i j k} {X : Type i} {x₁ x₂ : X}
+                    (A : X → Type j)
+                    (B : (x : X) → A x → Type k)
+                    (p : x₁ ≡ x₂)
+                    (f : (a : A x₁) → B x₁ a)
+                    → (a : A x₂)
+                    → ((transport (λ x → (a' : A x) → B x a') p f) a) ≡ transport (λ w → B (pr₁ w) (pr₂ w)) ((path-equiv-sigma {i} {j} {X} {A} {x₂ , a} {x₁ , transport A (p ^) a} ((p ^) , refl)) ^) (f (transport A (p ^) a))
+transport-into-Pi A B refl f a = refl
    #+end_src
+** Rules
 * Univalence
 Univalence says that equivalence of types is equivalent to equality of types.
 #+begin_src agda2

@@ -2,8 +2,9 @@
 module UniAgda.experimental.exp6 where
 
 open import UniAgda.Core.Everything
-open import UniAgda.Categories.Everything
-open import UniAgda.Categories.FunctorCat
+open import UniAgda.Categories.Category
+open import UniAgda.Categories.Functor
+-- open import UniAgda.Categories.FunctorCat
 
 
 open Precategory
@@ -71,7 +72,7 @@ lemma {i₁} {i₂} {i₃} {i₄} {A} {B} =
     (λ { ((F₀ , F₁) , (F-id , F-comp)) → F₀ , F₁ , F-id , F-comp}) ,
     (λ { ((F₀ , F₁) , (F-id , F-comp)) → path-equiv-sigma (refl , (path-equiv-sigma (refl , refl)))}) ,
     λ { (F₀ , F₁ , F-id , F-comp) → path-equiv-sigma (refl , (path-equiv-sigma (refl , (path-equiv-sigma (refl , refl)))))})
-  
+
 
 lemma2 : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
          (F G : Functor-swapsig A B)
@@ -95,59 +96,145 @@ lemma3 {A = A} {B = B} p =
       (lemma {A = A} {B = B} ^ᵉ)
       p)
 
-
-lemma9-1-9-redone : ∀ {i₁ i₂} {A : Precategory i₁ i₂} {a a' b b' : A .ob}
-                    (p : a ≡ a') (q : b ≡ b')
-                    → transport (A .hom {!!}) {!!} {!!}  ≡ {!!}
-lemma9-1-9-redone {A = A} = {!!}
-
-
-curryD : ∀ {i j} {A : Type i}
+uncurry : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k}
+         (f : A → B → C)
+         → A × B → C
+uncurry f (a , b) = f a b
+uncurryD : ∀ {i j} {A : Type i}
          (B : A → A → Type j)
          → A × A → Type j
-curryD B (a , b) = B b b
+uncurryD B (a , b) = B b b
 
 
-hehe : ∀ {i j k} {X : Type i} {x₁ x₂ : X}
-       (A : X → Type j) (B : X → Type k) (p : x₁ ≡ x₂) (f : A x₁ → B x₁)
-       → transport (λ x → A x → B x) p f ≡ λ x → transport B p (f (transport A (p ^) x))
-hehe A B refl f = refl
-
-haha : ∀ {i j k} {X : Type i} {x₁ x₂ : X}
-       (A : X → Type j) (B : (x : X) → A x → Type k) (p : x₁ ≡ x₂) (f : (a : A x₁) → B x₁ a)
-       → (a : A x₂) → transport (λ x → (a : A x) → B x a) p f a ≡ transport (λ (w : Σ[ x ∈ X ] A x) → B (pr₁ w) (pr₂ w)) (path-equiv-sigma ((p ^) , refl) ^) (f (transport A (p ^) a))
-haha A B refl f a = refl
-
-open NaturalTransformation
-open Functor
-
-help : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
-       (univB : isCategory B) (F G : (B ^ A) .ob)
-       → iso (B ^ A) F G → F .F₀ ≡ G .F₀
-help univB F G γ = funextD λ x → pr₁ (univB (F .F₀ x) (G .F₀ x)) (pr₁ γ .α-ob x , pr₁ (nat-trans-iso-components (pr₁ γ)) (pr₂ γ) x) 
 
 
-help1 : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
-       (univB : isCategory B) (F G : (B ^ A) .ob) (γ : iso (B ^ A) F G) (a : A .ob)
-       → happlyD (help univB F G γ) a ≡ pr₁ (univB (F .F₀ a) (G .F₀ a)) ((pr₁ γ .α-ob a) ,  pr₁ (nat-trans-iso-components (pr₁ γ)) (pr₂ γ) a)
-help1 univB F G γ a = {!!}
+
+implicit-explicit-families : ∀ {i j} {A : Type i}
+                             (B : {a : A} → Type j)
+                             → (a : A) → Type j
+implicit-explicit-families B a = B {a}
+
+explicit→implicit-families : ∀ {i j} {A : Type i}
+                             (B : (a : A) → Type j)
+                             → {a : A} → Type j
+explicit→implicit-families B {a} = B a
 
 
-functor-cat-γ' : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
-                 (univB : isCategory B) (F G : (B ^ A) .ob)
-                 → iso (B ^ A) F G → F ≡ G
-functor-cat-γ' {A = A} {B = B} univB F G γ =
-  let module A = Precategory A
-      module B = Precategory B
-      module F = Functor F
-      module G = Functor G
-      γ' = help univB F G γ
-  in
-  lemma3
-    (path-equiv-sigma (
-      path-equiv-sigma (γ' ,
-        implicit-funext λ a →
-        implicit-funext λ b →
-          {!haha !}) ,
-      path-equiv-sigma ((F-id-type-is-prop G _ G.F-id) ,
-        F-comp-type-is-prop G _ G.F-comp)))
+-- open NaturalTransformation
+-- open Functor
+
+-- help : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
+--        (univB : isCategory B) (F G : (B ^ A) .ob)
+--        → iso (B ^ A) F G → F .F₀ ≡ G .F₀
+-- help univB F G γ = funextD λ x → pr₁ (univB (F .F₀ x) (G .F₀ x)) (pr₁ γ .α-ob x , pr₁ (nat-trans-iso-components (pr₁ γ)) (pr₂ γ) x)
+
+
+-- help1 : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
+--        (univB : isCategory B) (F G : (B ^ A) .ob) (γ : iso (B ^ A) F G) (a : A .ob)
+--        → happlyD (help univB F G γ) a ≡ pr₁ (univB (F .F₀ a) (G .F₀ a)) ((pr₁ γ .α-ob a) ,  pr₁ (nat-trans-iso-components (pr₁ γ)) (pr₂ γ) a)
+-- help1 univB F G γ a = {!!}
+
+
+-- test : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
+--        → (λ F₂ → {a b : A .ob} → A .hom a b → B .hom (F₂ a) (F₂ b))
+--          ≡ (λ F₂ → (a b : A .ob) → A .hom a b → B .hom (F₂ a) (F₂ b))
+-- test {i₁} {i₂} {i₃} {i₄} {A} {B} = {!!}
+
+
+-- lemma2-3-11 : ∀ {i j k} {A : Type i} {x y : A} {P : A → Type j} {Q : A → Type k}
+--               (f : (x : A) → P x → Q x) (p : x ≡ y) (u : P x)
+--               → transport Q p (f x u) ≡ f y (transport P p u)
+-- lemma2-3-11 f refl u = refl
+
+
+
+
+
+-- functor-cat-γ' : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
+--                  (univB : isCategory B) (F G : (B ^ A) .ob)
+--                  → iso (B ^ A) F G → F ≡ G
+-- functor-cat-γ' {A = A} {B = B} univB F G γ =
+--   let module A = Precategory A
+--       module B = Precategory B
+--       module F = Functor F
+--       module G = Functor G
+--       γ' = help univB F G γ
+--   in
+--   lemma3
+--     (path-equiv-sigma (
+--       path-equiv-sigma (γ' ,
+--             implicit-funext λ a →
+--             implicit-funext λ b →
+--                {!!}) ,
+--       path-equiv-sigma ((F-id-type-is-prop G _ G.F-id) ,
+--         F-comp-type-is-prop G _ G.F-comp)))
+
+
+-- foo : ∀ {i j} {A : Type i} {C : A → A → Type j} {a a' b b' : A}
+--       (p : a ≡ a') (q : b ≡ b') (f : C a b)
+--       → transport (uncurry C) (path-equiv-prod (p , q)) f ≡ transport (λ x → transport (λ y → {!C x y!}) {!!} {!!}) p {!!}
+-- foo p q f = {!!}
+
+
+
+-- Functor-sig-exp : ∀ {i j k l}
+--           (A : Precategory i j) (B : Precategory k l)
+--           → Type (i ⊔ j ⊔ k ⊔ l)
+-- Functor-sig-exp {i} {j} {k} {l} A B =
+--   let module A = Precategory A in
+--     let module B = Precategory B in
+--       Σ[ F₀ ∈ ((A.ob) → (B.ob))] (
+--         Σ[ F₁ ∈ ((a b : A.ob) → A.hom a b → B.hom (F₀ a) (F₀ b))] (
+--           Σ[ F-id ∈ ((a : A.ob) → F₁ a a A.Id ≡ (B.Id {F₀ a}))] (
+--             ((a b c : A.ob) (g : A.hom b c) (f : A.hom a b) → F₁ a c (A.comp g f) ≡ B.comp (F₁ b c g) (F₁ a b f)))))
+
+
+-- Functor-sig-exp→rec : ∀ {i j k l}
+--                     {A : Precategory i j} {B : Precategory k l}
+--                     → Functor-sig-exp A B → Functor A B
+-- Functor.F₀ (Functor-sig-exp→rec (F₀ , F₁ , F-id , F-comp)) = F₀
+-- Functor.F₁ (Functor-sig-exp→rec (F₀ , F₁ , F-id , F-comp)) {a} {b} x = F₁ a b x
+-- Functor.F-id (Functor-sig-exp→rec (F₀ , F₁ , F-id , F-comp)) {a} = F-id a
+-- Functor.F-comp (Functor-sig-exp→rec (F₀ , F₁ , F-id , F-comp)) {a} {b} {c} g f = F-comp a b c g f
+
+-- Functor-rec→sig-exp : ∀ {i j k l}
+--                       {A : Precategory i j} {B : Precategory k l}
+--                       → Functor A B → Functor-sig-exp A B
+-- Functor-rec→sig-exp record { F₀ = F₀ ; F₁ = F₁ ; F-id = F-id ; F-comp = F-comp } =
+--   F₀ ,
+--   ((λ a b → F₁) ,
+--   ((λ a → F-id) ,
+--   (λ a b c → F-comp)))
+
+-- lol : ∀ {i j k l}
+--       {A : Precategory i j} {B : Precategory k l}
+--       → Functor-sig-exp→rec o Functor-rec→sig-exp ~ id
+-- lol record { F₀ = F₀ ; F₁ = F₁ ; F-id = F-id ; F-comp = F-comp } =
+--   refl
+
+-- lol' : ∀ {i j k l}
+--      {A : Precategory i j} {B : Precategory k l}
+--      → Functor-rec→sig-exp o Functor-sig-exp→rec ~ id
+-- lol' x =
+--   path-equiv-sigma (refl ,
+--     (path-equiv-sigma (refl ,
+--       (path-equiv-sigma (refl ,
+--         refl)))))
+
+
+-- func-equiv : ∀ {i j k l}
+--              {A : Precategory i j} {B : Precategory k l}
+--              → Functor-sig-exp A B ≃ Functor A B
+-- func-equiv = equiv-adjointify
+--   (Functor-sig-exp→rec , (Functor-rec→sig-exp , (lol , lol')))
+
+-- -- isTypeOf : ∀ {i} {A : Type i}
+-- --            (a : A)
+-- --            → Type i
+-- -- isTypeOf {A = A} a = A
+
+-- -- Func3-is-prop : ∀ {i j k l}
+-- --               {A : Precategory i j} {B : Precategory k l}
+-- --               → F : Fu
+-- --               → isProp ( ((a : A .ob) → F₁ a a A .Id ≡ (B .Id {F₀ a})))
+-- -- Func3-is-prop = ?

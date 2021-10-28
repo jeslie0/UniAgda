@@ -54,18 +54,23 @@ private
     path-equiv-sigma (refl , (Stdn x α β A B))
 
 
+Typeof : ∀ {i} {A : Type i}
+         (a : A)
+         → Type i
+Typeof {A = A} a = A
 
+open Precategory
+open Notion-of-Structure
 
-
-  sip-map1 : ∀ {i j k l}
-             (X : Precategory i j) (univ : isCategory X)
-             (PH : Notion-of-Structure {i} {j} {k} {l} X) (Stdn : Notion-of-Structure.isStandard PH)
-             (x y : Precategory.ob (Str PH) ) → Precategory.iso (Str PH) x y → x ≡ y
-  sip-map1 X univ PH Stdn (x , α) (y , β) ((f , F) , (g , G) , η , ϵ) =
-    let module X = Precategory X
-        p = pr₁ (univ x y) (f , g , ap pr₁ η , ap pr₁ ϵ)
-    in helper1 X PH Stdn (x , α) (y , β) p {!!} {!!}
-
+sip-map1 : ∀ {i j k l}
+           (X : Precategory i j) (univ : isCategory X)
+           (PH : Notion-of-Structure {i} {j} {k} {l} X) (Stdn : Notion-of-Structure.isStandard PH)
+           (x y : Precategory.ob (Str PH)) → Precategory.iso (Str PH) x y → x ≡ y
+sip-map1 X univ PH Stdn (x , α) (y , β) ((f , F) , (g , G) , η , ϵ) =
+  let p = pr₁ (univ x y) (f , g , ap pr₁ η , ap pr₁ ϵ)
+  in
+    path-equiv-sigma (p ,
+      {!Stdn!})
 
 
 

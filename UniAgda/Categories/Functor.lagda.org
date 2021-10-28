@@ -115,64 +115,63 @@ Functor-path {A = A} {B = B} p q =
 #+end_src
 * Functor composition
 #+begin_src agda2
-compᶠ : ∀ {i₁ i₂ i₃ i₄ i₅ i₆} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {C : Precategory i₅ i₆}
-          (G : Functor B C) (F : Functor A B)
-          → Functor A C
-F₀ (compᶠ G F) = G .F₀ o F .F₀
-F₁ (compᶠ G F) = G .F₁ o F .F₁
-F-id (compᶠ {C = C} G F) = transport (λ Z → G .F₁ (Z) ≡ C .Id) (F .F-id ^) (G .F-id)
-F-comp (compᶠ G F) g f = ap (G .F₁) (F. F-comp g f) ∘ G . F-comp (F .F₁ g) (F .F₁ f) 
+-- compᶠ : ∀ {i₁ i₂ i₃ i₄ i₅ i₆} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {C : Precategory i₅ i₆}
+--           (G : Functor B C) (F : Functor A B)
+--           → Functor A C
+-- F₀ (compᶠ G F) = G .F₀ o F .F₀
+-- F₁ (compᶠ G F) = G .F₁ o F .F₁
+-- F-id (compᶠ {C = C} G F) = transport (λ Z → G .F₁ (Z) ≡ C .Id) (F .F-id ^) (G .F-id)
+-- F-comp (compᶠ G F) g f = ap (G .F₁) (F. F-comp g f) ∘ G . F-comp (F .F₁ g) (F .F₁ f)
 
-_oF_ = compᶠ
-infixr 9 _oF_
+-- _oF_ = compᶠ
+-- infixr 9 _oF_
 #+end_src
 
 This composition is associative.
 #+begin_src agda2
-F-Assoc : ∀ {i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {C : Precategory i₅ i₆} {D : Precategory i₇ i₈}
-            (F : Functor A B) (G : Functor B C) (H : Functor C D)
-            → (H oF G) oF F ≡ H oF (G oF F)
-F-Assoc {D = D} F G H =
-  Functor-path
-    refl
-    (path-equiv-sigma (refl ,
-      (path-equiv-sigma (implicit-funext (λ x → D .hom-set _ _ _ _ _ _) ,
-        implicit-funext λ x →
-        implicit-funext λ y →
-        implicit-funext λ x₁ →
-        funextD λ x₂ →
-        funextD λ x₃ →
-          D .hom-set _ _ _ _ _ _))))
+-- F-Assoc : ∀ {i₁ i₂ i₃ i₄ i₅ i₆ i₇ i₈} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄} {C : Precategory i₅ i₆} {D : Precategory i₇ i₈}
+--             (F : Functor A B) (G : Functor B C) (H : Functor C D)
+--             → (H oF G) oF F ≡ H oF (G oF F)
+-- F-Assoc {D = D} F G H =
+--   Functor-path
+--     refl
+--     (path-equiv-sigma (refl ,
+--       (path-equiv-sigma (implicit-funext (λ x → D .hom-set _ _ _ _ _ _) ,
+--         implicit-funext λ x →
+--         implicit-funext λ y →
+--         implicit-funext λ x₁ →
+--         funextD λ x₂ →
+--         funextD λ x₃ →
+          -- D .hom-set _ _ _ _ _ _))))
 #+end_src
 
 * Identity functor
 #+begin_src agda2
-Idᶠ : ∀ {i j} {C : Precategory i j}
-      → Functor C C
-F₀ (Idᶠ {i} {j} {C}) = id
-F₁ (Idᶠ {i} {j} {C}) = id
-F-id (Idᶠ {i} {j} {C}) = refl
-F-comp (Idᶠ {i} {j} {C}) g f = refl
+-- Idᶠ : ∀ {i j} {C : Precategory i j}
+--       → Functor C C
+-- F₀ (Idᶠ {i} {j} {C}) = id
+-- F₁ (Idᶠ {i} {j} {C}) = id
+-- F-id (Idᶠ {i} {j} {C}) = refl
+-- F-comp (Idᶠ {i} {j} {C}) g f = refl
 
-F-o-Id : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F : Functor A B}
-         → F ≡ compᶠ F Idᶠ
-F-o-Id =
-  Functor-path
-    refl
-    refl
+-- F-o-Id : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F : Functor A B}
+--          → F ≡ compᶠ F Idᶠ
+-- F-o-Id =
+--   Functor-path
+--     refl
+--     refl
 
-Id-o-F : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F : Functor A B}
-         → F ≡ compᶠ Idᶠ F
-Id-o-F {B = B} =
-  Functor-path
-    refl
-    (path-equiv-sigma (refl ,
-      (path-equiv-sigma ((implicit-funext (λ x → B .hom-set _ _ _ _ _ _)) ,
-        implicit-funext λ x →
-        implicit-funext λ x₁ →
-        implicit-funext λ x₂ →
-        funextD λ x₃ →
-        funextD λ x₄ →
-          B .hom-set _ _ _ _ _ _))))
+-- Id-o-F : ∀ {i j k l} {A : Precategory i j} {B : Precategory k l} {F : Functor A B}
+--          → F ≡ compᶠ Idᶠ F
+-- Id-o-F {B = B} =
+--   Functor-path
+--     refl
+--     (path-equiv-sigma (refl ,
+--       (path-equiv-sigma ((implicit-funext (λ x → B .hom-set _ _ _ _ _ _)) ,
+--         implicit-funext λ x →
+--         implicit-funext λ x₁ →
+--         implicit-funext λ x₂ →
+--         funextD λ x₃ →
+--         funextD λ x₄ →
+--           B .hom-set _ _ _ _ _ _))))
 #+end_src
-

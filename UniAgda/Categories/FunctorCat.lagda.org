@@ -92,10 +92,11 @@ A result which will be central to the study of categories is the following: if A
 --   functor-cat-γ' : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}
 --                      (univB : isCategory B) (F G : (B ^ A) .ob)
 --                      → iso (B ^ A) F G → F ≡ G
---   functor-cat-γ' univB F G x =
---     Functor-path
---       {!pr₁ (pr₂ x)!}
---       {!!}
+--   functor-cat-γ' univB F G (α , αIsIso) =
+--     let αIsoComponents = lemma9-2-4i α αIsIso
+--     in Functor-path
+--     (funext (λ a → (pr₁ $ univB (F₀ F a) (F₀ G a)) ((α-ob α a) , (αIsoComponents a)) ))
+--     {!!}
 #+end_src
 #+begin_src agda2
 -- functor-cat-condition : ∀ {i₁ i₂ i₃ i₄} {A : Precategory i₁ i₂} {B : Precategory i₃ i₄}

@@ -112,6 +112,11 @@ prop-fibres-Pi-is-prop : ∀ {i j} {A : Type i} {B : A → Type j}
                          → ((x : A) → isProp (B x))
                          → isProp ((x : A) → B x)
 prop-fibres-Pi-is-prop F f g = funextD λ x → F x (f x) (g x)
+
+prop-fibres-Pi-is-prop-implicit : ∀ {i j} {A : Type i} {B : A → Type j}
+                         → ((x : A) → isProp (B x))
+                         → isProp ({x : A} → B x)
+prop-fibres-Pi-is-prop-implicit F f g = implicit-funext λ x → F x (f {x}) (g {x})
 #+end_src
 
 This also gives us the non-dependant case.

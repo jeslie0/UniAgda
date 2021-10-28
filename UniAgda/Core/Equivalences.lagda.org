@@ -149,7 +149,7 @@ qequiv-to-hae : {i j : Level} {A : Type i} {B : Type j}
                 → A ≃ B
 qequiv-to-hae X = (pr₁ X) , (qinv-to-ishae (pr₂ X))
 #+end_src
-   
+
 #+begin_src agda2
 ishae-to-qinv : ∀ {i j} {A : Type i} {B : Type j} {f : A → B}
                 → isHae f
@@ -223,7 +223,7 @@ infix 6 _bi≃_
 #+end_src
 ** Relation to qinv
 There are morphisms to and from the type of quasi inverses, which extend to maps between the types of equivalences.
-   
+
 #+begin_src agda2
 qinv-to-isBiinv : ∀ {i j} {A : Type i} {B : Type j} {f : A → B}
                 → qinv f
@@ -293,7 +293,7 @@ biequiv-trans : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Ty
                 → A bi≃ B → B bi≃ C
                 → A bi≃ C
 biequiv-trans X Y = qequiv-to-biequiv (qequiv-trans (biequiv-to-qequiv X) (biequiv-to-qequiv Y))
-#+end_src   
+#+end_src
 * Contractible fibres
 ** Definition
 We first need to define the fibre of a map and a point.
@@ -390,7 +390,7 @@ equiv-base-Sigma : ∀ {i j k} {A : Type i} {A' : Type j} {B : A → Type k}
                    → (Σ[ x' ∈ A' ] (B o pr₁ (pr₂ F) $ x')) → (Σ[ x ∈ A ] B x)
 equiv-base-Sigma (f , g , α , β , γ) (a' , b') = g a' , b'
 #+end_src
- 
+
 Note that with univalence, these types are equivalent (I don't know if we need univalence for this, but logical equivalence is sufficient for our needs).
 
 A result we expect is for the type of paths \(a = b\) to be equivalent to the type of paths \(b = a\).

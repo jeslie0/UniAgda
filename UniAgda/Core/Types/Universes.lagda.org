@@ -1,7 +1,7 @@
 #+title: UniAgda.Core.Types.Universes
 #+description: Universes
 #+author: James Leslie
-#+STARTUP: noindent hideblocks 
+#+STARTUP: noindent hideblocks
 #+OPTIONS: tex:t
 * Prelude
 #+begin_src agda2
@@ -22,4 +22,9 @@ data raise (l : Level) {l1 : Level} (A : Type l1) : Type (l1 ⊔ l) where
 map-inv-raise :
   {l l1 : Level} {A : Type l1} → raise l A → A
 map-inv-raise (map-raise x) = x
+
+typeOf : ∀ {i} {A : Type i}
+              (a : A)
+              → Type i
+typeOf {A = A} a = A
 #+end_src

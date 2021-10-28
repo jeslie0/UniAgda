@@ -22,7 +22,7 @@ path-sigma : ∀ {i j} {A : Type i} {P : A → Type j}
              {w w' : Σ[ x ∈ A ] (P x)}
              → (w ≡ w') → (Σ[ p ∈ (pr₁ w ≡ pr₁ w') ] (transport P p (pr₂ w) ≡ (pr₂ w')))
 path-sigma refl = refl , refl
-#+end_src  
+#+end_src
 
 #+begin_src agda2
 path-equiv-sigma : ∀ {i j} {A : Type i} {P : A → Type j}

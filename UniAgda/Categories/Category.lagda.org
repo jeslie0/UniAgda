@@ -225,7 +225,7 @@ comp' : ∀ {i j} (∁ : Precategory i j) {x y z : ∁ .ob}
       → ∁ [ x , z ]
 comp' ∁ g f = ∁ .comp g f
 
-infix 15 comp'
+infixr 15 comp'
 syntax comp' C g f = g o⟨ C ⟩ f
 
 #+end_src
@@ -279,10 +279,10 @@ We also have the following few lemmas that hold in categories. The first says th
   hom' : (∁ .ob × ∁ .ob) → Type j
   hom' (a , b) = hom ∁ a b
 
-  lemma3-9 : {a a' b b' : ∁ .ob}
+  lemma9-1-9 : {a a' b b' : ∁ .ob}
              (p : a ≡ a') (q : b ≡ b') (f : ∁ [ a , b ])
              → transport hom' (path-equiv-prod (p , q)) f ≡ ((pr₁ (id-to-iso ∁ q)) o⟨ ∁ ⟩ f) o⟨ ∁ ⟩ pr₁ (iso-sym ∁ (id-to-iso ∁ p))
-  lemma3-9 refl refl f = IdR ∁ f ^ ∘ IdL ∁ (Id ∁ o⟨ ∁ ⟩ f ) ^
+  lemma9-1-9 refl refl f = IdR ∁ f ^ ∘ IdL ∁ (Id ∁ o⟨ ∁ ⟩ f ) ^
 
   id-to-iso^ : {a b : ∁ .ob}
                   (p : a ≡ b)
@@ -357,7 +357,6 @@ Category-sig-equiv =
 
 * Opposite category
 We define the opposite of a category and show that \((C ^\text{op})^\text{op} = C\).
-
 #+begin_src agda2
 _^op : ∀ {i j} (C : Precategory i j)
        → Precategory i j

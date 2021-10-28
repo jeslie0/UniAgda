@@ -5,7 +5,7 @@
 #+OPTIONS: tex@t
 * Prelude
 #+begin_src agda2
-{-# OPTIONS --without-K --safe --no-import-sorts #-}
+{-# OPTIONS --without-K --no-import-sorts #-}
 module UniAgda.Core.PathSpaces.Identity where
 
 
@@ -17,6 +17,9 @@ open import UniAgda.Core.Types.Sigma
 open import UniAgda.Core.PathAlgebra
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
+
+open import UniAgda.Core.PathSpaces.Sigma
+open import UniAgda.Core.Axioms
 #+end_src
 * Paths in Identity Types
 #+begin_src agda2
@@ -109,5 +112,44 @@ thm2-11-5 : {i : Level} {A : Type i} {a a' : A}
             → (transport (λ x → (x ≡ x)) p q ≡ r) ≃ (q ∘ p ≡ p ∘ r)
 thm2-11-5 refl q r = equiv-adjointify ((λ { x → p-refl q ∘ x}) , (λ { x → p-refl q ^ ∘ x}) ,
   (λ { refl → prefl-o-prefl^ {_} {_} {_} {q}}) , λ {refl → prefl^-o-prefl {_} {_} {_} {q}})
+
+
+
+Sigma-path-paths : ∀ {i₁ i₂}{A : Type i₁} {B : A → Type i₂}
+                   {X Y : Σ A B}
+                   {p q : X ≡ Y}
+                   → (p ≡ q) ≃ (Σ[ s ∈ pr₁ (path-sigma p) ≡ pr₁ (path-sigma q) ] transport (λ v →  transport B v (pr₂ X) ≡ pr₂ Y) s (pr₂ (path-sigma p)) ≡ (pr₂ (path-sigma q)))
+Sigma-path-paths = (ap path-sigma , thm2-11-1 (pr₂ (thm2-7-2))) oₑ  thm2-7-2
+
+
+Pi-path-paths : ∀ {i₁ i₂} {A : Type i₁} {B : A → Type i₂}
+                {f g : (a : A) → B a}
+                {p q : f ≡ g}
+                → (p ≡ q) ≃ (happlyD p ~ happlyD q)
+Pi-path-paths = ((ap happlyD) , thm2-11-1 (pr₂ (funextD-equiv))) oₑ funextD-equiv
+
+Pi-path-paths-implicit : ∀ {i₁ i₂} {A : Type i₁} {B : A → Type i₂}
+                {f g : {a : A} → B a}
+                {p q : (λ {a} → f {a}) ≡ (λ {a} → g {a})}
+                → (p ≡ q) ≃ (implicit-happly p ~ implicit-happly q)
+Pi-path-paths-implicit = ((ap implicit-happly) , thm2-11-1 (pr₂ (implicit-funext-equiv ^ᵉ))) oₑ
+  equiv-adjointify
+    ((λ P x → happlyD P x ) ,
+    (λ Q → funextD λ x → Q x) ,
+    (λ Q → happlyD-funextD~Id λ x → Q x) ,
+    λ P → funextD-happlyD~Id P)
+
 #+end_src
 
+#+begin_src agda2
+ap-of-equiv : ∀ {i₁ i₂} {A : Type i₁} {B : Type i₂} {x y : A}
+              (p q : x ≡ y)
+              (f : A → B)
+              → isEquiv f
+              → ap f p ≡ ap f q
+              → p ≡ q
+ap-of-equiv {x = x} {y = y} p q f X P =
+    equiv-types-eq
+      (((ap f) , (thm2-11-1 {a = x} {a' = y} X)) ^ᵉ)
+      P
+#+end_src
