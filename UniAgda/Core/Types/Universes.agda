@@ -1,16 +1,8 @@
-#+title: UniAgda.Core.Types.Universes
-#+description: Universes
-#+author: James Leslie
-#+STARTUP: noindent hideblocks
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts --safe --no-import-sorts #-}
 module UniAgda.Core.Types.Universes where
-#+end_src
-* Universes
-This is mostly taken from the Cubical library and Egbert Rijke's HoTT library.
-#+begin_src agda2
+
+-- This is mostly taken from the Cubical library and Egbert Rijke's HoTT library.
+
 open import Agda.Primitive public
   using    ( Level ; lzero ; lsuc ; _⊔_)
   renaming ( Set  to Type
@@ -27,4 +19,3 @@ typeOf : ∀ {i} {A : Type i}
               (a : A)
               → Type i
 typeOf {A = A} a = A
-#+end_src

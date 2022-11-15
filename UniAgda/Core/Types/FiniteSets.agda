@@ -1,9 +1,3 @@
-#+title: UniAgda.Core.Types.FiniteSets
-#+author: James Leslie
-#+OPTIONS: tex:t
-#+STARTUP: noindent hideblocks latexpreview
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts #-}
 module UniAgda.Core.Types.FiniteSets where
 
@@ -13,13 +7,10 @@ open import UniAgda.Core.Types.Nat
 open import UniAgda.Core.Types.Empty
 open import UniAgda.Core.Types.Unit
 open import UniAgda.Core.Types.Coproduct
-#+end_src
-* Finite sets
-We give the definition of the \(n\)th ordinal.
-#+begin_src agda2
+
+-- We give the definition of the nth ordinal
 Fin : ℕ → Type lzero
 Fin zero = Empty
 Fin (suc n) = Fin n + Unit
-#+end_src
 
-We will prove that these are sets in a different file.
+-- We will prove that these are sets in a different file.

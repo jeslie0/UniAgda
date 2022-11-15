@@ -1,35 +1,24 @@
-#+title: UniAgda.Core.Types.Coproduct
-#+description: Coproduct Types
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts --safe --no-import-sorts #-}
 module UniAgda.Core.Types.Coproduct where
 
 open import UniAgda.Core.Types.Universes
-#+end_src
-* Coproduct Types
-The coproduct of two types is defined inductively by elements from each type.
-#+begin_src agda2
+
+-- The coproduct of two types is defined inductively by elements from
+-- each type.
 data _+_ {i j : Level} (A : Type i) (B : Type j) : Type (i ⊔ j) where
   inl : A → A + B
   inr : B → A + B
-#+end_src
-* Induction
-The induction principle can be defined as follows:
-#+begin_src agda2
+
+-- * Induction
 coproduct-ind : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k}
              → (A → C) → (B → C)
              → A + B → C
 coproduct-ind x x₁ (inl x₂) = x x₂
 coproduct-ind x x₁ (inr x₂) = x₁ x₂
-#+end_src
-* Coproduct commutes
-#+begin_src agda2
+
+-- * Commutativity
+-- The coproduct is commutative.
 coprod-swap : ∀ {i j} {A : Type i} {B : Type j}
               → A + B → B + A
 coprod-swap (inl x) = inr x
 coprod-swap (inr x) = inl x
-#+end_src

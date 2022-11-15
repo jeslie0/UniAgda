@@ -1,19 +1,9 @@
-#+title: UniAgda.Core.Types.W
-#+description: W types
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts --safe --no-import-sorts #-}
 module UniAgda.Core.Types.W where
 
 open import UniAgda.Core.Types.Universes
-#+end_src
-* W Types
-#+begin_src agda2
+
 data W {i j : Level} (A : Type i) (B : A → Type j) : Type (i ⊔ j) where
   sup : (a : A) → (B a → W A B) → W A B
 
 syntax W A (λ x → B) = W[ x ∈ A ] B
-#+end_src

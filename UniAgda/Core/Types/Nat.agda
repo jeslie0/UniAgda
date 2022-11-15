@@ -1,46 +1,33 @@
-#+title: UniAgda.Core.Types.Nat
-#+description: The Natural Numbers
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --safe --no-import-sorts #-}
 module UniAgda.Core.Types.Nat where
 
 open import UniAgda.Core.Types.Universes
-#+end_src
-* The Natural Numbers
-The natural numbers are defined inductively by zero and the successor function.
-#+begin_src agda2
+-- * The Natural Numbers
+-- The natural numbers are defined inductively by zero and the
+-- successor function.
 data ℕ  : Type lzero where
   zero : ℕ
   suc : ℕ -> ℕ
 {-# BUILTIN NATURAL ℕ #-}
-#+end_src
-* Addition, subtraction, multiplication and exponentiation
-The standard functions on \(\mathbb N\) are defined recursively.
-#+begin_src agda2
+
+-- * Addition, subtraction, multiplication and exponentiation
+-- The standard functions on \(\mathbb N\) are defined recursively.
 plus : ℕ → ℕ → ℕ
 plus zero m = m
 plus (suc n) m = suc (plus n m)
 {-# BUILTIN NATPLUS plus #-}
-#+end_src  
-#+begin_src agda2
+
 minus : ℕ → ℕ → ℕ
 minus n zero = n
 minus zero (suc m) = zero
 minus (suc n) (suc m) = minus n m
 {-# BUILTIN NATMINUS minus #-}
-#+end_src
-#+begin_src agda2
+
 times : ℕ → ℕ → ℕ
 times zero m = zero
 times (suc n) m = plus (times n m) m
 {-# BUILTIN NATTIMES times #-}
-#+end_src
-#+begin_src agda2
+
 power : ℕ → ℕ → ℕ
 power n zero = suc zero
 power n (suc m) = times (power n m) n
-#+end_src

@@ -1,28 +1,16 @@
-#+title: UniAgda.Core.Types.Sigma
-#+description: Sigma Types
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts --safe --no-import-sorts #-}
 module UniAgda.Core.Types.Sigma where
 
 open import UniAgda.Core.Types.Universes
-#+end_src
-* Sigma Types
-We define the dependant pair inductively, rather than as a record.
-#+begin_src agda2
+-- We define the dependant pair inductively, rather than as a record.
 data Σ {i j : Level} (A : Type i) (B : A → Type j) : Type (i ⊔ j) where
   _,_ : (a : A) → (b : B a) → Σ A B
 
 syntax Σ A (λ x → B) = Σ[ x ∈ A ] B
 infixr 4 _,_
 infixr 4 Σ
-#+end_src
 
-They come with projection functions for each component:
-#+begin_src agda2
+-- They come with projection functions for each component:
 pr₁ : ∀ {i j} {A : Type i} {B : A → Type j}
       → Σ A B
       → A
@@ -32,19 +20,18 @@ pr₂ : ∀ {i j} {A : Type i} {B : A → Type j}
       (w : Σ A B)
       → B (pr₁ w)
 pr₂ (a , b) = b
-#+end_src
-* Product Types
-We define product types to be a special case of Sigma types, meaning we can apply results about Sigma types straight to product types.
-#+begin_src agda2
+
+-- *Product Types
+-- We define product types to be a special case of Sigma types,
+-- meaning we can apply results about Sigma types straight to product
+-- types.
 _×_ : ∀ {i j}
       (A : Type i) (B : Type j)
       → Type (i ⊔ j)
 A × B = Σ A (λ _ → B)
 infixr 4 _×_
-#+end_src
-** If and only if
-We can define if and only if using product types.
-#+begin_src agda2
+
+-- * If and only if
+-- We can define if and only if using product types.
 _↔_ : ∀ {i j} (A : Type i) (B : Type j) → Type (i ⊔ j)
 A ↔ B = (A → B) × (B → A)
-#+end_src

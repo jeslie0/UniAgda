@@ -1,10 +1,3 @@
-#+title: UniAgda.Core.Axioms
-#+description: Axioms
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts #-}
 module UniAgda.Core.Axioms where
 
@@ -17,11 +10,12 @@ open import UniAgda.Core.PathSpaces.Sigma
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
 open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type
-#+end_src
-* Function Extensionality
-** Function Extensionality
-We add in the axiom that two functions are equal when they are homotopic.
-#+begin_src agda2
+
+-- * Function Extensionality
+-- Function Extensionality states that two functions are equal exactly
+-- when they are homotopic. This isn't provable and needs to be given
+-- as an axiom.
+
 happly : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
          → f ≡ g → f ~ g
 happly refl = hrefl
@@ -35,10 +29,7 @@ ax2-9-3 = happly-isEquiv
 funext : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
          → f ~ g → f ≡ g
 funext = pr₁ ax2-9-3
-#+end_src
 
-We also have some results about funext.
-#+begin_src agda2
 funext-equiv : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
                  → (f ≡ g) ≃ (f ~ g)
 funext-equiv = happly , ax2-9-3
@@ -50,10 +41,10 @@ funext-happly-to-id = pr₁ ( (pr₂ happly-isEquiv))
 happly-funext-to-id : {i j : Level} {A : Type i} {B : Type j} {f g : A → B}
                       → happly o funext {i} {j} {A} {B} {f} {g} ~ id
 happly-funext-to-id = (pr₁ (pr₂ (pr₂ happly-isEquiv)))
-#+end_src
-** Dependant Function Extensionality
-We also postulate a dependant version of function extensionality.
-#+begin_src agda2
+
+-- ** Dependant Function Extensionality
+-- We also postulate a dependant version of function extensionality.
+
 happlyD : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
           → f ≡ g → f ~ g
 happlyD refl x₁ = refl
@@ -77,10 +68,10 @@ happlyD-isEquiv = isequiv-adjointify (funextD , happlyD-funextD~Id , funextD-hap
 funextD-equiv : {i j : Level} {A : Type i} {B : A → Type j} {f g : (x : A) → B x}
                 → (f ≡ g) ≃ (f ~ g)
 funextD-equiv = happlyD , happlyD-isEquiv
-#+end_src
-** Implicit Function Extensionality
-At times we will need to use a version of function extensionality that works with implicit arguments. We introduce this here.
-#+begin_src agda2
+
+-- ** Implicit Function Extensionality
+-- At times we will need to use a version of function extensionality
+-- that works with implicit arguments. We introduce this here.
 private
   implicit-eval : ∀ {i j} {A : Type i} {B : A → Type j}
                   → ((x : A) → B x) → {x : A} → B x
@@ -103,10 +94,9 @@ implicit-happly : {i j : Level} {A : Type i} {B : A → Type j} {f g : {x : A} �
                          → (λ {a} → f {a}) ≡ (λ {a} → g {a})
                          → ((x : A) → f {x} ≡ g {x})
 implicit-happly {i} {j} {A} {B} {f} {g} = pr₁ (implicit-funext-is-equiv {i} {j} {A} {B} {f} {g})
-#+end_src
-** Transport into a \(\Pi\)-type
-   #+name: Result 2.9.4
-   #+begin_src agda2
+
+-- ** Transport into Π types
+-- Result 2.9.4
 transport-into-func : ∀ {i j k} {X : Type i} {x₁ x₂ : X}
                       (A : X → Type j)
                       (B : X → Type k)
@@ -114,10 +104,8 @@ transport-into-func : ∀ {i j k} {X : Type i} {x₁ x₂ : X}
                       (f : A x₁ → B x₁)
                       → transport (λ x → A x → B x) p f ≡ λ x → transport B p (f (transport A (p ^) x))
 transport-into-func A B refl f = refl
-   #+end_src
 
-   #+name: Result 2.9.5
-   #+begin_src agda2
+-- Result 2.9.5
 transport-into-Pi : ∀ {i j k} {X : Type i} {x₁ x₂ : X}
                     (A : X → Type j)
                     (B : (x : X) → A x → Type k)
@@ -126,11 +114,15 @@ transport-into-Pi : ∀ {i j k} {X : Type i} {x₁ x₂ : X}
                     → (a : A x₂)
                     → ((transport (λ x → (a' : A x) → B x a') p f) a) ≡ transport (λ w → B (pr₁ w) (pr₂ w)) ((path-equiv-sigma {i} {j} {X} {A} {x₂ , a} {x₁ , transport A (p ^) a} ((p ^) , refl)) ^) (f (transport A (p ^) a))
 transport-into-Pi A B refl f a = refl
-   #+end_src
-** Rules
-* Univalence
-Univalence says that equivalence of types is equivalent to equality of types.
-#+begin_src agda2
+
+
+-- * Univalence
+-- The Univalence Axiom is the heart of Homotopy Type Theory. It
+-- states that equality of types is equivalent to equivalence of
+-- types. This captures the notion of two objects being equal when
+-- they're isomorphic. In particular, it states that a certain
+-- function is an equivalence.
+
 id-to-eqv : {i : Level} {A B : Type i}
             → A ≡ B → A ≃ B
 id-to-eqv refl = erefl
@@ -154,10 +146,10 @@ ax2-10-3 = isequiv-adjointify (ua , hom₁ , hom₂)
 univalence : {i : Level} {A B : Type i}
              → (A ≡ B) ≃ (A ≃ B)
 univalence = id-to-eqv , ax2-10-3
-#+end_src
 
-We have the following rules that univalence satisfies.
-#+begin_src agda2
+-- ** Computation Rules
+-- Univalence satisfies the following rules.
+
 ua-cmpt : {i : Level} {A B : Type i} {f : A ≃ B} {x : A}
        → e-ap (id-to-eqv (ua f)) x ≡ e-ap f x
 ua-cmpt {i} {A} {B} {f} {x} = ap (λ f → e-ap {i} {i} {A} {B} f x) (hom₁ f)
@@ -175,9 +167,9 @@ id-to-eqv-refl = refl
 ua-id : {i : Level} {A : Type i}
       → refl ≡ ua {i} {A} {A} erefl
 ua-id {i} {A} = (pr₁ (pr₂ ax2-10-3) refl) ^ ∘ ap ua (id-to-eqv-refl {i} {A})
-#+end_src
-* Propositional resizing
-#+begin_src agda2
+
+-- * Propositional Resizing
+
 Prop-resizing-map : {i : Level}
                     → (Prop_ i) → Prop_ (lsuc i)
 Prop-resizing-map (A , X) = (raise _ A) , (λ { (map-raise x) (map-raise x₁) → ap (map-raise) (X x x₁) })
@@ -190,4 +182,3 @@ abstract
   Prop-resizing : {i : Level}
                     → Prop_ (lsuc i) → Prop_ i
   Prop-resizing {i} = pr₁ Prop-resizing-equiv
-#+end_src
