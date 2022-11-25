@@ -1,4 +1,4 @@
-_build/2.6.2/agda/UniAgda/
+_build
 *.agdai
 **/ltximg/
 org/
