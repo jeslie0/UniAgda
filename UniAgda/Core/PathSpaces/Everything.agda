@@ -1,8 +1,3 @@
-#+title: UniAgda.Core.PathSpaces.Everything
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-* Imports
-#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts #-}
 module UniAgda.Core.PathSpaces.Everything where
 
@@ -11,4 +6,3 @@ open import UniAgda.Core.PathSpaces.Identity public
 open import UniAgda.Core.PathSpaces.Sigma public
 open import UniAgda.Core.PathSpaces.Coproduct public
 open import UniAgda.Core.PathSpaces.Nat public
-#+end_src

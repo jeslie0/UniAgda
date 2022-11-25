@@ -1,10 +1,3 @@
-#+title: UniAgda.Core.PathAlgebra
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+description: Module contains lots of useful lemmas for manipulating paths.
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --safe --no-import-sorts #-}
 module UniAgda.Core.PathAlgebra where
 
@@ -12,11 +5,12 @@ open import UniAgda.Core.Types.Universes
 open import UniAgda.Core.Types.Functions
 open import UniAgda.Core.Types.Identity
 open import UniAgda.Core.Types.Sigma
-#+end_src
-* Groupoid Properties
-We show complete the proof that identity types give a groupoid structure. We have that \(\text{refl}_A\) is an identity:
-#+name: Lemma2.1.4i
-#+begin_src agda2
+
+-- * Groupoid Properties
+-- We show complete the proof that identity types give a groupoid
+-- structure. We have that \(\text{refl}_A\) is an identity:
+--  Lemma2.1.4i
+
 p-refl : ∀ {i} {A : Type i} {a b : A}
          (p : a ≡ b)
          → p ∘ refl ≡ p
@@ -27,11 +21,11 @@ refl-p : ∀ {i} {A : Type i} {a b : A}
          (p : a ≡ b)
          → refl ∘ p ≡ p
 refl-p refl = refl
-#+end_src
 
-Inverses:
-#+name: Lemma2.1.4ii
-#+begin_src agda2
+
+-- Inverses:
+--  Lemma2.1.4ii
+
 pp^ : ∀ {i} {A : Type i} {a b : A}
       (p : a ≡ b)
       → p ∘ p ^ ≡ refl
@@ -41,12 +35,12 @@ p^p : ∀ {i} {A : Type i} {a b : A}
       (p : a ≡ b)
       → p ^ ∘ p ≡ refl
 p^p refl = refl
-#+end_src
 
 
-Associativity of concatenation:
-#+name: Lemma2.1.4iv
-#+begin_src agda2
+
+-- Associativity of concatenation:
+--  Lemma2.1.4iv
+
 ass-l : ∀ {i} {A : Type i} {a b c d : A}
         (p : a ≡ b) (q : b ≡ c) (r : c ≡ d)
         → (p ∘ q) ∘ r ≡ p ∘ (q ∘ r)
@@ -57,165 +51,165 @@ ass-r : ∀ {i} {A : Type i} {a b c d : A}
         (p : a ≡ b) (q : b ≡ c) (r : c ≡ d)
         → p ∘ (q ∘ r) ≡ (p ∘ q) ∘ r
 ass-r refl q r = refl
-#+end_src
-* TODO Cancelling inverses
-Inverse is an involution:
-#+name: Lemma2.1.4iii
-#+begin_src agda2
+
+-- * TODO Cancelling inverses
+-- Inverse is an involution:
+--  Lemma2.1.4iii
+
 p^^=p : ∀ {i} {A : Type i} {a b : A}
         (p : a ≡ b)
         → p ^ ^ ≡ p
 p^^=p refl = refl
-#+end_src
 
-#+begin_src agda2
+
+
 p-p^q=q : ∀ {i} {A : Type i} {a b c : A}
          (p : a ≡ b) (q : a ≡ c)
          → p ∘ p ^ ∘ q ≡ q
 p-p^q=q refl q = refl
-#+end_src
 
-#+begin_src agda2
+
+
 pp^-q=q : ∀ {i} {A : Type i} {a b c : A}
          (p : a ≡ b) (q : a ≡ c)
          → (p ∘ p ^) ∘ q ≡ q
 pp^-q=q refl q = refl
-#+end_src
 
-#+begin_src agda2
+
+
 p^-pq=q : ∀ {i} {A : Type i} {a b c : A}
          (p : a ≡ b) (q : b ≡ c)
          → p ^ ∘ p ∘ q ≡ q
 p^-pq=q refl q = refl
-#+end_src
 
-#+begin_src agda2
+
+
 p^p-q=q : ∀ {i} {A : Type i} {a b c : A}
          (p : a ≡ b) (q : b ≡ c)
          → (p ^ ∘ p) ∘ q ≡ q
 p^p-q=q refl q = refl
-#+end_src
 
-#+begin_src agda2
+
+
 p^^-to-p : ∀ {i} {A : Type i} {x y : A}
            (p : x ≡ y)
            → p ^ ^ ≡ p
 p^^-to-p refl = refl
-#+end_src
 
-#+begin_src agda2
+
+
 p^^q-to-pq : ∀ {i} {A : Type i} {x y z : A}
              (p : x ≡ y) (q : y ≡ z)
              → p ^ ^ ∘ q ≡ p ∘ q
 p^^q-to-pq refl refl = refl
-#+end_src
 
-#+begin_src agda2
+
+
 p-to-pqq^ : ∀ {i} {A : Type i} {x y z : A}
              (p : x ≡ y) (q : y ≡ z)
              → p ≡ p ∘ q ∘ (q ^)
 p-to-pqq^ refl refl = refl
-#+end_src
 
-#+begin_src agda2
+
+
 p-to-pq^q : ∀ {i} {A : Type i} {x y z : A}
              (p : x ≡ y) (q : z ≡ y)
              → p ≡ p ∘ (q ^) ∘ q
 p-to-pq^q refl refl = refl
-#+end_src
 
-#+begin_src agda2
+
+
 p-to-qq^p : ∀ {i} {A : Type i} {x y z : A}
             (p : x ≡ y) (q : x ≡ z)
             → p ≡ q ∘ (q ^) ∘ p
 p-to-qq^p refl refl = refl
-#+end_src
 
-#+begin_src agda2
+
+
 p-to-q^qp : ∀ {i} {A : Type i} {x y z : A}
             (p : x ≡ y) (q : z ≡ x)
             → p ≡ (q ^) ∘ q ∘ p
 p-to-q^qp refl refl = refl
-#+end_src
 
-#+begin_src agda2
+
+
 q^qpr^r-to-p : ∀ {i} {A : Type i} {x y z w : A} (p : x ≡ y) (q : w ≡ x ) (r : z ≡ y)
                → (q ^ ∘ q ∘ p ∘ r ^ ∘ r ≡ p)
 q^qpr^r-to-p refl refl refl = refl
-#+end_src
 
-* Composites with \(\text{refl}\)
-#+begin_src agda2
+
+-- * Composites with \(\text{refl}\)
+
 prefl-q=pq : ∀ {i} {A : Type i} {a b c : A}
              (p : a ≡ b) (q : b ≡ c)
              → (p ∘ refl) ∘ q ≡ p ∘ q
 prefl-q=pq refl q = refl
-#+end_src  
 
-#+begin_src agda2
+
+
 p-reflq=pq : ∀ {i} {A : Type i} {a b c : A}
              (p : a ≡ b) (q : b ≡ c)
              → p ∘ (refl ∘ q) ≡ p ∘ q
 p-reflq=pq refl q = refl
-#+end_src
-* Rearranging inverses
-#+begin_src agda2
+
+-- * Rearranging inverses
+
 pq=r-to-q=p^r : ∀ {i} {A : Type i} {a b c : A}
                 (p : a ≡ b) (q : b ≡ c) (r : a ≡ c)
                 → p ∘ q ≡ r → q ≡ p ^ ∘ r
 pq=r-to-q=p^r refl q r x = x
-#+end_src
 
-#+begin_src agda2
+
+
 pq=r-to-p=rq^ : ∀ {i} {A : Type i} {a b c : A}
                 (p : a ≡ b) (q : b ≡ c) (r : a ≡ c)
                 → p ∘ q ≡ r → p ≡ r ∘ (q ^)
 pq=r-to-p=rq^ refl refl r x = x ∘ p-refl r ^
-#+end_src
 
-#+begin_src agda2
+
+
 p=qr^-to-pr=q : ∀ {i} {A : Type i} {a b c : A}
                 (p : a ≡ b) (q : a ≡ c) (r : b ≡ c)
                 → p ≡ q ∘ (r ^) → p ∘ r ≡ q
 p=qr^-to-pr=q .refl refl refl refl = refl
-#+end_src
 
-#+begin_src agda2
+
+
 p=q^r-to-qp=r : ∀ {i} {A : Type i} {a b c : A}
                 (p : b ≡ c) (q : a ≡ b) (r : a ≡ c)
                 → p ≡ (q ^) ∘ r → q ∘ p ≡ r
 p=q^r-to-qp=r p refl r x = x
-#+end_src
 
-#+begin_src agda2
+
+
 p=qr-to-q^p=r : ∀ {i} {A : Type i} {a b c : A}
                 (p : a ≡ b) (q : c ≡ b) (r : a ≡ c)
                 → (p ≡ r ∘ q) → r ^ ∘ p ≡ q
 p=qr-to-q^p=r refl q refl X = X
-#+end_src
 
-#+begin_src agda2
+
+
 p=qr-to-pr^=q : ∀ {i} {A : Type i} {a b c : A}
                 (p : a ≡ c) (q : a ≡ b) (r : b ≡ c)
                 → p ≡ q ∘ r → p ∘ (r ^) ≡ q
 p=qr-to-pr^=q .(refl ∘ refl) refl refl refl = refl
-#+end_src
 
-#+begin_src agda2
+
+
 pq^=r-to-p=rq : ∀ {i} {A : Type i} {a b c : A}
                 (p : a ≡ b) (q : c ≡ b) (r : a ≡ c)
                 → p ∘ (q ^) ≡ r → p ≡ r ∘ q
 pq^=r-to-p=rq refl refl .refl refl = refl
-#+end_src
 
-#+begin_src agda2
+
+
 p^q=r-to-q=pr : ∀ {i} {A : Type i} {a b c : A}
                 (p : a ≡ b) (q : c ≡ b) (r : a ≡ c)
                 → (r ^ ∘ p ≡ q) → p ≡ r ∘ q
 p^q=r-to-q=pr p q refl x = x
-#+end_src
-* General lemmas
-#+begin_src agda2
+
+-- * General lemmas
+
 p=q-to-pr=qr : ∀ {i} {A : Type i} {x y z : A} {p q : x ≡ y}
                (s : p ≡ q) (r : y ≡ z)
                → p ∘ r ≡ q ∘ r
@@ -257,16 +251,16 @@ rp=rq-to-p=q : {i : Level} {A : Type i} {x y z : A} (p q : x ≡ y)
                (r : z ≡ x) (s : r ∘ p ≡ r ∘ q)
                → p ≡ q
 rp=rq-to-p=q p q refl refl = refl
-#+end_src
-* Inverses and concatenation
-#+begin_src agda2
+
+-- * Inverses and concatenation
+
 pq-^-to-q^p^ : ∀ {i} {A : Type i} {a b c : A}
                (p : a ≡ b) (q : b ≡ c)
                → (p ∘ q) ^ ≡ q ^ ∘ p ^
 pq-^-to-q^p^ refl refl = refl
-#+end_src
-* Ap properties
-#+begin_src agda2
+
+-- * Ap properties
+
 apf-pq : ∀ {i j} {A : Type i} {B : Type j} {x y z : A}
          (f : A → B) (p : x ≡ y) (q : y ≡ z)
          → (ap f (p ∘ q)) ≡ ((ap f p) ∘ (ap f q))
@@ -297,9 +291,9 @@ ap-const : ∀ {i j} {A : Type i} {B : Type j} {x y : A} {p : x ≡ y}
            → (y : B)
            → ap (λ (a : A) → y) p ≡ refl
 ap-const {i} {j} {A} {B} {x} {.x} {refl} y₁ = refl
-#+end_src
-* Transport properties
-#+begin_src agda2
+
+-- * Transport properties
+
 lift : ∀ {i j} {A : Type i} {P : A → Type j} {x y : A}
        (u : P x) (p : x ≡ y)
        → (x , u) ≡ (y , transport P p u)
@@ -323,4 +317,3 @@ tr-P-to-Q : ∀ {i j k} {A : Type i} {x y : A} {P : A → Type j} {Q : A → Typ
             (f : (x : A) → P x → Q x) (p : x ≡ y) (u : P x)
             → transport Q p (f x u) ≡ f y (transport P p u)
 tr-P-to-Q f refl u = refl
-#+end_src

@@ -1,10 +1,3 @@
-#+title: UniAgda.Core.PathSpaces.Coproduct
-#+description: Paths in Coproducts
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --safe --no-import-sorts #-}
 module UniAgda.Core.PathSpaces.Coproduct where
 
@@ -20,9 +13,9 @@ open import UniAgda.Core.Types.Bool
 open import UniAgda.Core.PathAlgebra
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
-#+end_src
-* Paths in Coproducts
-#+begin_src agda2
+
+-- * Paths in Coproducts
+
 coprod-code : {i j : Level} {A : Type i} {B : Type j}
               (a₀ : A)
               → A + B → Type (i ⊔ j)
@@ -57,9 +50,9 @@ thm2-12-5 : {i j : Level} {A : Type i} {B : Type j}
             (a₀ : A)
             → (x : A + B) → (inl a₀ ≡ x) ≃ coprod-code a₀ x
 thm2-12-5 a₀ x = equiv-adjointify (coprod-encode a₀ x , coprod-decode a₀ x , coprod-encode-decode-id a₀ x , coprod-decode-encode-id a₀ x)
-#+end_src
 
-#+begin_src agda2
+
+
 coprod-code' : {i j : Level} {A : Type i} {B : Type j}
               (b₀ : B)
               → A + B → Type (i ⊔ j)
@@ -94,12 +87,11 @@ thm2-12-5ii : {i j : Level} {A : Type i} {B : Type j}
               (b₀ : B)
               → (x : A + B) → (inr b₀ ≡ x) ≃ coprod-code' b₀ x
 thm2-12-5ii b₀ x = equiv-adjointify (coprod-encode' b₀ x , coprod-decode' b₀ x , coprod-encode-decode-id' b₀ x , coprod-decode-encode-id' b₀ x)
-#+end_src
-* Bool is a coproduct
-#+begin_src agda2
+
+-- * Bool is a coproduct
+
 Bool-is-coprod : Bool ≃ (Unit + Unit)
 Bool-is-coprod = equiv-adjointify ((λ { true → inl tt ; false → inr tt}) ,
                                   (λ { (inl x) → true ; (inr x) → false}) ,
                                   (λ { (inl tt) → refl ; (inr tt) → refl}) ,
                                   λ { true → refl ; false → refl})
-#+end_src

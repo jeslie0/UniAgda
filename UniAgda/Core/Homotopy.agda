@@ -1,10 +1,3 @@
-#+title: UniAgda.Core.Homotopy
-#+descrption: Homotopies
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --safe --no-import-sorts #-}
 module UniAgda.Core.Homotopy where
 
@@ -12,21 +5,22 @@ open import UniAgda.Core.Types.Universes
 open import UniAgda.Core.Types.Identity
 open import UniAgda.Core.Types.Functions
 open import UniAgda.Core.PathAlgebra
-#+end_src
-* Definition
-We give the definition of a homotopy of functions, which states that two functions are homotopic when they are equal pointwise.
-#+name: Definition2.4.1
-#+begin_src agda2
+
+-- * Definition
+-- We give the definition of a homotopy of functions, which states
+-- that two functions are homotopic when they are equal pointwise.
+
+-- Definition2.4.1
 _~_ : ∀ {i j} {A : Type i} {P : A → Type j}
            (f g : (x : A) → P x)
            → Type (i ⊔ j)
 _~_ {A = A} f g = (x : A) → (f x) ≡ (g x)
 infix 6 _~_
-#+end_src
-* Homotopy forms an equivalence relation
-Homotopy defines an equivalence relation on function types.
-#+name: Lemma2.4.2
-#+begin_src agda2
+
+-- * Homotopy forms an equivalence relation
+-- Homotopy defines an equivalence relation on function types.
+
+-- Lemma2.4.2
 hrefl : ∀ {i j} {A : Type i} {P : A → Type j} {f : (x : A) → P x}
         → f ~ f
 hrefl x = refl
@@ -42,20 +36,19 @@ hconcatenation : ∀ {i j} {A : Type i} {P : A → Type j} {f g h : (x : A) → 
                  → (f ~ h)
 hconcatenation p q x = p x ∘ q x
 _∘ₕ_ = hconcatenation
-#+end_src
-* Homotopy is natural
-Homotopies act like natural transformations.
-#+name: Lemma2.4.3
-#+begin_src agda2
+
+
+-- * Homotopy is natural
+-- Homotopies act like natural transformations.
+
+-- Lemma2.4.3
 homotopy-natural : ∀ {i j} {A : Type i} {B : Type j} {x y : A} {f g : A → B}
                    (H : f ~ g) (p : x ≡ y)
                    → (H x ∘ (ap g p)) ≡ (ap f p ∘ H y)
 homotopy-natural {x = x} H refl = p-refl (H x) ∘ refl-p (H x)
-#+end_src
 
-This leads to the following useful result:
-#+name: Corollary2.4.4
-#+begin_src agda2
+-- This leads to the following useful result:
+-- Corollary2.4.4
 cor2-4-4 : ∀ {i} {A : Type i}
            (f : A → A) (H : f ~ id) (x : A)
            → (H (f x)) ≡ (ap f (H x))
@@ -66,10 +59,10 @@ cor2-4-4 {i} {A} f H x =
       (ap (λ p → p ∘ (H x ^)) (homotopy-natural {_} {_} {A} {A} {f x} {x} {f} {id} H (H x)) ∘
         (ass-l (ap f (H x)) (H x) (H x ^) ∘ (ap (λ p → (ap f (H x)) ∘ p) (pp^ (H x)) ∘
          p-refl (ap f (H x)))))))
-#+end_src
-* Whiskering
-We can whisker homotopies and homotopies
-#+begin_src agda2
+
+
+-- * Whiskering
+-- We can whisker homotopies and homotopies.
 whisker-r : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k} {f g : A → B}
           (H : f ~ g) (h : C → A)
           → f o h ~ g o h
@@ -80,10 +73,9 @@ whisker-l : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k} {f g : A → B}
           (H : f ~ g) (h : B → C)
           → h o f ~ h o g
 whisker-l H h x = ap h (H x)
-#+end_src
-* Homotopy algebra
-We include some results for manipulating homotopies.
-#+begin_src agda2
+
+-- * Homotopy algebra
+-- We include some results for manipulating homotopies.
 hass-l : ∀ {i j} {A : Type i} {B : A → Type j} {f₁ f₂ f₃ f₄ : (x : A) → B x}
          (H : f₁ ~ f₂) (G : f₂ ~ f₃) (F : f₃ ~ f₄)
          → (H ∘ₕ G) ∘ₕ F ~ H ∘ₕ (G ∘ₕ F)
@@ -171,4 +163,3 @@ HG-^-to-G^H^ : ∀ {i j} {A : Type i} {B : A → Type j} {f g h : (x : A) → B 
           (H : f ~ g) (G : g ~ h)
           → (H ∘ₕ G) ^ʰ ~ (G ^ʰ) ∘ₕ (H ^ʰ)
 HG-^-to-G^H^ H G x = pq-^-to-q^p^ (H x) (G x)
-#+end_src

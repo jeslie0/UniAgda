@@ -1,10 +1,3 @@
-#+title: UniAgda.Core.PathSpaces.Sigma
-#+description: Paths in Sigma Types
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --safe --no-import-sorts #-}
 module UniAgda.Core.PathSpaces.Sigma where
 
@@ -15,23 +8,23 @@ open import UniAgda.Core.Types.Sigma
 
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
-#+end_src
-* Paths in Sigma types
-#+begin_src agda2
+
+-- * Paths in Sigma types
+
 path-sigma : ∀ {i j} {A : Type i} {P : A → Type j}
              {w w' : Σ[ x ∈ A ] (P x)}
              → (w ≡ w') → (Σ[ p ∈ (pr₁ w ≡ pr₁ w') ] (transport P p (pr₂ w) ≡ (pr₂ w')))
 path-sigma refl = refl , refl
-#+end_src
 
-#+begin_src agda2
+
+
 path-equiv-sigma : ∀ {i j} {A : Type i} {P : A → Type j}
                    {w w' : Σ[ x ∈ A ] (P x)}
                    → (Σ[ p ∈ (pr₁ w ≡ pr₁ w') ] (transport P p (pr₂ w) ≡ (pr₂ w'))) → w ≡ w'
 path-equiv-sigma {_} {_} {A} {P} {a , b} {.(pr₁ {_} {_} {A} {P} (a , b)) , .b} (refl , refl) = refl
-#+end_src
 
-#+begin_src agda2
+
+
 private
   hom₃ : {i j : Level} {A : Type i} {P : A → Type j}
          {w w' : Σ[ x ∈ A ] (P x)}
@@ -52,9 +45,9 @@ cor2-7-3 : {i j : Level} {A : Type i} {P : A → Type j}
            (z : Σ[ x ∈ A ] (P x))
            → z ≡ (pr₁ z , pr₂ z)
 cor2-7-3 {i} {j} {A} {P} z = path-equiv-sigma {_} {_} {A} {P} {z} {pr₁ z , pr₂ z} (refl , refl)
-#+end_src
-* Paths in product types
-#+begin_src agda2
+
+-- * Paths in product types
+
 
 path-equiv-prod : {i j : Level} {A : Type i} {B : Type j}
                   {x y : A × B}
@@ -88,4 +81,3 @@ path-prod-equiv : {i j : Level} {A : Type i} {B : Type j}
             {x y : A × B}
             → (x ≡ y) ≃ ((pr₁ x ≡ pr₁ y) × (pr₂ x ≡ pr₂ y))
 path-prod-equiv = path-prod , thm2-6-2
-#+end_src

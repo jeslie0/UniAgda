@@ -1,10 +1,3 @@
-#+title: UniAgda.Core.SetsAndLogic.Equivalences
-#+description: Properties of Equivalences
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts #-}
 module UniAgda.Core.SetsAndLogic.Equivalences where
 
@@ -33,9 +26,9 @@ open import UniAgda.Core.PathSpaces.Unit
 open import UniAgda.Core.Axioms
 open import UniAgda.Core.SetsAndLogic.Props
 open import UniAgda.Core.SetsAndLogic.Contractible
-#+end_src
-* Results
-#+begin_src agda2
+
+-- * Results
+
 
 equiv-fibres-to-equiv-sigma : ∀ {i j } {A : Type i} {B : A → Type j} {C : A → Type j}
       → ((x : A) → (B x ≃ C x))
@@ -243,11 +236,11 @@ isBiinv-equiv-isEquiv f =
     (isEquiv-is-prop f)
     (qinv-to-ishae o isBiinv-to-qinv)
     (qinv-to-isBiinv o isEquiv-to-qinv)
-#+end_src
-* More results
 
-The inverse of a composite of equivalences is the composites inverses.
-#+begin_src agda2
+-- * More results
+-- The inverse of a composite of equivalences is the composites
+-- inverses.
+
 inv-of-comp-of-eqv : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k}
                      (f : A ≃ B) (g : B ≃ C)
                      → (f oₑ g) ^ᵉ ≡ (g ^ᵉ) oₑ (f ^ᵉ)
@@ -257,4 +250,3 @@ inv-of-comp-of-eqv f g =
     ((f oₑ g) ^ᵉ)
     ((g ^ᵉ) oₑ (f ^ᵉ))
     refl
-#+end_src

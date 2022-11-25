@@ -1,10 +1,3 @@
-#+title: UniAgda.Core.UniversalProperties
-#+description: Universal Properties
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+options: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts #-}
 module UniAgda.Core.UniversalProperties where
 
@@ -24,19 +17,19 @@ open import UniAgda.Core.SetsAndLogic.Props
 
 open import UniAgda.Core.PathSpaces.Sigma
 open import UniAgda.Core.Axioms
-#+end_src
-* Products
-** Mapping in
-#+name: 2.15.1
-#+begin_src agda2
+
+-- * Products
+-- ** Mapping in
+--  2.15.1
+
 into-product : ∀ {i j k} {A : Type i} {B : Type j} {X : Type k}
                  → (X → A × B)
                  → (X → A) × (X → B)
 into-product f = pr₁ o f , pr₂ o f
-#+end_src
 
-#+name: Theorem2.15.2
-#+begin_src agda2
+
+--  Theorem2.15.2
+
 into-product-is-equiv : ∀ {i j k} {A : Type i} {B : Type j} {X : Type k}
                         → isEquiv (into-product {A = A} {B = B} {X = X})
 into-product-is-equiv {A = A} {B = B} {X = X} =
@@ -44,18 +37,18 @@ into-product-is-equiv {A = A} {B = B} {X = X} =
     ((λ { (f , g) x → (f x) , (g x)}) ,
     (λ { (f , g) → refl}) ,
     λ f → funext λ x → path-equiv-prod (refl , refl))
-#+end_src
 
-#+name: Theorem2.15.4
-#+begin_src agda2
+
+--  Theorem2.15.4
+
 into-product-dep : ∀ {i j k} {X : Type i} {A : X → Type j} {B : X → Type k}
                      → ((x : X) → (A x × B x))
                      → ((x : X) → A x) × ((x : X) → B x)
 into-product-dep F = (λ x → pr₁ (F x)) , (λ x → pr₂ (F x))
-#+end_src
 
-#+name: Theorem2.15.5
-#+begin_src agda2
+
+--  Theorem2.15.5
+
 into-product-dep-is-equiv : ∀ {i j k} {X : Type i} {A : X → Type j} {B : X → Type k}
                             → isEquiv (into-product-dep {X = X} {A = A} {B = B})
 into-product-dep-is-equiv =
@@ -63,18 +56,18 @@ into-product-dep-is-equiv =
     ((λ { (F , G) x → F x , G x}) ,
     (λ { (F , G) → refl}) ,
     λ { F → funextD λ x → path-equiv-prod (refl , refl)})
-#+end_src
 
-#+name: 2.15.6
-#+begin_src agda2
+
+--  2.15.6
+
 into-dep-product : ∀ {i j k} {X : Type i} {A : X → Type j} {P : (x : X) → A x → Type k}
                      → ((x : X) → Σ[ a ∈ (A x) ] P x a)
                      → (Σ[ g ∈ ((x : X) → A x) ] ((x : X) → P x (g x)))
 into-dep-product F = (λ x → pr₁ (F x)) , (λ x → pr₂ (F x))
-#+end_src
 
-#+name: Theorem2.15.7
-#+begin_src agda2
+
+--  Theorem2.15.7
+
 into-dep-product-is-equiv : ∀ {i j k} {X : Type i} {A : X → Type j} {P : (x : X) → A x → Type k}
                             → isEquiv (into-dep-product {X = X} {A = A} {P = P})
 into-dep-product-is-equiv =
@@ -82,16 +75,16 @@ into-dep-product-is-equiv =
     ((λ { (F , G) x → (F x) , (G x)}) ,
     (λ { (F , G) → refl}) ,
     λ F → funextD λ x → path-equiv-sigma (refl , refl))
-#+end_src
-** Mapping out
-#+begin_src agda2
+
+-- ** Mapping out
+
 out-of-product : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k}
                  → (A × B → C)
                  → (A → (B → C))
 out-of-product f a b = f (a , b)
-#+end_src
 
-#+begin_src agda2
+
+
 out-of-product-is-equiv : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k}
                  → isEquiv (out-of-product {A = A} {B = B} {C = C})
 out-of-product-is-equiv =
@@ -99,16 +92,16 @@ out-of-product-is-equiv =
   ((λ { f (a , b) → f a b}) ,
   (λ x → refl) ,
   λ x → funext λ { (a , b) → refl})
-#+end_src
 
-#+begin_src agda2
+
+
 out-of-product-dep : ∀ {i j k} {A : Type i} {B : Type j} {C : A × B → Type k}
                      → ((w : A × B) → C w)
                      → ((x : A) (y : B) → C (x , y))
 out-of-product-dep f a b = f (a , b)
-#+end_src
 
-#+begin_src agda2
+
+
 out-of-product-dep-is-equiv : ∀ {i j k} {A : Type i} {B : Type j} {C : A × B → Type k}
                               → isEquiv (out-of-product-dep {C = C})
 out-of-product-dep-is-equiv =
@@ -116,17 +109,17 @@ out-of-product-dep-is-equiv =
     ((λ { F (a , b) → F a b}) ,
     (λ x → refl) ,
     λ F → funextD λ { (a , b) → refl})
-#+end_src
 
-#+begin_src agda2
+
+
 out-of-dep-product : ∀ {i j k} {A : Type i} {B : A → Type j} {C : (w : Σ[ x ∈ A ] B x) → Type k}
                      → ((w : Σ A B) → C w)
                      → (x : A) (y : B x) → C (x , y)
 out-of-dep-product F a b = F (a , b)
-#+end_src
 
-#+name: 2.15.9
-#+begin_src agda2
+
+--  2.15.9
+
 out-of-dep-product-is-equiv : ∀ {i j k} {A : Type i} {B : A → Type j} {C : (w : Σ[ x ∈ A ] B x) → Type k}
                               → isEquiv (out-of-dep-product {C = C})
 out-of-dep-product-is-equiv =
@@ -134,10 +127,10 @@ out-of-dep-product-is-equiv =
     ((λ {F (a , b) → F a b}) ,
     (λ x → refl) ,
     λ F → funextD λ { (a , b) → refl})
-#+end_src
-* Path Induction
-#+name: 2.15.10
-#+begin_src agda2
+
+-- * Path Induction
+--  2.15.10
+
 path-induction-equiv : ∀ {i j} {A : Type i} {a : A} {B : (x : A) (p : a ≡ x) → Type j}
                        → equiv ((x : A) (p : a ≡ x) → B x p) (B a refl)
 path-induction-equiv {a = a} =
@@ -146,9 +139,9 @@ path-induction-equiv {a = a} =
     (λ { x x₁ refl → x}) ,
     (λ x → refl) ,
     λ F → funextD λ x → funextD λ { refl → refl})
-#+end_src
-* Coproducts
-#+begin_src agda2
+
+-- * Coproducts
+
 coproduct-equiv : ∀ {i j k} {A : Type i} {B : Type j} {C : Type k}
                   → equiv ((A → C) × (B → C)) (A + B → C)
 coproduct-equiv =
@@ -159,25 +152,25 @@ coproduct-equiv =
     (λ f → funext λ { (inl x) → refl
                     ; (inr x) → refl}) ,
     λ { (F , g) → refl})
-#+end_src
-* Unit
-#+begin_src agda2
+
+-- * Unit
+
 Unit-is-terminal : ∀ {i} {A : Type i}
                    → isContr (A → Unit)
 Unit-is-terminal =
   (λ _ → tt) ,
   (λ f → funext λ x → Unit-is-prop tt (f x))
-#+end_src
-* Empty
-#+begin_src agda2
+
+-- * Empty
+
 Empty-is-initial : ∀ {i} {A : Type i}
                    → isContr (Empty → A)
 Empty-is-initial =
   (λ ()) ,
   (λ f → funext λ ())
-#+end_src
-* Pullbacks
-#+begin_src agda2
+
+-- * Pullbacks
+
 pullback : ∀ {i j k} {A : Type i} {B : Type j} {X : Type k}
            (f : A → X) (g : B → X)
            → Type (i ⊔ j ⊔ k)
@@ -185,6 +178,3 @@ pullback {A = A} {B = B} f g =
   Σ[ a ∈ A ] (
     Σ[ b ∈ B ] (
      (f a ≡ g b)))
-#+end_src
-
-

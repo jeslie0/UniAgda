@@ -1,10 +1,3 @@
-#+title: UniAgda.Core.Equivalences
-#+description: Equivalences
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --safe --no-import-sorts #-}
 module UniAgda.Core.Equivalences where
 
@@ -16,30 +9,30 @@ open import UniAgda.Core.Types.Sigma
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.SetsAndLogic.ContrPropSet1Type
 open import UniAgda.Core.PathAlgebra
-#+end_src
-* Quasi-inverses
-** Definition
-A quasi-inverse is what we would call an isomorphism if we were dealing with sets. It is a map with another map that is a left and right inverse.
-#+name: Definition2.4.6
-#+begin_src agda2
+-- * Quasi-inverses
+-- ** Definition
+-- A quasi-inverse is what we would call an isomorphism if we were
+-- dealing with sets. It is a map with another map that is a left and
+-- right inverse.
+
+-- Definition2.4.6
 qinv : ∀ {i j} {A : Type i} {B : Type j}
        (f : A → B)
        → Type (i ⊔ j)
 qinv {A = A} {B = B} f = Σ[ g ∈ (B → A)] (((f o g) ~ id) × ((g o f) ~ id))
-#+end_src
 
- A quasi-equivalence between two types is then a map with a proof that it is a quasi-inverse.
-#+begin_src agda2
+-- A quasi-equivalence between two types is then a map with a proof
+-- that it is a quasi-inverse.
 qequiv : ∀ {i j}
          (A : Type i) (B : Type j)
          → Type (i ⊔ j)
 qequiv A B = Σ[ f ∈ (A → B) ] (qinv f)
 _q≃_ = qequiv
 infix 6 _q≃_
-#+end_src
-** Equivalence Relation
- Quasi-equivalences are equivalence relations. Reflexivity is given by:
-#+begin_src agda2
+
+-- ** Equivalence Relation
+ -- Quasi-equivalences are equivalence relations. Reflexivity is given
+ -- by:
 qinv-id : ∀ {i} {A : Type i}
           → qinv (id {A = A})
 qinv-id = id , ((λ x → refl) , (λ x → refl))
@@ -48,10 +41,8 @@ qequiv-refl : ∀ {i} {A : Type i}
               → A q≃ A
 qequiv-refl = id , qinv-id
 qrefl = qequiv-refl
-#+end_src
 
-Symmetry:
-#+begin_src agda2
+-- Symmetry:
 qinv-inv : ∀{i j} {A : Type i} {B : Type j} {f : A → B}
            (F : qinv f)
            → qinv (pr₁ F)
@@ -62,9 +53,8 @@ qequiv-sym : ∀ {i j} {A : Type i} {B : Type j}
               → A q≃ B
               → B q≃ A
 qequiv-sym X = (pr₁ (pr₂ X)) , (qinv-inv (pr₂ X))
-#+end_src
-Transitivity:
-#+begin_src agda2
+
+-- Transitivity:
 qinv-comp : ∀ {i₁ i₂ i₃} {A : Type i₁} {B : Type i₂} {C : Type i₃} {f : A → B} {g : B → C}
             (F : qinv f) → (G : qinv g)
             → qinv (g o f)
@@ -83,12 +73,12 @@ qequiv-trans : ∀ {i₁ i₂ i₃} {A : Type i₁} {B : Type i₂} {C : Type i�
                → A q≃ C
 qequiv-trans X Y = (pr₁ Y o pr₁ X) , qinv-comp (pr₂ X) (pr₂ Y)
 _qo_ = qequiv-trans
-#+end_src
-* Half adjoint equivalences
-** Definition
-Half adjoint equivalences will be our candidate for equivalences.
-#+name: Definition4.2.1
-#+begin_src agda2
+
+-- * Half adjoint equivalences
+-- ** Definition
+-- Half adjoint equivalences will be our candidate for equivalences.
+
+-- Definition4.2.1
 isHae : ∀ {i j} {A : Type i} {B : Type j}
         (f : A → B)
         → Type (i ⊔ j)
@@ -102,11 +92,11 @@ equiv : ∀ {i j}
 equiv A B = Σ[ f ∈ (A → B) ] (isEquiv f)
 _≃_ = equiv
 infix 31 _≃_
-#+end_src
 
-We also define the following which will be useful when proving relations between the different types of equivalence.
-#+name: Definition4.2.7
-#+begin_src agda2
+-- We also define the following which will be useful when proving
+-- relations between the different types of equivalence.
+
+-- Definition4.2.7
 linv : ∀ {i j} {A : Type i} {B : Type j}
        (f : A → B)
        → Type (i ⊔ j)
@@ -116,10 +106,8 @@ rinv : ∀ {i j} {A : Type i} {B : Type j}
        (f : A → B)
        → Type (i ⊔ j)
 rinv {_} {_} {A} {B} f = Σ[ g ∈ (B → A) ] (f o g ~ id)
-#+end_src
 
-#+name: Definition4.2.10
-#+begin_src agda2
+-- Definition4.2.10
 lcoh : ∀ {i j} {A : Type i} {B : Type j}
        (f : A → B) (X : linv f)
        → Type (i ⊔ j)
@@ -129,10 +117,10 @@ rcoh : ∀ {i j} {A : Type i} {B : Type j}
        (f : A → B) (Y : rinv f)
        → Type (i ⊔ j)
 rcoh {i} {j} {A} {B} f (g , ε) = Σ[ η ∈ (g o f ~ id) ] ((x : A) → ap f (η x) ≡ ε (f x))
-#+end_src
-** Relation to qinv
-#+name: Theorem4.2.3
-#+begin_src agda2
+
+-- ** Relation to qinv
+
+-- Theorem4.2.3
 qinv-to-ishae : ∀ {i j} {A : Type i} {B : Type j} {f : A → B}
                 → qinv f
                 → isHae f
@@ -148,9 +136,7 @@ qequiv-to-hae : {i j : Level} {A : Type i} {B : Type j}
                 → A q≃ B
                 → A ≃ B
 qequiv-to-hae X = (pr₁ X) , (qinv-to-ishae (pr₂ X))
-#+end_src
 
-#+begin_src agda2
 ishae-to-qinv : ∀ {i j} {A : Type i} {B : Type j} {f : A → B}
                 → isHae f
                 → qinv f
@@ -161,16 +147,14 @@ hae-to-qequiv : {i j : Level} {A : Type i} {B : Type j}
                 → A ≃ B
                 → A q≃ B
 hae-to-qequiv X = (pr₁ X) , (ishae-to-qinv (pr₂ X))
-#+end_src
 
-We will use these functions a lot when constructing equivalences, so we give special names for referring to them.
-#+begin_src agda2
+-- We will use these functions a lot when constructing equivalences,
+-- so we give special names for referring to them.
 isequiv-adjointify = qinv-to-ishae
 
 equiv-adjointify = qequiv-to-hae
-#+end_src
-** Equivalence relation
-#+begin_src agda2
+
+-- ** Equivalence relation
 equiv-refl : {i : Level} {A : Type i}
            → A ≃ A
 equiv-refl = equiv-adjointify qequiv-refl
@@ -202,12 +186,10 @@ ishae-comp : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Type 
              (F : isHae f) (G : isHae g)
              → Σ[ h ∈ (A → C) ] (isHae h)
 ishae-comp {_} {_} {_} {_} {_} {_} {f} {g} F G = equiv-trans (f , F) (g , G)
-#+end_src
 
-* Bi-invertible maps
-A bi-invertible map is one with both a left and right inverse.
-#+name: Definition4.3.1
-#+begin_src agda2
+-- * Bi-invertible maps
+-- A bi-invertible map is one with both a left and right inverse.
+-- Definition4.3.1
 isBiinv : ∀ {i j} {A : Type i} {B : Type j}
         (f : A → B)
         → Type (i ⊔ j)
@@ -220,11 +202,11 @@ biequiv : ∀ {i j}
 biequiv A B = Σ[ f ∈ (A → B) ] (isBiinv f)
 _bi≃_ = biequiv
 infix 6 _bi≃_
-#+end_src
-** Relation to qinv
-There are morphisms to and from the type of quasi inverses, which extend to maps between the types of equivalences.
 
-#+begin_src agda2
+-- ** Relation to qinv
+-- There are morphisms to and from the type of quasi inverses, which
+-- extend to maps between the types of equivalences.
+
 qinv-to-isBiinv : ∀ {i j} {A : Type i} {B : Type j} {f : A → B}
                 → qinv f
                 → isBiinv f
@@ -234,9 +216,7 @@ qequiv-to-biequiv : ∀ {i j} {A : Type i} {B : Type j}
                     → A q≃ B
                     → A bi≃ B
 qequiv-to-biequiv X = (pr₁ X) , (qinv-to-isBiinv (pr₂ X))
-#+end_src
 
-#+begin_src agda2
 isBiinv-to-qinv : ∀ {i j} {A : Type i} {B : Type j} {f : A → B}
                 → isBiinv f
                 → qinv f
@@ -258,11 +238,10 @@ biequiv-to-qequiv : {i j : Level} {A : Type i} {B : Type j}
                     → A bi≃ B
                     → A q≃ B
 biequiv-to-qequiv X = pr₁ X , isBiinv-to-qinv (pr₂ X)
-#+end_src
 
-** Equivalence relation
-isBiinv is an equivalence relation.
-#+begin_src agda2
+-- ** Equivalence relation
+-- isBiinv is an equivalence relation.
+
 isBiinv-id : {i : Level} {A : Type i}
             → isBiinv (id {_} {A})
 isBiinv-id = qinv-to-isBiinv qinv-id
@@ -293,28 +272,26 @@ biequiv-trans : {i₁ i₂ i₃ : Level} {A : Type i₁} {B : Type i₂} {C : Ty
                 → A bi≃ B → B bi≃ C
                 → A bi≃ C
 biequiv-trans X Y = qequiv-to-biequiv (qequiv-trans (biequiv-to-qequiv X) (biequiv-to-qequiv Y))
-#+end_src
-* Contractible fibres
-** Definition
-We first need to define the fibre of a map and a point.
-#+name: Definition4.2.4
-#+begin_src agda2
+
+-- * Contractible fibres
+-- ** Definition
+-- We first need to define the fibre of a map and a point.
+
+-- Definition4.2.4
 fibre : ∀ {i j} {A : Type i} {B : Type j}
         (f : A → B) (y : B)
         → Type (i ⊔ j)
 fibre {A = A} f y = Σ[ x ∈ A ] (f x ≡ y)
 fib = fibre
-#+end_src
 
-We say that a map is contractible when all of its fibres are contractible.
-#+name: Definition4.4.1
-#+begin_src agda2
+-- We say that a map is contractible when all of its fibres are
+-- contractible.
+-- Definition4.4.1
 isContrmap : {i j : Level} {A : Type i} {B : Type j}
            (f : A → B) → Type (i ⊔ j)
 isContrmap {_} {_} {A} {B} f = (y : B) → isContr (fib f y)
-#+end_src
-** Relation to isEquiv
-#+begin_src agda2
+
+-- ** Relation to isEquiv
 isContrmap-to-isEquiv : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
                    → isContrmap f
                    → isHae f
@@ -322,10 +299,10 @@ isContrmap-to-isEquiv {_} {_} {A} {B} {f} P = let g = (λ y → pr₁ (pr₁ (P 
                                                   ε = (λ y → pr₂ (pr₁ (P y)))
                                                   τ = (λ x → (pr₂ (P (f x)) (g(f(x)) , ε (f x))) ^ ∘ (pr₂ (P (f x)) (x , refl)))
                                               in isequiv-adjointify (g , ε ,  λ x → ap pr₁ (τ x))
-#+end_src
-More will be proven about this later, in another section. We need results about contractible types to do this.
-** Other results
-#+begin_src agda2
+-- More will be proven about this later, in another section. We need
+-- results about contractible types to do this.
+
+-- ** Other results
 inv-isContrmap : {i j : Level} {A : Type i} {B : Type j} {f : A → B}
                  → isContrmap f → B → A
 inv-isContrmap X b = pr₁ (pr₁ (X b))
@@ -360,26 +337,27 @@ isretr-isContrmap {_} {_} {A} {B} {f} X x = ap ( pr₁ {B = λ z → f z ≡ f x
     (X (f x))
       (inv-isContrmap X (f x) , issect-isContrmap X (f x))) ^ ∘
       (contraction (X (f x)) (x , refl)) )
-#+end_src
-* Useful results
-We can take an equivalence, a term of the first type then construct a term of the second.
-#+begin_src agda2
+
+
+-- * Useful results
+-- We can take an equivalence, a term of the first type then construct
+-- a term of the second.
 e-ap : ∀ {i j} {A : Type i} {B : Type j}
       → A ≃ B → A
       → B
 e-ap X a = pr₁ X a
-#+end_src
 
-We want to be able to compare elements of equivalent types. This doesn't really make sense on the nose though, so the following is the closest that we have.
-#+begin_src agda2
+-- We want to be able to compare elements of equivalent types. This
+-- doesn't really make sense on the nose though, so the following is
+-- the closest that we have.
 equiv-types-eq : ∀ {i j} {A : Type i} {B : Type j}
         {x y : B} (F : A ≃ B)
         → pr₁ (pr₂ F) x ≡ pr₁ (pr₂ F) y → x ≡ y
 equiv-types-eq {x = x} {y = y} (f , g , η , ε , τ) p = ε x ^ ∘ (ap f p) ∘ ε y
-#+end_src
 
-Another useful result is that if we know two types are equivalent, then \(\Pi\) and \(\Sigma\) types over one of the equivalent types are logically equivalent, in the following sense:
-#+begin_src agda2
+-- Another useful result is that if we know two types are equivalent,
+-- then \(\Pi\) and \(\Sigma\) types over one of the equivalent types
+-- are logically equivalent, in the following sense:
 equiv-base-Pi : ∀ {i j k} {A : Type i} {A' : Type j} {B : A → Type k}
       (F : A ≃ A')
       → ((x : A') → B o (pr₁ (pr₂ F)) $ x) → ((x : A) → B x)
@@ -389,12 +367,13 @@ equiv-base-Sigma : ∀ {i j k} {A : Type i} {A' : Type j} {B : A → Type k}
                    (F : A ≃ A')
                    → (Σ[ x' ∈ A' ] (B o pr₁ (pr₂ F) $ x')) → (Σ[ x ∈ A ] B x)
 equiv-base-Sigma (f , g , α , β , γ) (a' , b') = g a' , b'
-#+end_src
 
-Note that with univalence, these types are equivalent (I don't know if we need univalence for this, but logical equivalence is sufficient for our needs).
+-- Note that with univalence, these types are equivalent (I don't know
+-- if we need univalence for this, but logical equivalence is
+-- sufficient for our needs).
 
-A result we expect is for the type of paths \(a = b\) to be equivalent to the type of paths \(b = a\).
-#+begin_src agda2
+-- A result we expect is for the type of paths \(a = b\) to be
+-- equivalent to the type of paths \(b = a\).
 a=b≃b=a : ∀ {i} {A : Type i} {a b : A}
           → (a ≡ b) ≃ (b ≡ a)
 a=b≃b=a = equiv-adjointify
@@ -402,4 +381,3 @@ a=b≃b=a = equiv-adjointify
   (λ { refl → refl}) ,
   (λ { refl → refl}) ,
   λ { refl → refl})
-#+end_src

@@ -1,10 +1,3 @@
-#+title: UniAgda.Core.PathSpaces.Unit
-#+description: Paths in the Unit Type
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+OPTIONS: tex:t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --safe --no-import-sorts #-}
 module UniAgda.Core.PathSpaces.Unit where
 
@@ -16,9 +9,9 @@ open import UniAgda.Core.Types.Unit
 
 open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Equivalences
-#+end_src
-* Paths in the Unit Type
-#+begin_src agda2
+
+-- * Paths in the Unit Type
+
 thm2-8-1i : (x y : Unit)
             → (x ≡ y) → Unit
 thm2-8-1i x y p = tt
@@ -39,4 +32,3 @@ private
 thm2-8-1 : (x y : Unit)
            → (x ≡ y) ≃ Unit
 thm2-8-1 x y = equiv-adjointify ((thm2-8-1i x y) , (thm2-8-1ii x y) , hom₁-unit x y , hom₂-unit x y)
-#+end_src

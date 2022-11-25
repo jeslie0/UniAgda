@@ -1,8 +1,3 @@
-#+title: UniAgda.Core.Everything
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-* Imports
-#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts #-}
 module UniAgda.Core.Everything where
 
@@ -32,4 +27,3 @@ open import UniAgda.Core.Types.Functions public
 open import UniAgda.Core.Types.FiniteSets public
 open import UniAgda.Core.Types.Universes public
 open import UniAgda.Core.Types.Empty public
-#+end_src

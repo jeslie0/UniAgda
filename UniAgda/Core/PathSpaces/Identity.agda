@@ -1,10 +1,3 @@
-#+title: UniAgda.Core.PathSpaces.Identity
-#+description: Paths in Identity Types
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-#+OPTIONS: tex@t
-* Prelude
-#+begin_src agda2
 {-# OPTIONS --without-K --no-import-sorts #-}
 module UniAgda.Core.PathSpaces.Identity where
 
@@ -20,9 +13,9 @@ open import UniAgda.Core.Equivalences
 
 open import UniAgda.Core.PathSpaces.Sigma
 open import UniAgda.Core.Axioms
-#+end_src
-* Paths in Identity Types
-#+begin_src agda2
+
+-- * Paths in Identity Types
+
 private
   lemma₁ : {i j : Level} {A : Type i} {B : Type j} (f : A → B) (g : B → A) (α : f o g ~ id) (a a' : A) (p : a ≡ a')
            → ap f p ≡ ((whisker-r α f a ^) ∘ (ap f (ap (g o f) p))) ∘ whisker-r α f a'
@@ -64,9 +57,9 @@ private
   thm2-11-1-ε : {i j : Level} {A : Type i} {B : Type j} (f : A → B) (g : B → A) (β : g o f ~ id) (a a' : A) (p : a ≡ a')
                 → β a ^ ∘ ap g (ap f p) ∘ β a' ≡ p
   thm2-11-1-ε f g β a .a refl = p^p (β a)
-#+end_src
 
-#+begin_src agda2
+
+
 thm2-11-1 : {i j : Level} {A : Type i} {B : Type j} {f : A → B} {a a' : A}
             → isEquiv f
             → isEquiv (λ (p : a ≡ a') → ap f p)
@@ -79,9 +72,9 @@ thm2-11-1 {i} {j} {A} {B} {f} {a} {a'} X =
     (thm2-11-1-inv f g α β a a' ,
     thm2-11-1-τ f g α β a a' ,
     thm2-11-1-ε f g β a a')
-#+end_src
-* Other results
-#+begin_src agda2
+
+-- * Other results
+
 lemma2-11-2i : {i : Level} {A : Type i} {x₁ x₂ : A}
                (a : A) (p : x₁ ≡ x₂) (q : a ≡ x₁)
                → transport (λ x → a ≡ x) p q ≡ q ∘ p
@@ -139,9 +132,9 @@ Pi-path-paths-implicit = ((ap implicit-happly) , thm2-11-1 (pr₂ (implicit-fune
     (λ Q → happlyD-funextD~Id λ x → Q x) ,
     λ P → funextD-happlyD~Id P)
 
-#+end_src
 
-#+begin_src agda2
+
+
 ap-of-equiv : ∀ {i₁ i₂} {A : Type i₁} {B : Type i₂} {x y : A}
               (p q : x ≡ y)
               (f : A → B)
@@ -152,4 +145,3 @@ ap-of-equiv {x = x} {y = y} p q f X P =
     equiv-types-eq
       (((ap f) , (thm2-11-1 {a = x} {a' = y} X)) ^ᵉ)
       P
-#+end_src
