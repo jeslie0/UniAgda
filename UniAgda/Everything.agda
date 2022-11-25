@@ -1,8 +1,3 @@
-#+title: UniAgda.Everything
-#+author: James Leslie
-#+STARTUP: noindent hideblocks latexpreview
-* Imports
-#+begin_src agda2
 {-# OPTIONS --without-K --rewriting --no-import-sorts #-}
 module UniAgda.Everything where
 
@@ -44,10 +39,10 @@ open import UniAgda.Core.Types.FiniteSets public
 open import UniAgda.Core.Types.Universes public
 open import UniAgda.Core.Types.Empty public
 open import UniAgda.Categories.Natural-Transformation public
-open import UniAgda.Categories.Adjunctions public
+-- open import UniAgda.Categories.Adjunctions public
 open import UniAgda.Categories.Functor public
 open import UniAgda.Categories.Category public
-open import UniAgda.Categories.Equivalences public
+-- open import UniAgda.Categories.Equivalences public
 open import UniAgda.Categories.FunctorCat public
 open import UniAgda.Categories.Examples.FundamentalPregroupoid public
 open import UniAgda.Categories.Examples.Group public
@@ -57,4 +52,3 @@ open import UniAgda.Categories.Examples.Terminal public
 open import UniAgda.Categories.Examples.FiniteSets public
 open import UniAgda.Categories.Examples.Set public
 open import UniAgda.Logic.Exists public
-#+end_src

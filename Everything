@@ -87,6 +87,7 @@ main = do
   args <- getArgs
   dirs <- listofDirs (head args)
   mapM makeEverythingFile dirs
+  return ()
 
 -- /* Local Variables:  */
 -- /* mode: haskell     */

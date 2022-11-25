@@ -38,7 +38,7 @@ Fin-set : ∀ (i)
 Fin-set i = Σ[ A ∈ (Type i) ] isFinite A
 
 
-If a type \(A\) is a finite set, then it is indeed a set.
+-- If a type \(A\) is a finite set, then it is indeed a set.
 
 finite-sets-are-sets : ∀ {i} (A : Fin-set i)
                        → isSet (pr₁ A)

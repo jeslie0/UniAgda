@@ -2,6 +2,5 @@ _build
 *.agdai
 **/ltximg/
 org/
-Everything
-Everything.hi
-Everything.o
+
+result
