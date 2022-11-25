@@ -1,5 +1,5 @@
 {-# OPTIONS --without-K  --no-import-sorts #-}
-module Natural-Transformation where
+module UniAgda.NewCat.Natural-Transformation where
 
 
 open import UniAgda.Core.Types.Universes
@@ -19,11 +19,11 @@ open import UniAgda.Core.PathSpaces.Sigma
 
 open import UniAgda.Core.Axioms
 
-open import Category
-open import Functor
+open import UniAgda.NewCat.Category
+open import UniAgda.NewCat.Functor
 
 open Precategory
-open Functor.Functor
+open UniAgda.NewCat.Functor.Functor
 
 private
   variable

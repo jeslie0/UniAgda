@@ -1,5 +1,5 @@
 {-# OPTIONS --without-K --no-import-sorts #-}
-module Category where
+module UniAgda.NewCat.Category where
 
 open import UniAgda.Core.Types.Universes
 open import UniAgda.Core.Types.Functions

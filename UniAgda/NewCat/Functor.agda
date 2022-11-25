@@ -1,5 +1,5 @@
 {-# OPTIONS --without-K --no-import-sorts #-}
-module Functor where
+module UniAgda.NewCat.Functor where
 
 open import UniAgda.Core.Types.Universes
 open import UniAgda.Core.Types.Functions
@@ -20,7 +20,7 @@ open import UniAgda.Core.PathSpaces.Identity
 
 open import UniAgda.Core.Axioms
 
-open import Category
+open import UniAgda.NewCat.Category
 open Precategory
 
 private

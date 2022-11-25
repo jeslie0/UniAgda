@@ -1,5 +1,5 @@
 {-# OPTIONS --without-K  --no-import-sorts #-}
-module FunctorCategory where
+module UniAgda.NewCat.FunctorCategory where
 
 open import UniAgda.Core.Types.Universes
 open import UniAgda.Core.Types.Functions
@@ -8,9 +8,9 @@ open import UniAgda.Core.Types.Sigma
 open import UniAgda.Core.Equivalences
 open import UniAgda.Core.SetsAndLogic.Props
 
-open import Category
-open import Functor
-open import Natural-Transformation
+open import UniAgda.NewCat.Category
+open import UniAgda.NewCat.Functor
+open import UniAgda.NewCat.Natural-Transformation
 
 open import UniAgda.Core.PathSpaces.Sigma
 open import UniAgda.Core.PathSpaces.Identity
@@ -19,8 +19,8 @@ open import UniAgda.Core.Homotopy
 open import UniAgda.Core.Axioms
 
 open Precategory
-open Category
-open Functor.Functor
+open UniAgda.NewCat.Category
+open UniAgda.NewCat.Functor.Functor
 open NaturalTransformation
 
 private
