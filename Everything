@@ -89,7 +89,7 @@ main = do
   mapM makeEverythingFile dirs
   return ()
 
--- /* Local Variables:  */
--- /* mode: haskell     */
--- /* comment-column: 0 */
--- /* End:              */
+-- Local Variables:
+-- mode: haskell
+-- comment-column: 0
+-- End:
